@@ -1,0 +1,120 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="termConditionCtrl">
+        <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+
+            <uib-tabset class="tabbable">
+                <uib-tab active="true">
+                    <uib-tab-heading>
+                        Términos y condiciones
+                    </uib-tab-heading>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">LICENCIA DE USO</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <h2>[[parameter.item]]</h2>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea readonly="readonly" rows="15" class="form-control" name="code"
+                                                    ng-model="parameter.value">
+                                            </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab>
+                    <uib-tab-heading>
+                        Política de Tratamiento de Datos Personales
+                    </uib-tab-heading>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">POLÍTICA DE PRIVACIDAD</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <h2>[[privacy.item]]</h2>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea readonly="readonly" rows="15" class="form-control" name="code"
+                                                    ng-model="privacy.value">
+                                            </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+
+
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="center">
+                        <div class="radio clip-radio radio-primary">
+                            <input type="radio" id="cancelled" name="optionsCategory" value="cancelled"
+                                ng-model="parameter.type" ng-required="true">
+                            <label for="cancelled">
+                                No Acepto
+                            </label>
+
+                            <input type="radio" id="agree" name="optionsCategory" value="agree"
+                                ng-model="parameter.type" ng-required="true">
+                            <label for="agree">
+                                Acepto
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-15">
+                <div class="col-md-12">
+                    <div class="center">
+                        <button type="submit" class="btn btn-primary" ng-if="!isView" ng-disabled="Form.$invalid">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

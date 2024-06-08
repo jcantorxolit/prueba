@@ -1,0 +1,42 @@
+<div ng-controller="agentCustomerListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">EMPRESAS</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-wide btn-primary" href="#" ng-click="reloadData()"><i class="glyphicon glyphicon-refresh"></i>
+                                Refrescar</a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <a class="btn btn-primary btn-o" href="#" ng-click="onAddCustomer()"><i class="glyphicon glyphicon-plus"></i>
+                                    Adicionar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" dt-instance="dtInstanceCustomerRelationCallback"
+                                        dt-options="dtOptionsCustomerRelation" id="dtCustomerRelation" dt-columns="dtColumnsCustomerRelation"
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<div class="fade-in-right-big">
+
+    <div ng-controller="PFManagementListCtrl" >
+
+        <section id="page-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="mainTitle" ng-if="action=='programming'">PROGRAMACIÓN</h1>
+                    <h1 class="mainTitle" ng-if="action=='execution'">EJECUCIÓN</h1>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid container-fullw bg-white" ng-if="entity">
+
+            <div class="panel-body ">
+                <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA DEL ASESOR</span></h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label"> Número Identificación<span
+                                                class="symbol required"></span></label>
+                                        <input type="text" placeholder="Ingrese valor" class="form-control"
+                                            name="documentNumber" ng-model="entity.documentNumber" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo identificación</label>
+                                        <input type="text" class="form-control" name="documentType"
+                                            ng-model="entity.documentType" disabled />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Género</label>
+                                        <input type="text" class="form-control" name="gender" ng-model="entity.gender"
+                                            disabled />
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre completo</label>
+                                        <input type="text" class="form-control" name="fullName"
+                                            ng-model="entity.fullName" disabled />
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </form>
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">SECCIONAL Y PERIODO</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Seccional</label>
+                                    <input type="text" class="form-control" name="sectional"
+                                        ng-model="entity.sectional.item" disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Periodo</label>
+                                    <input type="text" class="form-control" name="period" ng-model="entity.period.item"
+                                        disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Eje<span class="symbol"></span></label>
+                                    <input type="text" class="form-control" name="axis" ng-model="entity.axis.item"
+                                        disabled />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- List -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-body">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div class="table-responsive">
+                                                        <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnCallback"
+                                                            dt-options="dtOptionsPositivaFgn" id="dtPositivaFgn"
+                                                            dt-columns="dtColumnsPositivaFgn"
+                                                            class="table table-bordered table-hover"></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-info" ng-click="onBack()">
+                                        Regresar
+                                    </button>
+                                </div>
+                                <div class="pull-right margin-right-10">
+                                    <button type="button" ng-if="action=='execution'" class="btn btn-primary" ng-click="onProgram()">
+                                        Ir a Programación
+                                    </button>
+                                </div>
+                                <div class="pull-right margin-right-10">
+                                    <button type="button" ng-if="action=='programming'" class="btn btn-primary" ng-click="onExec()">
+                                        Ir a Ejecución
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

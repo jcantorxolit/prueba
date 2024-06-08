@@ -1,0 +1,368 @@
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="CONFIGURACIÓN DE PLANES DE TRABAJO FGN">CONFIGURACIÓN DE PLANES DE TRABAJO FGN</h1>
+            </div>
+            <!-- <div ncy-breadcrumb></div> -->
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="PFFactivityEditCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL PLAN DE TRABAJO ANUAL</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error':Form.axis.$dirty && Form.axis.$invalid}">
+                                            <label class="control-label">Eje<span class="symbol required"></span></label>
+                                            <ui-select name="axis" ng-required="true" ng-model="entity.axis" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in axisList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.axis.$dirty && Form.axis.$invalid">
+                                            El valor es requerido.
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error':Form.action.$dirty && Form.action.$invalid}">
+                                            <label class="control-label">Acción<span class="symbol required"></span></label>
+                                            <ui-select name="action" ng-required="true" ng-model="entity.action" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in actionList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.action.$dirty && Form.action.$invalid">
+                                            El valor es requerido.
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Cod. Actividad</label>
+                                            <input type="text" class="form-control" name="code" placeholder="Ingrese valor" ng-disabled="isView" ng-model="entity.code" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                            <label class="control-label">Actividad <span class="symbol required"></span></label>
+                                            <input type="text" required class="form-control" name="name" placeholder="Ingrese valor" ng-disabled="isView" ng-model="entity.name" />
+                                            <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid">
+                                            El valor es requerido.
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de Actividad</label>
+                                            <ui-select name="type" ng-required="false" ng-model="entity.type" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in activityTypeList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Grupo</label>
+                                            <ui-select name="type" ng-required="false" ng-model="entity.group" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in groupList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Meta Anual
+                                            </label>
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch ng-model="entity.goalAnnual" class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">ESTRATEGIA</span></h4>
+                                <div class="panel-tools" ng-hide="isView">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar" ng-click="onAddStrategy()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <label class="control-label">Estrategia<span  class="symbol required"></span></label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row" ng-repeat="strategy in entity.details.strategy">
+
+                                    <div class="col-md-11">
+
+                                        <div class="form-group" ng-class="{'has-error':Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy}">
+                                            <ui-select name="strategy" ng-required="true" ng-model="strategy.strategy" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices ui-disable-choice="valideSingle(item)" repeat="item in strategyList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy">
+                                            El valor es requerido.</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-1" ng-hide="isView">
+                                        <a href='#' class="btn btn-danger btn-o " tooltip-placement='top' uib-tooltip="Eliminar" ng-click="onRemoveStrategy($index, strategy.id)"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INDICADORES Y METAS</span></h4>
+                                <div class="panel-tools">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar" ng-click="onAddIndicator()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row" ng-repeat="indicator in entity.details.indicator">
+
+                                    <div class="col-md-12">
+
+                                        <uib-accordion>
+                                            <div uib-accordion-group class="panel-default" is-open="openThis" ng-init="openThis=($index == 0)">
+                                                <uib-accordion-heading>
+                                                    <b> Indicador: </b> [[indicator.type.item ]] - <b>Peridicidad:</b> [[ indicator.periodicity.item ]] - <b>Meta:</b> [[indicator.goal]] <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': openThis, 'glyphicon-chevron-right': !openThis}"></i>
+                                                </uib-accordion-heading>
+
+                                                <div class="row">
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid && !type.type}">
+                                                            <label class="control-label">Tipo <span class="symbol required"></span></label>
+                                                            <ui-select name="type" ng-required="true" ng-disabled="isView" ng-model="indicator.type" theme="bootstrap">
+                                                                <ui-select-match placeholder="- Seleccionar -">
+                                                                    [[$select.selected.item]]
+                                                                </ui-select-match>
+                                                                <ui-select-choices ui-disable-choice="valideSingleIndicator(item)" repeat="item in typeList | filter: $select.search track by $index">
+                                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                                </ui-select-choices>
+                                                            </ui-select>
+
+                                                            <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid && !type.type">
+                                                            El valor es requerido.</span>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group" ng-class="{'has-error':Form.periodicity.$dirty && Form.periodicity.$invalid && !periodicity.periodicity}">
+                                                            <label class="control-label">Periodicidad <span class="symbol required"></span></label>
+                                                            <ui-select name="periodicity" ng-required="true" ng-disabled="isView" ng-model="indicator.periodicity" theme="bootstrap">
+                                                                <ui-select-match placeholder="- Seleccionar -">
+                                                                    [[$select.selected.item]]
+                                                                </ui-select-match>
+                                                                <ui-select-choices repeat="item in periodicityList | filter: $select.search track by $index">
+                                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                                </ui-select-choices>
+                                                            </ui-select>
+
+                                                            <span class="error text-small block" ng-if="Form.periodicity.$dirty && Form.periodicity.$invalid && !periodicity.periodicity">
+                                                            El valor es requerido.</span>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Formulación</label>
+                                                            <textarea name="formulation" class="form-control" rows="1" ng-disabled="isView" ng-model="indicator.formulation" maxlength="300">
+                                                        </textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12" ng-if="indicator.id > 0">
+                                                        <div class="panel panel-white">
+                                                            <div class="panel-heading border-light" style="border-bottom: 1px solid;">
+                                                                <h4 class="panel-title"><span class="text-bold">METAS</span></h4>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="row">
+
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Enero</label>
+                                                                            <input type="text" class="form-control"  name="jan" ng-model="indicator.goals.jan" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Febrero</label>
+                                                                            <input type="text" class="form-control"  name="feb" ng-model="indicator.goals.feb" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Marzo</label>
+                                                                            <input type="text" class="form-control"  name="mar" ng-model="indicator.goals.mar" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Abril</label>
+                                                                            <input type="text" class="form-control"  name="apr" ng-model="indicator.goals.apr" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Mayo</label>
+                                                                            <input type="text" class="form-control"  name="may" ng-model="indicator.goals.may" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Junio</label>
+                                                                            <input type="text" class="form-control"  name="jun" ng-model="indicator.goals.jun" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Julio</label>
+                                                                            <input type="text" class="form-control"  name="jul" ng-model="indicator.goals.jul" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Agosto</label>
+                                                                            <input type="text" class="form-control"  name="aug" ng-model="indicator.goals.aug" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Septiembre</label>
+                                                                            <input type="text" class="form-control"  name="sep" ng-model="indicator.goals.sep" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Octubre</label>
+                                                                            <input type="text" class="form-control"  name="oct" ng-model="indicator.goals.oct" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Noviembre</label>
+                                                                            <input type="text" class="form-control"  name="nov" ng-model="indicator.goals.nov" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Diciembre</label>
+                                                                            <input type="text" class="form-control"  name="dec" ng-model="indicator.goals.dec" ng-disabled="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </uib-accordion>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a href='#' class="btn btn-danger btn-o " tooltip-placement='top' uib-tooltip="Eliminar"
+                                            ng-click="onRemoveIndicator($index, indicator.id)"><i class="fa fa-trash-o"></i> ELIMINAR </a>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <h4 class="text-info">
+                                                <b>Meta total: [[ indicator.goals.goal ]]</b>
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                    Guardar
+                                </button>
+                                    <button type="button" ng-if="entity.id > 0" class="btn btn-blue " ng-click="onConfig()">
+                                    Configurar
+                                </button>
+                                    <button type="button" ng-if="entity.id > 0" class="btn btn-info " ng-click="onConfigSectional()">
+                                    Configurar Seccionales
+                                </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                                    Regresar
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

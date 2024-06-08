@@ -1,0 +1,14 @@
+
+<div ng-controller="certificateAdminProgramCtrl" >
+    <div ng-switch="program_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificateadminprogram/certificate_program_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificateadminprogram/certificate_program_form_tabs.htm'">
+            </div>
+        </div>
+    </div>
+</div>

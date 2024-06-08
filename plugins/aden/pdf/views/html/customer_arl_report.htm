@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/arl/style.css">
+</head>
+
+<body onload="init()">
+
+<div class="center">
+    <div class="container.">
+        <div class="wrapper">
+            <div class="inner-wrapper">
+                <div class="intro">
+                    <ul>
+                        <li><span class="orange font-size-text font-weight-bold">FECHA DE GENERACIÓN:</span> <span class="font-size-text">{{ date }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">PERIODO:</span> <span class="font-size-text">{{ period }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">EMPRESA:</span> <span class="font-size-text">{{ customer.businessName }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">NIT:</span> <span class="font-size-text">{{ customer.documentNumber }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">PAÍS:</span> <span class="font-size-text">{{ customer.country }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">DEPARTAMENTO:</span> <span class="font-size-text">{{ customer.state }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">CIUDAD:</span> <span class="font-size-text">{{ customer.city }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">DIRECCIÓN:</span> <span class="font-size-text">{{ customer.address }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">TELÉFONO:</span> <span class="font-size-text">{{ customer.phone }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">GERENTE COMERCIAL:</span> <span class="font-size-text">{{ customer.gcom }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">GERENTE TÉCNICO:</span> <span class="font-size-text">{{ customer.gtec }}</span></li>
+                    </ul>
+                </div>
+                <h2 class="white title-secondary bg-secondary mt-10">ACTIVIDADES</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="font-size-text">Mes</th>
+                            <th class="font-size-text">Tipo</th>
+                            <th class="font-size-text">Actividad</th>
+                            <th class="font-size-text">Horas Programadas</th>
+                            <th class="font-size-text">Horas Ejecutadas</th>
+                            <th class="font-size-text">Concepto</th>
+                            <th class="font-size-text">Clasificación</th>
+                            <th class="font-size-text">Asesor</th>
+                            <th class="font-size-text">Valor total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pt in activities %}
+                        <tr>
+                            <td class="font-size-text">{{ pt.period }}</td>
+                            <td class="font-size-text">{{ pt.type }}</td>
+                            <td class="font-size-text">{{ pt.activity }}</td>
+                            <td class="font-size-text">{{ pt.estimated_hours }}</td>
+                            <td class="font-size-text">{{ pt.duration }}</td>
+                            <td class="font-size-text">{{ pt.concept }}</td>
+                            <td class="font-size-text">{{ pt.classification }}</td>
+                            <td class="font-size-text">{{ pt.agent_name }}</td>
+                            <td class="font-size-text">${{ pt.total|number_format }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="center">
+    <div class="container.">
+        <div class="wrapper">
+            <h2 class="white title-secondary bg-secondary">PRESUPUESTO INTERMEDIACIÓN</h2>
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th class="font-size-text">AÑO</th>
+                        <th class="font-size-text">MES</th>
+                        <th class="font-size-text">APORTE</th>
+                        <th class="font-size-text">% COMISIÓN ARL</th>
+                        <th class="font-size-text">COMISIÓN ARL</th>
+                        <th class="font-size-text">% REINVERSIÓN WG</th>
+                        <th class="font-size-text">REINVERSIÓN WG</th>
+                        <th class="font-size-text">VENTAS</th>
+                        <th class="font-size-text">BALANCE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in budgets %}
+                        <tr>
+                            <td class="font-size-text">{{row.year}}</td>
+                            <td class="font-size-text">{{row.month}}</td>
+                            <td class="font-size-text">${{row.input|number_format }}</td>
+                            <td class="font-size-text">{{row.percent_reinvestment_arl}}%</td>
+                            <td class="font-size-text">${{row.reinvestmentARL|number_format }}</td>
+                            <td class="font-size-text">{{row.percent_reinvestment_wg}}%</td>
+                            <td class="font-size-text">${{row.reinvestmentWG|number_format }}</td>
+                            <td class="font-size-text">${{row.sales|number_format }}</td>
+                            <td class="font-size-text">${{row.balance|number_format }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="center">
+    <div class="container.">
+
+        <div class="wrapper">
+            <h2 class="white title-secondary bg-secondary">BALANCE GENERAL</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="font-size-text">AÑO</th>
+                        <th class="font-size-text">SALDO ANTERIOR</th>
+                        <th class="font-size-text">APORTE ACUMULADO</th>
+                        <th class="font-size-text">COMISIÓN ACUMULADA</th>
+                        <th class="font-size-text">REINVERSIÓN ACUMULADA</th>
+                        <th class="font-size-text">VENTAS ACUMULADAS</th>
+                        <th class="font-size-text">BALANCE GENERAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in balanceGeneral %}
+                        <tr>
+                            <td class="font-size-text">{{row.year}}</td>
+                            <td class="font-size-text">${{row.previousBalance|number_format}}</td>
+                            <td class="font-size-text">${{row.contributions|number_format}}</td>
+                            <td class="font-size-text">${{row.commissions|number_format}}</td>
+                            <td class="font-size-text">${{row.reinvesments|number_format}}</td>
+                            <td class="font-size-text">${{row.sales|number_format}}</td>
+                            <td class="font-size-text">${{row.balance|number_format}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p class="break"><span></span></p>
+<div class="center">
+    <div class="container.">
+
+        <div class="wrapper">
+            <h2 class="white title-secondary bg-secondary">GRÁFICA</h2>
+
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 60%;">
+                        <div id="areaChartBehavior" style="border: 1px solid #ccc">
+                        </div>
+                    </td>
+                    <td style="padding-left: 10px;">
+                        <div id="pieChartBehavior" style="border: 1px solid #ccc">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="font-size-text">ENE</th>
+                        <th class="font-size-text">FEB</th>
+                        <th class="font-size-text">MAR</th>
+                        <th class="font-size-text">ABR</th>
+                        <th class="font-size-text">MAY</th>
+                        <th class="font-size-text">JUN</th>
+                        <th class="font-size-text">JUL</th>
+                        <th class="font-size-text">AGO</th>
+                        <th class="font-size-text">SEP</th>
+                        <th class="font-size-text">OCT</th>
+                        <th class="font-size-text">NOV</th>
+                        <th class="font-size-text">DIC</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                        <tr>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Ene|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Feb|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Mar|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Abr|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.May|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Jun|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Jul|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Ago|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Sep|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Oct|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Nov|number_format}}</td>
+                            <td class="font-size-text">${{behaviorAreaChart.items.Dic|number_format}}</td>
+                        </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="center">
+    <div class="container.">
+
+        <div class="wrapper">
+            <h2 class="white title-secondary bg-secondary">SERVICIOS ADICIONALES / VALOR AGREGADO SIN COSTO</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="font-size-text" style="width: 10%;">FECHA</th>
+                        <th class="font-size-text" style="width: 70%;">SERVICIO</th>
+                        <th class="font-size-text">COSTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in aditionalServices %}
+                        <tr>
+                            <td class="font-size-text">{{row.registration_date|date("d/m/Y")}}</td>
+                            <td class="font-size-text">{{row.service}}</td>
+                            <td class="font-size-text">${{row.cost|number_format}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <h5 class="orange" style="font-size: 22px; margin-bottom: 5px;text-align: center;">NOTAS ACLARATORIAS</h5>
+
+                {% for row in notes %}
+                    <p style="font-size: 22px; margin-bottom: 10px;">{{row.value}}</p><br>
+                {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="pieChartBehaviorData" value='{{ behaviorPieChart.data }}' />
+<input type="hidden" id="areaChartBehaviorData" value='{{ behaviorAreaChart.data }}' />
+
+</body>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    function init() {
+        google.load("visualization", "44", {packages:["corechart"]});
+        //google.charts.load('current', {packages: ['corechart']});
+        //google.charts.setOnLoadCallback(drawCharts);
+        var interval = setInterval(function() {
+            if ( google.visualization !== undefined &&
+                google.visualization.DataTable !== undefined &&
+                google.visualization.PieChart !== undefined ) {
+                clearInterval(interval);
+                window.status = 'ready';
+                drawAreaCharts();
+                drawCharts();
+            }
+        }, 100);
+    }
+
+    function drawCharts() {
+        var hiddenField = document.getElementById('pieChartBehaviorData');
+        var values = JSON.parse(hiddenField.value);
+        var data = google.visualization.arrayToDataTable(values);
+        var options = {
+            //backgroundColor: 'red',
+            title: 'Comportamiento de la ejecución',
+
+            legend: {position: 'right', alignment: 'center', maxLines: 2, textStyle: {fontSize: 12}},
+            pieHole: 0.4,
+			width: 500,
+            height: 350,
+            chartArea:{width:'90%', height: '90%'},
+            colors: ['#f59747', '#3877b4']
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('pieChartBehavior'));
+        chart.draw(data, options);
+    }
+
+    function drawAreaCharts() {
+        var hiddenField = document.getElementById('areaChartBehaviorData');
+        var values = JSON.parse(hiddenField.value);
+        var data = google.visualization.arrayToDataTable(values);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                            { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" }
+                            ]);
+
+        var options = {
+            //backgroundColor: 'red',
+            title: 'Ejecución por año',
+            pieSliceText: 'none',
+            legend: { position: "none" },
+            width: 750,
+            height: 350
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('areaChartBehavior'));
+        chart.draw(data, options);
+    }
+
+
+</script>
+</html>

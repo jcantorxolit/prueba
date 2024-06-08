@@ -1,0 +1,113 @@
+<style>
+    td {
+        word-break: break-all;
+    }
+
+    .anexo {
+        border: 1px dashed #9999;
+        padding: 5px;
+        margin-top: 16px;
+    } 
+</style>
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Configuración Indicadores Realidad Virtual">Firma Indicadores Realidad Virtual</h1>
+                <span class="mainDescription">En esta ventana podrás configurar el informe de indicadores de realidad virtual</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationSignatureIndicatorVRCtrl">
+
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <script type="text/ng-template" id="myPopoverTemplate.html">
+                                    <div style="display:flex">
+                                        <span class="btn btn-info btn-o margin-left-5" flow-btn><i class="fa fa-upload"></i> Cargar</span>
+                                    </div>
+                                </script>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.text1.$dirty && Form.text1.$invalid}">
+                                            <label class="control-label">Texto 1 <span class="symbol required"></span></label>
+                                            <input type="text" class="form-control"
+                                                   name="text1" placeholder="Texto 1"
+                                                   ng-model="entity.text1" required/>
+                                            <span class="error text-small block" ng-if="Form.text1.$dirty && Form.text1.$invalid">El valor es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.text2.$dirty && Form.text2.$invalid}">
+                                            <label class="control-label">Texto 2 <span class="symbol required"></span></label>
+                                            <input type="text" class="form-control"
+                                                   name="text2" placeholder="Cargo"
+                                                   ng-model="entity.text2" required/>
+                                            <span class="error text-small block" ng-if="Form.text2.$dirty && Form.text2.$invalid">El valor es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Firma <span class="symbol required"></span></label>
+
+                                        <div class="user-left">
+                                            <div class="center">
+                                                <div flow-init="{ singleFile:true, target:'api/config/signature-indicator-vr/signature-upload', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                                                     flow-name="uploader.flow"
+                                                     flow-object="uploader.flow"
+                                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+
+                                                    <div class="user-image">
+                                                        <div class="thumbnail">
+                                                            <img width="400px" height="200px" ng-if="!uploader.flow.files.length && !entity.signature"
+                                                                 src="https://via.placeholder.com/300" class="media-object">
+                                                            <img ng-src="[[entity.signature]]" alt="" ng-if="!uploader.flow.files.length">
+                                                            <img flow-img="uploader.flow.files[0]" ng-if="uploader.flow.files.length">
+                                                        </div>
+                                                        <div class="user-image-buttons">
+                                                            <span class="btn btn-primary" uib-popover-template="dynamicPopover.templateUrl"><i class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger" ng-if="uploader.flow.files.length" ng-click="uploader.flow.cancel()"> <i class="fa fa-times"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-primary btn-o">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

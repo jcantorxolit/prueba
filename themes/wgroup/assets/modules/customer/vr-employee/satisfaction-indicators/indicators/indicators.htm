@@ -1,0 +1,92 @@
+<div ng-controller="CustomerVrEmployeeSatisfactionIndicatorIndicatorsCtrl">
+    <div class="row">
+
+        <div class="col-md-6 form-inline">
+
+            <div class="form-group">
+                <label class="control-label">Fecha de Registro</label>
+                <input type="text" class="form-control" name="date" ng-model="entity.date" ng-disabled="true "/>
+            </div>
+
+            <div class="form-group margin-right-10">
+                <label class="control-label">N Participantes</label>
+                <input type="text" class="form-control" name="participants" ng-model="entity.participants"
+                       ng-disabled="true"/>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 border-right">
+            <a class="btn-link link-underline link-italic text-label pull-right" href="#" ng-click="onBack()">
+                <em class="ti ti-back-left"></em> Volver
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="row margin-top-20 margin-bottom-20">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" class="table table-bordered table-hover"
+                       id="dtCustomerVRSatisfactionIndicators"
+                       dt-instance="dtInstanceCustomerVRSatisfactionIndicators"
+                       dt-options="dtOptionsCustomerVRSatisfactionIndicators"
+                       dt-columns="dtColumnsCustomerVRSatisfactionIndicators"></table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel-body margin-top-20">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title text-bold">Histórico de Satisfacción</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="activeTabIndex==0" ng-repeat="indicator in chart.data.indicators">
+
+                            <uib-tab-heading>
+                                <b>[[ indicator.experience ]]</b>
+                            </uib-tab-heading>
+
+                            <div class="row">
+                                <div class="col-md-4 margin-top-10 margin-bottom-10"
+                                     ng-repeat="indicatorLine in indicator.charts.line">
+                                    <div class="panel-body partition-light-grey display-flex flex-direction-column flex-justify-center flex-align-center"
+                                         style="height: 300px">
+                                        <canvas class="tc-chart" height="70" width="100" tc-chartjs-bar
+                                                chart-options="chart.bar.options"
+                                                chart-data="indicatorLine">
+                                        </canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 margin-top-10 margin-bottom-10"
+                                     ng-repeat="indicatorPie in indicator.charts.pie">
+
+                                    <div class="panel-body partition-light-grey display-flex flex-direction-column flex-justify-center flex-align-center"
+                                         style="height: 300px">
+
+                                        <canvas class="tc-chart" height="50" width="100" tc-chartjs-pie
+                                                chart-options="chart.pie.options"
+                                                chart-data="indicatorPie.pie">
+                                        </canvas>
+
+                                        <h5 class="text-center">[[indicatorPie.label]]</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,114 @@
+<div ng-controller="dashboardTopManagementSummaryCtrl">
+    <div class="container-fluid container-fullw bg-white">
+
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <h1>Tipos</h1>
+
+                <div class="form-group form-inline margin-top-20" ng-repeat="type in typeLists">
+                    <div class="checkbox clip-check check-success check-md checkbox-inline">
+                        <input type="checkbox" id="type[[type.value]]" ng-model="type.isActive" ng-change="onChangeTypeFilter()">
+                        <label for="type[[type.value]]" class="text-wrap text-break">
+                            [[type.item]]
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-10">
+
+                <div class="row margin-top-20 margin-bottom-20">
+                    <div class="col-md-12">
+                        <h2 class="text-center margin-bottom-20 margin-top-20">[[ calendarTitle ]] </h2>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" mwl-date-modifier date="calendarDate" decrement="calendarView">
+                                <i class="ti-angle-left"></i>
+                            </button>
+                            <button class="btn btn-primary" mwl-date-modifier date="calendarDate" increment="calendarView">
+                                <i class="ti-angle-right"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-primary btn-o" mwl-date-modifier date="calendarDate" set-to-today>
+                            Hoy
+                        </button>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                            <div class="btn-group">
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'year'">
+                                    Año
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'month'">
+                                    Mes
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'week'">
+                                    Semana
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'day'">
+                                    Día
+                                </label>
+                            </div>
+                        </div>
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="btn-group" dropdown>
+                                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'year'" href="">
+                                            Year
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'month'" href="">
+                                            Month
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'week'" href="">
+                                            Week
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'day'" href="">
+                                            Day
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12 wrapper">
+                        <mwl-calendar events="events"
+                                      view="calendarView"
+                                      view-date="calendarDate"
+                                      current-day="calendarDay"
+                                      view-title="calendarTitle"
+                                      cell-is-open="true"
+                                      cell-modifier="onChangeFilter()">
+                        </mwl-calendar>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+</div>

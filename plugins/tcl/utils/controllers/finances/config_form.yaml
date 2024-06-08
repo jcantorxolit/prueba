@@ -1,0 +1,7 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+form: @/plugins/tcl/utils/models/finance/fields.yaml
+modelClass: Tcl\Utils\Models\Finance
+defaultRedirect: tcl/utils/finances

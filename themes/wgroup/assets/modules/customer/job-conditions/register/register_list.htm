@@ -1,0 +1,46 @@
+<div class="fade-in-right-big">
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="customerJobConditionsRegisterListCtrl">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">AUTO EVALUACIONES</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="btn btn-wide btn-green" href="#" ng-click="onCreate()"><em class="glyphicon glyphicon-plus"></em> Nuevo </a>
+                                    <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()"><em class="glyphicon glyphicon-upload"></em> Importar</a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstanceJobConditionsRegister" dt-options="dtOptionsJobConditionsRegister" id="dtJobConditions" dt-columns="dtColumnsJobConditions" class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

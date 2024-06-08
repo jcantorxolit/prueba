@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="http://sylogisoftware.com/beta/themes/wgroup/assets/css/minimum-standard/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <h1>AUTOEVALUACIÓN DE SEGURIDAD VIAL</h1>
+    <br>
+    <br>
+    <h2><strong>EMPRESA: </strong>{{customer.name}}</h2>
+    <h2><strong>NIT: </strong>{{customer.documentNumber}}</h2>
+    <h2><strong>DIRECCIÓN: </strong>{{customer.address}}</h2>
+    <h2><strong>TELÉFONO: </strong>{{customer.phone}}</h2>
+    <h2><strong>FECHA DE GENERACIÓN: </strong>{{customer.date}}</h2>
+
+    {% for c in cycles %}
+
+    <div class="wrapper" style="text-align: center; margin-top: 1cm"><h1>{{ c.name }} </h1></div>
+
+    <table class="formulario" width="100%">
+        <tr>
+            <td colspan="15">
+                <div class="intro">Continuación de la resolución "Por la cual se definen los normas del
+                    Sistema de Gestión de Seguridad Vial en el Trabajo para empleadores y contratantes"
+                </div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td colspan="15">
+                <div class="title">SEGURIDAD VIAL</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td colspan="15">
+                <div class="title">TABLA DE VALORES Y CALIFICACIÓN</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td rowspan="2" width="5" class="ciclo">No</td>
+            <td rowspan="2" width="14" class="ciclo">PARÁMETRO - DEFINICIÓN</td>
+            <td rowspan="2" width="10" class="ciclo"></td>
+            <td rowspan="2" width="140" class="estandar">VARIABLE</td>
+            <td rowspan="2" width="160" class="item_estandar">CRITERIO DE AVAL</td>
+            <td colspan="2" width="17" class="valor">APLICA</td>
+            <td colspan="2" width="17" class="valor">Evidencias de su existencia</td>
+            <td colspan="2" width="17" class="valor">Responde a los requerimientos</td>
+            <td rowspan="2" width="26" class="peso">Valor del Parámetro</td>
+            <td rowspan="2" width="26" class="peso">Valor de la variable</td>
+            <td rowspan="2" width="84" class="puntaje">Valor Obtenido</td>
+            <td rowspan="2" width="28" class="calificacion">OBSERVACIONES</td>
+        </tr>
+        <tr class="title_bg">
+            <td class="cumple">SI</td>
+            <td class="no_cumple">NO</td>
+            <td class="cumple">SI</td>
+            <td class="no_cumple">NO</td>
+            <td class="cumple">SI</td>
+            <td class="no_cumple">NO</td>
+        </tr>
+
+        {% set weightPercent = 0 %}
+        {% set totalChild = 0 %}
+        {% set totalParameter = 0 %}
+
+
+
+            {% set printCycle = true %}
+
+            {% for sp in c.roadSafetyList %}
+
+                {% set printParent = true %}
+
+                {% for sc in sp.children %}
+
+                    {% set printChild = true %}
+
+                    {% for item in sc.items %}
+                        <tr>
+                            {% if printCycle %}
+
+                            {% set printCycle = false %}
+                            {% endif %}
+
+                            {% if printParent %}
+
+                                <td rowspan="{{ sp.total }}" class="ciclo left_title_bg">
+                                    <div class="">{{ sp.numeral }}</div>
+                                    <!-- START CYCLE -->
+                                </td>
+                                <td rowspan="{{ sp.total }}" valign="middle" width="37" class="estandar_title">{{ sp.description }}</td>
+                            <!-- START STANDARD PARENT -->
+
+                            {% endif %}
+
+                            <td class="item">{{item.numeral}}</td>
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="estandar_title_02">{{ sc.description}}</td>
+                            <!-- START STANDARD CHILD -->
+                            {% endif %}
+
+                            <td class="item">{{item.criterion}}</td>
+                            <!-- START STANDARD ITEMS -->
+
+                            <td class="center">
+                                {% if item.apply == '1' %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.apply == '0' %}
+                                X
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.evidence == '1' %}
+                                X
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.apply == '0' %}
+                                X
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.requirement == '1' %}
+                                X
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.requirement == '0' %}
+                                X
+                                {% endif %}
+                            </td>
+
+
+
+
+                            {% if printParent %}
+                                <td rowspan="{{ sp.total }}" class="center">{{ sp.value }}</td>
+                            {% set totalParameter = totalParameter + sp.value %}
+                            {% set printParent = false %}
+                            {% endif %}
+
+
+                            <td class="center">
+                                {{item.value}}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'cp' %}
+                                {{item.value}}
+                                {% set weightPercent = weightPercent + item.value %}
+                                {% endif %}
+                            </td>
+
+                            <td class="center"></td>
+
+                            {% set totalChild = totalChild + item.value %}
+
+                            {% if printChild %}
+
+                            {% set printChild = false %}
+                            {% endif %}
+                        </tr>
+
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+
+
+
+        <tr>
+            <td colspan="11" class="right title_bg">TOTALES</td>
+            <td class="right title_bg">{{ totalParameter }}</td>
+            <td class="right title_bg">{{ totalParameter }}</td>
+            <td class="right title_bg">{{ weightPercent|round(1, 'common') }}</td>
+            <td class="title_bg"></td>
+        </tr>
+        <tr>
+            <td colspan="15">Cuando se cumple con el ítem del estándar la calificación será la máxima del respectivo
+                ítem, de lo contrario su calificación será igual a cero (0).Si el estándar No Aplica, se deberá
+                justificar la situación y se calificará con el porcentaje máximo del ítem indicado para cada estándar.
+                En caso de no justificarse, la calificación el estándar será igual a cero (0)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15">El presente formulario es documento público, no se debe consignar hecho o manifestaciones
+                falsas y está sujeto a las sanciones establecidas en los artículos 288 y 294 de la Ley 599 de 2000
+                (Código Penal Colombiano)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="15" height="28" style="vertical-align:bottom;">
+                <p class="left"> <br>FIRMA DEL EMPLEADOR O CONTRATANTE </p>
+
+                <p class="right"> <br>FIRMA DEL RESPONSABLE DE LA EJECUCIÓN DEL SG-SST </p>
+            </td>
+        </tr>
+    </table>
+
+    {% endfor %}
+    <br><br>
+
+    {% set sumWeightedValue = 0 %}
+    {% set sumTotal = 0 %}
+
+    <h1>ESTRUCTURA DE PONDERACIÓN</h1>
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec;width: 25%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>PILAR</label>
+            </td>
+            <td style="background: #ececec;width: 25%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>VALOR OBTENIDO</label>
+            </td>
+            <td style="background: #ececec;width: 25%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>VALOR PONDERADO</label>
+            </td>
+            <td style="background: #ececec;width: 25%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>RESULTADO</label>
+            </td>
+        </tr>
+        {% for w in weightedValues %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:left;padding:5px" valign="middle">
+                <span class="">{{ w.name }}</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px">
+                <span class="">{{ w.total }}</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px">
+                <span class="">
+                    {{ w.weightedValue }}
+                    {% set sumWeightedValue = sumWeightedValue + w.weightedValue %}
+                </span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px">
+                <span class="">
+                    {{ w.result }}
+                    {% set sumTotal = sumTotal + w.result %}
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <th style="width: 50%; text-align: center;background: #ececec;width: 25%; border: 1px solid #cecece; font-size: 12px" colspan="2">RESULTADO FINAL DEL EJERCICIO</th>
+            <th style="width: 25%; text-align: center;background: #ececec;width: 25%; border: 1px solid #cecece; font-size: 12px">{{ sumWeightedValue }}</th>
+            <th style="width: 25%; text-align: center;background: #ececec;width: 25%; border: 1px solid #cecece; font-size: 12px">{{ sumTotal }}</th>
+        </tfoot>
+    </table>
+
+    <p class="break"><span></span></p>
+
+    <h1>Planes de mejoramiento</h1>
+
+
+    {% for p in plans %}
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px;width: 10%">
+                <label>{{ p.numeral }}</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:left;font-size: 12px">
+                <label>{{ p.description }}</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 10px;margin-top: 10px">
+
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold;width: 30%">
+                            <label>PLAN DE MEJORAMIENTO:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_description }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>RESPONSABLE:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_responsible }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>FECHA:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_endDate }}</span>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+                    <tbody>
+                    <tr style="font-weight:bold">
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Plan de Acción</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Responsable</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Fecha</label>
+                        </td>
+                    </tr>
+                    {% for a in p.actions %}
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.activity }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.responsible.name }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.endDateFormat }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+</body>
+
+</html>

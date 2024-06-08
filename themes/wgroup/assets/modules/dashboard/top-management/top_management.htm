@@ -1,0 +1,591 @@
+<div ng-controller="dashboardTopManagementCtrl">
+
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row">
+            <div class="col-md-2 form-group">
+                <label class="control-label">Filtrar por año</label>
+
+                <ui-select name="year" ng-model="filter.period" theme="bootstrap"
+                           ng-required="true" on-select="onChangePeriod()">
+
+                    <ui-select-match placeholder="- Año -">
+                        [[$select.selected.item]]
+                    </ui-select-match>
+
+                    <ui-select-choices
+                            repeat="item in periodList | filter: $select.search track by $index">
+                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-md-10 form-group">
+                <button type="button" ng-click="onConsolidate()" class="btn btn-warning pull-right">Consolidar</button>
+            </div>
+        </div>
+
+
+        <div class="panel-body margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-bold">Comportamiento General - Histórico de Ventas</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <canvas class="tc-chart" tc-chartjs-line
+                                chart-options="chart.lineFormatMoney.options"
+                                chart-data="chart.data.dashboardTopManagementCostHistorical"
+                                height="50"></canvas>
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <h1 class="text-extra-large text-bold">$ [[chart.data.dashboardTopManagementCostTotalCurrentYear]]</h1>
+                        <h1 class="mainTitle">Total de Ventas</h1>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <button ng-click="onOpenGridHisotricalSales()" class="btn btn-primary pull-right">Ver datos</button>
+
+                    <div uib-collapse="isOpenGridHistoricalSales">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" class="table table-bordered table-hover"
+                                       id="dtSalesHistoricalGrid"
+                                       dt-columns="dtColumnsSalesHistoricalGrid"
+                                       dt-instance="dtInstanceSalesHistoricalGridCallback"
+                                       dt-options="dtOptionsSalesHistoricalGrid"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="panel-body margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-bold">Comportamiento General - Ventas Ejecutadas vs Balance</h4>
+            </div>
+            <div class="panel-body partition-light-grey">
+                <div class="row">
+                    <canvas class="tc-chart" height="80" tc-chartjs-bar
+                            chart-options="chart.barWithScalesMoney.options"
+                            chart-data="chart.data.dashboardTopManagementCostTypesByStates"></canvas>
+                </div>
+
+                <div class="row">
+                    <button ng-click="onOpenGridProgrammedVsExecutedSales()" class="btn btn-primary pull-right">Ver datos</button>
+
+                    <div uib-collapse="isOpenGridProgrammedVsExecutedSales">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" class="table table-bordered table-hover"
+                                       id="dtTopManagementProgrammedVsExecutedSales"
+                                       dt-columns="dtColumnsTopManagementProgrammedVsExecutedSales"
+                                       dt-instance="dtInstanceTopManagementProgrammedVsExecutedSalesCallback"
+                                       dt-options="dtOptionsTopManagementProgrammedVsExecutedSales"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--   Filters  -->
+        <div class="panel-body margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">Análisis Detallado de Ventas</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.startDate.$dirty && Form.startDate.$invalid}">
+                            <label class="control-label">Fecha Inicio<span class="symbol required"></span></label>
+                            <input class="form-control" kendo-date-picker k-options="datePickerConfig" name="startDate"
+                                   ng-model="filters.startDate"
+                                   onkeydown="return false;" style="width: 100%;" ng-required="true"/>
+                            <span class="error text-small block"
+                                  ng-if="Form.startDate.$dirty && Form.startDate.$invalid">La fecha es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.endDate.$dirty && Form.endDate.$invalid}">
+                            <label class="control-label">Fecha Fin<span class="symbol required"></span></label>
+                            <input class="form-control" kendo-date-picker k-options="datePickerConfig" name="endDate"
+                                   ng-model="filters.endDate"
+                                   onkeydown="return false;" style="width: 100%;" ng-required="true"/>
+                            <span class="error text-small block" ng-if="Form.endDate.$dirty && Form.endDate.$invalid">La fecha es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">Tipo</label>
+                            <ui-select ng-model="filters.type" theme="bootstrap" name="type" ng-change="onChangeType()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in typeList | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El registro es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.concept.$dirty && Form.concept.$invalid}">
+                            <label class="control-label">Concepto</label>
+                            <ui-select ng-model="filters.concept" theme="bootstrap" name="concept"
+                                       ng-change="onChangeConcept()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in conceptList | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.concept.$dirty && Form.concept.$invalid">El registro es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Clasificación</label>
+                            <ui-select ng-model="filters.classification" theme="bootstrap" name="classification">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in classificationList | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.classification.$dirty && Form.classification.$invalid">El registro es requerido</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Cliente</label>
+
+                            <div class="input-group">
+                                <ui-select ng-model="filters.customer" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in customerList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="input-group-btn">
+                                    <button ng-click="onSearchCustomer()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                    <button ng-click="onClearCustomer()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Administrador</label>
+
+                            <div class="input-group">
+                                <ui-select ng-model="filters.administrator" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in administratorList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="input-group-btn">
+                                    <button ng-click="onSearchAdministrator()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                    <button ng-click="onClearAdministrator()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-2">
+                        <div class="padding-top-20">
+                            <button type="button" ng-click="onCancel()" class="btn btn-outline-info margin-right-5">
+                                Cancelar
+                            </button>
+                            <button type="button" ng-click="onFilter()" class="btn btn-azure">Filtrar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div ng-show="showIndicators">
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Ventas Totales</h4>
+                </div>
+                <div class="panel-body partition-light-grey">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-line height="60"
+                                chart-options="chart.lineFormatMoney.options"
+                                chart-data="chart.data.dashboardTopManagementCostByMonths"></canvas>
+                    </div>
+
+                    <div class="row">
+                        <button ng-click="onOpenGridTotalSales()" class="btn btn-primary pull-right">Ver datos</button>
+
+                        <div uib-collapse="isOpenGridTotalSales">
+                            <div class="col-md-12">
+                              <div class="table-responsive">
+                                  <table datatable="" width="100%" class="table table-bordered table-hover"
+                                         id="dtTopManagementTotalSales"
+                                         dt-columns="dtColumnsTopManagementTotalSales"
+                                         dt-instance="dtInstanceTopManagementTotalSalesCallback"
+                                         dt-options="dtOptionsTopManagementTotalSales"></table>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Ventas por Tipo</h4>
+                </div>
+                <div class="panel-body partition-light-grey">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-bar height="60"
+                                chart-options="chart.barFormatMoney.options"
+                                chart-data="chart.data.dashboardTopManagementCostByType"></canvas>
+                    </div>
+
+                    <div class="row">
+                        <button ng-click="onOpenGridSalesByType()" class="btn btn-primary pull-right">Ver datos</button>
+
+                        <div uib-collapse="isOpenGridSalesByType">
+                            <div class="col-md-12">
+                                <div class="table-responsive ">
+                                    <table datatable="" width="100%" class="table table-bordered table-hover"
+                                           id="dtTopManagementSalesByType"
+                                           dt-columns="dtColumnsTopManagementSalesByType"
+                                           dt-instance="dtInstanceTopManagementSalesByTypeCallback"
+                                           dt-options="dtOptionsTopManagementSalesByType"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Ventas por Concepto</h4>
+                </div>
+                <div class="panel-body partition-light-grey">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-bar height="60"
+                                chart-options="chart.barFormatMoney.options"
+                                chart-data="chart.data.dashboardTopManagementCostByConcept"></canvas>
+                    </div>
+
+
+                    <div class="row">
+                        <button ng-click="onOpenGridSalesByConcept()" class="btn btn-primary pull-right">Ver datos</button>
+
+                        <div uib-collapse="isOpenGridSalesByConcept">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" class="table table-bordered table-hover"
+                                           id="dtTopManagementSalesByConcept"
+                                           dt-columns="dtColumnsTopManagementSalesByConcept"
+                                           dt-instance="dtInstanceTopManagementSalesByConceptCallback"
+                                           dt-options="dtOptionsTopManagementSalesByConcept"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Ventas por Clasificación</h4>
+                </div>
+                <div class="panel-body partition-light-grey">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-bar height="60"
+                                chart-options="chart.barFormatMoney.options"
+                                chart-data="chart.data.dashboardTopManagementCostByClassification"></canvas>
+                    </div>
+
+
+                    <div class="row">
+                        <button ng-click="onOpenGridSalesByClassification()" class="btn btn-primary pull-right">Ver datos</button>
+
+                        <div uib-collapse="isOpenGridSalesByClassification">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" class="table table-bordered table-hover"
+                                           id="dtTopManagementSalesByClassification"
+                                           dt-columns="dtColumnsTopManagementSalesByClassification"
+                                           dt-instance="dtInstanceTopManagementSalesByClassificationCallback"
+                                           dt-options="dtOptionsTopManagementSalesByClassification"></table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!--            Análisis detallado de Realidad Virtual             -->
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-bold">Análisis detallado de Realidad Virtual</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+
+                        <div class="panel-body margin-top-20">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title text-primary">Personas por Experiencia</h4>
+                            </div>
+                            <div class="panel-body partition-light-grey">
+                                <canvas class="tc-chart" tc-chartjs-bar height="60"
+                                        chart-options="chart.bar.options"
+                                        chart-data="chart.data.dashboardTopManagementExperiencesByMoths"></canvas>
+
+                                <div class="row">
+                                    <button ng-click="onOpenGridExperiencesByMonths()" class="btn btn-primary pull-right">Ver datos</button>
+
+                                    <div uib-collapse="isOpenGridExperiencesByMonths">
+
+                                      <div class="col-md-12">
+                                          <div class="table-responsive">
+                                              <table datatable="" width="100%" class="table table-bordered table-hover"
+                                                     id="dtTopManagementExperienesByMonths"
+                                                     dt-columns="dtColumnsTopManagementExperienesByMonths"
+                                                     dt-instance="dtInstanceTopManagementExperienesByMonthsCallback"
+                                                     dt-options="dtOptionsTopManagementExperienesByMonths"></table>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="panel-body margin-top-20">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title text-primary">Nivel de satisfacción por Experiencia</h4>
+                            </div>
+                            <div class="panel-body partition-light-grey">
+                                <canvas class="tc-chart" height="60" tc-chartjs-bar
+                                        chart-options="chart.barWithScales.options"
+                                        chart-data="chart.data.dashboardTopManagementSatisfactionByExperience"></canvas>
+
+
+                            <div class="row">
+                                <button ng-click="onOpenGridSatisfactionByExperience()" class="btn btn-primary pull-right">Ver datos</button>
+
+                                <div uib-collapse="isOpenGridSatisfactionByExperience">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" class="table table-bordered table-hover"
+                                                   id="dtTopManagementAmountBySatisfactionLevel"
+                                                   dt-columns="dtColumnsTopManagementAmountBySatisfactionLevel"
+                                                   dt-instance="dtInstanceTopManagementAmountBySatisfactionLevelCallback"
+                                                   dt-options="dtOptionsTopManagementAmountBySatisfactionLevel"></table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="panel-body col-md-8 margin-top-20">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title text-primary">Participantes vs Encuestas</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <canvas class="tc-chart" height="100" tc-chartjs-line
+                                            chart-options="chart.line.options"
+                                            chart-data="chart.data.registeredVsParticipantsByMonths"></canvas>
+
+                                    <div class="row">
+                                        <button ng-click="onOpenGridRegisteredVsParticipants()" class="btn btn-primary pull-right">Ver datos</button>
+
+                                        <div uib-collapse="isOpenGridRegisteredVsParticipants">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table datatable="" width="100%"
+                                                           class="table table-bordered table-hover"
+                                                           id="dtTopManagementRegisteredVsParticipants"
+                                                           dt-columns="dtColumnsTopManagementRegisteredVsParticipants"
+                                                           dt-instance="dtInstanceTopManagementRegisteredVsParticipantsCallback"
+                                                           dt-options="dtOptionsTopManagementRegisteredVsParticipants"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="panel-body col-md-4 margin-top-20">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title text-primary">Encuestas Finalizadas</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <canvas class="tc-chart" tc-chartjs-pie height="200"
+                                            chart-options="chart.pie.options"
+                                            chart-data="chart.data.registeredVsParticipantsAllClientsAndPeriods"></canvas>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--            Análisis detallado - Desempeño de asesores-->
+
+            <div class="panel-body partition-light-grey margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-bold">Análisis detallado - Desempeño de Asesores</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-line height="100"
+                                chart-options="chart.line.options"
+                                chart-data="chart.data.dashboardTopManagementPerformanceByConcultant"></canvas>
+
+                        <div class="row">
+                            <button ng-click="onOpenGridPerformanceByConsultant()" class="btn btn-primary pull-right">Ver datos</button>
+
+                            <div uib-collapse="isOpenGridPerformanceByConsultant">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%" class="table table-bordered table-hover"
+                                               id="dtTopManagementPerformanceByConsultant"
+                                               dt-columns="dtColumnsTopManagementPerformanceByConsultant"
+                                               dt-instance="dtInstanceTopManagementPerformanceByConsultantCallback"
+                                               dt-options="dtOptionsTopManagementPerformanceByConsultant"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body partition-light-grey margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-bold">Nivel de desempeño</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Nivel de desempeño</label>
+                            <div class="input-group">
+
+                                <ui-select ng-model="filter.performanceLevel" theme="bootstrap"
+                                           name="performanceLevel"
+                                           on-select="onChangePerformanceLevelFilter($item, $model)">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in performanceLevelList | orderBy:'id' | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                  <button ng-click="clearFilterPerformanceLevel()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                  </button>
+                              </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" class="table table-bordered table-hover"
+                                       id="dtTopManagementPerformanceLevel"
+                                       dt-instance="dtInstanceTopManagementPerformanceLevel"
+                                       dt-options="dtOptionsTopManagementPerformanceLevel"
+                                       dt-columns="dtColumnsTopManagementPerformanceLevel"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+    </div>
+</div>

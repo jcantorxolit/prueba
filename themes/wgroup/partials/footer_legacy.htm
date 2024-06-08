@@ -1,0 +1,301 @@
+description = "Footer layout backend"
+==
+
+<!-- Templates para dashboard -->
+<script type="text/ng-template" id="app.htm">{%partial 'app/app'%}</script>
+
+<!-- Parciales para clientes-->
+<script type="text/ng-template" id="app_dashboards.htm">{%partial 'dashboard/dashboard_list'%}</script>
+<script type="text/ng-template" id="app_clientes.htm">{%partial 'customers/customer_list'%}</script>
+<script type="text/ng-template" id="app_clientes_edit.htm">{%partial 'customers/customer_edit_tab'%}</script>
+
+<script type="text/ng-template" id="app_enrollment_edit.htm">{%partial 'customers/customer_enrollment_profile_tabs'%}</script>
+<script type="text/ng-template" id="app_enrollment_list.htm">{%partial 'customers/customer_enrollment_list'%}</script>
+<script type="text/ng-template" id="app_modal_infocontact.htm">{%partial 'customers/customer_modal_infocontact'%}</script>
+<script type="text/ng-template" id="app_modal_action_plan.htm">{%partial 'customers/customer_modal_sgsst_action_plan'%}</script>
+<script type="text/ng-template" id="app_modal_sgsst_attachment.htm">{%partial 'customers/customer_modal_sgsst_attachment'%}</script>
+<script type="text/ng-template" id="app_modal_sgsst_guide.htm">{%partial 'customers/customer_modal_sgsst_guide'%}</script>
+
+<script type="text/ng-template" id="app_modal_sgsst_comment.htm">{%partial 'customers/customer_diagnostic_sgsst_questions_comment_modal.htm'%}</script>
+
+<script type="text/ng-template" id="app_modal_contract_action_plan.htm">{%partial 'customers/customer_contract_action_plan_modal'%}</script>
+<script type="text/ng-template" id="app_modal_contract_attachment.htm">{%partial 'customers/customer_contract_attachment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_employee_import.htm">{%partial 'customers/customer_employee_import_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_employee_upload.htm">{%partial 'customers/customer_employee_upload_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_employee_attachment_denied.htm">{%partial 'customers/customer_employee_tab_attachment_denied_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_employee_attachment.htm">{%partial 'customers/customer_employee_tab_attachment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_resource_historical.htm">{%partial 'customers/customer_resource_historical_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_resource_edit.htm">{%partial 'customers/customer_resource_edit_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_unsafe_act_edit.htm">{%partial 'customers/customer_unsafe_act_edit_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_unsafe_act_fancy_box.htm">{%partial 'customers/customer_unsafe_act_fancy_box_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_customer_safety_inspection.htm">{%partial 'customers/customer_safety_inspection_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_safety_inspection_wizard_document.htm">{%partial 'customers/customer_safety_inspection_wizard_document_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_customer_health_damage_download.htm">{%partial 'customers/customer_health_damage_download_modal'%}</script>
+<script type="text/ng-template" id="app_modal_customer_health_damage_disability_diagnostic_analysis.htm">{%partial 'customers/customer_health_damage_disability_diagnostic_analysis_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_diagnostic_attachment.htm">{%partial 'customers/customer_modal_diagnostic_attachment'%}</script>
+<script type="text/ng-template" id="app_modal_disability.htm">{%partial 'customers/customer_absenteeism_disability_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_goal.htm">{%partial 'customers/customer_absenteeism_disability_goal_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_indicator.htm">{%partial 'customers/customer_absenteeism_disability_indicator_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_attachment.htm">{%partial 'customers/customer_absenteeism_disability_document_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_employee.htm">{%partial 'customers/customer_absenteeism_disability_employee_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_employee_list.htm">{%partial 'customers/customer_absenteeism_disability_employee_list_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_reportAL_list.htm">{%partial 'customers/customer_absenteeism_disability_reportAL_list_modal'%}</script>
+<script type="text/ng-template" id="app_modal_disability_diagnostic.htm">{%partial 'customers/customer_absenteeism_disability_diagnostic_modal'%}</script>
+<script type="text/ng-template" id="app_modal_config_job_activity_danger.htm">{%partial 'customers/customer_profile_config_sgsst_job_activity_modal'%}</script>
+<script type="text/ng-template" id="app_modal_config_job_activity_danger_tracking.htm">{%partial 'customers/customer_profile_config_sgsst_job_activity_tracking_modal'%}</script>
+<script type="text/ng-template" id="app_modal_config_activity_danger.htm">{%partial 'customers/customer_profile_config_sgsst_activity_modal'%}</script>
+<script type="text/ng-template" id="app_modal_config_job.htm">{%partial 'customers/customer_profile_config_sgsst_job_modal'%}</script>
+<script type="text/ng-template" id="app_modal_config_job_activity_document.htm">{%partial 'customers/customer_profile_config_sgsst_job_activity_document_modal'%}</script>
+<script type="text/ng-template" id="app_modal_occupational_report_employee_list.htm">{%partial 'customers/customer_occupational_report_al_employee_list_modal'%}</script>
+<script type="text/ng-template" id="app_modal_certificate_grade_participant_customer.htm">{%partial 'certificateadmingrade/certificate_grade_participant_modal_customer'%}</script>
+<script type="text/ng-template" id="app_modal_certificate_grade_participant_document.htm">{%partial 'certificateadmingrade/certificate_grade_participant_document_modal'%}</script>
+<script type="text/ng-template" id="app_modal_program_prevention_question.htm">{%partial 'configuration/program_prevention_question_modal'%}</script>
+<script type="text/ng-template" id="app_modal_project_budget.htm">{%partial 'project/project_budget_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_minimum_standard.htm">{%partial 'configuration/configuration_minimum_standard_modal'%}</script>
+<script type="text/ng-template" id="app_modal_minimum_standard_association.htm">{%partial 'configuration/configuration_minimum_standard_associate_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_evaluation_minimum_standard_item_comment.htm">{%partial 'customers/customer_evaluation_minimum_standard_items_comment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_evaluation_minimum_standard_item_attachment.htm">{%partial 'customers/customer_evaluation_minimum_standard_items_attachment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_evaluation_minimum_standard_item_detail.htm">{%partial 'customers/customer_evaluation_minimum_standard_items_detail_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_road_safety.htm">{%partial 'configurationroadsafety/configuration_road_safety_modal'%}</script>
+<script type="text/ng-template" id="app_modal_road_safety_association.htm">{%partial 'configurationroadsafety/configuration_road_safety_associate_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_road_safety_item_comment.htm">{%partial 'customersroadsafety/customer_road_safety_items_comment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_road_safety_item_attachment.htm">{%partial 'customersroadsafety/customer_road_safety_items_attachment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_road_safety_item_detail.htm">{%partial 'customersroadsafety/customer_road_safety_items_detail_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_improvement_plan.htm">{%partial 'customers/customer_improvement_plan_modal'%}</script>
+<script type="text/ng-template" id="app_modal_improvement_plan_tracking.htm">{%partial 'customers/customer_improvement_plan_tracking_modal'%}</script>
+<script type="text/ng-template" id="app_modal_improvement_plan_action_plan.htm">{%partial 'customers/customer_improvement_plan_action_plan_modal'%}</script>
+<script type="text/ng-template" id="app_modal_improvement_plan_action_plan_task.htm">{%partial 'customers/customer_improvement_plan_action_plan_task_modal'%}</script>
+<script type="text/ng-template" id="app_modal_improvement_plan_cause_root_cause.htm">{%partial 'customers/customer_improvement_plan_cause_root_cause_modal'%}</script>
+<script type="text/ng-template" id="app_modal_improvement_plan_action_plan_task_tracking_actions.htm">{%partial 'customers/customer_improvement_plan_action_plan_task_tracking_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_customer_configuration_minimum_standard_item.htm">{%partial 'customers/customer_configuration_minimum_standard_item_modal'%}</script>
+
+<script type="text/ng-template" id="app_modal_customer_configuration_road_safety_item.htm">{%partial 'customersroadsafety/customer_configuration_road_safety_item_modal'%}</script>
+
+
+<script type="text/ng-template" id="app_modal_certificate_external.htm">{%partial 'certificatereport/certificate_external_modal'%}</script>
+
+
+<script type="text/ng-template" id="app_user.htm">{%partial 'update/user'%}</script>
+
+<!-- Parciales para professor-->
+<script type="text/ng-template" id="app_professor_document.htm">{%partial 'professor/document_list'%}</script>
+<script type="text/ng-template" id="app_professor_provider.htm">{%partial 'professor/provider_list'%}</script>
+<script type="text/ng-template" id="app_professor_provider_edit.htm">{%partial 'professor/provider_edit.htm'%}</script>
+<script type="text/ng-template" id="app_professor_news.htm">{%partial 'professor/news_list'%}</script>
+<script type="text/ng-template" id="app_professor_news_edit.htm">{%partial 'professor/news_edit.htm'%}</script>
+<script type="text/ng-template" id="app_professor_event.htm">{%partial 'professor/event_list'%}</script>
+<script type="text/ng-template" id="app_professor_event_edit.htm">{%partial 'professor/event_edit.htm'%}</script>
+<script type="text/ng-template" id="app_professor_event_mass_assign.htm">{%partial 'professor/event_mass_assign.htm'%}</script>
+<script type="text/ng-template" id="app_professor_parameter_config.htm">{%partial 'professor/parameter_config.htm'%}</script>
+<script type="text/ng-template" id="app_professor_event_customer_provider.htm">{%partial 'professor/event_customer_provider.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_provider_list.htm">{%partial 'professor/provider_list_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_detail_participant_edit.htm">{%partial 'professor/event_detail_participant_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_detail_invoice_edit.htm">{%partial 'professor/event_detail_invoice_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_detail_observation_edit.htm">{%partial 'professor/event_detail_observation_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_customer_employee_list.htm">{%partial 'professor/event_customer_employee_list_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_customer_employee_edit.htm">{%partial 'professor/event_customer_employee_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_detail_document_edit.htm">{%partial 'professor/event_detail_document_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_detail_reschedule.htm">{%partial 'professor/event_detail_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_import.htm">{%partial 'professor/event_import_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_event_mass_assign_import.htm">{%partial 'professor/event_mass_assign_import_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_provider_service_order_event_edit.htm">{%partial 'professor/provider_service_order_event_edit_modal.htm'%}</script>
+<script type="text/ng-template" id="app_modal_professor_provider_invoice_event_edit.htm">{%partial 'professor/provider_invoice_event_edit_modal.htm'%}</script>
+
+<!-- Parciales para asesores-->
+<script type="text/ng-template" id="app_asesores.htm">{%partial 'agents/agent_list'%}</script>
+<script type="text/ng-template" id="app_asesores_edit.htm">{%partial 'agents/agent_edit_tab'%}</script>
+
+<!-- Parciales para investigation accidentes / incidentes-->
+<script type="text/ng-template" id="app_investigation_list.htm">{%partial 'investigation/investigation_list'%}</script>
+<script type="text/ng-template" id="app_investigation_edit.htm">{%partial 'investigation/investigation_tabs'%}</script>
+<script type="text/ng-template" id="app_investigation_review.htm">{%partial 'investigation/investigation_review'%}</script>
+<script type="text/ng-template" id="app_investigation_review_expiration.htm">{%partial 'investigation/investigation_review_expiration'%}</script>
+<script type="text/ng-template" id="app_investigation_tracing.htm">{%partial 'investigation/investigation_tracing'%}</script>
+<script type="text/ng-template" id="app_modal_investigation_download.htm">{%partial 'investigation/investigation_download_modal'%}</script>
+<script type="text/ng-template" id="app_modal_investigation_activate_comment.htm">{%partial 'investigation/investigation_activate_comment_modal'%}</script>
+<script type="text/ng-template" id="app_modal_investigation_edit.htm">{%partial 'investigation/investigation_edit_form_modal'%}</script>
+<script type="text/ng-template" id="app_modal_investigation_measure_tracking.htm">{%partial 'investigation/investigation_measure_tracking_modal'%}</script>
+
+
+<!-- Parciales para proyecto-->
+<script type="text/ng-template" id="app_project.htm">{%partial 'project/project_list'%}</script>
+<script type="text/ng-template" id="app_project_planning.htm">{%partial 'project/project_planning'%}</script>
+<script type="text/ng-template" id="app_project_billing.htm">{%partial 'project/project_billing'%}</script>
+<script type="text/ng-template" id="app_project_budget.htm">{%partial 'project/project_budget'%}</script>
+
+<!-- Parciales para proyecto interno-->
+<script type="text/ng-template" id="app_internal_project.htm">{%partial 'internalproject/project_list'%}</script>
+<script type="text/ng-template" id="app_internal_project_planning.htm">{%partial 'internalproject/project_planning'%}</script>
+
+<!-- Parciales para planeador-->
+<script type="text/ng-template" id="app_planer.htm">{%partial 'planer/planer_calendar'%}</script>
+
+<!-- Parciales para cotizaciones-->
+<script type="text/ng-template" id="app_cotizaciones.htm">{%partial 'quote/quote_list'%}</script>
+<script type="text/ng-template" id="app_cotizaciones_edit.htm">{%partial 'quote/quote_edit'%}</script>
+
+<!-- Parciales para encuestas-->
+<script type="text/ng-template" id="app_encuestas.htm">{%partial 'poll/poll_list'%}</script>
+<script type="text/ng-template" id="app_encuestas_form.htm">{%partial 'poll/poll_form'%}</script>
+
+<!-- Parciales para documentos guía implementación-->
+<script type="text/ng-template" id="app_program_prevention_document_list.htm">{%partial 'configuration/configuration_program_prevention_document_list'%}</script>
+<script type="text/ng-template" id="app_program_prevention_document_edit.htm">{%partial 'configuration/configuration_program_prevention_document_edit'%}</script>
+
+
+<!-- Parciales para reportes-->
+<script type="text/ng-template" id="app_reportes.htm">{%partial 'report/report_list'%}</script>
+<script type="text/ng-template" id="app_reportes_form.htm">{%partial 'report/report_form'%}</script>
+<script type="text/ng-template" id="app_reportes_dynamically.htm">{%partial 'report/report_dynamically.htm'%}</script>
+<script type="text/ng-template" id="app_reportes_generate.htm">{%partial 'report/report_generate.htm'%}</script>
+
+<script type="text/ng-template" id="app_professor_reportes.htm">{%partial 'professor/report_list'%}</script>
+<script type="text/ng-template" id="app_professor_reportes_form.htm">{%partial 'professor/report_form'%}</script>
+<script type="text/ng-template" id="app_professor_reportes_dynamically.htm">{%partial 'professor/report_dynamically.htm'%}</script>
+<script type="text/ng-template" id="app_professor_reportes_generate.htm">{%partial 'professor/report_generate.htm'%}</script>
+
+<script type="text/ng-template" id="app_certificates.htm">{%partial 'certificate/certificate_dashboard'%}</script>
+<script type="text/ng-template" id="app_certificates_admin.htm">{%partial 'certificateadmin/certificate_admin_tab'%}</script>
+<script type="text/ng-template" id="app_certificates_report.htm">{%partial 'certificatereport/certificate_report_tab'%}</script>
+<script type="text/ng-template" id="app_certificates_logbook.htm">{%partial 'certificatelogbook/certificate_logbook_tab'%}</script>
+<script type="text/ng-template" id="app_certificates_program_form.htm">{%partial 'certificateadminprogram/certificate_program_form_tabs'%}</script>
+
+<!-- Parciales para proyecto-->
+<script type="text/ng-template" id="app_configuration_disability_diagnostic.htm">{%partial 'configuration/configuration_disability_diagnostic_list'%}</script>
+<script type="text/ng-template" id="app_configuration_disability_diagnostic_import.htm">{%partial 'configuration/configuration_disability_diagnostic_import_modal'%}</script>
+<script type="text/ng-template" id="app_configuration_project_task_type.htm">{%partial 'configuration/configuration_project_task_type_list'%}</script>
+<script type="text/ng-template" id="app_configuration_general_parameter.htm">{%partial 'configuration/configuration_general_parameter_list'%}</script>
+<script type="text/ng-template" id="app_configuration_arl.htm">{%partial 'configuration/configuration_arl_list'%}</script>
+<script type="text/ng-template" id="app_configuration_terms_conditions.htm">{%partial 'configuration/configuration_terms_conditions'%}</script>
+<script type="text/ng-template" id="app_configuration_management.htm">{%partial 'configuration/configuration_management_tabs'%}</script>
+<script type="text/ng-template" id="app_configuration_program_prevention.htm">{%partial 'configuration/configuration_program_prevention_tabs'%}</script>
+
+<script type="text/ng-template" id="app_configuration_minimum_standard.htm">{%partial 'configuration/configuration_minimum_standard_tabs'%}</script>
+<script type="text/ng-template" id="app_configuration_road_safety.htm">{%partial 'configurationroadsafety/configuration_road_safety_tabs'%}</script>
+
+<script type="text/ng-template" id="app_configuration_resource_library.htm">{%partial 'resource-library/resource_library_tab'%}</script>
+<script type="text/ng-template" id="app_resource_library.htm">{%partial 'resource-library/resource_library_list'%}</script>
+<script type="text/ng-template" id="app_modal_resource_library.htm">{%partial 'resource-library/resource_library_modal'%}</script>
+
+<script type="text/ng-template" id="app_terms_conditions.htm">{%partial 'commons/terms_conditions'%}</script>
+
+<script type="text/ng-template" id="tableFooter">{%partial 'customersroadsafety/customer_road_safety_summary_footer_template'%}</script>
+
+<!-- jQuery -->
+<script src="{{'assets/vendor/jquery/jquery.min.js'|theme}}"></script>
+
+<script src="{{'assets/vendor/moment/moment-with-locales.js'|theme}}"></script>
+<script src="{{'assets/vendor/moment/locale/es.js'|theme}}"></script>
+
+{% scripts %}
+{% framework extras %}
+
+<script src="{{'assets/vendor/utils/bowser.min.js'|theme}}"></script>
+
+<!-- Fastclick -->
+<script src="{{'assets/vendor/fastclick/fastclick.min.js'|theme}}"></script>
+<!-- Angular -->
+<script src="{{'assets/vendor/angular/angular.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/i18n/angular-locale_es-co.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-cookies.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-animate.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-ui-router.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-touch.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-sanitize.min.js'|theme}}"></script>
+<!-- Angular storage -->
+<script src="{{'assets/vendor/angularstorage/ngStorage.min.js'|theme}}"></script>
+<!-- Angular Translate -->
+<script src="{{'assets/vendor/angulartranslate/angular-translate.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angulartranslate/angular-translate-loader-url.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angulartranslate/angular-translate-loader-static-files.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angulartranslate/angular-translate-storage-local.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angulartranslate/angular-translate-storage-cookie.min.js'|theme}}"></script>
+<!-- oclazyload -->
+<script src="{{'assets/vendor/oclazyload/ocLazyLoad.min.js'|theme}}"></script>
+<!-- breadcrumb -->
+<script src="{{'assets/vendor/angular-breadcrumb/angular-breadcrumb.min.js'|theme}}"></script>
+<!-- UI Bootstrap -->
+<script src="{{'assets/vendor/bootstrap/js/ui-bootstrap-tpls-0.12.0.min.js'|theme}}"></script>
+<!-- switch Bootstrap -->
+<script src="{{'assets/vendor/bootstrap-switch/js/bootstrap-switch.js'|theme}}"></script>
+<!-- Loading Bar -->
+<script src="{{'assets/vendor/loadingbar/loading-bar.min.js'|theme}}"></script>
+<!-- Angular Scroll -->
+<script src="{{'assets/vendor/angular-scroll/angular-scroll.min.js'|theme}}"></script>
+
+<!-- kendo-ui -->
+<script src="{{'assets/vendor/kendo-ui/kendo.all.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/kendo-ui/cultures/kendo.culture.es-CO.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/kendo-ui/messages/kendo.messages.es-ES.min.js'|theme}}"></script>
+<script src="//kendo.cdn.telerik.com/2016.1.226/js/pako_deflate.min.js"></script>
+<script type="text/javascript">
+	//set current to the "en-GB" culture script
+	kendo.culture("es-CO");
+</script>
+
+<script src="{{'assets/vendor/angular-input-masks/angular-input-masks-standalone.min.js'|theme}}"></script>
+
+<!-- FishBone -->
+<!-- <script src="{{'assets/vendor/d3/d3.min.js'|theme}}"></script>-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js" charset="utf-8"></script>
+<script src="{{'assets/vendor/d3-fishbone-angular/dist/js/d3.fishbone.angular.js'|theme}}"></script>
+<!-- <script src="{{'assets/vendor/d3-fishbone-angular/dist/js/d3.fishbone.angular.min.js'|theme}}"></script> -->
+
+<!-- lightBox
+<script src="{{'assets/vendor/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js'|theme}}"></script>-->
+
+<!--FancyBox
+<script src="{{'assets/vendor/fancybox-plus/dist/jquery.fancybox-plus.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular-fancybox-plus/js/angular-fancybox-plus.js'|theme}}"></script>-->
+
+
+<!-- Angular sortable -->
+
+<script src="{{'assets/vendor/angular-ui-sortable/sortable.min.js'|theme}}"></script>
+<!-- Angular dual list box-->
+<script src="{{'assets/vendor/angular-bootstrap-duallistbox/angular-bootstrap-duallistbox.min.js'|theme}}"></script>
+<!-- Clip-Two Scripts -->
+<script src="{{'assets/js/app.js'|theme}}"></script>
+<script src="{{'assets/js/main.js'|theme}}"></script>
+<script src="{{'assets/js/config.constant.js'|theme}}"></script>
+<script src="{{'assets/js/config.router.js'|theme}}"></script>
+<!-- Clip-Two Directives -->
+<script src="{{'assets/js/directives/toggle.js'|theme}}"></script>
+<script src="{{'assets/js/directives/empty-links.js'|theme}}"></script>
+<script src="{{'assets/js/directives/sidebars.js'|theme}}"></script>
+<script src="{{'assets/js/directives/off-click.js'|theme}}"></script>
+<script src="{{'assets/js/directives/full-height.js'|theme}}"></script>
+<script src="{{'assets/js/directives/panel-tools.js'|theme}}"></script>
+<script src="{{'assets/js/directives/char-limit.js'|theme}}"></script>
+<script src="{{'assets/js/directives/dismiss.js'|theme}}"></script>
+<script src="{{'assets/js/directives/compare-to.js'|theme}}"></script>
+<script src="{{'assets/js/directives/select.js'|theme}}"></script>
+<script src="{{'assets/js/directives/messages.js'|theme}}"></script>
+<script src="{{'assets/js/directives/spy.js'|theme}}"></script>
+<script src="{{'assets/js/directives/checkbox.js'|theme}}"></script>
+
+
+<!-- Clip-Two Controllers -->
+<script src="{{'assets/js/controllers/mainCtrl.js'|theme}}"></script>
+<script src="{{'assets/js/controllers/bootstrapCtrl.js'|theme}}"></script>
+<!-- Google Apis -->
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather,visualization"></script>
+
+<!--datatables-->
+<script src="{{'assets/vendor/angular-datatables/jquery.dataTables.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular-datatables/angular-datatables.min.js'|theme}}"></script>
+
+<!--image-gallery-->
+<script src="{{'assets/vendor/ng-image-gallery/ng-image-gallery.min.js'|theme}}"></script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<div ng-controller="customerAbsenteeismAnalysisTabsCtrl">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <uib-tabset class="tabbable">
+                <uib-tab active="true" select="switchTab('resolution_0312')">
+                    <uib-tab-heading>
+                        Resolución 0312
+                    </uib-tab-heading>
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('resolution_0312').url">
+                    </div>
+                </uib-tab>
+
+                <uib-tab select="switchTab('resolution_1111')">
+                    <uib-tab-heading>
+                        Resolución 1111
+                    </uib-tab-heading>
+                    <div ng-if="tabname=='resolution_1111'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big"
+                            data-ng-include="getView('resolution_1111').url">
+                        </div>
+                    </div>
+
+                </uib-tab>
+
+            </uib-tabset>
+        </div>
+    </div>
+
+</div>

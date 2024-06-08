@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/minimum-standard/style.css">
+    <style>
+        /*thead { display: table-header-group; }
+        tfoot { display: table-row-group; }
+        tr { page-break-inside: avoid; }*/
+    </style>
+
+    <style>
+        .pie-chart {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+            width: 95%;
+            margin-bottom: 20px;
+            z-index: 9999;
+            position: absolute;
+            left: 50px;
+        }
+
+        .title-chart {
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body onload="init()">
+
+<div class="wrapper">
+    <h1>AUTOEVALUACIÓN DE ESTÁNDARES MÍNIMOS</h1>
+    <br>
+    <br>
+    <h2><strong>FECHA DE GENERACIÓN: </strong>{{header.date}}</h2>
+    <h2><strong>FECHA DE INICIO: </strong>{{header.startDate}}</h2>
+    <h2><strong>FECHA DE ÚLTIMA ACTUALIZACIÓN: </strong>{{header.endDate}}</h2>
+    <br>
+    <h2><strong>EMPRESA: </strong>{{customer.name}}</h2>
+    <h2><strong>NIT: </strong>{{customer.documentNumber}}</h2>
+    <h2><strong>DIRECCIÓN: </strong>{{customer.address}}</h2>
+    <h2><strong>TELÉFONO: </strong>{{customer.phone}}</h2>
+    <h2><strong>NÚMERO DE TRABAJADORES: </strong>{{customer.totalEmployee}}</h2>
+    <h2><strong>CLASE DE RIESGO: </strong>{{customer.riskLevel}}</h2>
+	<table class="formulario" width="100%" style="margin-top: 1.4cm">
+        <!--<tr>
+            <td colspan="10">
+                <div class="intro">Continuación de la resolución 0312 "Por la cual se definen los Estándares Mínimos del
+                    Sistema de Gestión de Seguridad y Salud en el Trabajo para empleadores y contratantes"
+                </div>
+            </td>
+        </tr>-->
+        <tr class="title_bg">
+            <td colspan="10">
+                <div class="title">ESTÁNDARES MÍNIMOS SG-SST RESOLUCIÓN 0312</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td colspan="10">
+                <div class="title">TABLA DE VALORES Y CALIFICACIÓN</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td rowspan="2" width="14" class="ciclo">CICLO</td>
+            <td colspan="2" rowspan="2" width="140" class="estandar">ESTÁNDAR</td>
+            <td rowspan="2" width="160" class="item_estandar">ÍTEM DEL ESTÁNDAR</td>
+            <td rowspan="2" width="17" class="valor">VALOR</td>
+            <td rowspan="2" width="26" class="peso">PESO PORCENTUAL</td>
+            <td colspan="3" width="84" class="puntaje">PUNTAJE POSIBLE</td>
+            <td rowspan="2" width="28" class="calificacion">CALIFICACIÓN DE LA EMPRESA O CONTRATANTE</td>
+        </tr>
+        <tr class="title_bg">
+            <td class="cumple">CUMPLE</td>
+            <td class="no_cumple">NO CUMPLE</td>
+            <td class="no_aplica">NO APLICA</td>
+        </tr>
+
+        {% set weightPercent = 0 %}
+        {% set totalChild = 0 %}
+
+        {% for c in cycles %}
+
+            {% set printCycle = true %}
+
+            {% for sp in c.standards %}
+
+                {% set printParent = true %}
+
+                {% for sc in sp.children %}
+
+                    {% set printChild = true %}
+
+                    {% for item in sc.items %}
+                        <tr>
+                            {% if printCycle %}
+                            <td rowspan="{{ c.items }}" class="ciclo left_title_bg">
+                                <div class="rotate">I.&nbsp;{{ c.name }}</div>
+                                <!-- START CYCLE -->
+                            </td>
+                            {% set printCycle = false %}
+                            {% endif %}
+
+                            {% if printParent %}
+                            <td rowspan="{{ sp.total }}" valign="middle" width="37" class="estandar_title">{{ sp.description }}</td>
+                            <!-- START STANDARD PARENT -->
+                            {% set printParent = false %}
+                            {% endif %}
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="estandar_title_02">{{ sc.description}}</td>
+                            <!-- START STANDARD CHILD -->
+                            {% endif %}
+
+                            <td class="item">{{item.numeral}} {{item.description}}</td>
+                            <!-- START STANDARD ITEMS -->
+                            <td class="center">{{item.value}}</td>
+
+                            {% set weightPercent = weightPercent + item.value %}
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="center">{{ sc.weight }}</td>
+                            {% endif %}
+
+                            <td class="center">
+                                {% if item.rate.code == 'cp' %}
+                                {{item.value}}
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'nc' %}
+                                0
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'nac' %}
+                                {{item.value}}
+                                {% endif %}
+                            </td>
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="center">{{ sc.totalAverage }}</td>
+                            {% set totalChild = totalChild + sc.totalAverage %}
+                            {% set printChild = false %}
+                            {% endif %}
+                        </tr>
+
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+
+        {% endfor %}
+
+        <tr>
+            <td colspan="5" class="right title_bg">TOTALES</td>
+            <td class="center title_bg">{{ weightPercent }}</td>
+            <td class="title_bg"></td>
+            <td class="title_bg"></td>
+            <td class="title_bg"></td>
+            <td class="right title_bg">{{ totalChild }}</td>
+        </tr>
+        <tr>
+            <td colspan="10">Cuando se cumple con el ítem del estándar la calificación será la máxima del respectivo
+                ítem, de lo contrario su calificación será igual a cero (0).Si el estándar No Aplica, se deberá
+                justificar la situación y se calificará con el porcentaje máximo del ítem indicado para cada estándar.
+                En caso de no justificarse, la calificación el estándar será igual a cero (0)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10">El presente formulario es documento público, no se debe consignar hecho o manifestaciones
+                falsas y está sujeto a las sanciones establecidas en los artículos 288 y 294 de la Ley 599 de 2000
+                (Código Penal Colombiano)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="10" height="28" style="vertical-align:bottom;">
+                <p class="left"> <br>FIRMA DEL EMPLEADOR O CONTRATANTE </p>
+
+                <p class="right"> <br>FIRMA DEL RESPONSABLE DE LA EJECUCIÓN DEL SG-SST </p>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec;width: 50%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>CRITERIO</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>ACCIÓN</label>
+            </td>
+
+        </tr>
+        {% if totalChild <= 60 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">CRÍTICO</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Realizar y tener a disposición del Ministerio del Trabajo un Plan de Mejoramiento de inmediato.</li>
+                        <li>Enviar a la respectiva Administradora de Riesgos Laborales a la que se encuentre afiliada la empresa o contratante, un reporte de avances en el término máximo de tres (3) meses después de realizada la autoevaluación de Estándares Mínimos.</li>
+                        <li>Seguimiento anual y plan de visita a la empresa con valoración crítica, por parte del Ministerio del Trabajo.</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        {% if totalChild >= 61 and totalChild <= 85 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">MODERADAMENTE ACEPTABLE</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Realizar y tener a disposición del Ministerio del Trabajo un Plan de Mejoramiento.</li>
+                        <li>Enviar a la Administradora de Riesgos Laborales un reporte de avances en el término máximo de seis (6) meses después de realizada la autoevaluación de Estándares Mínimos.</li>
+                        <li>Plan de visita por parte del Ministerio del Trabajo.</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        {% if totalChild > 85 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">ACEPTABLE</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Mantener la calificación y evidencias a disposición del Ministerio del Trabajo, e incluir en el Plan de Anual de Trabajo las mejoras detectadas..</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <h1>AVANCE DE AUTOEVALUACIÓN ESTÁNDARES MÍNIMOS</h1>
+
+    <div id="piechart" class="pie-chart-">
+    </div>
+    <div class="value">{{ chart.total }} %</div>
+
+    <p class="break"><span></span></p>
+
+    <h1>PLANES DE MEJORAMIENTO</h1>
+
+
+    {% for p in plans %}
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px;width: 10%">
+                <label>{{ p.numeral }}</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:left;font-size: 12px">
+                <label>{{ p.description }}</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 10px;margin-top: 10px">
+
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold;width: 30%">
+                            <label>PLAN DE MEJORAMIENTO:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_description }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>RESPONSABLE:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_responsible }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>FECHA:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_endDate }}</span>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+                    <tbody>
+                    <tr style="font-weight:bold">
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Plan de Acción</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Responsable</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Fecha</label>
+                        </td>
+                    </tr>
+                    {% for a in p.actions %}
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.activity }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.responsible }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.endDate }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% endfor %}
+
+    {% if plans|length == 0 %}
+
+        <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                        <span class="">
+                            <ul>
+                                <li>No registra planes de mejoramiento</li>
+                            </ul>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+         </table>
+
+    {% endif %}
+
+
+</div>
+<input type="hidden" id="pieData" value='{{ chart.data }}' />
+
+</body>
+<script src="http://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    function init() {
+        google.load("visualization", "44", {packages:["corechart"]});
+        var interval = setInterval(function() {
+            if ( google.visualization !== undefined &&
+                google.visualization.DataTable !== undefined &&
+                google.visualization.PieChart !== undefined ) {
+                clearInterval(interval);
+                window.status = 'ready';
+                drawCharts();
+            }
+        }, 100);
+    }
+
+    function drawCharts() {
+        var hiddenField = document.getElementById('pieData');
+
+        var values = JSON.parse(hiddenField.value);
+
+        var data = google.visualization.arrayToDataTable(values);
+        var options = {
+            //backgroundColor: 'red',
+            //title: 'AVANCE DE AUTOEVALUACIÓN ESTÁNDARES MÍNIMOS',
+            pieSliceText: 'none',
+            legend: {position: 'top', alignment: 'center'},
+            pieHole: 0.4,
+			width: 800,
+            height: 400,
+            chartArea:{width:'100%', height: '90%'}
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
+
+</html>

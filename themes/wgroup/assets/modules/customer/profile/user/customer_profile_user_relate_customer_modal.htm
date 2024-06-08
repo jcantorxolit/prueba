@@ -1,0 +1,68 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">        
+
+        <div class="row margin-top-15">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">EMPRESAS DISPONIBLES</span></h4>
+                        </div>
+    
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%"
+                                                dt-instance="dtInstanceCustomerUserRelateCustomerAvailableCallback"
+                                                dt-options="dtOptionsCustomerUserRelateCustomerAvailable"
+                                                dt-columns="dtColumnsCustomerUserRelateCustomerAvailable" 
+                                                id="dtCustomerUserRelateCustomerAvailable"
+                                                class="table table-bordered table-hover">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>        
+
+        <div class="row margin-top-15">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">EMPRESAS ASOCIADAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%"
+                                            dt-instance="dtInstanceCustomerUserRelateCustomerCallback"
+                                            dt-options="dtOptionsCustomerUserRelateCustomer"
+                                            dt-columns="dtColumnsCustomerUserRelateCustomer" 
+                                            id="dtCustomerUserRelateCustomer"
+                                            class="table table-bordered table-hover">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div style="margin-top: 30px;" class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+    </div>
+</form>

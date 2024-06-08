@@ -1,0 +1,21 @@
+<div ng-controller="configurationMinimumStandardItemListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i class="glyphicon glyphicon-plus"></i>
+                Crear item</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" id="dtMinimumStandardItem" width="100%"
+                       dt-instance="dtInstanceMinimumStandardItem"
+                       dt-options="dtOptionsMinimumStandardItem"
+                       dt-columns="dtColumnsMinimumStandardItem"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+</div>
+<!-- end: RESPONSIVE TABLE -->

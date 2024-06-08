@@ -1,0 +1,583 @@
+<div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+    <div class="col-md-12">
+        <div class="panel panel-white" id="pnlloading">
+            <div class="panel-heading">
+                <h4 class="panel-title text-primary">Cargando...</h4>
+            </div>
+            <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <p>
+                        Estamos procesando la información del curso.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab1 row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }"
+     ng-show="!loading">
+    <form name="FormGrade" id="FormGrade" novalidate ng-submit="form.submit(FormGrade)">
+        <fieldset>
+            <legend>Información básica:</legend>
+            <div class=" row">
+
+                <div class="col-md-8">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.program.$dirty && FormGrade.program.$invalid}">
+                        <label class="control-label">
+                            Programa
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="program" ng-disabled="isView" ng-model="grade.program"
+                                   ng-required="true"
+                                   theme="bootstrap"
+                                   on-select="changeProgram($item, $model)">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in programs | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="FormGrade.program.$dirty && FormGrade.program.$invalid">El programa es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.status.$dirty && FormGrade.status.$invalid}">
+                        <label class="control-label">
+                            Estado
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="status" ng-disabled="isView" ng-model="grade.status"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in status | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="FormGrade.status.$dirty && FormGrade.status.$invalid">El estado es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class=" row">
+
+                <div class="col-md-2">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.code.$dirty && FormGrade.code.$invalid}">
+                        <label class="control-label">Código <span
+                                class="symbol"></span></label>
+                        <input ng-disabled="true" type="text"
+                               placeholder="Ingrese el código del curso"
+                               class="form-control" name="code"
+                               ng-model="grade.code"/>
+                    <span class="error text-small block"
+                          ng-if="FormGrade.code.$dirty && FormGrade.code.$invalid">El código es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.name.$dirty && FormGrade.name.$invalid}">
+                        <label class="control-label">Nombre <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el nombre del curso"
+                               class="form-control" name="name"
+                               ng-model="grade.name" required/>
+                    <span class="error text-small block"
+                          ng-if="FormGrade.name.$dirty && FormGrade.name.$invalid">El nombre es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.location.$dirty && FormGrade.location.$invalid}">
+                        <label class="control-label">
+                            Locación
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="location" ng-disabled="isView" ng-model="grade.location"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in locations | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="FormGrade.location.$dirty && FormGrade.location.$invalid">La locación es requerida</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.capacity.$dirty && FormGrade.capacity.$invalid}">
+                        <label class="control-label">
+                            Capacidad
+                            <span class="symbol"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Capacidad"
+                               class="form-control" name="capacity" ng-disabled="true"
+
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="grade.program.capacity"/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormGrade.capacity.$dirty && FormGrade.capacity.$invalid">La capacidad es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.duration.$dirty && FormGrade.duration.$invalid}">
+                        <label class="control-label">
+                            Duración (h)
+                            <span class="symbol"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Duración"
+                               class="form-control" name="duration" ng-disabled="true"
+
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="grade.program.hourDuration"/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormGrade.duration.$dirty && FormGrade.duration.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.validityNumber.$dirty && FormGrade.validityNumber.$invalid}">
+                        <label class="control-label">
+                            Vigencia
+                            <span class="symbol"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Vigencia"
+                               class="form-control" name="validityNumber" ng-disabled="true"
+
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="grade.program.validityNumber"/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormGrade.validityNumber.$dirty && FormGrade.validityNumber.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-2">
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.validityType.$dirty && FormGrade.validityType.$invalid}">
+                        <label class="control-label">Tipo de vigencia <span
+                                class="symbol"></span></label>
+                        <input ng-disabled="true" type="text"
+                               placeholder="Ingrese el tipo de vigencia"
+                               class="form-control" name="validityType"
+                               ng-model="grade.program.validityType.item"/>
+                    <span class="error text-small block"
+                          ng-if="FormGrade.validityType.$dirty && FormGrade.validityType.$invalid">El nombre es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label>
+                            Descripción
+                        </label>
+
+                            <textarea ng-disabled="isView"
+                                      placeholder="Escribe aquí la descripción del programa"
+                                      data-ng-model="grade.description"
+                                      class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Fechas:</legend>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>
+                            Fecha
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>
+                            Duración (h)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-md-5">
+                    <div class="form-group">
+
+                        <input class="form-control" kendo-date-picker
+                               name="birthdate"
+                               k-options="dateConfig"
+                               k-ng-model="grade.startDateTime"
+                               ng-required="currentStep == 2"
+                               format  = "yyyy/MM/dd"
+                        style="width: 100%;"/>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.duration.$dirty && FormGrade.duration.$invalid}">
+                        <input type="text"
+                               placeholder="Duración"
+                               class="form-control" name="duration" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="grade.hourDuration"/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormGrade.duration.$dirty && FormGrade.duration.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <button type="button" ng-disabled="isView" class="btn btn-primary btn-o"
+                                ng-click="onAddCalendarDate()">
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-repeat="date in grade.calendar">
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>
+                            [[date.startDateFormat]]
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':FormGrade.duration.$dirty && FormGrade.duration.$invalid}">
+                        <input type="text"
+                               placeholder="Duración"
+                               class="form-control" name="duration" ng-disabled="true"
+
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="date.hourDuration"/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormGrade.duration.$dirty && FormGrade.duration.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger btn-xs" ng-if="!isView"
+                                ng-click="onRemoveCalendarDate($index)"
+                                tooltip-placement="left" uib-tooltip="Remover fecha">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Selección de profesionales:</legend>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label>
+                            Especialidad
+                        </label>
+                        <ui-select ng-disabled="true" ng-model="grade.defaultSpeciality"
+                                   theme="bootstrap"
+                                   on-select="changeSkill($item, $model)">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in specialities | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label class="control-label">Asesor</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label">Disponibilidad</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label">Horas asignadas</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row" ng-repeat="agent in agents">
+
+                <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label class="control-label">[[agent.name]]</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label">[[agent.notAssignedHours]]</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.assigment.$dirty && Form.employeesdir.$invalid}">
+
+                        <input ng-disabled="isview" type="text"
+                               placeholder="Horas estimadas"
+                               class="form-control" name="employeesdir"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="agent.estimatedHours"/>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <div class="form-group">
+
+                            <a class="btn btn-success " href="#"
+                               ng-click="onAddAgent($index)"
+                               ng-disabled="isNewManagement"
+                               ng-if="can('diagnostico_create')"><i
+                                    class="glyphicon glyphicon-plus"></i></a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <h4 class="panel-title text-primary">Recursos del proyecto</h4>
+                </label>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label class="control-label"><span class="text-bold">Asesor</span></label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label"><span class="text-bold">Disponibilidad</span></label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label"><span class="text-bold">Horas asignadas</span></label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row" ng-repeat="agentGrade in grade.agents">
+
+                <div class="col-md-5">
+
+                    <div class="form-group">
+                        <label class="control-label">[[agentGrade.name]]</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label class="control-label">[[agentGrade.notAssignedHours]]</label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.assigment.$dirty && Form.employeesdir.$invalid}">
+
+                        <input ng-disabled="isview" type="text"
+                               placeholder="Horas estimadas"
+                               class="form-control" name="employeesdir"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="agentGrade.estimatedHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.employeesdir.$dirty && Form.employeesdir.$invalid">La cantidad de horas estimadas es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger" ng-if="!isView"
+                                    ng-click="onRemoveAgent($index)"
+                                    tooltip-placement="right" uib-tooltip="Remover profesional">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </fieldset>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>

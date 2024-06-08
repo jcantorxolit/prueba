@@ -1,0 +1,42 @@
+<form name="Form" id="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Cambio de estado autorización</h4>
+            </label>
+        </div>
+
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Motivo
+                        </label>
+                        <textarea ng-disabled="isView"
+                                  placeholder="Escribe aquí el motivo..."
+                                  data-ng-model="entity.description"
+                                  class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-info">
+                        Aceptar
+                    </button>
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,74 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: tcl.utils::lang.providers.name
+        comment: Name of your ptovider.
+        span: auto
+
+    urlbase:
+        label: tcl.utils::lang.providers.urlbase
+        comment: e.g. https://clustercrowd.atizo.com/
+        span: auto
+
+    urlproyect:
+        label: tcl.utils::lang.providers.urlproyect
+        comment: e.g. /projects/ideas/2724/innovationsweltmeister/
+        span: auto
+    
+    url_login:
+        label: url login
+        comment: e.g. /account/login
+        span: auto
+    
+    csrf_name:
+        label:  Cookie CSRF Name
+        comment: e.g. csrftoken
+        span: auto
+    
+    session_name:
+        label:  Session Cookie Name
+        comment: e.g. atizo_session
+        span: auto
+      
+    auth_user:
+        label:  Authentication User
+        span: auto
+    
+    auth_pwd:
+        label:  Authentication Pass
+        span: auto
+    
+    auth_type:
+        label:  Authentication Type
+        comment: e.g. basic
+        span: auto
+    
+    description:
+        label: description
+        span: auto
+        
+    auth_required:
+        label:  Require Authentication
+        type: checkbox
+        span: auto
+        
+    import:
+        label:  Authorize Import 
+        type: checkbox
+        span: auto
+    
+    active:
+        label: tcl.utils::lang.providers.active
+        type: checkbox
+        comment: tcl.utils::lang.providers.is_enabled_help
+        span: auto
+
+    is_default:
+        label: tcl.utils::lang.providers.is_default
+        type: checkbox
+        comment: tcl.utils::lang.providers.is_default_help
+        span: auto
+    

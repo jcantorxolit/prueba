@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+            <div class="col-md-12">
+                <div class="panel panel-white" id="pnlloading">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-primary">Cargando...</h4>
+                    </div>
+                    <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <p>
+                                Estamos procesando la información del cliente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+            <uib-tabset class="tabbable tabs-left" active="profileTabActive">
+                <uib-tab index="0">
+                    <uib-tab-heading>
+                        Datos Básicos
+                    </uib-tab-heading>
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/basic/customer_profile_basic.htm'">
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="1" disable="isCreate" select="profileTab = 'detail'" ng-if="can('cliente_informacion_contacto_open')">
+                    <uib-tab-heading>
+                        <span translate="views.CONTACT-INFO">Información de contacto</span>
+                    </uib-tab-heading>
+
+                    <div ng-if="profileTab == 'detail'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/detail/customer_profile_detail.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="2" disable="isCreate" select="profileTab = 'unit'" ng-if="can('cliente_equipo_asignado_open')">
+                    <uib-tab-heading>
+                        Equipo Asignado
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'unit'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/unit/customer_profile_unities.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="3" disable="isCreate" select="profileTab = 'contact'" ng-if="can('cliente_contactos_principales_open')">
+                    <uib-tab-heading>
+                        Contactos Principales
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'contact'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/contact/customer_profile_contacts.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="4" disable="isCreate" select="profileTab = 'arl'" ng-if="can('cliente_aportes_open')">
+                    <uib-tab-heading>
+                        Aportes
+                        <span translate="views.ARL">ARL</span>
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'arl'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/arl/customer_profile_arl.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="5" disable="isCreate" select="profileTab = 'certificate-program'" ng-if="can('cliente_formacion_open')">
+                    <uib-tab-heading>
+                        Precios Programas de Formación
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'certificate-program'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/certificate-program/customer_profile_certificate_program.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="6" disable="isCreate" select="profileTab = 'contractor'" ng-if="can('cliente_contratistas_open')" ng-show="showContractor">
+                    <uib-tab-heading>
+                        Contratistas
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'contractor'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/contractor/customer_profile_contractor.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="7" disable="isCreate" select="profileTab = 'contract-requirement'" ng-if="can('cliente_requisitos_contrato_open')" ng-show="showContractor">
+                    <uib-tab-heading>
+                        Requisitos Contrato
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'contract-requirement'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/contract-requirement/customer_profile_contract_requirement.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="8" disable="isCreate" select="profileTab = 'economic-group'" ng-if="can('cliente_grupo_economico_open')" ng-show="hasEconomicGroup">
+                    <uib-tab-heading>
+                        Grupo Económico
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'economic-group'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/economic-group/customer_profile_economic_group.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="9" disable="isCreate" select="profileTab = 'parameter'" ng-if="can('cliente_parametros_open')">
+                    <uib-tab-heading>
+                        Configuración Parámetros
+                        <i class="ti-info-alt text-primary text-large"
+                            tooltip-placement="left"
+                            uib-tooltip="Configure su matriz de peligros aquí"
+                            ng-if="!app.supportHelp.hasMatrix"></i>
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'parameter'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/parameter/customer_profile_parameter.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="10" disable="isCreate" select="profileTab = 'GTC45'" ng-if="can('cliente_parametros_open') && canMatrixShowGTC45">
+                    <uib-tab-heading>
+                        Procesos y Matriz de Peligros
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'GTC45'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/customer_profile_config_sgsst_tabs.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="11" disable="isCreate" select="profileTab = 'user'" ng-if="can('cliente_usuarios_open')">
+                    <uib-tab-heading>
+                        Usuarios
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'user'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/user/customer_profile_user.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="12" disable="isCreate" select="profileTab = 'resource'" ng-show="can('customer_control_recursos_open') && (isAdmin || customer.resource.plan != null)">
+                    <uib-tab-heading>
+                        Control de Recursos
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'resource'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/resource/customer_profile_resource.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="13" select="profileTab = 'manacle'" ng-if="can('cliente_bracelet_open')" >
+                    <uib-tab-heading>
+                        Registro de Manillas
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'manacle'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/manacle/customer_profile_manacle.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="14" select="profileTab = 'manacle-employee'" ng-if="can('cliente_bracelet_open')">
+                    <uib-tab-heading>
+                        Registro de Manillas Empleados
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'manacle-employee'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/manacle-employee/customer_profile_manacle_employee.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="15" select="profileTab = 'manacle-employee'" ng-if="structureOrganizational && can('cliente_organizational_structure')">
+                    <uib-tab-heading>
+                        Estructura Organizacional
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'manacle-employee'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/organizational-structure/structure_organizational_list.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="16" select="profileTab = 'licenses'" ng-if="canShowCommercialDashboard()">
+                    <uib-tab-heading>
+                        Licencias
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'licenses'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/licenses/licenses_list.htm'">
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="17" disable="isCreate" select="profileTab = 'config_certificate_rv'" ng-if="can('cliente_config_certificate_rv_open')">
+                    <uib-tab-heading>
+                        Configuración Certificados RV
+                    </uib-tab-heading>
+                    <div ng-if="profileTab == 'config_certificate_rv'">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/profile/signature-certificate-vr/customer_signature_certificate_vr.htm'">
+                        </div>
+                    </div>
+                </uib-tab>                
+
+            </uib-tabset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div >
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">CONFIGURACIÓN DE TAREA VS INDICADORES</span></h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL PERIODO</span></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                                            <label class="control-label">Periodo<span class="symbol required"></span></label>
+                                            <input type="text"  placeholder="Periodo" class="form-control" name="period"
+                                                ng-model="entity.period" required ng-disabled="true" />
+                                            <span class="error text-small block"
+                                                ng-if="Form.period.$dirty && Form.period.$invalid">El periodo es requerido</span>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error':Form.startDate.$dirty && Form.startDate.$invalid}">
+                                            <label class="control-label">Fecha Inicio Vigencia<span class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker 
+                                                name="startDate" 
+                                                ng-required="true"
+                                                k-options="datePickerConfig"
+                                                ng-disabled="isView"
+                                                k-max="maxDate"
+                                                onkeydown="return false;"
+                                                required
+                                                ng-model="entity.startDate"
+                                                style="width: 100%;" />
+                                            <span class="error text-small block" ng-if="Form.startDate.$dirty && Form.startDate.$invalid">
+                                                La fecha es requerida
+                                            </span>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error':Form.endDate.$dirty && Form.endDate.$invalid}">
+                                            <label class="control-label">Fecha Fin Vigencia<span class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker 
+                                                name="endDate" 
+                                                ng-disabled="true"
+                                                ng-required="true"
+                                                k-options="datePickerConfig" 
+                                                onkeydown="return false;"
+                                                required
+                                                ng-model="entity.endDate"
+                                                style="width: 100%;" />
+                                            <span class="error text-small block" ng-if="Form.endDate.$dirty && Form.endDate.$invalid">
+                                                La fecha es requerida
+                                            </span>
+                                        </div>
+                                    </div>
+                                
+                                </div> <!-- END ROW -->
+                            </div>
+                        </div> <!-- END PANEL -->
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                                Regresar
+                            </button>
+                            <button type="button" class="btn btn-green btn-o" ng-click="onNext()" ng-if="entity.id > 0">
+                                Continuar
+                            </button>
+                        </div>
+                    </div>
+
+                </div> <!-- END PANEL -->
+
+            </div>
+            
+        </div>
+
+    </form>
+
+    
+</div>

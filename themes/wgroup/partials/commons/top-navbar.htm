@@ -1,0 +1,96 @@
+<!-- start: TOP NAVBAR -->
+<!-- start: NAVBAR HEADER -->
+<div class="navbar-header">
+	<a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" ng-click="toggle('sidebar')" class="btn btn-navbar sidebar-toggle">
+		<i class="ti-align-justify"></i>
+	</a>
+	<a class="navbar-brand" href="#">
+		<img ng-src="{{'[[app.layout.logo]]'|theme}}" alt="[[app.name]]" width="120px"/>
+	</a>
+	<a href="#" class="sidebar-toggler pull-right visible-md visible-lg" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed">
+		<i class="ti-align-justify"></i>
+	</a>
+	<a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed">
+		<span class="sr-only">Toggle navigation</span>
+		<i class="ti-view-grid"></i>
+	</a>
+</div>
+<!-- end: NAVBAR HEADER -->
+<!-- start: NAVBAR COLLAPSE -->
+<div class="navbar-collapse collapse" collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
+	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
+
+
+		<!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/InboxCtrl.js /// -->
+		<li class="dropdown" uib-dropdown on-toggle="toggled(open)" ng-controller="userMessagesCtrl">
+			<a href class="dropdown-toggle" uib-dropdown-toggle>
+				<notification-icon count='messages.length'>
+					<i class="ti-comment"></i>
+				</notification-icon>
+				<span translate="MENSAJES">MENSAJES</span>
+			</a>
+			<ul class="dropdown-menu dropdown-light dropdown-messages dropdown-large">
+				<li>
+					<span class="dropdown-header" translate="Mensajes sin leer"> Mensajes sin leer</span>
+				</li>
+				<li>
+					<div class="drop-down-wrapper ps-container">
+						<ul>
+							<li class="unread" ng-repeat="message in messages | orderBy: 'date':true | limitTo:3 ">
+								<a href="javascript:;" ng-class="{ unread: !message.isReaded }">
+								<div class="clearfix">
+									<div class="thread-content">
+										<span class="author">[[message.from]]</span>
+										<span class="preview">[[ message.content | htmlToPlaintext | words:15 :true ]]</span>
+										<span class="time"> [[ message.date | date: "MM/dd/yyyy 'at' h:mma" ]]</span>
+									</div>
+								</div> </a>
+							</li>
+
+						</ul>
+					</div>
+				</li>
+				<li class="view-all">
+					<a href ui-sref="app.user.messages" translate="Ver todos"> Ver todos </a>
+				</li>
+			</ul>
+		</li>
+		<!-- end: MESSAGES DROPDOWN -->
+
+		<!-- start: USER OPTIONS DROPDOWN -->
+		<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
+			<a href class="dropdown-toggle" uib-dropdown-toggle>
+				<img src="{{'assets/images/avatar-1.png'|theme}}" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></i></span>
+			</a>
+			<ul class="dropdown-menu dropdown-dark">
+				<li>
+					<a  ui-sref="app.user.account" translate="Configuraci&#243;n cuenta">
+						{{'Configuraci&#243;n cuenta'|_}}
+					</a>
+
+					<a  href="{{ config('cms.rootUri','/wgroup/') }}api/customer/user/licence-download" target="_self" translate="Descargar licencia de uso">
+						Descargar licencia de uso
+                    </a>
+
+					<a  href="{{ config('cms.rootUri','/wgroup/') }}api/customer/user/privacy-download" target="_self" translate="Descargar Tratamiento de Datos">
+						Descargar Tratamiento de Datos
+                    </a>
+
+                   <a  href="{{ config('cms.rootUri','/wgroup/') }}logout" target="_self" translate="Salir">
+						Salir
+					</a>
+				</li>
+			</ul>
+		</li>
+		<!-- end: USER OPTIONS DROPDOWN -->
+	</ul>
+	<!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+	<div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true">
+		<div class="arrow-left"></div>
+		<div class="arrow-right"></div>
+	</div>
+	<!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+</div>
+
+<!-- end: NAVBAR COLLAPSE -->
+<!-- start: TOP NAVBAR -->

@@ -1,0 +1,255 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Seguimiento de Clientes</h1>
+            <span class="mainDescription">Desde este formulario usted podrá crear y editar el seguimeinto de un cliente</span>
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FORM VALIDATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- /// controller:  'CustomerCtrl' -  localtion: assets/js/controllers/customerTrackingEditCtrl.js /// -->
+            <div ng-controller="customerEditCtrl">
+                <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Fecha de registro
+                                                </label>
+
+                                                <p class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           datepicker-popup="yyyy/MM/dd" ng-model="start"
+                                                           is-open="startOpened" ng-init="startOpened = false"
+                                                           min-date="'1970-12-31'" max-date="end" ng-required="true"
+                                                           close-text="Close" ng-click="startOpen($event)"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>
+                                                    Asesor
+                                                </label>
+                                                <ui-select ng-model="agent.selected" theme="bootstrap">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in agents | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Tipo de Seguimiento
+                                                </label>
+                                                <ui-select ng-model="customer.country" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seleccionar...">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in countries | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Tipo de Seguimiento
+                                                </label>
+                                                <ui-select ng-model="customer.country" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seleccionar...">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in countries | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <div class="checkbox clip-check check-primary check-lg checkbox-inline">
+                                                    <input type="checkbox" id="chk1" value="1">
+                                                    <label for="chk1">
+                                                        Mostrar al cliente
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <div class="checkbox clip-check check-primary check-lg checkbox-inline">
+                                                    <input type="checkbox" id="chk2" value="1">
+                                                    <label for="chk2">
+                                                        Programar evento
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Fecha evento
+                                                </label>
+
+                                                <p class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           datepicker-popup="yyyy/MM/dd" ng-model="start"
+                                                           is-open="startOpened" ng-init="startOpened = false"
+                                                           min-date="'1970-12-31'" max-date="end" ng-required="true"
+                                                           close-text="Close" ng-click="startOpen($event)"/>
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <textarea placeholder="Default Text" id="form-field-22"
+                                                          class="form-control"></textarea>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="panelContacts" class="panel panelclone panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE ALERTAMIENTO</span>
+                                    </h4>
+                                    <ct-paneltool class="panel-tools" tool-clone="load1"></ct-paneltool>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row" ng-repeat="contact in customer.contacts">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <ui-select ng-model="contact.type" theme="bootstrap">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in extrainfo | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class=""
+                                             ng-class='{"col-md-7": customer.contacts.length > 1, "col-md-8" : customer.contacts.length <= 1 }'>
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Ingresa el valor" class="form-control"
+                                                       name="value"
+                                                       ng-model="contact.value"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1" ng-if="customer.contacts.length > 1">
+                                            <div class="pull-right">
+
+                                                <div class="form-group">
+                                                    <a href='#' class="btn btn-primary btn-o" tooltip-placement='top'
+                                                       tooltip='Eliminar'
+                                                       ng-click="removeContact($index)"><i
+                                                            class='ti-minus'></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar
+                                </button>
+                                <button type="reset" class="btn btn-primary btn-o" ng-click="form.reset(Form)">
+                                    Limpiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: FORM VALIDATION -->

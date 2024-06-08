@@ -1,0 +1,23 @@
+description = "Layout para el dashboard de administradores"
+
+[session]
+security = "user"
+redirect = "index"
+
+[menu menu_admin]
+start = "id-1"
+activeNode = "0"
+listItemClasses = "item"
+primaryClasses = "main-navigation-menu"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = "2"
+
+[account login]
+redirect = "customers"
+paramCode = "code"
+==
+{% partial 'header' %}
+
+{% page %}
+
+{% partial 'footer' %}

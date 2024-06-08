@@ -1,0 +1,30 @@
+<div ng-controller="customerOccupationalInvestigationListCtrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreateReportAL()"><i class="glyphicon glyphicon-plus"></i>
+                Crear investigación accidente</a>
+        </div>
+
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" id="dtOccupationalInvestigationAL" width="100%" 
+                        dt-instance="dtInstanceOccupationalInvestigationALCallback"
+                        dt-options="dtOptionsOccupationalInvestigationAL" 
+                        dt-columns="dtColumnsOccupationalInvestigationAL"
+                        class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+    </div>
+
+</div>

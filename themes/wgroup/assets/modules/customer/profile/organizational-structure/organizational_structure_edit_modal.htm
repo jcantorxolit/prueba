@@ -1,0 +1,115 @@
+
+<div class="fade-in-right-big">
+    <div class="container-fluid container-fullw bg-white">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">ESTRUCTURA ORGANIZACIONAL</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="{'has-error':Form.location.$dirty && Form.location.$invalid}">
+                                            <label class="control-label">Locación<span class="symbol required"></span></label>
+
+                                            <ui-select name="location" ng-model="entity.location" theme="bootstrap" ng-required="true"
+                                                       on-select="onSelectLocation()">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices repeat="location in locations | filter: $select.search track by $index">
+                                                    <div ng-bind-html="location.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block" ng-if="Form.location.$dirty && Form.location.$invalid">La locación es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="{'has-error':Form.department.$dirty && Form.department.$invalid}">
+                                            <label class="control-label">Departamento<span class="symbol required"></span></label>
+
+                                            <ui-select name="department" ng-model="entity.department" theme="bootstrap" ng-required="true"
+                                                       on-select="onSelectDepartment()">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices repeat="department in departments | filter: $select.search track by $index">
+                                                    <div ng-bind-html="department.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block" ng-if="Form.department.$dirty && Form.department.$invalid">El departamento es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="{'has-error':Form.area.$dirty && Form.area.$invalid}">
+                                            <label class="control-label">Área<span class="symbol required"></span></label>
+
+                                            <ui-select name="area" ng-model="entity.area" theme="bootstrap" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices repeat="area in areas | filter: $select.search track by $index">
+                                                    <div ng-bind-html="area.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block" ng-if="Form.area.$dirty && Form.area.$invalid">El área es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" ng-class="{'has-error':Form.turn.$dirty && Form.turn.$invalid}">
+                                            <label class="control-label">Turno<span class="symbol required"></span></label>
+
+                                            <ui-select name="turn" ng-model="entity.turn" theme="bootstrap" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices repeat="turn in turns | filter: $select.search track by $index">
+                                                    <div ng-bind-html="turn.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block" ng-if="Form.turn.$dirty && Form.turn.$invalid">El turno es requerido</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                        </div>
+
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" >
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                        Regresar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

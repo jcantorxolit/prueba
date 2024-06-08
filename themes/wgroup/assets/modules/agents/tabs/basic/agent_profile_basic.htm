@@ -1,0 +1,483 @@
+<div class="tab1" ng-controller="agentEditCtrl">
+    <form name="Form" id="form11" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN PERSONAL</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="user-left">
+                            <div class="center">
+                                <div flow-init="{ singleFile:true, target:'api/agent/upload', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                                    flow-name="uploader.flow" flow-object="uploader.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                    <div class="user-image">
+                                        <div class="thumbnail">
+                                            <img width="200px" height="200px" ng-if="!uploader.flow.files.length && noImage"
+                                                src="https://via.placeholder.com/300"
+                                                alt="" class="media-object">
+                                            <img ng-src="[[agent.logo.path]]" alt="" ng-if="!uploader.flow.files.length && !noImage">
+                                            <img flow-img="uploader.flow.files[0]" ng-if="uploader.flow.files.length">
+                                        </div>
+
+                                        <div class="user-image-buttons" ng-if="uploader.flow.files.length">
+                                            <span class="btn btn-primary" flow-btn><i class="fa fa-pencil"></i></span>
+                                            <span class="btn btn-danger" ng-click="uploader.flow.cancel()"> <i class="fa fa-times"></i>
+                                            </span>
+                                        </div>
+                                        <div class="user-image-buttons" ng-if="!uploader.flow.files.length && !isView">
+                                            <span class="btn btn-primary" flow-btn><i class="fa fa-pencil"></i></span>
+                                            <span class="btn btn-danger" ng-if="!noImage" ng-click="removeImage()"><i
+                                                    class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tipo
+                                    </label>
+                                    <ui-select ng-disabled="isView" ng-model="agent.legalType" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in legalTypes | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tipo identificación
+                                    </label>
+                                    <ui-select ng-disabled="isView" ng-model="agent.documentType" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in tiposdoc | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Número Identificación
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese el número de identificación"
+                                        class="form-control" name="documentNumber" ng-model="agent.documentNumber"
+                                        required />
+                                    <span class="error text-small block" ng-if="Form.documentNumber.$dirty && Form.documentNumber.$invalid">Número
+                                        de documento es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Nombres / Razón Social
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese los nombres" class="form-control"
+                                        name="firstName" ng-model="agent.firstName" required />
+                                    <span class="error text-small block" ng-if="Form.firstName.$dirty && Form.firstName.$invalid">Los
+                                        nombres son requeridos</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Apellidos
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese los apellidos" class="form-control"
+                                        name="lastName" ng-model="agent.lastName" required />
+                                    <span class="error text-small block" ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los
+                                        apellidos son requeridos</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Género
+                                    </label>
+                                    <ui-select ng-disabled="isView" ng-model="agent.gender" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in genders | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Categoría
+                                    </label>
+                                    <ui-select ng-disabled="isView" ng-model="agent.type" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in types | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>
+                                        Disponibilidad
+                                    </label>
+
+                                    <input ng-disabled="isView" type="text" placeholder="Disponibilidad" class="form-control"
+                                        name="availability" touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                                        data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                                        ng-model="agent.availability" required />
+                                    <span class="error text-small block" ng-if="Form.availability.$dirty && Form.availability.$invalid">La
+                                        disponibilidad es requerida</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        RH
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese el RH" class="form-control"
+                                        name="rh" ng-model="agent.rh" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.userEmail.$dirty && Form.userEmail.$invalid}">
+                                    <label>
+                                        E-mail <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese el E-mail"
+                                        class="form-control" name="userEmail" ng-model="agent.email" required />
+
+                                    <span class="error text-small block"
+                                        ng-if="Form.userEmail.$dirty && Form.userEmail.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error':Form.role.$dirty && Form.role.$invalid}">
+                                    <label class="control-label">Rol <span class="symbol required"></span></label>
+
+                                    <ui-select name="role" ng-model="agent.role" theme="bootstrap" popover-title="Información" popover-is-open="textProfile != null" uib-popover-html="textProfile" popover-trigger="'outsideClick'"
+                                        ng-disabled="isView" ng-required="true">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in agentRoleList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block" ng-if="Form.role.$dirty && Form.role.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <span class="switch ng-valid" ng-click="agent.isActive=!agent.isActive"
+                                            ng-class="{ checked:agent.isActive }" ng-model="agent.isActive">
+                                            <small></small>
+                                            <input ng-disabled="isView" type="checkbox" ng-model="agent.isActive"
+                                                style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN CONTACTO EMERGENCIA</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label>
+                                Nombre
+                            </label>
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese el nombre completo del contacto"
+                                class="form-control" name="emergencyContactName" ng-model="agent.emergencyContactName"
+                                required />
+                            <span class="error text-small block" ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El
+                                nombre es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>
+                                Teléfono
+                            </label>
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese el teléfono" class="form-control"
+                                name="emergencyContactPhone" ng-model="agent.emergencyContactPhone" required />
+                            <span class="error text-small block" ng-if="Form.lastName.$dirty && Form.lastName.$invalid">El
+                                teléfono es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>
+                                Parentesco
+                            </label>
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese el parentesco" class="form-control"
+                                name="emergencyContactKinship" ng-model="agent.emergencyContactKinship" required />
+                            <span class="error text-small block" ng-if="Form.documentNumber.$dirty && Form.documentNumber.$invalid">El
+                                parentesco es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN PROFESIONAL</span></h4>
+                <div class="panel-tools">
+
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-disabled="attachment.toApplyAll"
+                        tooltip-placement='top' uib-tooltip="Adicionar" ng-click="onAddOccupation()"><i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>
+                            Profesión
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            Descripción
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            Licencia / Tarjeta profesional
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="occupation in agent.occupations">
+
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+
+                            <ui-select ng-disabled="isView" ng-model="occupation.type" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in agent_occupations | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese la disponibilidad" class="form-control"
+                                name="skilldescription" ng-model="occupation.description" />
+                            <span class="error text-small block" ng-if="Form.skilldescription.$dirty && Form.skilldescription.$invalid">La
+                                descripción es requerida</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese la licencia" class="form-control"
+                                name="license" ng-model="occupation.license" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="agent.occupations.length > 1  && !isView">
+                        <div class="pull-right">
+
+                            <div class="form-group">
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' uib-tooltip="Eliminar"
+                                    ng-click="removeOccupation($index)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">COMPETENCIAS</span></h4>
+                <div class="panel-tools">
+
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-disabled="attachment.toApplyAll"
+                        tooltip-placement='top' uib-tooltip="Adicionar" ng-click="onAddSkill()"><i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row" ng-repeat="skill in agent.skills">
+                    <div class="col-md-11">
+                        <div class="form-group">
+
+                            <ui-select ng-disabled="isView" ng-model="skill.skill" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in agent_skills | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="agent.skills.length > 1  && !isView">
+                        <div class="pull-right">
+
+                            <div class="form-group">
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' uib-tooltip="Eliminar"
+                                    ng-click="removeSkill($index)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN CERTIFICADOS</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <div class="user-left">
+                            <div class="center">
+                                <div flow-init="{ singleFile:true, target:'api/agent/signature', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                                    flow-name="uploaderSignature.flow" flow-object="uploaderSignature.flow"
+                                    flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                    <div class="user-image">
+                                        <div class="thumbnail">
+                                            <img width="200px" height="200px" src="https://via.placeholder.com/300"
+                                                alt="" ng-if="!uploaderSignature.flow.files.length && noSignatureImage">
+
+                                            <img ng-src="[[agent.signature.path]]" alt="" ng-if="!uploaderSignature.flow.files.length && !noSignatureImage">
+                                            <img flow-img="uploaderSignature.flow.files[0]" ng-if="uploaderSignature.flow.files.length">
+                                        </div>
+
+                                        <div class="user-image-buttons" ng-if="uploaderSignature.flow.files.length">
+                                            <span class="btn btn-primary" flow-btn><i class="fa fa-pencil"></i></span>
+                                            <span class="btn btn-danger" ng-click="uploaderSignature.flow.cancel()"> <i
+                                                    class="fa fa-times"></i> </span>
+                                        </div>
+                                        <div class="user-image-buttons" ng-if="!uploaderSignature.flow.files.length && !isView">
+                                            <span class="btn btn-primary" flow-btn><i class="fa fa-pencil"></i></span>
+                                            <span class="btn btn-danger" ng-if="!noSignatureImage" ng-click="removeSignatureImage()"><i
+                                                    class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <label>
+                                        Leyenda
+                                    </label>
+                                    <div class="note-editor">
+                                        <textarea class="form-control" name="firstName" ng-model="agent.signatureText"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

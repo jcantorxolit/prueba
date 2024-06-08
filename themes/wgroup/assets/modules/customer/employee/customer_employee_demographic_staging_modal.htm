@@ -1,0 +1,581 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS - FILA [[ entity.index ]]</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                    <label class="control-label">
+                                        Número Identificación
+                                        <span class="symbol required"></span>
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select name="customer" ng-disabled="true" ng-model="entity.employee"
+                                            ng-required="true" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.entity.documentNumber]]
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in employees | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.entity.documentNumber | highlight: $select.search"></div>
+                                                <small>
+                                                    Nombre: <span ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                </small>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onSearchEmployeeList()" ng-disabled="isView"
+                                                class="btn btn-default">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                    <span class="error text-small block" ng-if="Form.customer.$dirty && Form.customer.$invalid">La
+                                        número de identificación es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                    <label class="control-label">Tipo identificación<span class="symbol required"></span></label>
+
+                                    <ui-select name="documentType" ng-required="true" ng-disabled="true" ng-model="entity.employee.entity.documentType"
+                                        theme="bootstrap" on-select="changeCountry($item, $model)">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in tiposdoc | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El
+                                        tipo de identificación es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                    <label class="control-label">Nombre(s)<span class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese el nombre(s)" class="form-control"
+                                        name="firstName" ng-model="entity.employee.entity.firstName" required />
+                                    <span class="error text-small block" ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El
+                                        nombre(s) es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                    <label class="control-label">Apellidos<span class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese los apellidos" class="form-control"
+                                        name="lastName" ng-model="entity.employee.entity.lastName" required />
+                                    <span class="error text-small block" ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los
+                                        apellidos son requeridos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">DATOS SOCIODEMOGRÁFICOS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.typeHousing.$dirty && Form.typeHousing.$invalid}">
+                            <label class="control-label">
+                                Tipo de Vivienda<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="typeHousing" ng-model="entity.typeHousing" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in typeHousings | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.typeHousing.$dirty && Form.typeHousing.$invalid">El
+                                registro es requerido</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.antiquityCompany.$dirty && Form.antiquityCompany.$invalid}">
+                            <label class="control-label">
+                                Antiguedad Empresa<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="antiquityCompany" ng-model="entity.antiquityCompany"
+                                theme="bootstrap" ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in antiquities | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.antiquityCompany.$dirty && Form.antiquityCompany.$invalid">El
+                                registro es requerido</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.antiquityJob.$dirty && Form.antiquityJob.$invalid}">
+                            <label class="control-label">
+                                Antiguedad Cargo<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="antiquityJob" ng-model="entity.antiquityJob" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in antiquities | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.antiquityJob.$dirty && Form.antiquityJob.$invalid">El
+                                registro es requerido</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Tiene hijos?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.hasChildren"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Tiene personas a cargo?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.hasPeopleInCharge"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.qtyPeopleInCharge.$dirty && Form.qtyPeopleInCharge.$invalid}">
+                            <label class="control-label">
+                                Cantidad personas a cargo
+                                <span class="symbol required" ng-if="entity.hasPeopleInCharge"></span>
+                            </label>
+                            <input ng-disabled="!entity.hasPeopleInCharge || !canEditRoot || isView"
+                                type="text" ng-required="entity.hasPeopleInCharge" name="qtyPeopleInCharge"
+                                placeholder="Ingresa la cantidad" class="form-control" name="value"
+                                ng-model="entity.qtyPeopleInCharge" />
+                            <span class="error text-small block"
+                                ng-if="Form.qtyPeopleInCharge.$dirty && Form.qtyPeopleInCharge.$invalid">El
+                                registro es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.averageIncome.$dirty && Form.averageIncome.$invalid}">
+                            <label class="control-label">
+                                Ingresos<span class="symbol required"></span>
+                            </label>
+
+                            <input ng-disabled="!canEditRoot || isView" type="text" placeholder="Ingresa el grado"
+                                class="form-control" name="averageIncome" ng-model="entity.averageIncome"
+                                required />
+
+                            <span class="error text-small block"
+                                ng-if="Form.averageIncome.$dirty && Form.averageIncome.$invalid">El
+                                registro es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.stratum.$dirty && Form.stratum.$invalid}">
+                            <label class="control-label">
+                                Estrato socioeconómico<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="stratum" ng-model="entity.stratum" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in stratumList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.stratum.$dirty && Form.stratum.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.civilStatus.$dirty && Form.civilStatus.$invalid}">
+                            <label class="control-label">
+                                Estado civil<span class=""></span>
+                            </label>
+
+                            <ui-select name="civilStatus" ng-model="entity.civilStatus" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="false">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in civilStatusList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.civilStatus.$dirty && Form.civilStatus.$invalid">El
+                                estado civil es requerido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.scholarship.$dirty && Form.scholarship.$invalid}">
+                            <label class="control-label">
+                                Grado escolaridad<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="scholarship" ng-model="entity.scholarship" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in scholarshipList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.scholarship.$dirty && Form.scholarship.$invalid">El
+                                género es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error':Form.race.$dirty && Form.race.$invalid}">
+                            <label class="control-label">
+                                Raza<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="race" ng-model="entity.race" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in raceList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block" ng-if="Form.race.$dirty && Form.race.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.workingHoursPerDay.$dirty && Form.workingHoursPerDay.$invalid}">
+                            <label class="control-label">
+                                Horas de trabajo al día<span class=""></span>
+                            </label>
+
+                            <input ng-disabled="!canEditRoot || isView" type="text"
+                                placeholder="Digite las horas de trabajo" class="form-control"
+                                name="workingHoursPerDay" ng-model="entity.workingHoursPerDay" />
+
+                            <span class="error text-small block"
+                                ng-if="Form.workingHoursPerDay.$dirty && Form.workingHoursPerDay.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.workArea.$dirty && Form.workArea.$invalid}">
+                            <label class="control-label">
+                                Área de trabajo<span class="symbol required"></span>
+                            </label>
+
+                            <ui-select name="workArea" ng-model="entity.workArea" theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView" ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in workAreaList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block"
+                                ng-if="Form.workArea.$dirty && Form.workArea.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">TIEMPO LIBRE</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Actividad<span class="symbol required"></span>
+                            </label>
+                            
+                            <input ng-disabled="!canEditRoot || isView" type="text"
+                                placeholder="Ingresa la actividad" class="form-control" name="value"
+                                ng-model="entity.hobby" />
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <span class="text-bold">OTROS</span>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Practica algún deporte?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.isPracticeSports"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="form-group" ng-class="{'has-error':Form.frequencyPracticeSports.$dirty && Form.frequencyPracticeSports.$invalid}">
+                            <label class="control-label">
+                                Frecuencia<span class="symbol required"></span>
+                            </label>
+                            <ui-select name="frequencyPracticeSports" ng-model="entity.frequencyPracticeSports"
+                                theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView || !entity.isPracticeSports"
+                                ng-required="entity.isPracticeSports">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in frequencies | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.frequencyPracticeSports.$dirty && Form.frequencyPracticeSports.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Consume bebidas alcohólicas?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.isDrinkAlcoholic"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="form-group" ng-class="{'has-error':Form.frequencyDrinkAlcoholic.$dirty && Form.frequencyDrinkAlcoholic.$invalid}">
+                            <label class="control-label">
+                                Frecuencia<span class="symbol required"></span>
+                            </label>
+                            <ui-select name="frequencyDrinkAlcoholic" ng-model="entity.frequencyDrinkAlcoholic"
+                                theme="bootstrap"
+                                ng-disabled="!canEditRoot || isView || !entity.isDrinkAlcoholic"
+                                ng-required="entity.isDrinkAlcoholic">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in frequencies | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.frequencyDrinkAlcoholic.$dirty && Form.frequencyDrinkAlcoholic.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Fuma?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.isSmokes"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="form-group" ng-class="{'has-error':Form.frequencySmokes.$dirty && Form.frequencySmokes.$invalid}">
+                            <label class="control-label">
+                                Frecuencia<span class="symbol required"></span>
+                            </label>
+                            <ui-select name="frequencySmokes" ng-model="entity.frequencySmokes"
+                                theme="bootstrap" ng-disabled="!canEditRoot || isView || !entity.isSmokes"
+                                ng-required="entity.isSmokes">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in frequencies | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.frequencySmokes.$dirty && Form.frequencySmokes.$invalid">El
+                                registro es requerido</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">DIAGNÓSTICO DE ENFERMEDADES</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Le han diagnosticado alguna enfermedad?<span class=""></span>
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="!canEditRoot || isView" ng-model="entity.isDiagnosedDisease"
+                                    class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error':Form.disease.$dirty && Form.disease.$invalid}">
+                            <label class="control-label">
+                                Enfermedad<span class="symbol required"></span>
+                            </label>                            
+                            <input ng-disabled="!canEditRoot || isView || !entity.isDiagnosedDisease"
+                                type="text" placeholder="Ingresa el nombre de la enfermedad"
+                                ng-required="entity.isDiagnosedDisease"
+                                class="form-control" name="disease" ng-model="entity.disease" />  
+                            <span class="error text-small block" ng-if="Form.disease.$dirty && Form.disease.$invalid">El
+                                registro es requerido</span>                                                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

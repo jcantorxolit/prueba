@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerOccupationalTabsCtrl">
+
+            <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                <div class="col-md-12">
+                    <div class="panel panel-white" id="pnlloading">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">Cargando...</h4>
+                        </div>
+                        <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <p>
+                                    Estamos procesando la información del diagnóstico.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" select="switchTab('absenteeism')" ng-if="can('cliente_absenteeism_open')">
+                            <uib-tab-heading>
+                                Ausentismos
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('absenteeism').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('health_damage')" ng-if="can('cliente_health_damage_open')">
+                            <uib-tab-heading>
+                                Seguimiento Casos Médicos
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='health_damage'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('health_damage').url">
+                                </div>
+                            </div>
+
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('occupational_report_al')" ng-if="can('cliente_report_al_open')">
+                            <uib-tab-heading>
+                                Reporte AT
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='occupational_report_al'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('occupational_report_al').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('occupational_investigation_al')" ng-if="can('cliente_investigation_open')">
+                            <uib-tab-heading>
+                                Investigación AT
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='occupational_investigation_al'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('occupational_investigation_al').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('occupational_report_incident')" ng-if="can('cliente_incident_open')">
+                            <uib-tab-heading>
+                                Reporte Incidentes
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='occupational_report_incident'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('occupational_report_incident').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('occupational_covid_19')" ng-if="can('cliente_covid_open')">
+                            <uib-tab-heading>
+                                Covid 19
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='occupational_covid_19'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('occupational_covid_19').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>                        
+
+                        <uib-tab select="switchTab('occupational_covid_19_bolivar')" ng-if="can('cliente_covid_bolivar_open')" >
+                            <uib-tab-heading>
+                                Covid 19 Bolivar
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='occupational_covid_19_bolivar'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('occupational_covid_19_bolivar').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>                        
+
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

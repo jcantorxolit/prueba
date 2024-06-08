@@ -1,0 +1,191 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="positivafgnManagementFormCtrl">
+
+        <div class="panel-body ">
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA</span></h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-4" >
+                                <div class="form-group">
+                                    <label class="control-label"> Número Identificación</label>
+                                    <input type="text" class="form-control" name="documentNumber" ng-model="infoBasic.documentNumber" disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo identificación</label>
+                                    <input type="text" class="form-control" name="documentType" ng-model="infoBasic.documentType" disabled />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                    <label class="control-label">Género</label>
+                                    <input type="text" class="form-control" name="gender" ng-model="infoBasic.gender" disabled />
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" name="fullName"
+                                           ng-model="infoBasic.fullName" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group" >
+                                    <label class="control-label">Seccional<span class="symbol required"></span></label>
+                                    <ui-select name="sectional" ng-required="true"
+                                               ng-model="infoBasic.sectional" theme="bootstrap" on-select="getAxis()">
+                                        <ui-select-match placeholder="- Opción -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in sectionalList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Periodo<span class="symbol required"></span></label>
+                                    <ui-select name="period" ng-required="true" ng-disabled="!infoBasic.sectional"
+                                               ng-model="infoBasic.period" theme="bootstrap" on-select="getAxis()">
+                                        <ui-select-match placeholder="- Opción -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in periodoList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+
+
+            <div class="row" ng-if="axisList.length">
+                <div class="col-md-12">
+                    <div class="partition-light-grey padding-15 margin-bottom-10">
+                        <h4 class="no-margin"><span class="text-bold">EJE</span></h4>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <div class="list-group">
+                                <a class="list-group-item list-group-item-default text-bold"
+                                   href="#"
+                                   ng-click="openAxis(axis)"
+                                   ng-repeat="axis in axisList">
+                                    <h5 class="inline-block padding-top-10">[[ axis.item ]]</h5>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-center">
+                            <div class="col-md-12 text-center">
+                                <ui-knob value="axisStats.hourPercentage" options="options"></ui-knob>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                                    <label for="" ng-if="action=='programming'">
+                                        HA PROGRAMADO <b>[[ axisStats.currentHours ]]</b> DE <b>[[ axisStats.pendingHours ]]</b> HORAS DISPONIBLES.
+                                    </label>
+                                    <label for="" ng-if="action=='execution'">
+                                        HA EJECUTADO <b>[[ axisStats.currentHours ]]</b> DE <b>[[ axisStats.pendingHours ]]</b> HORAS DISPONIBLES.
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-center">
+                            <div class="col-md-12 text-center">
+                                <ui-knob value="axisStats.activityPercentageCom" options="options"></ui-knob>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                                    <label for="" ng-if="action=='programming'">
+                                        HA PROGRAMADO <b>[[ axisStats.currentActivitiesCom ]]</b> DE <b>[[ axisStats.pendingActivitiesCom ]]</b> ACTIVIDADES DE LA META ASIGNADA
+                                    </label>
+                                    <label for="" ng-if="action=='execution'">
+                                        HA EJECUTADO <b>[[ axisStats.currentActivitiesCom ]]</b> DE <b>[[ axisStats.pendingActivitiesCom ]]</b> ACTIVIDADES DE LA META ASIGNADA
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-md-offset-6 text-center">
+                            <div class="col-md-12 text-center">
+                                <ui-knob value="axisStats.activityPercentageCov" options="options"></ui-knob>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                                    <label for="" ng-if="action=='programming'">
+                                        HA CONVOCADO <b>[[ axisStats.currentActivitiesCov ]]</b> DE <b>[[ axisStats.pendingActivitiesCov ]]</b> SERVIDORES DE LA META ASIGNADA
+                                    </label>
+                                    <label for="" ng-if="action=='execution'">
+                                        HAN ASISTIDO <b>[[ axisStats.currentActivitiesCov ]]</b> DE <b>[[ axisStats.pendingActivitiesCov ]]</b> SERVIDORES DE LA META ASIGNADA
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" ng-if="!axisList.length">
+                <div class="col-md-12 margin-top-10">
+                    <div class="alert alert-warning"><b>No tienes información para estos filtros.</b></div>
+                </div>
+            </div>
+
+            
+
+            <div class="row padding-bottom-20">
+                <br>
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-if="axisList.length" ng-click="onContinue()">
+                            Continuar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

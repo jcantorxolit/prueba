@@ -1,0 +1,32 @@
+<div ng-controller="customerRoadSafetyCtrl" >
+    <div ng-switch="standard_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+
+        </div>
+
+        <div ng-switch-when="summary" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-road-safety/1565/customer_road_safety_summary.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="edit" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-road-safety/1565/customer_road_safety_edit.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="config" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-road-safety/1565/customer_configuration_road_safety_item_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="report" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-road-safety/1565/customer_road_safety_report.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="monthlyReport" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-road-safety/1565/customer_road_safety_monthly_report.htm'">
+            </div>
+        </div>
+    </div>
+</div>

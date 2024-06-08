@@ -1,0 +1,80 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">[[ title ]]</h4>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div data-ng-animate="'wave'" class="fade-in-right-big"
+                data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="btn-group" uib-dropdown>
+                <button type="button" class="btn btn-default" ng-disabled="toggle.selectAll" ng-click="onToggle()" tooltip-placement="right" uib-tooltip="[[ toggle.isChecked ? 'Deseleccionar esta página' : 'Seleccionar esta página']]">
+                    <i ng-class="{'fa fa-square-o': !toggle.isChecked, 'fa fa-check-square-o': toggle.isChecked}"></i>
+                </button>
+                <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Split button!</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#" ng-click="onSelectCurrentPage()">
+                            Seleccionar esta página ([[records.currentPage]])
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="onSelectAll()">
+                            Seleccionar todo ([[records.total]])
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#" ng-click="onDeselectAll()">
+                            Deseleccionar todo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+    
+              <span class="small-text" ng-if="records.hasSelected"> | Condiciones Inseguras seleccionadas [[
+                records.countSelected ]]
+            </span>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="pull-right">
+                <button type="button" class="btn btn-success" ng-click="onDownload()" ng-disabled="records.countSelected == 0">
+                    Descargar Evidencias
+                </button>
+                <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstanceCustomerUnsafeActDataTableListCallback"
+                    dt-options="dtOptionsCustomerUnsafeActDataTableList"
+                    dt-columns="dtColumnsCustomerUnsafeActDataTableList" 
+                    id="dtCustomerUnsafeActDataTableList"
+                    class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cerrar
+    </button>
+</div>

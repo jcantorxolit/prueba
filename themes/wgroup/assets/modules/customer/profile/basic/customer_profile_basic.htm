@@ -1,0 +1,562 @@
+<div class="tab1" ng-controller="customerEditCtrl">
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">DATOS BÁSICOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="user-left">
+                            <div class="center">
+                                <div flow-init="{ singleFile:true, target:'api/upload', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                                    flow-name="uploader.flow" flow-object="uploader.flow"
+                                    flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                    <div class="user-image">
+                                        <div class="thumbnail">
+                                            <img width="400px" height="200px"
+                                                ng-if="!uploader.flow.files.length && noImage"
+                                                src="https://via.placeholder.com/300"
+                                                alt="" class="media-object">
+                                            <img ng-src="[[customer.logo.path]]" alt=""
+                                                ng-if="!uploader.flow.files.length && !noImage">
+                                            <img flow-img="uploader.flow.files[0]" ng-if="uploader.flow.files.length">
+                                        </div>
+                                        <div class="user-image-buttons" ng-if="uploader.flow.files.length">
+                                            <span class="btn btn-primary" flow-btn>
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <span class="btn btn-danger" ng-click="uploader.flow.cancel()">
+                                                <i class="fa fa-times"></i>
+                                            </span>
+                                        </div>
+                                        <div class="user-image-buttons" ng-if="!uploader.flow.files.length && !isView">
+                                            <span class="btn btn-primary" flow-btn>
+                                                <i class="fa fa-pencil"></i>
+                                            </span>
+                                            <span class="btn btn-danger" ng-if="!noImage" ng-click="removeImage()">
+                                                <i class="fa fa-times"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tipo de cliente
+                                    </label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.type"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in tiposCliente | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tamaño
+                                    </label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.size"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in sizes | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tipo de documento
+                                    </label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.documentType"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in tiposdoc | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.document.$dirty && Form.document.$invalid}">
+                                    <label class="control-label">Número de documento
+                                        <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView || isCustomerAdmin" type="text"
+                                        placeholder="Ingrese el número de documento" class="form-control"
+                                        name="document" ng-model="customer.documentNumber" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.document.$dirty && Form.document.$invalid">
+                                        El registro es inválido. No debe estar vacío
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label>
+                                        Tiene grupo económico
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="isView || isCustomerAdmin || isCustomerUser || isAgent"
+                                            ng-model="customer.hasEconomicGroup" class="green"
+                                            ng-change="changeEconomicGroup()"></switch>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Clasificación
+                                    </label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin"
+                                        ng-model="customer.classification" theme="bootstrap"
+                                        on-select="onSelectClasification()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in classifications | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        Estado
+                                    </label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.status"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in estados | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label">Razón social
+                                        <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView || isCustomerAdmin" type="text"
+                                        placeholder="Ingrese la razon social" class="form-control" name="name"
+                                        ng-model="customer.businessName" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.name.$dirty && Form.name.$invalid">La
+                                        Razón Social es requerida</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class=" row">
+                            <!--
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.group.$dirty && Form.group.$invalid}">
+                                <label class="control-label">Grupo de usuarios del cliente <span
+                                        class="symbol required"></span></label>
+                                <ui-select ng-disabled="isView" ng-model="customer.group" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in groups | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+
+
+                            </div>
+                        </div>
+                        -->
+
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.url.$dirty && Form.url.$invalid}">
+                                    <label class="control-label">
+                                        Sitio Web
+                                        <span class=""></span>
+                                    </label>
+                                    <input ng-disabled="isView || isCustomerAdmin" type="text" placeholder="http://..."
+                                        class="form-control" name="url" ng-model="customer.webSite"
+                                        ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/" />
+                                    <span class="error text-small block"
+                                        ng-if="Form.url.$dirty && Form.url.$error.required">Url
+                                        es requerida</span>
+                                    <span class="error text-small block" ng-if="Form.url.$error.pattern">Url no es
+                                        válida</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label translate="views.ARL">ARL</label>
+                                    <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.arl"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in arls | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.activityCode.$dirty && Form.activityCode.$invalid}">
+                            <label class="control-label">
+                                Actividad económica
+                                <span class="symbol required"></span>
+                            </label>
+                            <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                name="activityCode" ng-model="customer.economicActivity.code" />
+
+                            <span class="error text-small block"
+                                ng-if="Form.insecureActCode.$dirty && Form.insecureActCode.$invalid">La
+                                código es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.activityName.$dirty && Form.activityName.$invalid}">
+                            <label class="control-label">Descripción
+                                <span class="symbol required"></span>
+                            </label>
+                            <div class="input-group">
+                                <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                    name="activityName" ng-model="customer.economicActivity.name" />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onSearchEconomicActivity()" ng-disabled="isView"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+
+                            <span class="error text-small block"
+                                ng-if="Form.activityName.$dirty && Form.activityName.$invalid">La
+                                causa es requerida</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label>
+                                País
+                            </label>
+                            <ui-select ng-disabled="isView || isCustomerAdmin" ng-model="customer.country"
+                                theme="bootstrap" on-select="changeCountry($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in countries | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label translate="views.STATE">
+                                Departamento
+                            </label>
+                            <ui-select ng-disabled="isView || isCustomerAdmin" id="ddlState" ng-model="customer.state"
+                                theme="bootstrap" on-select="changeState($item, $model)"
+                                ng-disabled="states.length == 0">
+                                <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in states | filter: $select.search">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label translate="views.CITY">Ciudad</label>
+                            <ui-select ng-disabled="isView || isCustomerAdmin" id="ddlTown" ng-model="customer.town"
+                                theme="bootstrap" ng-disabled="towns.length == 0" allow-clear='true'>
+                                <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in towns | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.employeesdir.$dirty && Form.employeesdir.$invalid}">
+                            <label class="control-label">
+                                Empleados directos
+                                <span class="symbol required"></span>
+                            </label>
+                            <input ng-disabled="isView || isCustomerAdmin" type="text"
+                                placeholder="Cantidad de empleados directos" class="form-control" name="employeesdir"
+                                touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                                data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                                ng-model="customer.directEmployees" required />
+                            <span class="error text-small block"
+                                ng-if="Form.employeesdir.$dirty && Form.employeesdir.$invalid">La
+                                cantidad de empleados directos es requerida</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label class="control-label">
+                                Empleados temporales
+                            </label>
+                            <input ng-disabled="isView || isCustomerAdmin" type="text"
+                                placeholder="Ingrese la cantidad de empleados temporales" class="form-control"
+                                name="employeestemp" touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                                data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                                ng-model="customer.temporaryEmployees" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Empresa Temporal </label>
+                            <input ng-disabled="isView || isCustomerAdmin" type="text"
+                                placeholder="Ingrese la empresa temporal" class="form-control" name="temporalCompany"
+                                ng-model="customer.temporalCompany" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error':Form.totalEmployee.$dirty && Form.totalEmployee.$invalid}">
+                            <label class="control-label">
+                                Número de trabajadores
+                                <span class="symbol required"></span>
+                            </label>
+                            <ui-select name="totalEmployee" theme="bootstrap" ng-required="true" ng-disabled="isView || !can('clientes_administra_numero_trabajadores')"
+                                ng-model="customer.totalEmployee">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in totalEmployeeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.totalEmployee.$dirty && Form.totalEmployee.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.riskClass.$dirty && Form.riskClass.$invalid}">
+                            <label class="control-label">
+                                Clase de riesgo
+                                <span class="symbol required"></span>
+                            </label>
+                            <ui-select name="riskClass" theme="bootstrap" ng-required="true" ng-disabled="isView || !can('clientes_administra_clase_riesgo')"
+                                ng-model="customer.riskClass"
+                                on-select="onSelectRiskClass()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in riskClassList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.riskClass.$dirty && Form.riskClass.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.riskLevel.$dirty && Form.riskLevel.$invalid}">
+                            <label class="control-label">
+                                Grupo de riesgo
+                                <span class="symbol required"></span>
+                            </label>
+                            <ui-select name="riskLevel" theme="bootstrap" ng-required="true" ng-disabled="true"
+                                ng-model="customer.riskLevel">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in riskLevelList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.riskLevel.$dirty && Form.riskLevel.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="showContract" class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">CONTRATO</span></h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.contractStartDate.$dirty && Form.contractStartDate.$invalid}">
+                        <label class="control-label">
+                            Fecha Inicio Vigencia <span class="symbol required"></span>
+                        </label>
+                        <input class="form-control" kendo-date-picker name="initDate" k-options="dateConfig"
+                            ng-model="customer.contractStartDate" ng-disabled="!canEditRoot || isView" required ng-required="true"
+                            style="width: 100%;" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group" ng-class="{'has-error':Form.contractEndDate.$dirty && Form.contractEndDate.$invalid}">
+                        <label class="control-label">
+                            Fecha Finalización Vigencia <span class="symbol required"></span>
+                        </label>
+                        <input class="form-control" kendo-date-picker name="validityDate" k-options="dateConfig"
+                            ng-model="customer.contractEndDate" ng-disabled="!canEditRoot || isView" required ng-required="true"
+                            style="width: 100%;" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group" ng-class="{'has-error':Form.contractNumber.$dirty && Form.contractNumber.$invalid}">
+                        <label class="control-label">
+                            No. Contrato <span class="symbol required"></span>
+                        </label>
+                        <input ng-disabled="isView || isCustomerAdmin" type="text" placeholder="Ingrese descripción"
+                            class="form-control" name="ncontract" required ng-required="true" ng-model="customer.contractNumber" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()"
+                        ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

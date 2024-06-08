@@ -1,0 +1,100 @@
+<div ng-switch="field.dataType">
+    <div class="row" ng-switch-when="varchar">
+
+        <div class="col-md-12">
+            <div class="form-group"
+                 ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                <label class="control-label">
+                    [[field.name]]<span class="symbol"></span>
+                </label>
+                <div class="input-group">
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese el valor"
+                           class="form-control"
+                           name="name"
+                           ng-model="field.varcharValue"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success  btn-o" tooltip-placement="left"
+                                uib-tooltip="Guardar" ng-disabled="isView"
+                                ng-click="onSaveHeader(field)">
+                            <i class="fa fa-save "></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-switch-when="int">
+
+        <div class="col-xs-12">
+            <div class="form-group"
+                 ng-class="{'has-error':Form.version.$dirty && Form.version.$invalid}">
+                <label class="control-label">
+                    [[field.name]] <span class="symbol"></span>
+                </label>
+                <div class="input-group">
+                    <input ng-disabled="isView" type="number"
+                           placeholder="Ingrese el valor"
+                           class="form-control" name="version"
+                           data-verticalbuttons="false"
+                           data-max="1000000000"
+                           data-verticalupclass="ti-angle-up"
+                           data-verticaldownclass="ti-angle-down"
+                           ng-model="field.numericValue"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success  btn-o" tooltip-placement="left"
+                                uib-tooltip="Guardar" ng-disabled="isView"
+                                ng-click="onSaveHeader(field)">
+                            <i class="fa fa-save "></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" ng-switch-when="date">
+
+        <div class="col-xs-12">
+            <div class="form-group" ng-class="{'has-error':Form.dateFrom.$dirty && Form.dateFrom.$invalid}">
+                <label class="control-label">
+                    [[field.name]] <span class="symbol"></span>
+                </label>
+                <div class="input-group">
+                    <input class="form-control" kendo-date-picker
+                           name="dateFrom"
+                           k-options="dateConfig"
+                           k-ng-model="field.dateValue"
+                           ng-disabled="isView"
+                           required
+                           style="width: 100%;"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success  btn-o" tooltip-placement="left"
+                                uib-tooltip="Guardar" ng-disabled="isView"
+                                ng-click="onSaveHeader(field)">
+                            <i class="fa fa-save "></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--<div class="row">
+    <div class="col-md-11">
+    </div>
+    <div class="col-md-1">
+        <div class="pull-right">
+            <button type="button" class="btn btn-success  btn-o btn-sm" tooltip-placement="left"
+                    uib-tooltip="Guardar" ng-disabled="isView"
+                    ng-click="savePartial(field)">
+                <i class="fa fa-save "></i>
+            </button>
+        </div>
+    </div>
+</div>-->

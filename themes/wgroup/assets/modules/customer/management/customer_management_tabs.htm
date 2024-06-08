@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerManagementTabsCtrl">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" select="switchTab('basic')">
+                            <uib-tab-heading>
+                                Evaluación Programas
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('basic').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('indicator')">
+                            <uib-tab-heading>
+                                Análisis de indicadores
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='indicator'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('indicator').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

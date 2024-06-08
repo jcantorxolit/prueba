@@ -1,0 +1,264 @@
+<div ng-controller="customerCovidIndicatorEmployeeCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">INDICADORES</span></h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-3 col-md-3 col-lg-3">
+
+                    <div class="radio clip-radio radio-success radio-inline">
+                        <input type="radio" id="isRoutineYes" ng-disabled="isView" name="yes_no" value="1"
+                            ng-model="filter.type">
+                        <label class="text-bold" for="isRoutineYes">
+                            Informe por día
+                        </label>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error':Form.days.$dirty && Form.days.$invalid}">
+                        <ui-select name="days" ng-disabled="filter.type != 1" ng-model="filter.selectedDay"
+                            on-select="onSelectDay()" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in dayList | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-md-3 col-lg-3">
+                    <div class="radio clip-radio radio-success radio-inline">
+                        <input type="radio" id="isRoutineNo" ng-disabled="isView" name="yes_no" value="0"
+                            ng-model="filter.type">
+                        <label class="text-bold" for="isRoutineNo">
+                            Informe por mes
+                        </label>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                        <ui-select name="period" ng-disabled="filter.type != 0" ng-model="filter.selectedPeriod"
+                            on-select="onSelectPeriod()" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in periodList | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-md-3 col-lg-3">
+
+                    <div class="radio" style="margin-left: -17px;">
+                        <label class="text-bold" for="isRoutineNo" >Centro de trabajo</label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                    
+                            <ui-select name="selectedWorkplace" ng-disabled="filter.selectedDay == null && filter.selectedPeriod == null"
+                                ng-model="filter.selectedWorkplace" on-select="onSelectWorkplace()" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in workplaceList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="onClearWorkplace()" class="btn btn-default" ng-disabled="isView">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                
+                </div>
+
+
+            </div>
+
+            <!-- <div class="row row margin-top-10">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf()">
+                            Exportar Pdf
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="covid-indicator-export-pdf">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">GRÁFICAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Género
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-pie chart-options="chart.pie.options"
+                                        chart-data="chart.genre.data" height="200">
+                                    </canvas>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Embarazadas
+                                    </h5>
+
+                                    <ui-knob value="chart.pregnant.data" options="options"></ui-knob>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Casos con <span
+                                            class="text-bold">fiebre</span>
+                                        <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                            chart-data="chart.fever.data" height="300">
+                                        </canvas>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row margin-bottom-20">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Número de <span
+                                            class="text-bold">trabajadores</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-line chart-options="chart.bar.options"
+                                        chart-data="chart.employee.data" height="300">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        Casos por <span class="text-bold">nivel de riesgo</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.riskLevel.data" height="300">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        <span class="text-bold">Oximetría</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.oximetria.data" height="300">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        <span class="text-bold">Pulsometría</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.pulsometria.data" height="300">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">CASOS CON RIESGO</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.riskLevel.$dirty && Form.riskLevel.$invalid}">
+                                            <label class="control-label">Nivel de riesgo<span class=""></span></label>
+
+                                            <div class="input-group">
+
+                                                <ui-select name="riskLevel" ng-disabled="isView"
+                                                    ng-model="filter.selectedRiskLevel" on-select="onSelectRiskLevel()"
+                                                    theme="bootstrap">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                        repeat="item in riskLevelList | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                    
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onClearRiskLevel()" class="btn btn-default" ng-disabled="isView">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%"
+                                                    dt-instance="dtInstanceCustomerCovidRiskLevelCallback"
+                                                    dt-options="dtOptionsCustomerCovidRiskLevel"
+                                                    dt-columns="dtColumnsCustomerCovidRiskLevel" id="dtCustomerCovidRiskLevel"
+                                                    class="table table-bordered table-hover">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>

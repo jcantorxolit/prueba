@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerDiagnosticTabsCtrl">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable" active="tabActive">
+
+                        <uib-tab index="0" select="switchTab('tab_minimum_standard_0312','list')" ng-if="can('estandares_minimos_0312_open')">
+                            <uib-tab-heading>
+                                Estándares mínimos 0312
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_minimum_standard_0312').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab index="1" select="switchTab('tab_minimum_standard','list')">
+                            <uib-tab-heading>
+                                Estándares mínimos 1111
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_minimum_standard').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('tab_road_safety','list')" ng-if="can('seguridad_vial_open')">
+                            <uib-tab-heading>
+                                Seguridad Vial
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='tab_road_safety'  || tabsloaded.indexOf('tab_road_safety') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_road_safety').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('tab_matrix','list')" ng-if="can('diagnostico_plan_accion_create') && matrixType != 'S'">
+                            <uib-tab-heading>
+                                <span translate="views.RISK-MATRIX-TAB-TITLE">Matriz de Peligros</span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='tab_matrix'  || tabsloaded.indexOf('tab_matrix') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_matrix').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('tab_express_matrix','list')" ng-if="can('cliente_matriz_expres_open') && matrixType != 'S'">
+                            <uib-tab-heading>
+                                <span translate="views.EXPRESS-MATRIX-TAB-TITLE">Matriz Exprés</span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='tab_express_matrix'  || tabsloaded.indexOf('tab_express_matrix') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_express_matrix').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('tab_sg_sst','list')">
+                            <uib-tab-heading>
+                                SG-SST
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='tab_sg_sst'  || tabsloaded.indexOf('tab_sg_sst') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_sg_sst').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('tab_observation','list')" ng-if="can('diagnostico_plan_accion_create')">
+                            <uib-tab-heading>
+                                Observaciones
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='tab_observation'  || tabsloaded.indexOf('tab_observation') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_observation').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+            <!--
+                            <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+                                 ng-show="!loading">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                            Guardar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+            -->
+
+        </div>
+    </div>
+</div>

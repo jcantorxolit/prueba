@@ -1,0 +1,42 @@
+<div ng-controller="customerHealthDamageDisabilityPersonCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white ">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">ANÁLISIS DE INCAPACIDADES POR PERSONA</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success btn-o" ng-click="onExportExcel()">
+                                    Exportar Excel
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%"
+                                           dt-instance="dtInstanceHealthDamageDisabilityPerson"
+                                           dt-options="dtOptionsHealthDamageDisabilityPerson"
+                                           id="dtHealthDamageDisabilityPerson"
+                                           dt-columns="dtColumnsHealthDamageDisabilityPerson"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

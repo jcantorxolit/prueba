@@ -1,0 +1,49 @@
+<div class="row">
+
+    <div class="col-md-7">
+        <div class="form-group">
+            <label>
+                [[question.description]]
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>
+                [[question.article]]
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>
+                [[question.rateText]]
+            </label>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <label ng-switch="question.code">
+
+                <i class="fa fa-ban indicator" ng-style="{color:question.color}" ng-switch-when="na"></i>
+                <i class="fa fa-minus-circle indicator" ng-style="{color:question.color}" ng-switch-when="cp"></i>
+                <i class="fa fa-circle-o indicator" ng-style="{color:question.color}" ng-switch-when="nc"></i>
+                <i class="fa fa-check-circle-o indicator" ng-style="{color:question.color}" ng-switch-when="c"></i>
+                <i class="fa fa-question-circle indicator" ng-switch-default></i>
+
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                [[question.observation]]
+            </label>
+        </div>
+    </div>
+</div>
+<hr/>

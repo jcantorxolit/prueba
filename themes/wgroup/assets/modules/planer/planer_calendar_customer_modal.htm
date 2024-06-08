@@ -1,0 +1,86 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                    <label class="control-label">Asesor<span class="symbol required"></span></label>
+
+                                    <ui-select name="responsible" ng-required="true" ng-disabled="false" ng-model="event.agent"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in agents | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.responsible.$dirty && Form.responsible.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Tipo<span class="symbol required"></span></label>
+                                    <ui-select name="type" ng-required="true" ng-disabled="false" ng-model="event.type"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in typesTraking | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.title.$dirty && Form.title.$invalid}">
+                                    <label class="control-label">Actividad<span class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingresar título actividad"
+                                        class="form-control" name="title" ng-model="event.title" required />
+                                    <span class="error text-small block" ng-if="Form.title.$dirty && Form.title.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.startDate.$dirty && Form.startDate.$invalid}">
+                                    <label class="control-label">Fecha<span class="symbol required"></span></label>
+                                    <input class="form-control" kendo-date-time-picker k-options="datePickerConfig"
+                                        k-min="maxDate" k-ng-model="event.eventDate" style="width: 100%;" />
+                                    <span class="error text-small block" ng-if="Form.startDate.$dirty && Form.startDate.$invalid">La
+                                        fecha es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary btn-o">
+                Guardar
+            </button>
+        </div>
+</form>

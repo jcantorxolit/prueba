@@ -1,0 +1,86 @@
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: WIZARD FORM -->
+            <div id="wizard" class="swMain">
+                <!-- start: WIZARD SEPS -->
+                <ul>
+
+                    <li ng-click="form.goTo(Form, 0)">
+                        <a href class="itemwzr"
+                           ng-class="{'selected' : currentStep >= 0}">
+                            <div class="stepNumber">
+                                <span><i class="ti-briefcase wizard-ballon-icon" ng-class="{'text-primary' : currentStep >= 0}"></i></span>
+                            </div>
+                            <span class="stepDesc text-small"> CENTRO DE TRABAJO </span>
+                        </a>
+                    </li>
+
+                    <li ng-click="form.goTo(Form, 1)">
+                        <a href class="itemwzr"
+                           ng-class="{'selected' : currentStep >= 1}">
+                            <div class="stepNumber">
+                                <span><i class="ti-flag-alt-2 wizard-ballon-icon" ng-class="{'text-primary' : currentStep >= 1}"></i></span>
+                            </div>
+                            <span class="stepDesc text-small"> CONFIGURACIÓN DE PROCESO </span>
+                        </a>
+                    </li>
+
+
+                    <li ng-click="form.goTo(Form, 2)">
+                        <a href class="itemwzr"
+                           ng-class="{'selected' : currentStep >= 2}">
+                            <div class="stepNumber">
+                                <span><i class="ti-alert wizard-ballon-icon" ng-class="{'text-primary' : currentStep >= 2}"></i></span>
+                            </div>
+                            <span class="stepDesc text-small"> PELIGROS </span>
+                        </a>
+                    </li>
+
+
+                    <li ng-click="form.goTo(Form, 3)">
+                        <a href class="itemwzr"
+                           ng-class="{'selected' : currentStep >= 3}">
+                            <div class="stepNumber">
+                                <span><i class="ti-bar-chart wizard-ballon-icon" ng-class="{'text-primary' : currentStep >= 3}"></i></span>
+                            </div>
+                            <span class="stepDesc text-small"> TABLERO </span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- end: WIZARD SEPS -->
+
+                <!-- start: WIZARD STEP 1 -->
+                <div id="step-0" ng-show="currentStep == 0">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/work-place/customer_diagnostic_express_matrix_work_place.htm'">
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 1 -->
+
+                <!-- start: WIZARD STEP 2 -->
+                <div id="step-1" ng-show="currentStep == 1">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/job/customer_diagnostic_express_matrix_job.htm'">
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 2 -->
+
+                <!-- start: WIZARD STEP 3 -->
+                <div id="step-2" ng-show="currentStep == 2">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/hazard/customer_diagnostic_express_matrix_hazard.htm'">
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 3 -->
+
+                <!-- start: WIZARD STEP 4 -->
+                <div id="step-3" ng-show="currentStep == 3">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/dashboard/customer_diagnostic_express_matrix_dashboard.htm'">
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 4 -->
+            </div>
+            <!-- end: WIZARD FORM -->
+        </div>
+    </div>
+</div>
+<!-- start: WIZARD DEMO -->

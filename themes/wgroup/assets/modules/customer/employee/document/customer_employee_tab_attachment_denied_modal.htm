@@ -1,0 +1,44 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">Revisado Denegado</h4>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <label class="control-label">Acción</label>
+                <input ng-disabled="true" type="text"
+                       class="form-control" name="name"
+                       ng-model="document.tracking.action" required/>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Motivo
+                </label>
+                <textarea ng-disabled="isView"
+                          placeholder="Escribe aquí el motivo..."
+                          data-ng-model="document.tracking.description"
+                          class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cancelar
+    </button>
+    <button class="btn btn-primary btn-o" ng-click="onSave()">
+        Guardar
+    </button>
+</div>

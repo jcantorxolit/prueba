@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Formulario</title>
+    <link rel="shortcut icon" href="">
+
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css">-->
+    <link rel="stylesheet" href="{{ themePath }}/wgroup/assets/report/style.css">
+
+
+    <!--Archivos locales (para trabajar sin conexión a internet)
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/bootstrap-formhelpers.css">    -->
+
+
+    <!--[if IE]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="">
+    <div class="row">
+        <h1 class="titulo" style="margin-left: 200px">
+            Reporte de empleados
+        </h1>
+    </div>
+    <form action="" class="form-horizontal">
+        <div class="row form-group">
+            <div class="numero_formulario right">
+                <label for="">Nro Contrato</label>
+
+                <div class="placeholder">{{contract}}</div>
+            </div>
+
+            <div class="numero_formulario left">
+                <label for="">Fecha</label>
+
+                <div class="placeholder">{{"now"|date("d/m/Y", "America/Bogota")}}</div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <table style="border-collapse:collapse;border-spacing:0;border-color:#999;" width="100%">
+                <tr>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#c0c0c0;text-align:center;vertical-align:top">
+                        Numero <br>Identificacion
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Nombre
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Apellidos
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Centro de Trabajo
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Cargo
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Ocupacion
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Centro de Costos
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Estado
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Autoizacion
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top">
+                        Anexos
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;text-align:center;vertical-align:top"
+                        colspan="7">TRABAJO <br> ALTURA
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        COORDINADOR <br>TRABAJO ALTURA
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        RIESGO<br>ELECTRICO
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        MANEJO<br>DEFENSIVO
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        MANEJO_DE<br>QUIMICOS
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        MANEJO_DE<br>GRUAS
+                    </th>
+                    <th style="font-family:Arial, sans-serif;font-size:10px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#343434;background-color:#efefef;vertical-align:top">
+                        ESPACIOS<br>CONFINADOS
+                    </th>
+                </tr>
+
+                {% for r in data %}
+                <tr>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.documentNumber }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.firstName }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.lastName }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.workPlace }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.job }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.occupation }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.neighborhood }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.isActive }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.isAuthorized }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.Anexos }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top"
+                        colspan="7">{{r.TRABAJO_ALTURA }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.COORDINADOR_TRABAJO_ALTURA }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.RIESGO_ELECTRICO }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.MANEJO_DEFENSIVO }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.MANEJO_DE_QUIMICOS }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.MANEJO_DE_GRUAS }}</td>
+                    <td style="font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;vertical-align:top">{{ r.ESPACIOS_CONFINADOS }}</td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+    </form>
+</div>
+
+</body>
+
+</html>

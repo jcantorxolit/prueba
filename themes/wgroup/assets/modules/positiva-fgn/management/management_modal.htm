@@ -1,0 +1,341 @@
+<div class="panel-body ">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">UBICACIÓN DE LA ACTIVIDAD</span></h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label class="control-label">Regional</label>
+                            <input type="text" class="form-control" name="regional" ng-model="entity.regional"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="form-group"
+                            >
+                            <label class="control-label">Seccional</label>
+                            <input type="text" class="form-control" name="sectional" ng-model="entity.sectional"
+                                disabled />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE ACTIVIDAD FGN</span></h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <label class="control-label">EJE</label>
+                            <input type="text" class="form-control" name="axis" ng-model="entity.axis"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <label class="control-label">Acción</label>
+                            <input type="text" class="form-control" name="action" ng-model="entity.action"
+                                disabled />
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group" >
+                            <label class="control-label">Cod Actividad</label>
+                            <input type="text" class="form-control" name="fgnCode" ng-model="entity.fgnCode"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="form-group" >
+                            <label class="control-label">Actividad</label>
+                            <input type="text" class="form-control" name="activity" ng-model="entity.activity"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label class="control-label">Periodo</label>
+                            <input type="text" class="form-control" name="period" ng-model="entity.period"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label class="control-label">Meta Cobertura</label>
+                            <input type="text" class="form-control" name="goal" ng-model="entity.goalCoverage"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label class="control-label">Meta Cumplimiento</label>
+                            <input type="text" class="form-control" name="goal" ng-model="entity.goalCompliance"
+                                disabled />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE ACTIVIDAD CREA</span></h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <label class="control-label">Estrategia</label>
+                            <input type="text" class="form-control" name="strategy" ng-model="entity.strategy"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" >
+                            <label class="control-label">Modalidad</label>
+                            <input type="text" class="form-control" name="modality" ng-model="entity.modality"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" >
+                            <label class="control-label">Tipo Ejecución</label>
+                            <input type="text" class="form-control" name="executionType" ng-model="entity.executionType"
+                                disabled />
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group" >
+                            <label class="control-label">Código</label>
+                            <input type="text" class="form-control" name="gestposCode" ng-model="entity.gestposCode"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="form-group" >
+                            <label class="control-label">Actividad</label>
+                            <input type="text" class="form-control" name="activityGestpos" ng-model="entity.activityGestpos"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group" >
+                            <label class="control-label">Tarea</label>
+                            <input type="text" class="form-control" name="task" ng-model="entity.task"
+                                disabled />
+                        </div>
+                    </div>
+
+                    <br>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error':Form.adviceType.$dirty && Form.adviceType.$invalid}">
+
+                            <div class="radio-inline col-md-3" style="margin-left: -17px;">
+                                <label class="text-bold control-label" >Tipo de Asesoría: <span class="symbol required"></span></label>
+                            </div>
+
+                            <div class="col-md-3" ng-repeat="adviceType in adviceTypeList">
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="adviceType-[[adviceType.item]]" ng-required="action=='programming'" ng-disabled="isView || action=='execution'" name="adviceType"
+                                        ng-model="entity.adviceType" ng-value="adviceType.value">
+                                    <label class="text-bold" for="adviceType-[[adviceType.item]]">
+                                        [[ adviceType.item ]]
+                                    </label>
+                                </div>
+                            </div>
+
+                            <span class="error text-small block col-md-12" ng-if="Form.adviceType.$dirty && Form.adviceType.$invalid">
+                                El valor es requerido.
+                            </span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-white" ng-if="showCompliance() && entity.indicators.compliance.length">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INDICADOR DE CUMPLIMIENTO</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="panel-default">
+                                    <th scope="col" ng-if="action=='execution'"></th>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Tarea</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Aporta Indicador</th>
+                                    <th scope="col">Programado</th>
+                                    <th ng-if="action=='execution'" scope="col">Ejecutado <span class="symbol required"></span></th>
+                                    <th scope="col">H. Programadas</th>
+                                    <th ng-if="action=='execution'" scope="col">H. Ejecutadas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="task in entity.indicators.compliance">
+                                    <th ng-if="action=='execution'">
+                                        <a class="btn btn-primary btn-xs editRow lnk" href="#" uib-tooltip="Editar"
+                                           ng-click="onAddComplianceLog(task)"><i class="fa fa-pencil"></i></a>
+                                    </th>
+                                    <th scope="row"> [[ task.code ]] </th>
+                                    <td>[[ task.name ]]</td>
+                                    <td>[[ task.type ]]</td>
+                                    <td>[[ task.providesCompliance ]]</td>
+                                    <td>
+                                        <input type="text" ng-if="action=='programming'" ng-change="calculeInfoCompliance()" ng-model="task.programmed" >
+                                        <span ng-if="action=='execution'" > [[ task.programmed ]] </span>
+                                    </td>
+                                    <td ng-if="action=='execution'" ng-required="complianceExecutionIsRequired()">
+                                        <input type="text" ng-model="task.executed" ng-disabled="true">
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-if="action=='programming'" ng-model="task.hourProgrammed" >
+                                        <span ng-if="action=='execution'"> [[ task.hourProgrammed ]] </span>
+                                    </td>
+                                    <td ng-if="action=='execution'">
+                                        <input type="text" ng-model="task.hourExecuted" ng-disabled="true">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-white" ng-if="showCoverage() && entity.indicators.coverage.length">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INDICADOR DE COBERTURA</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="panel-default">
+                                    <th scope="col"></th>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Tarea</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Aporta Indicador</th>
+                                    <th scope="col">Convocados</th>
+                                    <th ng-if="action=='execution'" scope="col">Asistentes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="task in entity.indicators.coverage">
+                                    <th scope="row">
+                                        <a class="btn btn-warning btn-xs configRow lnk" href="#" ng-click="openCall(task)" uib-tooltip="Configurar" >
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </th>
+                                    <th> [[ task.code ]] </th>
+                                    <td>[[ task.name ]]</td>
+                                    <td>[[ task.type ]]</td>
+                                    <td>[[ task.providesCoverage ]]</td>
+                                    <td>
+                                         [[ task.call ]]
+                                    </td>
+                                    <td ng-if="action=='execution'">
+                                        [[ task.assistants ]]
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+
+                    <div class="col-md-6" ng-show="action=='execution'">
+                        <h4 class="text-info">
+                            <b>Porcentaje de Participación: [[ participationPercentage ]]%</b>
+                        </h4>
+                    </div>
+
+                    <div ng-class="(action=='execution') ? 'col-md-6' : 'col-md-12' " class="padding-right-30">
+                        <div class="float-right">
+                            <h4 class="text-info">
+                                <b>Total: [[ totalValues ]] </b>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row padding-vertical-20 padding-right-10">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button id="btnSave" type="submit" class="btn btn-primary" >
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onFinish()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

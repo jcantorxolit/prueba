@@ -1,0 +1,140 @@
+<div>
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">REGISTRO DE MÉTRICAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <uib-accordion>
+                            <div uib-accordion-group class="panel-default"  is-open="true">
+                                <uib-accordion-heading>
+                                    <b> [[ experience ]]</b> <i class="pull-right glyphicon"
+                                        ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+                                </uib-accordion-heading>
+
+                                <div ng-repeat="scene in entity.questionList" ng-class="{'margin-top-10': $index>0}">
+                                    <div class="well-sm label-default col-md-6 " colspan="2">
+                                        <b class="text-white">[[ scene.scene ]]</b>
+                                    </div>
+                                    <div class="margin-top-10 margin-left-10">
+                                        <div class="row" ng-repeat="question in scene.questions">
+
+                                            <div class="col-md-12 padding-top-5">
+                                                <div class="col-md-6">
+                                                    <label for=""> <b>[[ question.description ]]</b> </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ui-select name="answer" ng-disabled="isView" ng-model="question.answer"
+                                                        theme="bootstrap" ng-change="updateForm()">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                        repeat="option in applicationOptions | filter: $select.search track by $index">
+                                                        <div ng-bind-html="option.item | highlight: $select.search">
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+    
+    
+                                            <div class="col-md-6">
+                                                <div style="position: relative;"
+                                                    ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid && question.answer.value == 'NA' && !question.observation}">
+                                                    <input type="text" ng-model="question.observation"
+                                                        ng-required="question.answer.value == 'NA' || question.answer.value == 'NU'" class="form-control"
+                                                        name="observation"
+                                                        ng-disabled="isView || question.answer.value != 'NA' && question.answer.value != 'NU'"
+                                                        ng-change="updateForm()">
+    
+                                                    <span class="error text-small block"
+                                                        ng-if="Form.observation.$dirty && Form.observation.$invalid && question.answer.value == 'NA' && !question.observation">La
+                                                        justificación es requerida</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </uib-accordion>
+
+                        <uib-accordion>
+                            <div uib-accordion-group class="panel-default" is-open="true">
+                                <uib-accordion-heading>
+                                    <b> Observación </b> <i class="pull-right glyphicon"
+                                        ng-class="{'glyphicon-chevron-down': isOpenObs, 'glyphicon-chevron-right': !isOpenObs}"></i>
+                                </uib-accordion-heading>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo Observación<span class=""></span></label>
+
+                                            <ui-select name="observationType" ng-required="false" ng-disabled="isView"
+                                                ng-model="entity.observationType" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in observationTypes | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Observación<span class=""></span></label>
+                                            <textarea name="observationValue" class="form-control" rows="3" ng-disabled="isView"
+                                                ng-model="entity.observationValue" maxlength="200">
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </uib-accordion>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 padding-bottom-20">
+            <div class="pull-right">
+
+                <button type="submit" class="btn btn-primary btn-o back-step btn-wide" ng-if="!isView">
+                    Guardar
+                </button>
+
+                <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                    Cerrar
+                </button>
+
+                <button type="button" class="btn btn-primary btn-o next-step btn-wide"
+                    ng-if="nextEnable" ng-click="onNext(Form)"
+                    ng-disabled="isView">
+                    Siguiente
+                </button>
+
+                <button type="button" class="btn btn-primary next-step btn-wide" ng-click="onFinish()"
+                    ng-if="finishEnable" ng-disabled="isView">
+                    Finalizar
+                </button>
+            </div>
+        </div>
+
+
+    </form>
+</div>

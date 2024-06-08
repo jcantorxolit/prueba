@@ -1,0 +1,78 @@
+description = "Header para el layout publico"
+==
+<!DOCTYPE html>
+<html lang="es" data-ng-app="wgApp">
+    <head>
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="[[app.description]]">
+        <meta name="keywords" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <title data-ng-bind="pageTitle()"></title>
+
+        <base href="{{ config('cms.rootUri','/') }}">
+
+        <!-- Google fonts -->
+        <link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{{'assets/vendor/bootstrap/dist/css/bootstrap.min.css'|theme}}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{'assets/vendor/font-awesome/css/font-awesome.min.css'|theme}}">
+        <!-- Themify Icons -->
+        <link rel="stylesheet" href="{{'assets/vendor/themify-icons/css/themify-icons.css'|theme}}">
+        <!-- Loading Bar -->
+        <link rel="stylesheet" href="{{'assets/vendor/angular-loading-bar/build/loading-bar.min.css'|theme}}">
+        <!-- Animate Css -->
+        <link rel="stylesheet" href="{{'assets/vendor/animate.css/animate.min.css'|theme}}">
+        <!-- Clip-Two CSS -->
+        <link rel="stylesheet" href="{{'assets/css/styles.css'|theme}}">
+        <link rel="stylesheet" href="{{'assets/css/plugins.css'|theme}}">
+        <!-- Clip-Two Theme -->
+        <link rel="stylesheet" data-ng-href="{{'assets/css/themes/[[ app.layout.theme ]].css'|theme}}" />
+
+        <!-- kendo-ui Theme -->
+        <link href="{{'assets/vendor/kendo-ui/styles/kendo.common.min.css'|theme}}" rel="stylesheet">
+        <link href="{{'assets/vendor/kendo-ui/styles/kendo.rtl.min.css'|theme}}" rel="stylesheet">
+        <link href="{{'assets/vendor/kendo-ui/styles/kendo.silver.min.css'|theme}}" rel="stylesheet">
+        <link href="{{'assets/vendor/kendo-ui/styles/kendo.dataviz.min.css'|theme}}" rel="stylesheet">
+        <link href="{{'assets/vendor/kendo-ui/styles/kendo.dataviz.default.min.css'|theme}}" rel="stylesheet">
+
+        <!-- FishBone -->
+        <link href="{{'assets/vendor/d3-fishbone-angular/dist/css/d3.fishbone.min.css'|theme}}" rel="stylesheet">
+
+        <!-- image-gallery -->
+        <link href="{{'assets/vendor/ng-image-gallery/ng-image-gallery.min.css'|theme}}" rel="stylesheet">
+
+        <!-- Angular Sweet Alert-->
+        <link href="{{'assets/vendor/sweetalert/dist/sweetalert.css'|theme}}" rel="stylesheet">
+
+        <!-- Angular Confirm-->
+        <!-- <link href="{{'assets/vendor/angular-confirm1/dist/angular-confirm.min.css'|theme}}" rel="stylesheet"> -->
+
+        <!-- favicon-->
+        <link rel="shortcut icon" href="{{'assets/images/favicon.ico'|theme}}" />
+
+        <script type="text/javascript" >
+            var sessiontoken = '{{ token() }}';
+            var sess = '{{ keysess() }}';
+
+            try {
+                window.appName = "{{ config('cms.appName','SG-SST') }}";
+                window.themeRootUrl = "{{'assets'|theme}}/";
+                window.rootUrl = "{{config('cms.rootUri','/wgroup/') }}";
+                window.appName = "{{ config('cms.appName','SG-SST') }}";
+                window.instance = "{{ config('cms.instance','beta') }}";
+                window.enableAutoRegister = "{{ config('cms.enableAutoRegister', false) }}";
+
+            } catch (e) {
+            }
+
+        </script>
+
+    </head>
+    <body ng-controller="AppCtrl">
+        <div ui-view id="app" ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"></div>

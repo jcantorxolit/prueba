@@ -1,0 +1,310 @@
+<div ng-controller="configurationMinimumStandardItemEdit0312Ctrl">
+    <form name="Form" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.parent.$dirty && Form.parent.$invalid}">
+                                    <label class="control-label">Estándar (Padre)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="parent" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectParent()" ng-model="standard.minimumStandardParent"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in parentList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                            <small>
+                                                Ciclo: <span
+                                                    ng-bind-html="''+item.cycle | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.parent.$dirty && Form.parent.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-11">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.standard.$dirty && Form.standard.$invalid}">
+                                    <label class="control-label">Sub - Estándar (Hijo)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="standard" ng-required="true" ng-disabled="isView"
+                                        ng-model="standard.minimumStandard" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in standardList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.standard.$dirty && Form.standard.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="isView" ng-model="standard.isActive" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.numeral.$dirty && Form.numeral.$invalid}">
+                                    <label class="control-label">Numeral<span class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Numeral" class="form-control"
+                                        name="numeral" ng-model="standard.numeral" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.numeral.$dirty && Form.numeral.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                    <label class="control-label">Descripción<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                        class="form-control" name="description" ng-model="standard.description"
+                                        required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.description.$dirty && Form.description.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.value.$dirty && Form.value.$invalid}">
+                                    <label class="control-label">Valor<span class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Numeral" class="form-control"
+                                        name="value" ng-model="standard.value" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.value.$dirty && Form.value.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.item.$dirty && Form.item.$invalid}">
+                                    <label class="control-label">Item<span class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                        class="form-control" name="item" ng-model="standard.item" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.item.$dirty && Form.item.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">MARCO LEGAL</span>
+                        </h4>
+
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top'
+                                uib-tooltip="Adicionar" ng-click="onAddLegalFramework()"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-11">
+
+                                <label class="control-label">
+                                    Descripción
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row" ng-repeat="item in standard.legalFrameworkList">
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.descriptionLegalFramework.$dirty && Form.descriptionLegalFramework.$invalid}">
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                        class="form-control" name="descriptionLegalFramework"
+                                        ng-model="item.description" />
+                                    <span class="error text-small block"
+                                        ng-if="Form.descriptionLegalFramework.$dirty && Form.descriptionLegalFramework.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-1" ng-if="standard.legalFrameworkList.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                            uib-tooltip="Eliminar" ng-click="onRemoveLegalFramework($index)"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 margin-bottom-15">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-controller="configurationMinimumStandardItemCriterionEdit0312Ctrl">
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)" ng-if="currentParentId > 0">
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">CRITERIO</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.size.$dirty && Form.size.$invalid}">
+                            <label class="control-label">
+                                <span class="symbol required">Tamaño empresa</span>
+                            </label>
+                            <ui-select name="size" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                ng-model="entity.size">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in sizeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.size.$dirty && Form.size.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.riskLevel.$dirty && Form.riskLevel.$invalid}">
+                            <label class="control-label">
+                                <span class="symbol required">Clase de riesgo</span>
+                            </label>
+                            <ui-select name="riskLevel" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                ng-model="entity.riskLevel">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in riskLevelList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.riskLevel.$dirty && Form.riskLevel.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                            <label class="control-label">
+                                <span class="symbol required">Criterio</span>
+                            </label>
+                            <textarea ng-disabled="isView" type="text" placeholder="Ingresar Criterio "
+                                class="form-control" name="description" rows="2" ng-model="entity.description"
+                                required></textarea>
+                            <span class="error text-small block"
+                                ng-if="Form.description.$dirty && Form.description.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceMinimumStandardItemCriterion0312Callback"
+                                    dt-options="dtOptionsMinimumStandardItemCriterion0312"
+                                    dt-columns="dtColumnsMinimumStandardItemCriterion0312"
+                                    id="dtMinimumStandardItemCriterion0312" class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </form>
+</div>

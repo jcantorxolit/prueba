@@ -1,0 +1,136 @@
+<h5 class="over-title margin-bottom-15"><span class="text-bold"> [[ entity.process.name ]] </span></h5>
+
+<p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+    Asigne los cargos correspondientes al proceso
+</p>
+
+<h4 class="margin-top-20" ng-if="entity.jobList.length > 0">Cargos</h4>
+<div class="row margin-bottom-20" ng-if="entity.jobList.length > 0">
+    <div class="col-md-3"></div>
+    <div class="col-md-1">Activo</div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-xs-8 col-md-9 col-lg-9"></div>
+            <div class="col-xs-3 col-md-3 col-lg-3 text-right padding-right-30">
+                Tarea rutinaria
+                <i class="ti-info-alt text-primary" tooltip-placement="left" uib-tooltip-html="htmlTooltip"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row margin-bottom-20" ng-if="entity.jobList.length == 0 && processListToDuplicate.length > 0">
+    <div class="col-md-12" ng-class="{'margin-bottom-20': toogleOnDuplicate}">
+        <a class="btn-link link-underline" href="#" ng-click="toogleOnDuplicate = !toogleOnDuplicate">
+            <i class="fa fa-plus-circle"></i>
+            Duplicar Cargos
+        </a>
+    </div>
+    <div data-ng-animate="'wave'" class="margin-bottom-20 fade-in-down" ng-if="toogleOnDuplicate"
+        ng-repeat="process in processListToDuplicate">
+        <div class="row">
+            <div class="col-md-12 margin-left-30">
+                <a class="btn-link link-underline" href="#" ng-click="onDuplicate(process)">
+                    <i class="fa fa-plus-circle"></i>
+                    [[process.name]]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="margin-bottom-20" ng-repeat="job in entity.jobList">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" ng-disabled="isView || job.id > 0" name="job[[$index]]" k-data-value-field="'id'"
+                        kendo-auto-complete k-data-text-field="'name'" k-min-length="1" k-enforce-min-length="true"
+                        ng-model="job.name" k-data-source="availableJobList" class="form-control" style="width: 100%" />
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="onRemoveJob($index)" ng-disabled="isView" uib-tooltip="Eliminar"
+                            tooltip-placement='left' class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1 border-right">
+            <div class="form-group">
+                <div class="checkbox" style="margin-top: 0px !important;">
+                    <switch disabled="isView" ng-model="job.isActive" on="Si" off="No" class="green"></switch>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 border-left">
+
+            <div ng-repeat="activity in job.activityList">
+                <div class="row">
+                    <div class="col-xs-8 col-md-9 col-lg-9">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" ng-disabled="isView || activity.id > 0" name="activity_[[$parent.$index]]_[[$index]]"
+                                    kendo-auto-complete k-data-value-field="'id'" k-data-text-field="'name'"
+                                    k-min-length="1" k-enforce-min-length="true" ng-model="activity.name"
+                                    k-data-source="availableActivityList" class="form-control" style="width: 100%" />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onRemoveActivity(job, $index)"
+                                        uib-tooltip="Eliminar" tooltip-placement='left' ng-disabled="isView"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3 col-md-3 col-lg-3 padding-left-0">
+                        <div class="pull-right">
+                            <div class="radio clip-radio radio-success radio-inline">
+                                <input type="radio" id="isRoutineYes_[[$parent.$index]]_[[$index]]" ng-disabled="isView"
+                                    name="yes_no_[[activity.id]]" value="1" ng-model="activity.isRoutine">
+                                <label class="text-bold" for="isRoutineYes_[[$parent.$index]]_[[$index]]">
+                                    Si
+                                </label>
+                            </div>
+
+                            <div class="radio clip-radio radio-success radio-inline">
+                                <input type="radio" id="isRoutineNo_[[$parent.$index]]_[[$index]]" ng-disabled="isView"
+                                    name="yes_no_[[activity.id]]" value="0" ng-model="activity.isRoutine">
+                                <label class="text-bold" for="isRoutineNo_[[$parent.$index]]_[[$index]]">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <a class="btn-link link-underline" href="#" ng-click="onAddActivity(job)"
+                            ng-if="job.isActive && !isView">
+                            <i class="fa fa-plus-circle"></i>
+                            Agregar nueva actividad
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+</div>
+
+<a class="btn-link link-underline" href="#" ng-click="onAddJob()" ng-if="!isView">
+    <i class="fa fa-plus-circle"></i>
+    Agregar nuevo cargo
+</a>

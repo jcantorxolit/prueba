@@ -1,0 +1,224 @@
+<div ng-controller="configurationManagementQuestionListCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Programa<span class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="type" ng-required="true" ng-disabled="isview"
+                                            ng-model="question.program" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in programs | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.type.$dirty && Form.type.$invalid">El programa es
+                                            requerido</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshProgram()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.macro.$dirty && Form.macro.$invalid}">
+                                    <label class="control-label">Categoría<span class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="macro" ng-required="true"
+                                            ng-disabled="isview || categories.length == 0" ng-model="question.category"
+                                            theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in categories | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.macro.$dirty && Form.macro.$invalid">La categoría es
+                                            requerida</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshCategory()" class="btn btn-default"
+                                                ng-disabled="isview || macros.length == 0">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label">Pregunta<span class="symbol required"></span></label>
+
+                                    <textarea ng-disabled="isView" type="text" placeholder="Ingrese la pregunta"
+                                        rows="5" class="form-control" name="name" ng-model="question.name"
+                                        required></textarea>
+
+                                    <span class="error text-small block"
+                                        ng-if="Form.name.$dirty && Form.name.$invalid">La pregunta es requerida</span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.article.$dirty && Form.article.$invalid}">
+                                    <label class="control-label">Artículo<span class="symbol required"></span></label>
+                                    <input ng-disabled="isview" type="text" placeholder="Ingrese el artículo"
+                                        class="form-control" name="article" ng-model="question.article" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.article.$dirty && Form.article.$invalid">El artículo es
+                                        requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                    <label class="control-label">Estado<span class="symbol required"></span></label>
+
+                                    <ui-select name="status" ng-required="true" ng-disabled="isview"
+                                        ng-model="question.status" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in status | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.status.$dirty && Form.status.$invalid">El estado es requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3" ng-if="question.program.isWeighted">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.weightedValue.$dirty && Form.weightedValue.$invalid}">
+                                    <label class="control-label">Valor<span class="symbol required"></span></label>
+                                    <input type="text" placeholder="Ingrese el valor" ng-disabled="isView"
+                                        class="form-control" name="tax" id="weightedValue" name="weightedValue"
+                                        ng-required="true" ng-model="question.weightedValue" touchspin
+                                        data-min="0" data-max="100" data-step="0.1" data-decimals="2" data-boostat="5"
+                                        data-maxboostedstep="10" data-postfix="%">
+                                    <span class="error text-small block"
+                                        ng-if="Form.weightedValue.$dirty && Form.weightedValue.$invalid">El valor es
+                                        requerido</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row" ng-if="question.program.isWeighted">
+                            <div class="col-sm-9">
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="partition-light-grey padding-15 text-center margin-bottom-20">
+                                    <h4 class="no-margin">Total <span class="text-bold">Valor Pendiente Ponderar</span>
+                                    </h4>
+                                    <span class="text-light"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="text-center margin-bottom-15 rate">
+                                            <span class="value">[[ pendingValue() ]]</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowactions actionswzr">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button class="btn btn-primary" ng-if="!isview" ng-click="save()">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clear()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">PREGUNTAS</span></h4>
+
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Refrescar"
+                            ng-click="reloadData()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceConfigManagementQuestion"
+                                        dt-options="dtOptionsConfigManagementQuestion"
+                                        dt-columns="dtColumnsConfigManagementQuestion" id="dtConfigManagementQuestion"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

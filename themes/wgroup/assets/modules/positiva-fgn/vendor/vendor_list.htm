@@ -1,0 +1,60 @@
+
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="CONFIGURACIÓN DE PROVEEDORES">CONFIGURACIÓN DE PROVEEDORES</h1>
+                <span class="mainDescription">En esta ventana podrás crear, listar y configurar los proveedores.</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="vendorListCtrl">
+           
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big"
+                        data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">PROVEEDORES</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="btn btn-wide btn-green" href="#" ng-click="onCreate()" ><i class="glyphicon glyphicon-plus"></i> Nuevo
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstancePositivaFgn"
+                                                dt-options="dtOptionsPositivaFgn" id="dtPositivaFgn" dt-columns="dtColumnsPositivaFgn"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

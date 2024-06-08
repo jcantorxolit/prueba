@@ -1,0 +1,42 @@
+{
+  "name": "d3-fishbone-angular",
+  "title": "D3 Fishbone Angular directive",
+  "description": "This is a Fishbone or Ishikawa diagram Angular directive",
+  "license": "MIT",
+  "keywords": [
+    "d3",
+    "fishbone",
+    "Ishikawa",
+    "diagram",
+    "angular",
+    "directive"
+  ],
+  "homepage": "https://github.com/umitgunduz/d3-fishbone-angular",
+  "author": {
+    "name": "Umit Gunduz",
+    "url": "https://github.com/umitgunduz/d3-fishbone-angular"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/umitgunduz/d3-fishbone-angular"
+  },
+  "bugs": "https://github.com/umitgunduz/d3-fishbone-angular/issues",
+  "dependencies": {
+    "angular": ">=1.5.0",
+    "d3": ">=3.4.1"
+  },
+  "main": [
+    "dist/js/d3.fishbone.angular.js",
+    "dist/css/d3.fishbone.css"
+  ],
+  "authors": [
+    "umit gunduz <umitgunduz@yahoo.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

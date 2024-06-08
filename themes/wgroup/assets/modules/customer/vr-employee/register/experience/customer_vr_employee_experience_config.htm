@@ -1,0 +1,43 @@
+<div ng-controller="customerVrEmployeeExperienceConfigCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">CONFIGURACIÓN DE LAS EXPERIENCIAS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div ng-repeat="item in experienceList">
+                            <div class="form-inline">
+                                <div class="radio" style="margin-top: 0px !important;">
+                                    <switch disabled="isView" ng-model="item.isActive" on="Si" off="No" class="green"></switch>
+                                </div>
+                                <label class="padding-horizontal-5 vertical-align-middle">
+                                    <b>[[ item.experience ]]</b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <br>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">
+                                Continuar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

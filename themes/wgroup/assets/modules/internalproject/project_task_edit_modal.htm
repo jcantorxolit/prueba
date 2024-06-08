@@ -1,0 +1,173 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Información de la Tarea</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="over-title margin-bottom-15">
+                    <span class="text-bold">Actividad: [[project.name]]</span>
+                </h5>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <h4 class="panel-title">
+                        <span class="text-bold">[[project.customerName]]</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row Accordion-paneHeader">
+            <div class="col-md-12">
+                <p>
+                    [[project.description]]
+                </p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                    <label class="control-label">Tarea<span class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text" placeholder="Ingrese el título de la tarea"
+                        class="form-control" name="name" ng-model="entity.task" required />
+                    <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid">El registro es
+                        requrido</span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group"
+                    ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                    <label class="control-label">Tipo<span
+                            class="symbol required"></span></label>
+                    <ui-select ng-disabled="isView" ng-model="entity.type"
+                        theme="bootstrap" name="type" ng-required="true">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.value]]
+                        </ui-select-match>
+                        <ui-select-choices
+                            repeat="item in taskTypes | orderBy:'id' | filter: $select.search track by $index">
+                            <div ng-bind-html="item.value | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="error text-small block"
+                        ng-if="Form.type.$dirty && Form.type.$invalid">El registro es
+                        requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Descripción
+                    </label>
+                    <textarea ng-disabled="isView" placeholder="Escribe aquí la descripción de la tarea..."
+                        data-ng-model="entity.observation" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{'has-error':Form.startDateTime.$dirty && Form.startDateTime.$invalid}">
+                    <label class="control-label">Inicio<span class="symbol required"></span></label>
+                    <input type="text" placeholder="dd/MM/yyyy"
+                        kendo-date-picker k-options="datePickerConfig"
+                        style="width: 100%;"
+                        k-on-change="onChangeStartDate(kendoEvent)"
+                        class="form-control" name="startDateTime"  k-ng-model="entity.startDateTime" required />
+                    <span class="error text-small block" ng-if="Form.startDateTime.$dirty && Form.startDateTime.$invalid">El registro es
+                        requrido</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{'has-error':Form.endDateTime.$dirty && Form.endDateTime.$invalid}">
+                    <label class="control-label">Fin<span class="symbol required"></span></label>
+                    <input type="text" placeholder="dd/MM/yyyy"
+                        kendo-date-picker k-options="datePickerConfig"
+                        style="width: 100%;"
+                        k-min="maxDate" k-rebind="maxDate"
+                        class="form-control" name="endDateTime"  k-ng-model="entity.endDateTime" required />
+                    <span class="error text-small block" ng-if="Form.endDateTime.$dirty && Form.endDateTime.$invalid">El registro es
+                        requrido</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{'has-error':Form.duration.$dirty && Form.duration.$invalid}">
+                    <label class="control-label"> Duración (Horas) <span class="symbol required"></span> </label>
+                    <input type="text" placeholder="Horas estimadas" class="form-control"
+                        ui-number-mask="0"
+                        name="duration" ng-model="entity.duration" required />
+                    <span class="error text-small block" ng-if="Form.duration.$dirty && Form.duration.$invalid">El registro es requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="reschedule">
+            <label>
+                <h4 class="panel-title text-primary">Seguimiento Tarea</h4>
+            </label>
+        </div>
+
+        <div class="row" ng-if="reschedule">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">Acción</label>
+                    <input ng-disabled="true" type="text" class="form-control" name="name"
+                        ng-model="entity.tracking.action" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="reschedule">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Motivo
+                    </label>
+                    <textarea placeholder="Escribe aquí el motivo..." data-ng-model="entity.tracking.description"
+                        class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-danger btn-o" ng-click="cancel()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-o">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Tareas</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive" id="dtActivity" style="margin-left: 2px;">
+                    <table datatable="" width="100%" dt-instance="dtInstanceTask" dt-options="dtOptionsTask"
+                        dt-columns="dtColumnsTask" class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer"></div>
+</form>

@@ -1,0 +1,46 @@
+
+<div ng-controller="associatedTaskListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">TAREAS ASOCIADAS</span></h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <div class="form-inline">
+                                    <label class="margin-right-5">
+                                        <b>Ver Dependientes</b>
+                                    </label>
+                                    <div class="radio" style="margin-top: 10px !important;">
+                                        <switch ng-change="onViewDependents()" ng-model="entity.showDependents" class="green"></switch>
+                                    </div>
+                                    <a class="btn btn-rounded btn-green margin-left-15" href="#" ng-click="onAddTask()"><i
+                                            class="glyphicon glyphicon-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceAssociatedtask"
+                                        dt-options="dtOptionsAssociatedtask" id="dtAssociatedtask" dt-columns="dtColumnsAssociatedtask"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

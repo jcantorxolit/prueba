@@ -1,0 +1,127 @@
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="ASIGNACION DE ASESORES">Filtrar Asesores</h1>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="consultantAssignmentCtrl">
+
+            <div class="panel-body ">
+                <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA</span></h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-5">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.regional.$dirty && Form.regional.$invalid}">
+                                        <label class="control-label">Regional</label>
+                                        <ui-select name="regional" ng-required="true" ng-disabled="isView"
+                                            on-select="filterSectional()" ng-model="entity.regional" theme="bootstrap">
+                                            <ui-select-match placeholder="- Opción -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in regionalList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.sectional.$dirty && Form.sectional.$invalid}">
+                                        <label class="control-label">Seccional</label>
+                                        <ui-select name="sectional" ng-required="true" ng-model="entity.sectional"
+                                            theme="bootstrap">
+                                            <ui-select-match placeholder="- Opción -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in sectionalList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy}">
+                                        <label class="control-label">Estrategia</label>
+                                        <ui-select name="strategy" ng-required="true" ng-model="entity.strategy"
+                                            theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices ui-disable-choice="valideSingle(item)"
+                                                repeat="item in strategyList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy">
+                                            El valor es requerido.</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <br>
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-info" ng-click="onFilter()">Buscar</button>
+                                        <button type="button" class="btn btn-info btn-o"
+                                            ng-click="form.reset()">Limpiar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <!-- List -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-10 col-sm-10">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">ASESORES</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12 col">
+                                        <div>
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%" dt-instance="dtInstancePositivaFgn"
+                                                    dt-options="dtOptionsPositivaFgn" id="dtPositivaFgn"
+                                                    dt-columns="dtColumnsPositivaFgn"
+                                                    class="table table-bordered table-hover"></table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

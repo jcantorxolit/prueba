@@ -1,0 +1,108 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS - FILA [[ entity.index
+                                ]]</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label" translate="grid.matrix.WORK-PLACE">Centro de
+                                        Trabajo<span class="symbol required"></span></label>
+                                    <div class="input-group">
+                                        <ui-select name="type" ng-required="true" ng-disabled="isView"
+                                            ng-model="entity.workplace" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in workplaceList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshWorkPlace()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="error text-small block"
+                                        ng-if="Form.type.$dirty && Form.type.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label" translate="grid.matrix.MACROPROCESS">Macroproceso<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView || entity.workplace.type == 'PCS'" type="text" placeholder="Ingrese el registro"
+                                        class="form-control" name="name" ng-model="entity.name" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.name.$dirty && Form.name.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                    <label class="control-label">Estado<span class="symbol required"></span></label>
+
+                                    <ui-select name="status" ng-required="true" ng-disabled="isView"
+                                        ng-model="entity.status" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in statusList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.status.$dirty && Form.status.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Importar
+        </button>
+    </div>
+</form>

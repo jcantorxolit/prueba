@@ -1,0 +1,39 @@
+<div ng-controller="customerCovidPersonNearListCtrl">
+
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">PERSONAS CERCANAS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12" ng-if="exportExcel">
+                        <div class="pull-right">
+                            <button type="button" ng-click="onExportExcel()" tooltip-placement='top'
+                                uib-tooltip="Exportar Excel" class="btn btn-success btn-o" >
+                                <li class="fa fa-file-excel-o"></li> Exportar Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceCovidCallback"
+                                    dt-options="dtOptionsCovid"
+                                    dt-columns="dtColumnsCovid" 
+                                    id="dtCovid"
+                                    class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</div>

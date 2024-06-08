@@ -1,0 +1,137 @@
+<div ng-controller="customerMatrixConfigWizardTabAspectEditCtrl">
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label">
+                                        Aspecto
+                                        <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" placeholder="Nombre de actividad" ng-disabled="isView"
+                                           class="form-control" name="name"
+                                           id="name"
+                                           ng-model="aspect.name" required>
+                                    <span class="error text-small block"
+                                          ng-if="Form.name.$dirty && Form.name.$invalid">El aspecto es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="isView" ng-model="aspect.isActive" class="green"></switch>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">IMPACTOS RELACIONADOS</span>
+                        </h4>
+
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm"
+                               tooltip-placement='top' uib-tooltip="Adicionar"
+                               ng-click="onAddImpact()"><i
+                                    class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <label class="control-label">
+                                    Impacto
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" ng-repeat="item in aspect.impacts">
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.impact.$dirty && Form.impact.$invalid}">
+                                    <div class="input-group">
+                                        <ui-select ng-disabled="false" ng-model="item.impact" theme="bootstrap" required>
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in impactList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onRefreshImpact()"
+                                                    class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"
+                                 ng-if="aspect.impacts.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <a href='#' class="btn btn-danger btn-o btn-sm"
+                                           tooltip-placement='top'
+                                           uib-tooltip="Eliminar"
+                                           ng-click="onRemoveImpact($index)"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+
+</div>

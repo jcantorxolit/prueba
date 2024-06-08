@@ -1,0 +1,29 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Documentos guía de implementación diagnóstico">Documentos guía de implementación diagnóstico</h1>
+            <span class="mainDescription">Desde aquí podrá administrar los documentos propuesto Sylogi como guía de implementación del diagnóstico..</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: RESPONSIVE TABLE -->
+<div class="container-fluid container-fullw bg-white" ng-controller="configurationProgramPreventionDocumentListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i class="glyphicon glyphicon-plus"></i> Crear documento</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" id="dtProgramPreventionDocument" width="100%" dt-instance="dtInstanceProgramPreventionDocument" dt-options="dtOptionsProgramPreventionDocument" dt-columns="dtColumnsProgramPreventionDocument"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+</div>
+<!-- end: RESPONSIVE TABLE -->

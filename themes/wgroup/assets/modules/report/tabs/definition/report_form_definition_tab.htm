@@ -1,0 +1,187 @@
+<div class="tab1">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Definición básica:</legend>
+            <div class=" row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                        <label class="control-label">Nombre <span class="symbol required"></span></label>
+                        <input ng-disabled="isview" type="text" placeholder="Ingrese el nombre del reporte"
+                            class="form-control" name="name" ng-model="report.name" required />
+                        <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es
+                            requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label>
+                            Descripción
+                        </label>
+
+                        <textarea ng-disabled="isview" placeholder="Escribe aquí la descripción del reporte"
+                            data-ng-model="report.description" class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Acceso clientes
+                        </label>
+
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="report.allowCustomer" on="Si" off="No" class="green">
+                            </switch>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Acceso aseores
+                        </label>
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="report.allowAgent" on="Si" off="No" class="green">
+                            </switch>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Ejecución desatendida (Se notifica cuando termina la exportación)
+                        </label>
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="report.isQueue" on="Si" off="No" class="green"></switch>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>
+                            Requiere filtros
+                        </label>
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="report.requireFilter" on="Si" off="No" class="green">
+                            </switch>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Activo
+                        </label>
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="report.isActive" on="Si" off="No" class="green">
+                            </switch>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Colección de datos / Campos:</legend>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                        <label class="control-label">
+                            Colección
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="collection" ng-disabled="isview" ng-model="report.collection"
+                            ng-required="true" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="item in collectionsReport | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.status.$dirty && Form.status.$invalid">La
+                            colección es requerida</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <select ng-model="report.fields"
+                        ng-options="obj as obj.alias for obj in report.collection.dataFields track by obj.id" multiple
+                        bs-duallistbox bootstrap2="[[ settings.bootstrap2 ]]"
+                        move-on-select="[[ settings.moveOnSelect ]]"
+                        preserve-selection="[[ settings.preserveSelection ]]"
+                        move-selected-label="[[ settings.moveSelectedLabel ]]"
+                        move-all-label="[[ settings.moveAllLabel ]]"
+                        remove-selected-label="[[ settings.removeSelectedLabel ]]"
+                        remove-all-label="[[ settings.removeAllLabel ]]"
+                        non-selected-list-label="[[ settings.nonSelectedListLabel ]]"
+                        selected-list-label="[[ settings.selectedListLabel ]]" postfix="[[ settings.postfix ]]"
+                        select-min-height="[[ settings.selectMinHeight ]]" filter="[[ settings.filter ]]"
+                        filter-values="[[ settings.filterValues ]]" filter-non-selected="settings.filterNonSelected"
+                        filter-selected="settings.filterSelected" filter-placeholder="[[ settings.filterPlaceholder ]]"
+                        filter-clear="[[ settings.filterClear ]]" info-all="[[ settings.infoAll ]]"
+                        info-filtered="[[ settings.infoFiltered ]]" info-empty="[[ settings.infoEmpty ]]">
+                    </select>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isview">
+                        Guardar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isview">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()"
+                        ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,735 @@
+<div class="row" ng-controller="customerHealthDamageRestrictionEditCtrl">
+    <div class="col-md-12">
+        <div>
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL EMPLEADO</span>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                            <label class="control-label">
+                                                Tipo de identificación<span class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="documentType" ng-required="true" ng-disabled="true"
+                                                       ng-model="restriction.employee.entity.documentType"
+                                                       theme="bootstrap"
+                                                       on-select="changeCountry($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El tipo de identificación es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                            <label class="control-label">
+                                                Número de Identificación
+                                                <span class="symbol required"></span>
+                                            </label>
+
+                                            <div class="input-group">
+                                                <ui-select name="customer" ng-disabled="true"
+                                                           ng-model="restriction.employee"
+                                                           ng-required="true"
+                                                           theme="bootstrap"
+                                                           on-select="changeCustomer($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.entity.documentNumber]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in employees | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.entity.documentNumber | highlight: $select.search"></div>
+                                                        <small>
+                                                            Nombre: <span
+                                                                ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                        </small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onAddDisabilityEmployeeList()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                    <button type="button" ng-click="onAddEmployee()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.customer.$dirty && Form.customer.$invalid">La número de identificación es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                            <label class="control-label">Género<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="gender"
+                                                   ng-model="restriction.employee.entity.gender.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.gender.$dirty && Form.gender.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.expeditionPlace.$dirty && Form.expeditionPlace.$invalid}">
+                                            <label class="control-label">
+                                                Edad<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el lugar de expedición"
+                                                   class="form-control" name="expeditionPlace"
+                                                   ng-model="restriction.employee.entity.age" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.expeditionPlace.$dirty && Form.expeditionPlace.$invalid">El lugar de expedición es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label>
+                                                Activo
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="true" ng-model="restriction.employee.isActive"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                            <label class="control-label">
+                                                Nombre(s)<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el nombre(s)"
+                                                   class="form-control" name="firstName"
+                                                   ng-model="restriction.employee.entity.firstName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El nombre(s) es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                            <label class="control-label">
+                                                Apellidos<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese los apellidos"
+                                                   class="form-control" name="lastName"
+                                                   ng-model="restriction.employee.entity.lastName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los apellidos son requeridos</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.eps.$dirty && Form.eps.$invalid}">
+                                            <label class="control-label"><span translate="views.EPS">EPS</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="eps"
+                                                   ng-model="restriction.employee.entity.eps.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.eps.$dirty && Form.eps.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.afp.$dirty && Form.afp.$invalid}">
+                                            <label class="control-label">AFP<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="restriction.employee.entity.afp.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.afp.$dirty && Form.afp.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.arl.$dirty && Form.arl.$invalid}">
+                                            <label class="control-label"><span translate="views.ARL">ARL</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="restriction.employee.entity.arl.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.arl.$dirty && Form.arl.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.arlSinister.$dirty && Form.arlSinister.$invalid}">
+                                            <label class="control-label"><span translate="views.ARL">ARL</span> del Siniestro<span
+                                                    class="symbol required"></span></label>
+
+                                            <ui-select name="arlSinister" ng-model="restriction.arl" theme="bootstrap"
+                                                       ng-disabled="isView" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in arl | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.arlSinister.$dirty && Form.arlSinister.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-15">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button ng-if="!isView" type="submit" class="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="panel panel-white " ng-class="{'show': (canShow != null) , 'hid': (canShow == null) }"
+                 ng-if="canShow">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">RECOMENDACIONES O RESTRICCIONES</span></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Fecha de emisión<span class="symbol required"></label>
+                                <input class="form-control" kendo-date-picker
+                                       k-options="datePickerConfig"
+                                       k-ng-model="detail.dateOfIssue"
+                                       style="width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.timeInMonths.$dirty && Form.timeInMonths.$invalid}">
+                                <label class="control-label">
+                                    Tiempo en meses<span class="symbol required"></span>
+                                </label>
+                                <input ng-disabled="isView || detail.isPermanentManagement" type="text"
+                                       required="true"
+                                       placeholder="Ingrese el tiempo en meses"
+                                       class="form-control" name="timeInMonths"
+                                       ng-model="detail.timeInMonths" ng-required="!detail.isPermanentManagement"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.timeInMonths.$dirty && Form.timeInMonths.$invalid">El registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Fecha de vencimiento</label>
+                                <input class="form-control" kendo-date-picker
+                                       ng-disabled="true"
+                                       k-options="datePickerConfig"
+                                       k-ng-model="detail.expirationDate"
+                                       style="width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>
+                                    Manejo permanente
+                                </label>
+
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch disabled="isView" ng-model="detail.isPermanentManagement"
+                                            class="green"></switch>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.restriction.$dirty && Form.restriction.$invalid}">
+                                <label class="control-label">
+                                    Restricción<span class="symbol required"></span>
+                                </label>
+                                <ui-select name="restriction" ng-required="true" ng-disabled="isView"
+                                           ng-model="detail.restriction" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in restrictions | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.restriction.$dirty && Form.restriction.$invalid">El registro es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    Descripción
+                                </label>
+                                <textarea ng-disabled="isView"
+                                          placeholder="Escribe aquí la descripción"
+                                          data-ng-model="detail.description"
+                                          class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.whoPerceived.$dirty && Form.whoPerceived.$invalid}">
+                                <label class="control-label">
+                                    ¿Quién prescribió la recomendación o restricción?<span
+                                        class="symbol required"></span>
+                                </label>
+                                <ui-select name="whoPerceived" ng-required="true" ng-disabled="isView"
+                                           required="true"
+                                           ng-model="detail.whoPerceived" theme="bootstrap"
+                                           on-select="changeCountry($item, $model)">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in whoPerceived | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.whoPerceived.$dirty && Form.whoPerceived.$invalid">El registro es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    ¿Qué conducta se tomó al interior del SG-SST?
+                                </label>
+                                <textarea ng-disabled="isView"
+                                          placeholder="Escribe aquí ¿qué conducta se tomó al interior del SG-SST?"
+                                          data-ng-model="detail.observation"
+                                          class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                        ng-click="saveHealthDamageRestrictionDetail()">
+                                    Adicionar
+                                </button>
+                                <button type="button" class="btn btn-success btn-o"
+                                        ng-click="clearHealthDamageRestrictionDetail()">
+                                    Cancelar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceHealthDamageRestrictionDetailCallback" dt-options="dtOptionsHealthDamageRestrictionDetail"
+                                           id="dtHealthDamageRestrictionDetail"
+                                           dt-columns="dtColumnsHealthDamageRestrictionDetail"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--START OBSERVATION-->
+            <div class="panel panel-white " ng-class="{'show': (canShow != null) , 'hid': (canShow == null) }"
+                 ng-if="canShow">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">OBSERVACIONES</span></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Fecha</label>
+                                <input class="form-control" kendo-date-picker
+                                       k-options="datePickerConfig"
+                                       k-ng-model="observation.dateOf"
+                                       style="width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.observationType.$dirty && Form.observationType.$invalid}">
+                                <label class="control-label">
+                                    Tipo<span class="symbol required"></span>
+                                </label>
+                                <ui-select name="observationType" ng-required="true" ng-disabled="isView"
+                                           ng-model="observation.type" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in observationTypeList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.observationType.$dirty && Form.observationType.$invalid">El registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.accessLevel.$dirty && Form.accessLevel.$invalid}">
+                                <label class="control-label">
+                                    Nivel de acceso<span class="symbol required"></span>
+                                </label>
+                                <ui-select name="accessLevel" ng-required="true" ng-disabled="isView"
+                                           ng-model="observation.accessLevel" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in accessLevelList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.accessLevel.$dirty && Form.accessLevel.$invalid">El registro es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    Observación
+                                </label>
+                                <textarea ng-disabled="isView"
+                                          placeholder="Escribe aquí la observación"
+                                          data-ng-model="observation.description"
+                                          class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                        ng-click="saveHealthDamageRestrictionObservation()">
+                                    Adicionar
+                                </button>
+                                <button type="button" class="btn btn-success btn-o"
+                                        ng-click="clearHealthDamageRestrictionObservation()">
+                                    Cancelar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceHealthDamageRestrictionObservationCallback" dt-options="dtOptionsHealthDamageRestrictionObservation"
+                                           id="dtHealthDamageRestrictionObservation"
+                                           dt-columns="dtColumnsHealthDamageRestrictionObservation"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--END OBSERVATION-->
+
+            <!--START DOCUMENT-->
+            <div class="panel panel-white " ng-class="{'show': (canShow != null) , 'hid': (canShow == null) }"
+                 ng-if="canShow">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">ANEXOS</span></h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                <label class="control-label">
+                                    Clasificación<span class="symbol required"></span>
+                                </label>
+                                <ui-select name="classification" ng-required="true"
+                                           ng-disabled="isView"
+                                           ng-model="attachment.type" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in classifications | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                                    <span class="error text-small block"
+                                                          ng-if="Form.classification.$dirty && Form.classification.$invalid">El registro es requrido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                <label class="control-label">Nombre<span
+                                        class="symbol required"></span></label>
+                                <input ng-disabled="isView" type="text"
+                                       placeholder="Ingrese el nombre"
+                                       class="form-control" name="name"
+                                       ng-model="attachment.name" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.version.$dirty && Form.version.$invalid}">
+                                <label class="control-label">
+                                    Versión <span class="symbol required"></span>
+                                </label>
+                                <input ng-disabled="true" type="text"
+                                       placeholder="Versión"
+                                       class="form-control" name="version"
+                                       touchspin="" data-verticalbuttons="false"
+                                       data-max="1000000000"
+                                       data-verticalupclass="ti-angle-up"
+                                       data-verticaldownclass="ti-angle-down"
+                                       ng-model="attachment.version" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.version.$dirty && Form.version.$invalid">La versión del anexo es requerida</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                <label class="control-label">
+                                    Estado<span class="symbol required"></span>
+                                </label>
+                                <ui-select name="status" ng-required="true"
+                                           ng-disabled="isView"
+                                           ng-model="attachment.status" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in documentStatusList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                                    <span class="error text-small block"
+                                                          ng-if="Form.status.$dirty && Form.status.$invalid">El registro es requrido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="control-label">Fecha de Inicio Vigencia</label>
+
+                            <div class="form-group">
+                                <input class="form-control" kendo-date-picker
+                                       k-options="dateConfig"
+                                       k-ng-model="attachment.startDate"
+                                       style="width: 100%;"/>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="control-label">Fecha de Finalización Vigencia</label>
+
+                            <div class="form-group">
+
+                                <input class="form-control" kendo-date-picker
+                                       k-options="dateConfig"
+                                       k-ng-model="attachment.endDate"
+                                       style="width: 100%;"/>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                <label class="control-label">Descripción<span
+                                        class="symbol required"></span></label>
+                                <input ng-disabled="isView" type="text"
+                                       placeholder="Ingrese la descripción"
+                                       class="form-control" name="description"
+                                       ng-model="attachment.description" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p>
+                                Cantidad anexos: [[ uploader.queue.length ]]
+                            </p>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Nombre</th>
+                                        <th ng-show="uploader.isHTML5">Tamaño</th>
+                                        <th ng-show="uploader.isHTML5">Progreso</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                        <td><strong>[[ item.file.name ]]</strong></td>
+                                        <td ng-show="uploader.isHTML5" nowrap>[[
+                                            item.file.size/1024/1024|number:2
+                                            ]] MB
+                                        </td>
+                                        <td ng-show="uploader.isHTML5">
+                                            <div class="progress progress-xs margin-bottom-0">
+                                                <div class="progress-bar" role="uib-progressbar"
+                                                     ng-style="{ 'width': item.progress + '%' }"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center"><span ng-show="item.isSuccess"><i
+                                                class="glyphicon glyphicon-ok"></i></span><span
+                                                ng-show="item.isCancel"><i
+                                                class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                ng-show="item.isError"><i
+                                                class="glyphicon glyphicon-remove"></i></span></td>
+                                        <td nowrap>
+
+                                            <button type="button" class="btn btn-danger btn-xs"
+                                                    ng-click="item.remove()">
+                                                <span class="glyphicon glyphicon-trash"></span> Remover
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+
+                                <span class="btn btn-primary btn-o btn-file"> Seleccionar anexo
+									<input type="file" nv-file-select="" uploader="uploader"
+                                           ng-disabled="uploader.getNotUploadedItems().length > 0"/>
+								</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                        ng-click="saveHealthDamageRestrictionDocument()">
+                                    Adicionar
+                                </button>
+                                <button type="button" class="btn btn-success btn-o"
+                                        ng-click="clearHealthDamageRestrictionDocument()">
+                                    Cancelar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceHealthDamageRestrictionDocumentCallback" dt-options="dtOptionsHealthDamageRestrictionDocument"
+                                           id="dtHealthDamageRestrictionDocument"
+                                           dt-columns="dtColumnsHealthDamageRestrictionDocument"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+            <!--END DOCUMENT-->
+        </div>
+    </div>
+</div>

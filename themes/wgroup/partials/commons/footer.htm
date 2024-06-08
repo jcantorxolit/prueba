@@ -1,0 +1,32 @@
+<!-- start: FOOTER -->
+<div class="footer-inner">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="pull-left">
+				&copy; [[app.year]] <span class="text-bold text-uppercase">[[ app.author ]]</span>. <span translate="footer.copyright.MESSAGE">All rights reserved</span> 
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="text-center">
+				<span ng-repeat="line in app.supportHelp.attentionLines" style="margin-right: 20px;" ng-if="line.item != ''">
+					<span style="vertical-align: super;" ng-if="line.code=='TEXT'">
+						<b>[[ line.item ]]</b>
+					</span>
+					<span ng-if="line.code=='NUMBER'">
+						<a href="#" ng-click="openWhatsapp(line.item)" target="_blank" class="text-decoration-none">
+							<i class="fa fa-whatsapp text-success fa-2x" aria-hidden="true"></i>
+						</a>
+						<i class="fa fa-phone text-info fa-2x" aria-hidden="true"></i>
+						<b style="vertical-align: super;">[[ line.item ]]</b>
+					</span>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="pull-right">
+				<span class="go-top" ng-click="toTheTop()"><i class="ti-angle-up"></i></span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end: FOOTER -->

@@ -1,0 +1,208 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Presupuesto">Presupuesto</h1>
+            <span class="mainDescription">Desde aquí podrá administrar el presupuesto de los proyectos.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: PROJECT -->
+<div class="container-fluid container-fullw bg-white">
+
+</div>
+<!-- end: PROJECT -->
+<div ng-controller="projectBudgetCtrl">
+    <!--<fieldset>
+        <legend>Filtros:</legend>
+
+        <div id="panelOccupations" class="panel panel-white panelOccupations">
+            <div class="panel-heading border-light">
+                <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm"
+                       tooltip-placement='top' uib-tooltip="Adicionar"
+                       ng-click="addFilter()"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>
+                            Campo
+                        </label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>
+                            Criterio
+                        </label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>
+                            Valor
+                        </label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>
+                            Condición
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="filter in audit.filters">
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <ui-select name="collection" ng-disabled="isview" ng-model="filter.field"
+                                       ng-required="true"
+                                       theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.alias]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in audit.fields | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.alias | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <ui-select name="collection" ng-disabled="isview" ng-model="filter.criteria"
+                                       ng-required="true"
+                                       theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in criteria | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <input type="text"
+                                   placeholder="Ingrese la valor"
+                                   class="form-control" name="license"
+                                   ng-model="filter.value"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <ui-select name="collection" ng-disabled="isview" ng-model="filter.condition"
+                                       ng-required="true"
+                                       theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in conditions | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="pull-right">
+
+                            <div class="form-group">
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                   uib-tooltip="Eliminar"
+                                   ng-click="removeFilter($index)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" ng-if="audit.filters.length == 0">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" ng-disabled="true"
+                                   placeholder="Ningun filtro adicionado"
+                                   class="form-control" name="license"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right margin-bottom-15">
+                    <button type="button" class="btn btn-info" ng-click="onFilter()"
+                            ng-if="audit.filters.length > 0">
+                        Filtrar
+                    </button>
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>-->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">HISTÓRICO PRESUPUESTOS</span></h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <a class="btn btn-wide btn-success" href="#" ng-click="onCreateNew()"
+                               ng-if="can('empleado_create')"><i
+                                    class="glyphicon glyphicon-plus"></i> Crear presupuesto</a>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <button type="button" ng-if="false" class="btn btn-success btn-o"
+                                        ng-click="onExportExcel()">
+                                    Exportar Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceBudgetCallback" dt-options="dtOptionsBudget"
+                                           dt-columns="dtColumnsBudget"
+                                           id="dtBudget"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

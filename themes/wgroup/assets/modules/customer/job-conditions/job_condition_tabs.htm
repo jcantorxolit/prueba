@@ -1,0 +1,21 @@
+<div class="row" ng-controller="customerJobConditionsRegisterTabsCtrl">
+    <div class="col-md-12">
+        <uib-tabset class="tabbable" active="activeTab">
+            <uib-tab index="1" select="switchTab('1')" ng-if="can('job_conditions_register')">
+                <uib-tab-heading>
+                    Registro
+                </uib-tab-heading>
+                <div data-ng-animate="'wave'" ng-if="loadedOther.indexOf('1') > -1" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/register/register.htm'">
+                </div>
+            </uib-tab>
+
+            <uib-tab index="2" select="switchTab('2')" ng-if="!isCustomerUser()">
+                <uib-tab-heading>Indicadores</uib-tab-heading>
+
+                <div data-ng-animate="'wave'" ng-if="loadedOther.indexOf('2') > -1" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/indicator/indicator.htm'">
+                </div>
+            </uib-tab>
+
+        </uib-tabset>
+    </div>
+</div>

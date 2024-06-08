@@ -1,0 +1,1188 @@
+<div ng-controller="customerMatrixDataTabEditCtrl">
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <!--START DISPLAY OPTIONS-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">OPCIONES DE VISUALIZACIÓN</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.project.$dirty && Form.project.$invalid}">
+                                    <label class="control-label">Proyecto<span
+                                            class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="project" ng-required="true" ng-disabled="isView"
+                                                   ng-model="matrix.project" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in projectList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                              ng-if="Form.project.$dirty && Form.project.$invalid">El proyecto es requerido</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshProject()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.activity.$dirty && Form.activity.$invalid}">
+                                    <label class="control-label">Actividad<span
+                                            class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="activity" ng-required="true"
+                                                   ng-disabled="isView || activityList.length == 0"
+                                                   ng-model="matrix.activity" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in activityList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                              ng-if="Form.activity.$dirty && Form.activity.$invalid">la actividad es requerida</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshActivity()" class="btn btn-default"
+                                                    ng-disabled="isView || activityList.length == 0">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalAspect.$dirty && Form.environmentalAspect.$invalid}">
+                                    <label class="control-label">Aspecto ambiental<span
+                                            class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="environmentalAspect" ng-required="true"
+                                                   ng-disabled="isView || environmentalAspectList.length == 0"
+                                                   ng-model="matrix.environmentalAspect" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in environmentalAspectList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                              ng-if="Form.environmentalAspect.$dirty && Form.environmentalAspect.$invalid">El aspecto ambiental es requerido</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshEnvironmentalAspect()" class="btn btn-default"
+                                                    ng-disabled="isView || environmentalAspectList.length == 0">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpact.$dirty && Form.environmentalImpact.$invalid}">
+                                    <label class="control-label">Impacto ambiental<span
+                                            class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="environmentalImpact" ng-required="true"
+                                                   ng-disabled="isView || environmentalImpactList.length == 0"
+                                                   ng-model="matrix.environmentalImpact" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in environmentalImpactList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                              ng-if="Form.environmentalImpact.$dirty && Form.environmentalImpact.$invalid">El impacto ambiental es requerido</span>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshEnvironmentalImpact()" class="btn btn-default"
+                                                    ng-disabled="isView || environmentalImpactList.length == 0">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END DISPLAY OPTIONS-->
+
+        <!--START ENVIRONMENTAL IMPACT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">VALORACIÓN IMPACTO AMBIENTAL</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactIn.$dirty && Form.environmentalImpactIn.$invalid}">
+                                    <label class="control-label">INCIDENCIA (In)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactIn" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactIn" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactInList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactIn.$dirty && Form.environmentalImpactIn.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactEx.$dirty && Form.environmentalImpactEx.$invalid}">
+                                    <label class="control-label">EXTENSIÓN (Ex)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactEx" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactEx" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactExList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactEx.$dirty && Form.environmentalImpactEx.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactPr.$dirty && Form.environmentalImpactPr.$invalid}">
+                                    <label class="control-label">PERMANENCIA (Pr)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactPr" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactPr" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactPrList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactPr.$dirty && Form.environmentalImpactPr.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactRe.$dirty && Form.environmentalImpactRe.$invalid}">
+                                    <label class="control-label">RECUPERABILIDAD (Re)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactRe" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactRe" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactReList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactRe.$dirty && Form.environmentalImpactRe.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactRv.$dirty && Form.environmentalImpactRv.$invalid}">
+                                    <label class="control-label">REVERSIBILIDAD (Rv)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactRv" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactRv" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactRvList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactRv.$dirty && Form.environmentalImpactRv.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactSe.$dirty && Form.environmentalImpactSe.$invalid}">
+                                    <label class="control-label">SEVERIDAD (Se)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactSe" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactSe" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactSeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactSe.$dirty && Form.environmentalImpactSe.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.environmentalImpactFr.$dirty && Form.environmentalImpactFr.$invalid}">
+                                    <label class="control-label">FRECUENCIA (Fr)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="environmentalImpactFr" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.environmentalImpactFr" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in environmentalImpactFrList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.environmentalImpactFr.$dirty && Form.environmentalImpactFr.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.nia.$dirty && Form.nia.$invalid}">
+                                    <label class="control-label">NIA<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder="Cálculo NIA"
+                                           class="form-control" name="lastName"
+                                           ng-model="matrix.nia" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.nia.$dirty && Form.nia.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.niaDescription.$dirty && Form.niaDescription.$invalid}">
+                                    <label class="control-label">NIVEL DE IMPACTO AMBIENTAL<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="lastName"
+                                           ng-model="matrix.niaDescription" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.niaDescription.$dirty && Form.niaDescription.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END ENVIRONMENTAL IMPACT-->
+
+        <!--START LEGAL IMPACT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">VALORACIÓN IMPACTO LEGAL</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.legalImpactE.$dirty && Form.legalImpactE.$invalid}">
+                                    <label class="control-label">EXISTENCIA (E)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="legalImpactE" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.legalImpactE" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in legalImpactEList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.legalImpactE.$dirty && Form.legalImpactE.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.legalImpactC.$dirty && Form.legalImpactC.$invalid}">
+                                    <label class="control-label">CUMPLIMIENTO (C)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="legalImpactC" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.legalImpactC" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in legalImpactCList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.legalImpactC.$dirty && Form.legalImpactC.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.legalImpactCriterion.$dirty && Form.legalImpactCriterion.$invalid}">
+                                    <label class="control-label">CRITERIO LEGAL (CL)<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="legalImpactCriterion"
+                                           ng-model="matrix.legalImpactCriterion" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.legalImpactCriterion.$dirty && Form.legalImpactCriterion.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END LEGAL IMPACT-->
+
+        <!--START INTERESTED PART-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">VALORACIÓN PARTES INTERESADAS</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.interestedPartAc.$dirty && Form.interestedPartAc.$invalid}">
+                                    <label class="control-label">EXIGENCIA / ACUERDO (Ac)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="interestedPartAc" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.interestedPartAc" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in interestedPartAcList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.interestedPartAc.$dirty && Form.interestedPartAc.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.interestedPartGe.$dirty && Form.interestedPartGe.$invalid}">
+                                    <label class="control-label">GESTION (Ge)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="interestedPartGe" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.interestedPartGe" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in interestedPartGeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.interestedPartGe.$dirty && Form.interestedPartGe.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.interestedPartCriterion.$dirty && Form.interestedPartCriterion.$invalid}">
+                                    <label class="control-label">CRITERIO PART INT CPI<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="interestedPartCriterion"
+                                           ng-model="matrix.interestedPartCriterion" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.interestedPartCriterion.$dirty && Form.interestedPartCriterion.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END INTERESTED PART-->
+
+        <!--START TOTAL ASPECT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">SIGNIFICANCIA TOTAL DEL ASPECTO</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.totalAspect.$dirty && Form.totalAspect.$invalid}">
+                                    <label class="control-label">Total<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="totalAspect"
+                                           ng-model="matrix.totalAspect" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.totalAspect.$dirty && Form.totalAspect.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.totalAspectDescription.$dirty && Form.totalAspectDescription.$invalid}">
+                                    <label class="control-label">Descripción<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="totalAspectDescription"
+                                           ng-model="matrix.totalAspectDescription" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.totalAspectDescription.$dirty && Form.totalAspectDescription.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.nature.$dirty && Form.nature.$invalid}">
+                                    <label class="control-label">Naturaleza<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="nature" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.nature" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in natureList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.nature.$dirty && Form.nature.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END TOTAL ASPECT-->
+
+        <!--START EMERGENCY CONDITION-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">CONDICIONES DE EMERGENCIA</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionIn.$dirty && Form.emergencyConditionIn.$invalid}">
+                                    <label class="control-label">INCIDENCIA (In)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionIn" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionIn" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionInList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionIn.$dirty && Form.emergencyConditionIn.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionEx.$dirty && Form.emergencyConditionEx.$invalid}">
+                                    <label class="control-label">EXTENSIÓN (Ex)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionEx" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionEx" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionExList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionEx.$dirty && Form.emergencyConditionEx.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionPr.$dirty && Form.emergencyConditionPr.$invalid}">
+                                    <label class="control-label">PERMANENCIA (Pr)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionPr" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionPr" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionPrList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionPr.$dirty && Form.emergencyConditionPr.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionRe.$dirty && Form.emergencyConditionRe.$invalid}">
+                                    <label class="control-label">RECUPERABILIDAD (Re)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionRe" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionRe" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionReList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionRe.$dirty && Form.emergencyConditionRe.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionRv.$dirty && Form.emergencyConditionRv.$invalid}">
+                                    <label class="control-label">REVERSIBILIDAD (Rv)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionRv" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionRv" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionRvList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionRv.$dirty && Form.emergencyConditionRv.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionSe.$dirty && Form.emergencyConditionSe.$invalid}">
+                                    <label class="control-label">SEVERIDAD (Se)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionSe" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionSe" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionSeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionSe.$dirty && Form.emergencyConditionSe.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyConditionFr.$dirty && Form.emergencyConditionFr.$invalid}">
+                                    <label class="control-label">FRECUENCIA (Fr)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="emergencyConditionFr" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.emergencyConditionFr" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in emergencyConditionFrList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyConditionFr.$dirty && Form.emergencyConditionFr.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyNia.$dirty && Form.emergencyNia.$invalid}">
+                                    <label class="control-label">NIA - EMERGENCIA<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="emergencyNia"
+                                           ng-model="matrix.emergencyNia" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyNia.$dirty && Form.emergencyNia.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.emergencyNiaDescription.$dirty && Form.emergencyNiaDescription.$invalid}">
+                                    <label class="control-label">NIVEL DE IMPACTO AMBIENTAL DE EMERGENCIA<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text"
+                                           placeholder=""
+                                           class="form-control" name="emergencyNiaDescription"
+                                           ng-model="matrix.emergencyNiaDescription" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.emergencyNiaDescription.$dirty && Form.emergencyNiaDescription.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END EMERGENCY CONDITION-->
+
+        <!--START SCOPE-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">ALCANCE</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.scope.$dirty && Form.scope.$invalid}">
+                                    <label class="control-label">Alcance<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="scope" ng-required="true" ng-disabled="isView"
+                                               ng-model="matrix.scope" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in scopeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.scope.$dirty && Form.scope.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END SCOPE-->
+
+        <!--START CONTROLS-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DETERMINACIÓN DE CONTROLES</span>
+                        </h4>
+
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm"
+                               tooltip-placement='top' uib-tooltip="Adicionar"
+                               ng-click="onAddControlType()"><i
+                                    class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <label class="control-label">
+                                    Tipo Control
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label class="control-label">
+                                    Control
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" ng-repeat="item in matrix.controlList">
+                            <div class="col-md-4">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <div class="input-group">
+                                        <ui-select ng-disabled="isView" ng-model="item.type" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in typeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onRefreshControlType()"
+                                                    class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+
+                                    <input ng-disabled="isView" type="text"
+                                           placeholder="Ingrese el control"
+                                           class="form-control" name="description"
+                                           ng-model="item.description" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.description.$dirty && Form.description.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-1"
+                                 ng-if="matrix.controlList.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <a href='#' class="btn btn-danger btn-o btn-sm"
+                                           tooltip-placement='top'
+                                           uib-tooltip="Eliminar"
+                                           ng-click="onRemoveControlType($index)"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END CONTROLS-->
+
+        <!--START RESPONSIBLE-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">RESPONSABLES</span>
+                        </h4>
+
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm"
+                               tooltip-placement='top' uib-tooltip="Adicionar"
+                               ng-click="onAddResponsible()"><i
+                                    class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <label class="control-label">
+                                    Responsable
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" ng-repeat="item in matrix.responsibleList">
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.responsible.$dirty && Form.impact.$invalid}">
+                                    <div class="input-group">
+                                        <ui-select ng-disabled="false" ng-model="item.responsible" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in responsibleList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onRefreshResponsible()"
+                                                    class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"
+                                 ng-if="matrix.responsibleList.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <a href='#' class="btn btn-danger btn-o btn-sm"
+                                           tooltip-placement='top'
+                                           uib-tooltip="Eliminar"
+                                           ng-click="onRemoveResponsible($index)"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END RESPONSIBLE-->
+
+        <!--START OTHER-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">OTROS</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.associateProgram.$dirty && Form.associateProgram.$invalid}">
+                                    <label class="control-label">Programa asociado<span
+                                            class=""></span></label>
+
+                                    <input ng-disabled="isView" type="text"
+                                           placeholder=""
+                                           class="form-control" name="associateProgram"
+                                           ng-model="matrix.associateProgram" />
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.associateProgram.$dirty && Form.associateProgram.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.registry.$dirty && Form.registry.$invalid}">
+                                    <label class="control-label">Registro<span
+                                            class=""></span></label>
+
+                                    <input ng-disabled="isView" type="text"
+                                           placeholder=""
+                                           class="form-control" name="registry"
+                                           ng-model="matrix.registry"/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.registry.$dirty && Form.registry.$invalid">El registro es requerido</span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END OTHER-->
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+
+</div>

@@ -1,0 +1,55 @@
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- start: WIZARD FORM -->
+            <div id="wizard" class="swMain">
+                <!-- start: WIZARD SEPS -->
+                <ul>
+
+                    <li ng-repeat="cycle in cycles" ng-click="form.goTo(Form, $index)">
+                        <a href class="itemwzr" ng-class="{'selected' : currentStep >= $index, 'done' : parseInt(cycle.advance) == 100}">
+                            <div class="stepNumber">
+                                [[cycle.total]] %
+                            </div>
+                            <span class="stepDesc text-small"> [[cycle.name]] </span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- end: WIZARD SEPS -->
+                <!-- start: WIZARD STEP 1 -->
+                <div class="row margin-bottom-10">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-success btn-o" ng-click="onSummaryExportExcel()">
+                                Exportar Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div kendo-grid="grid" k-options="mainGridOptions" k-ng-delay="mainGridOptions">
+                                <div k-detail-template>
+
+                                    <div kendo-grid="gridItem" class="hide-grid-header" k-options="detailGridOptions(dataItem)">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 1 -->
+            </div>
+            <!-- end: WIZARD FORM -->
+
+        </div>
+    </div>
+
+
+</div>
+<!-- start: WIZARD DEMO -->

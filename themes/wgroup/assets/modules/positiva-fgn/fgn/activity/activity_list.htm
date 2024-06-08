@@ -1,0 +1,55 @@
+
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="CONFIGURACIÓN DE PLANES DE TRABAJO FGN">CONFIGURACIÓN DE PLANES DE TRABAJO FGN</h1>
+                <span class="mainDescription">En esta ventana podrás crear, listar y configurar los actividades de fiscalia.</span>
+            </div>
+            <!-- <div ncy-breadcrumb></div> -->
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="PFFactivityListCtrl">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+
+                        <div class="panel-body">
+
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <a class="btn btn-wide btn-green" href="#" ng-click="onCreate()" ng-if="can('positiva_fgn_activity_create_edit') && !isView" >
+                                        <i class="glyphicon glyphicon-plus"></i> Nuevo </a>
+
+                                    <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()" ng-if="can('positiva_fgn_activity_create_edit') && !isView" >
+                                        <i class="glyphicon glyphicon-upload"></i> Importar</a>
+
+                                    <a class="btn btn-wide btn-primary btn-o float-right" href="#" ng-click="onBack()" >Regresar </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnCallback"
+                                                dt-options="dtOptionsPositivaFgnActivity" id="dtPositivaFgnActivity" dt-columns="dtColumnsPositivaFgnActivity"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

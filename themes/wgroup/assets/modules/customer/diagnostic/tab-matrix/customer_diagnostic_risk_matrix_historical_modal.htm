@@ -1,0 +1,206 @@
+<div class="modal-body">
+    <h4 class="panel-title"><span class="text-bold">HISTORIAL</span></h4>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="sample-table-1">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">CAMPOS</th>
+                    <th style="width: 40%;">VALOR ANTERIOR</th>
+                    <th style="width: 40%;">NUEVO VALOR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Clasificación
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.classification ]]</td>
+                    <td>[[ entity.newValue.classification ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Tipo Peligro
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.type ]]</td>
+                    <td>[[ entity.newValue.type ]]</td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Descripción
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.description ]]</td>
+                    <td>[[ entity.newValue.description ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Posibles Efectos Salud
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.healthEffect ]]</td>
+                    <td>[[ entity.newValue.healthEffect ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Observación
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.observation ]]</td>
+                    <td>[[ entity.newValue.observation ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Timpo Exposición
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.exposure ]]</td>
+                    <td>[[ entity.newValue.exposure ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            MC Fuente
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.controlMethodSourceText ]]</td>
+                    <td>[[ entity.newValue.controlMethodSourceText ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            MC Medio
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.controlMethodMediumText ]]</td>
+                    <td>[[ entity.newValue.controlMethodMediumText ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            MC Persona
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.controlMethodPersonText ]]</td>
+                    <td>[[ entity.newValue.controlMethodPersonText ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            ND
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.ND ]]</td>
+                    <td>[[ entity.newValue.ND ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            NE
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.NE ]]</td>
+                    <td>[[ entity.newValue.NE ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            NC
+                        </div>
+                    </td>
+                    <td>[[ entity.oldValue.NC ]]</td>
+                    <td>[[ entity.newValue.NC ]]</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="text-primary text-small">
+                            Valoración Riesgo
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-switch="entity.oldValue.riskValue">
+                            <span class="label label-sm label-danger" ng-switch-when="No Aceptable">[[
+                                entity.oldValue.riskValue ]]</span>
+                            <span class="label label-sm label-warning"
+                                ng-switch-when="No Aceptable o Aceptable con control especifico">
+                                [[ entity.oldValue.riskValue ]]
+                            </span>
+                            <span class="label label-sm label-info" ng-switch-when="Mejorable">[[
+                                entity.oldValue.riskValue ]]</span>
+                            <span class="label label-sm label-success" ng-switch-when="Aceptable">[[
+                                entity.oldValue.riskValue ]]</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-switch="entity.newValue.riskValue">
+                            <span class="label label-sm label-danger" ng-switch-when="No Aceptable">[[
+                                entity.newValue.riskValue ]]</span>
+                            <span class="label label-sm label-warning"
+                                ng-switch-when="No Aceptable o Aceptable con control especifico">
+                                [[ entity.newValue.riskValue ]]
+                            </span>
+                            <span class="label label-sm label-info" ng-switch-when="Mejorable">[[
+                                entity.newValue.riskValue ]]</span>
+                            <span class="label label-sm label-success" ng-switch-when="Aceptable">[[
+                                entity.newValue.riskValue ]]</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">MOTIVO O ACTUALIZACIÓN</span></h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input ng-disabled="true" type="text" placeholder="Motivo" class="form-control" name="reason"
+                            ng-model="entity.reason" required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea ng-disabled="true" placeholder="Descripción del motivo"
+                            ng-model="entity.reasonObservation" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cancelar
+    </button>
+</div>

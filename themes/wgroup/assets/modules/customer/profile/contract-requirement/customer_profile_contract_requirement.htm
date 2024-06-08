@@ -1,0 +1,288 @@
+<div class="tab1" ng-controller="customerContractRequirementCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <span class="text-bold">DATOS BÁSICOS</span>
+                        </h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-11">
+                                <div class="form-group">
+                                    <label class="control-label">Requerimiento</label>
+                                    <input type="text" placeholder="Descripción requerimiento" ng-disabled="!canEdit" class="form-control" name="requirement"
+                                        id="requirement" ng-model="requirement.value">
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <span class="switch ng-valid" ng-click="requirement.isActive=!requirement.isActive" ng-class="{ checked:requirement.isActive }"
+                                            ng-model="requirement.isActive">
+                                            <small></small>
+                                            <input ng-disabled="!canEdit" type="checkbox" ng-model="requirement.isActive" style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                        </span>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        ENE
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.jan" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        FEB
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.feb" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        MAR
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.mar" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        ABR
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.apr" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        MAY
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.may" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        JUN
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.jun" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        JUL
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.jul" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        AGO
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.aug" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        SEP
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.sep" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        OCT
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.oct" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        NOV
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.nov" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        DIC
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="!canEdit" ng-model="requirement.dec" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="panelSkills" class="panel panel-white tab1">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <span class="text-bold">TIPO DE CONTRATISTAS</span>
+                        </h4>
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='top' uib-tooltip="Adicionar" ng-click="onAddRequirementContractType()">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" ng-repeat="contractorType in requirement.contractorTypeList">
+                            <div class="col-md-11">
+                                <div class="form-group">
+
+                                    <ui-select ng-disabled="!canEdit" ng-model="contractorType.customerContractorType" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.value]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in contractorTypeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.value | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1" ng-if="requirement.contractorTypeList.length > 0  && canEdit">
+                                <div class="pull-right">
+
+                                    <div class="form-group">
+                                        <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' uib-tooltip="Eliminar" ng-click="onRemoveRequirementContractType($index)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clearPeriodicRequirement()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">REQUISITOS PERIÓDICOS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstancePeriodicRequirementCallback" 
+                                        dt-options="dtOptionsPeriodicRequirement"
+                                        dt-columns="dtColumnsPeriodicRequirement" 
+                                        id="dtContractPeriodicRequirement"
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

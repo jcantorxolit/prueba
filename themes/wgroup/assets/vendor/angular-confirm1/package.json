@@ -1,0 +1,63 @@
+{
+  "_from": "angular-confirm1",
+  "_id": "angular-confirm1@1.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-wr9HMJAGZjyPGNDDXyANh2HOU3g=",
+  "_location": "/angular-confirm1",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-confirm1",
+    "name": "angular-confirm1",
+    "escapedName": "angular-confirm1",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-confirm1/-/angular-confirm1-1.1.0.tgz",
+  "_shasum": "c2bf47309006663c8f18d0c35f200d8761ce5378",
+  "_spec": "angular-confirm1",
+  "_where": "C:\\xampp\\htdocs\\npm",
+  "author": {
+    "name": "Boniface Periera",
+    "url": "http://github.com/craftpip/"
+  },
+  "bugs": {
+    "url": "https://github.com/craftpip/angular-confirm/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "A angular plugin that provides great set of features like, Auto-close, Ajax-loading, background-dismiss, themes and more.",
+  "homepage": "http://craftpip.github.io/angular-confirm/",
+  "keywords": [
+    "angular-plugin",
+    "angular",
+    "confirm",
+    "alert",
+    "dialog"
+  ],
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/craftpip/angular-confirm/blob/master/LICENSE"
+    }
+  ],
+  "main": "dist/angular-confirm.min.js",
+  "name": "angular-confirm1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craftpip/angular-confirm.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "title": "angular-confirm.js | A multipurpose alert and confirm plugin",
+  "version": "1.1.0"
+}

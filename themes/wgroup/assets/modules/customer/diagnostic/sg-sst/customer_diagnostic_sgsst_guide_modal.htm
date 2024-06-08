@@ -1,0 +1,164 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">Datos básicos</h4>
+        </label>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>
+                    Programa
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.program.name"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>
+                    Categoría
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.category.name"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>
+                    Artículo
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.article"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Pregunta
+                </label>
+
+              <textarea ng-disabled="true" rows="3"
+                        data-ng-model="question.name"
+                        class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Guía
+                </label>
+                <textarea ng-disabled="true" rows="15"
+                          placeholder="Escribe aquí la guía de la pregunta"
+                          data-ng-model="question.guide"
+                          class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">ANEXOS PROPUESTOS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable=""
+                                           width="100%" dt-instance="dtInstanceCustomerDiagnosticPreventionDocumentQuestionGlobal" dt-options="dtOptionsCustomerDiagnosticPreventionDocumentQuestionGlobal"
+                                           id="dtCustomerDiagnosticPreventionDocumentQuestionGlobal"
+                                           dt-columns="dtColumnsCustomerDiagnosticPreventionDocumentQuestionGlobal"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">ANEXOS PROPUESTOS INTERNOS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable=""
+                                           width="100%" dt-instance="dtInstanceCustomerDiagnosticPreventionDocumentQuestionInternal" dt-options="dtOptionsCustomerDiagnosticPreventionDocumentQuestionInternal"
+                                           id="dtCustomerDiagnosticPreventionDocumentQuestionInternal"
+                                           dt-columns="dtColumnsCustomerDiagnosticPreventionDocumentQuestionInternal"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">ANEXOS EXISTENTES</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" dt-instance="dtInstanceDiagnosticDocumentA" dt-options="dtOptionsDiagnosticDocumentA"
+                                           id="dtDiagnosticDocumentA"
+                                           dt-columns="dtColumnsDiagnosticDocumentA"
+                                           class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+</div>
+<div class="modal-footer">
+
+    <button class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cancelar
+    </button>
+
+</div>

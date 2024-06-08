@@ -1,0 +1,117 @@
+<div class="tab1" ng-controller="reportChartCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Definición gráfica:</legend>
+            <div class="row">
+
+
+                <div class="col-xs-6">
+                    <div class="radio clip-radio radio-primary">
+                        <input type="radio" id="bar" name="optionsCategory" value="bar"
+                               ng-model="reportChart.chartType">
+                        <label for="bar">
+                            <span class="fa fa-circle text-azure-blue"></span> Bar Chart
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="radio clip-radio radio-primary">
+                        <input type="radio" id="line" name="optionsCategory" value="line"
+                               ng-model="reportChart.chartType">
+                        <label for="line">
+                            <span class="fa fa-circle text-yellow"></span> Line Chart
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend>Colección de datos / Campos:</legend>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                        <label class="control-label">
+                            Colección
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="collection" ng-disabled="isview" ng-model="report.collectionChart"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in collectionsChart | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.status.$dirty && Form.status.$invalid">La colección es requerida</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Campo eje X <span
+                                class="symbol required"></span></label>
+                        <ui-select name="collection" ng-disabled="isview" ng-model="reportChart.fieldX"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.alias]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in report.collectionChart.dataFields | filter: $select.search track by $index">
+                                <div ng-bind-html="item.alias | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Campo eje Y <span
+                                class="symbol required"></span></label>
+                        <ui-select name="collection" ng-disabled="isview" ng-model="reportChart.fieldY"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.alias]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in report.collectionChart.dataFields | filter: $select.search track by $index">
+                                <div ng-bind-html="item.alias | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+</div>

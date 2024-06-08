@@ -1,0 +1,122 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="positivaFgnIndicatorsActivitysPTACtrl">
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" ng-click="onFilter()" class="btn btn-blue">
+                    <em class="fa fa-filter"></em> <strong>Filtros</strong>
+                </button>
+                <div class="float-right">
+                    <button type="button" ng-click="onExportExcel()" class="btn btn-success">
+                        <em class="fa fa-file-excel-o"></em> <strong>Exportar a Excel</strong>
+                    </button>
+                    <button type="button" ng-click="onConsolidate()" class="btn btn-primary">
+                        Consolidar Indicadores
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table id="dtActivityPTA" class="table table-bordered table-hover" datatable="" width="100%"
+                           dt-instance="dtInstanceActivitysPTACallback" dt-options="dtOptionsActivitysPTA"
+                           dt-columns="dtColumnsActivitysPTA"></table>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <uib-tabset justified="true" class="tabbable">
+                    <uib-tab index="1">
+                        <uib-tab-heading>
+                            <h4 class="text-bold no-margin text-info"> CUMPLIMIENTO </h4>
+                        </uib-tab-heading>
+
+                        <div class="row margin-top-30" ng-if="axisList.length">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h4 class="panel-title"><span class="text-bold">INDICADORES POR EJES</span></h4>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="margin-right-5" ng-repeat="axis in axisList">
+                                            <div class="clearfix" ng-if="$index % 3 == 0"></div>
+
+                                            <div class="panel panel-white col-md-4">
+
+                                                <div class="panel-heading border-light">
+                                                    <h4 class="panel-title text-center"><span
+                                                            class="text-bold">[[axis.axis]]</span></h4>
+                                                </div>
+
+                                                <div class="panel-body partition-light-grey">
+                                                    <div class="col-md-12 text-center">
+                                                        <ui-knob value="axis.percentCompliance"
+                                                                 options="options"></ui-knob>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+
+                    <uib-tab index="0">
+                        <uib-tab-heading>
+                            <h4 class="text-bold no-margin text-info"> COBERTURA </h4>
+                        </uib-tab-heading>
+
+                        <div class="row margin-top-30" ng-if="axisList.length">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h4 class="panel-title"><span class="text-bold">INDICADORES POR EJES</span></h4>
+                                    </div>
+                                    <div class="panel-body">
+
+                                            <div class="margin-right-5" ng-repeat="axis in axisList">
+                                                <div class="clearfix" ng-if="$index % 3 == 0"></div>
+
+                                                <div class="panel panel-white col-md-4">
+
+                                                    <div class="panel-heading border-light">
+                                                        <h4 class="panel-title text-center"><span
+                                                                class="text-bold">[[axis.axis]]</span></h4>
+                                                    </div>
+
+                                                    <div class="panel-body partition-light-grey">
+                                                        <div class="col-md-12 text-center">
+                                                            <ui-knob value="axis.percentCoverage"
+                                                                     options="options"></ui-knob>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+
+        <div class="row padding-bottom-20">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

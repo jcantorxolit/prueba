@@ -1,0 +1,196 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+        <uib-accordion close-others="false">
+
+            <!-- Division -->
+            <div uib-accordion-group class="panel-default" is-open="status.openDivision" ng-if="filters.division">
+                <uib-accordion-heading>
+                    <label>
+                        <h4 class="panel-title text-primary text-wrap text-break"><strong>División geográfica: </strong></h4>
+                    </label> <em class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.openDivision, 'glyphicon-chevron-right': !status.openDivision}"></em>
+                </uib-accordion-heading>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="radio clip-radio radio-success radio-inline">
+                            <input type="radio" id="division_regional" ng-change="onChangeDivisionRegional()" name="division" value="regional" ng-model="entity.division">
+
+                            <label class="text-bold text-wrap text-break" for="division_regional">Regional</label>
+                        </div>
+
+                        <div class="radio clip-radio radio-success radio-inline">
+                            <input type="radio" id="division_sectional" ng-change="onChangeDivisionSectional()" name="division" value="sectional" ng-model="entity.division">
+
+                            <label class="text-bold text-wrap text-break" for="division_sectional">Seccional</label>
+                        </div>
+
+                        <div class="radio clip-radio radio-success radio-inline">
+                            <input type="radio" id="division_national" ng-change="onChangeDivisionNational()" name="division" value="national" ng-model="entity.division">
+
+                            <label class="text-bold text-wrap text-break" for="division_national">Nacional</label>
+                        </div>
+
+
+
+                        <div class="form-group" ng-show="entity.division == 'sectional' || entity.division == 'regional'">
+                            <a class="btn-link" ng-click="allCurrentDivision()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="onClearDivisionSectional()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+
+                        <div class="row" ng-show="entity.division == 'regional'">
+                            <div class="col-md-6 form-group form-inline" ng-repeat="regional in regionalList">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="regional[[regional.value]]" ng-model="regional.isActive" ng-change="onChangeRegional()">
+                                    <label for="regional[[regional.value]]" class="text-wrap text-break">
+                                        [[regional.item]]
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-show="entity.division == 'sectional'">
+                            <div class="col-md-6 form-group form-inline" ng-repeat="sectional in sectionalList">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="sectional[[sectional.value]]" ng-model="sectional.isActive" ng-change="onChangeSectional()">
+                                    <label for="sectional[[sectional.value]]" class="text-wrap text-break">
+                                        [[sectional.item]]
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Periods -->
+            <div uib-accordion-group class="panel-default" is-open="status.openPeriods" ng-if="filters.periods">
+                <uib-accordion-heading>
+                    <label><h4 class="panel-title text-primary text-wrap text-break"><strong>Periodos: </strong></h4></label>
+                    <em class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.openPeriods, 'glyphicon-chevron-right': !status.openPeriods}"></em>
+                </uib-accordion-heading>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="radio clip-radio radio-success radio-inline" ng-repeat="year in yearList">
+                            <input type="radio" id="year[[year.period]]" name="year" value="[[year.period]]" ng-model="year.isActive">
+
+                            <label class="text-bold text-wrap text-break" for="year[[year.period]]">[[year.period]]</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <a class="btn-link" ng-click="onAllMonths()" href="#"> <span class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                    <a class="btn-link" ng-click="clearMonths()" href="#"> <span class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 form-group form-inline" ng-repeat="month in monthList">
+                        <div class="checkbox clip-check check-success check-md checkbox-inline">
+                            <input type="checkbox" id="month[[month.value]]" ng-model="month.isActive" ng-required="true" ng-change="onCheckMonth(month)">
+                            <label for="month[[month.value]]" class="text-wrap text-break">[[month.item]]</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Groups -->
+            <div uib-accordion-group class="panel-default" is-open="status.openGroups" ng-if="filters.groups">
+                <uib-accordion-heading>
+                    <label><h4 class="panel-title text-primary text-wrap text-break"><strong>Grupos: </strong></h4></label>
+                    <em class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.openGroups, 'glyphicon-chevron-right': !status.openGroups}"></em>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <a class="btn-link" ng-click="allGroups()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                    <a class="btn-link" ng-click="clearGroups()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-inline" ng-repeat="group in groupList">
+                            <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                <input type="checkbox" id="group[[group.value]]" ng-model="group.isActive" ng-change="onChangeGroupFilter()">
+                                <label for="group[[group.value]]" class="ws-normal">
+                                    [[group.item]]
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Axis  -->
+            <div uib-accordion-group class="panel-default" is-open="status.openAxis" ng-if="filters.axis">
+                <uib-accordion-heading>
+                    <label><h4 class="panel-title text-primary text-wrap text-break"><strong>Ejes: </strong></h4></label>
+                    <em class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.openAxis, 'glyphicon-chevron-right': !status.openAxis}"></em>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <a class="btn-link" ng-click="allAxis()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                    <a class="btn-link" ng-click="clearAxis()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-inline" ng-repeat="axis in axisList">
+                            <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                <input type="checkbox" id="axis[[axis.value]]" name="axis" value="{{axis.value}}" ng-model="axis.isActive" ng-true-value="true" ng-false-value="false">
+                                <label for="axis[[axis.value]]" class="ws-normal">
+                                    [[axis.item]]
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Type Indicator -->
+            <div uib-accordion-group class="panel-default" is-open="status.openTipIndicator" ng-if="filters.indicator">
+                <uib-accordion-heading>
+                    <label>
+                        <h4 class="panel-title text-primary"><strong>Tipo indicador: </strong></h4>
+                    </label>
+                    <em class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.openTipIndicator, 'glyphicon-chevron-right': !status.openTipIndicator}"></em>
+                </uib-accordion-heading>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="radio clip-radio radio-success radio-inline" ng-repeat="item in indicators">
+                            <input type="radio" id="indicator[[item.name]]" name="indicator" value="[[item.value]]" ng-model="entity.indicator">
+                            <label class="text-bold ws-normal" for="indicator[[item.name]]">
+                                [[item.name]]
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </uib-accordion>
+    </div>
+
+
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="onFilter()">
+            Aceptar
+        </button>
+        <button class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+    </div>
+
+</form>

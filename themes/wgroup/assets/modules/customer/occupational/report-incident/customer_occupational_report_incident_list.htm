@@ -1,0 +1,34 @@
+<div ng-controller="customerOccupationalReportIncidentListCtrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreateIncidentAL()">
+                <i class="glyphicon glyphicon-plus"></i> Crear reporte incidente
+            </a>
+            <a class="btn btn-wide btn-info" href="#" ng-click="onViewIncidentAnalysis()">
+                <i class="glyphicon glyphicon-list-alt"></i> Análisis de indicadores
+            </a>
+        </div>
+
+        <div class="col-md-6">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" width="100%" 
+                        dt-instance="dtInstanceCustomerOccupationalReportIncidentCallback"
+                        dt-options="dtOptionsCustomerOccupationalReportIncident" 
+                        dt-columns="dtColumnsCustomerOccupationalReportIncident"
+                        id="dtCustomerOccupationalReportIncident" class="table table-bordered table-hover">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+    </div>
+
+</div>

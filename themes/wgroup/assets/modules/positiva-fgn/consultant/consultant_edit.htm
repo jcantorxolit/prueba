@@ -1,0 +1,614 @@
+
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="CONFIGURAR ASESOR">CONFIGURAR ASESOR</h1>
+                <span class="mainDescription">Desde aquí puede definir la configuración del asesor.</span>
+            </div>
+            <!-- <div ncy-breadcrumb></div> -->
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="consultantEditCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                        <label class="control-label">Tipo<span class="symbol required"></span></label>
+                                        <ui-select name="type" ng-required="true"  ng-model="entity.type" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Opción -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in typeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.type.$dirty && Form.type.$invalid">
+                                            El tipo es requerido
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                        <label class="control-label">Tipo identificación<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="documentType" ng-required="true"  ng-model="entity.documentType" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Opción -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in documentTypeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.documentType.$dirty && Form.documentType.$invalid">
+                                            El tipo de identificación es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" >
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                        <label class="control-label">Identificación<span
+                                                class="symbol required"></span></label>
+                                        <input type="text" placeholder="Ingrese valor"
+                                            class="form-control" name="documentNumber" ng-model="entity.documentNumber"
+                                            required />
+                                        <span class="error text-small block"
+                                            ng-if="Form.documentNumber.$dirty && Form.documentNumber.$invalid">
+                                            El número de identificación es requerido
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.fullName.$dirty && Form.fullName.$invalid}">
+                                        <label class="control-label">Nombre y Apellido<span class="symbol required"></span></label>
+                                        <input type="text"  placeholder="Ingrese el nombre(s)" class="form-control" name="fullName"
+                                            ng-model="entity.fullName" required />
+                                        <span class="error text-small block"
+                                            ng-if="Form.fullName.$dirty && Form.fullName.$invalid">El
+                                            nombre(s) es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                        <label class="control-label">Género<span  class="symbol required"></span></label>
+                                        <ui-select name="gender" ng-required="true"  ng-model="entity.gender" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Opción -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in genderList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.gender.$dirty && Form.gender.$invalid">
+                                            El género es requerido</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <div class="form-group" >
+                                        <label class="control-label">F. Nacimiento</label>
+                                        <input class="form-control" kendo-date-picker
+                                            name="birthDate"
+                                            autocomplete="off"
+                                            onkeypress="return false;"
+                                            k-options="datePickerConfig"
+                                            k-max="maxDate"
+                                            ng-model="entity.birthDate"
+                                            style="width: 100%;" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.job.$dirty && Form.job.$invalid}">
+                                        <label class="control-label">Cargo<span class="symbol required"></span></label>
+                                        <input type="text"  placeholder="Ingrese valor" class="form-control" name="job"
+                                            ng-model="entity.job" required />
+                                        <span class="error text-small block"
+                                            ng-if="Form.job.$dirty && Form.job.$invalid">El
+                                            cargo es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.grade.$dirty && Form.grade.$invalid}">
+                                        <label class="control-label">Grado<span  class="symbol required"></span></label>
+                                        <ui-select name="grade" ng-required="true"  ng-model="entity.grade" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in gradeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.grade.$dirty && Form.grade.$invalid">
+                                            El grado es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.accountingAccount.$dirty && Form.accountingAccount.$invalid}">
+                                        <label class="control-label">Cuenta Contable<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accountingAccount" ng-required="true"  ng-model="entity.accountingAccount" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in accountingAccountList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.accountingAccount.$dirty && Form.accountingAccount.$invalid">
+                                            El cuenta contable es requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group" ng-class="{'has-error':Form.admissionDate.$dirty && Form.admissionDate.$invalid}">
+                                        <label class="control-label">Fecha Ingreso <span class="symbol required"></span></label>
+                                        <input class="form-control" kendo-date-picker
+                                            name="admissionDate"
+                                            ng-required="true"
+                                            k-options="datePickerConfig"
+                                            k-max="maxDate"
+                                            onkeydown="return false;"
+                                            required
+                                            ng-model="entity.admissionDate"
+                                            style="width: 100%;" />
+                                        <span class="error text-small block" ng-if="Form.admissionDate.$dirty && Form.admissionDate.$invalid">
+                                            La fecha es requerida
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group" >
+                                        <label class="control-label">Fecha Retiro </label>
+                                        <input class="form-control" kendo-date-picker
+                                            name="withdrawalDate"
+                                            autocomplete="off"
+                                            onkeypress="return false;"
+                                            k-options="datePickerConfig"
+                                            k-max="maxDate"
+                                            ng-model="entity.withdrawalDate"
+                                            style="width: 100%;" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label>
+                                            Estado
+                                        </label>
+                                        <div class="checkbox" style="margin-top: 0px !important;">
+                                            <switch  ng-model="entity.isActive" class="green"></switch>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="control-label">Profesión</label>
+                                        <input type="text"  class="form-control" name="profession" placeholder="Ingrese valor"
+                                            ng-model="entity.profession"  />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.workingDay.$dirty && Form.workingDay.$invalid}">
+                                        <label class="control-label">Jornada<span  class="symbol required"></span></label>
+                                        <ui-select name="workingDay" ng-required="true"  ng-model="entity.workingDay" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in workingDayList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.workingDay.$dirty && Form.workingDay.$invalid">
+                                            La jornada es requerida</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.eps.$dirty && Form.eps.$invalid}">
+                                        <label class="control-label">EPS<span  class="symbol required"></span></label>
+                                        <ui-select name="eps" ng-required="true"  ng-model="entity.eps" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in epsList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.eps.$dirty && Form.eps.$invalid">
+                                            La EPS es requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.afp.$dirty && Form.afp.$invalid}">
+                                        <label class="control-label">AFP<span  class="symbol required"></span></label>
+                                        <ui-select name="afp" ng-required="true"  ng-model="entity.afp" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in afpList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.afp.$dirty && Form.afp.$invalid">
+                                            El AFP es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.ccf.$dirty && Form.ccf.$invalid}">
+                                        <label class="control-label">CCF<span  class="symbol required"></span></label>
+                                        <ui-select name="ccf" ng-required="true"  ng-model="entity.ccf" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in ccfList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.ccf.$dirty && Form.ccf.$invalid">
+                                            El CCF es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label">Contacto Principal</label>
+                                        <input type="text"  class="form-control" name="mainContact" placeholder="Ingrese valor"
+                                            ng-model="entity.mainContact"  />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Teléfono</label>
+                                        <input type="text"  class="form-control" name="telephone" placeholder="Ingrese valor"
+                                            ng-model="entity.telephone"  />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">LICENCIAS</span></h4>
+                            <div class="panel-tools">
+                                <a href='#' class="btn btn-primary btn-o btn-sm"  tooltip-placement='top'
+                                    uib-tooltip="Adicionar" ng-click="onAddInfoDetailLicense()"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Licencia SST</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">Fecha Expedición <span class="symbol required"></span></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Ente Emisor</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="license in entity.details.license">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="license" ng-model="license.license" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group" ng-class="{'has-error': Form.expeditionDate.$dirty && Form.expeditionDate.$invalid && !license.expeditionDate}">
+                                        <input class="form-control" kendo-date-picker
+                                            name="expeditionDate"
+                                            ng-required="true"
+                                            required
+                                            k-options="datePickerConfig"
+                                            k-max="maxDate"
+                                            onkeydown="return false;"
+                                            ng-bind="expeditionDate"
+                                            ng-model="license.expeditionDate"
+                                            style="width: 100%;" />
+                                        <span class="error text-small block" ng-if="Form.expeditionDate.$dirty && Form.expeditionDate.$invalid && !license.expeditionDate">
+                                            La fecha de expedición es requerida
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="issuingEntity" ng-model="license.issuingEntity" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1" >
+                                    <a href='#' class="btn btn-danger btn-o " tooltip-placement='top' uib-tooltip="Eliminar"
+                                        ng-click="onRemoveInfoDetailLicense($index, license.id)"><i class="fa fa-trash-o "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BANCARIA </span></h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group" >
+                                        <label class="control-label">Tipo de cuenta</label>
+
+                                        <ui-select name="accountType"  ng-model="entity.accountType" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in accountTypeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Banco</label>
+                                        <input type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="bank" ng-model="entity.bank" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Cuenta</label>
+                                        <input type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="accountNumber" ng-model="entity.accountNumber" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE CONTACTO</span></h4>
+                            <div class="panel-tools">
+                                <a href='#' class="btn btn-primary btn-o btn-sm"  tooltip-placement='top'
+                                    uib-tooltip="Adicionar" ng-click="onAddInfoDetailContact()"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Tipo<span  class="symbol required"></span></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="">Valor</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="contact in entity.details.contact">
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid && !type.type}">
+                                        <ui-select name="type" ng-required="true"  ng-model="contact.type" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in contactInformationList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid && !type.type">
+                                            El valor es requerido.</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="value" ng-model="contact.value" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <a href='#' class="btn btn-danger btn-o " tooltip-placement='top' uib-tooltip="Eliminar"
+                                        ng-click="onRemoveInfoDetailContact($index, contact.id)"><i class="fa fa-trash-o "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">ESTRATEGIA</span></h4>
+                            <div class="panel-tools">
+                                <a href='#' class="btn btn-primary btn-o btn-sm"  tooltip-placement='top'
+                                    uib-tooltip="Adicionar" ng-click="onAddInfoDetailStrategy()"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label class="control-label">Estrategia<span  class="symbol required"></span></label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Tipo<span  class="symbol required"></span></label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="control-label">Estado</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="strategy in entity.details.strategy">
+
+                                <div class="col-md-8">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy}">
+                                        <ui-select name="strategy" ng-required="true"  ng-model="strategy.strategy" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices ui-disable-choice="valideSingle(item)"
+                                                repeat="item in strategyList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block" ng-if="Form.strategy.$dirty && Form.strategy.$invalid && !strategy.strategy">
+                                            El valor es requerido.</span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-2">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.strategyType.$dirty && Form.strategyType.$invalid}">
+                                        <ui-select name="strategyType" ng-required="true" ng-model="strategy.type" theme="bootstrap" >
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices ui-disable-choice="valideSingleStrategyType(item)"
+                                                repeat="item in strategyTypeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block" ng-if="Form.strategyType.$dirty && Form.strategyType.$invalid">
+                                            El valor es requerido.</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <div class="checkbox" style="margin-top: 0px !important;">
+                                            <switch  ng-model="strategy.isActive" class="green"></switch>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <a href='#' class="btn btn-danger btn-o " tooltip-placement='top' uib-tooltip="Eliminar"
+                                        ng-click="onRemoveInfoDetailStrategy($index, strategy.id)"><i class="fa fa-trash-o "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row padding-bottom-20">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary" >
+                                    Guardar
+                                </button>
+                                <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                                    Regresar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,294 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Recurso</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="center">
+                    <div flow-init="{ singleFile:true, target:'api/resource-library/upload-cover', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                         flow-name="uploader.flow" flow-object="uploader.flow"
+                         flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                        <div class="user-image">
+                            <div class="thumbnail">
+                                <img src="assets/images/default-user.png'|theme}}" alt=""
+                                     ng-if="!uploader.flow.files.length && noImage">
+                                <img ng-src="[[resource.cover.path]]" alt=""
+                                     ng-if="!uploader.flow.files.length && !noImage">
+                                <img flow-img="uploader.flow.files[0]"
+                                     ng-if="uploader.flow.files.length">
+                            </div>
+
+                            <div class="user-image-buttons"
+                                 ng-if="uploader.flow.files.length">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger"
+                                                                  ng-click="uploader.flow.cancel()"> <i
+                                                                    class="fa fa-times"></i> </span>
+                            </div>
+                            <div class="user-image-buttons"
+                                 ng-if="!uploader.flow.files.length && !isView">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger" ng-if="!noImage"
+                                                                  ng-click="removeImage()"><i
+                                                                    class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                    <label class="control-label">
+                        Tipo
+                        <span class="symbol required"></span>
+                    </label>
+                    <ui-select name="type" ng-disabled="isView" ng-model="resource.type"
+                               ng-required="true"
+                               theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="item in resourceLibraryTypeList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                        </ui-select-choices>
+                    </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es requerido</span>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label">Fecha de recurso</label>
+                    <input class="form-control" kendo-date-picker
+                           k-options="datePickerConfig"
+                           k-ng-model="resource.dateOf"
+                           ng-disabled="isView"
+                           style="width: 100%;"/>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="control-label">Activo</label>
+
+                    <div class="checkbox" style="margin-top: 0px !important;">
+                        <switch ng-model="resource.isActive" class="green" disabled="isView"></switch>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                    <label class="control-label">Nombre <span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese el nombre"
+                           class="form-control" name="name"
+                           ng-model="resource.name" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.author.$dirty && Form.author.$invalid}">
+                    <label class="control-label">Autor/Emisor <span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese autor/emisor"
+                           class="form-control" name="author"
+                           ng-model="resource.author" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.author.$dirty && Form.author.$invalid">El autor/emisor es requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.subject.$dirty && Form.subject.$invalid}">
+                    <label class="control-label">Tema <span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese el tema"
+                           class="form-control" name="subject"
+                           ng-model="resource.subject" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.subject.$dirty && Form.subject.$invalid">El tema es requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                    <label class="control-label">Descripción<span
+                            class="symbol required"></span></label>
+                   <textarea ng-disabled="isView" name="description"
+                             placeholder="Escribe aquí la descripción"
+                             data-ng-model="resource.description"
+                             class="form-control" required></textarea>
+                    <span class="error text-small block"
+                          ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row" ng-if="!isView">
+            <div class="col-md-12">
+
+                <p>
+                    Cantidad anexos: [[ uploaderResource.queue.length ]]
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th width="50%">Nombre</th>
+                            <th ng-show="uploaderResource.isHTML5">Tamaño</th>
+                            <th ng-show="uploaderResource.isHTML5">Progreso</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in uploaderResource.queue">
+                            <td><strong>[[ item.file.name ]]</strong></td>
+                            <td ng-show="uploaderResource.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2]] MB
+                            </td>
+                            <td ng-show="uploaderResource.isHTML5">
+                                <div class="progress progress-xs margin-bottom-0">
+                                    <div class="progress-bar" role="uib-progressbar"
+                                         ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center"><span ng-show="item.isSuccess"><i
+                                    class="glyphicon glyphicon-ok"></i></span><span
+                                    ng-show="item.isCancel"><i
+                                    class="glyphicon glyphicon-ban-circle"></i></span><span
+                                    ng-show="item.isError"><i
+                                    class="glyphicon glyphicon-remove"></i></span></td>
+                            <td nowrap>
+
+                                <button type="button" class="btn btn-danger btn-xs"
+                                        ng-click="item.remove()">
+                                    <span class="glyphicon glyphicon-trash"></span> Remover
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+
+                                <span class="btn btn-primary btn-o btn-file"> Seleccionar anexo
+									<input type="file" nv-file-select="" uploader="uploaderResource"
+                                           ng-disabled="uploaderResource.getNotUploadedItems().length > 0"/>
+								</span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-white margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">PALABRAS CLAVES</span>
+                </h4>
+
+                <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm"
+                       tooltip-placement='top' uib-tooltip="Adicionar"
+                       ng-if="!isView"
+                       ng-click="onAddKeyword()"><i
+                            class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-11">
+
+                        <label class="control-label">
+                            Palabra clave
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="row"
+                     ng-repeat="item in resource.keywords">
+                    <div class="col-md-11">
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.keyword.$dirty && Form.keyword.$invalid}">
+                            <input ng-disabled="isView" type="text"
+                                   placeholder="Ingrese la palabra clave"
+                                   class="form-control"
+                                   name="keyword"
+                                   ng-model="item.text"/>
+                            <span class="error text-small block"
+                                  ng-if="Form.keyword.$dirty && Form.keyword.$invalid">El registro es requerido</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1"
+                         ng-if="resource.keywords.length > 0 && !isView">
+                        <div class="pull-right">
+                            <div class="form-group">
+                                <a href='#'
+                                   class="btn btn-danger btn-o btn-sm"
+                                   tooltip-placement='top'
+                                   uib-tooltip="Eliminar"
+                                   ng-click="onRemoveKeyword($index)"><i
+                                        class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

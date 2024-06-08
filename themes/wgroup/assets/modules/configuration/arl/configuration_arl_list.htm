@@ -1,0 +1,146 @@
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="ARL">ARL</h1>
+                <span class="mainDescription">Desde aquí podrá administrar la información de las ARL del sistema.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationArlCtrl">
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        <div class="user-left">
+                                            <div class="center">
+                                                <div flow-init="{ singleFile:true, target:'api/system-parameter/upload', uploadMethod:'POST', 'testChunks':false, chunkSize:5*1024*1024}"
+                                                     flow-name="uploader.flow" flow-object="uploader.flow"
+                                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                                    <div class="user-image">
+                                                        <div class="thumbnail">
+                                                            <img src="assets/images/default-user.png'|theme}}" alt=""
+                                                                 ng-if="!uploader.flow.files.length && noImage">
+                                                            <img ng-src="[[parameter.logo.path]]" alt=""
+                                                                 ng-if="!uploader.flow.files.length && !noImage">
+                                                            <img flow-img="uploader.flow.files[0]"
+                                                                 ng-if="uploader.flow.files.length">
+                                                        </div>
+
+                                                        <div class="user-image-buttons"
+                                                             ng-if="uploader.flow.files.length">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger"
+                                                                  ng-click="uploader.flow.cancel()"> <i
+                                                                    class="fa fa-times"></i> </span>
+                                                        </div>
+                                                        <div class="user-image-buttons"
+                                                             ng-if="!uploader.flow.files.length && !isview">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger" ng-if="!noImage"
+                                                                  ng-click="removeImage()"><i
+                                                                    class="fa fa-times"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-9">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group"
+                                                     ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                                                    <label class="control-label">Código<span
+                                                            class="symbol required"></span></label>
+                                                    <input ng-disabled="isView" type="text"
+                                                           placeholder="Ingrese el código"
+                                                           class="form-control" name="code"
+                                                           ng-model="parameter.value" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.code.$dirty && Form.code.$invalid">El código es requerido</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group"
+                                                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                                    <label class="control-label">Descripción<span
+                                                            class="symbol required"></span></label>
+                                                    <input ng-disabled="isview" type="text"
+                                                           placeholder="Ingrese la descripción"
+                                                           class="form-control" name="description"
+                                                           ng-model="parameter.item" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">LISTADO ARL</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstanceArl" dt-options="dtOptionsArl"
+                                                   id="dtArl"
+                                                   dt-columns="dtColumnsArl"
+                                                   class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

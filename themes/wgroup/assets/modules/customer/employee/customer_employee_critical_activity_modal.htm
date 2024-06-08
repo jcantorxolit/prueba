@@ -1,0 +1,91 @@
+<form name="Form" id="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">ACTIVIDADES CRÍTICAS</span></h4>
+                    </div>
+    
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="btn-group" uib-dropdown>
+                                    <button
+                                        type="button"
+                                        class="btn btn-default"
+                                        ng-disabled="toggle.selectAll"
+                                        ng-click="onToggle()"
+                                        uib-tooltip="[[ toggle.isChecked ? 'Deseleccionar esta página' : 'Seleccionar esta página']]"
+                                    >
+                                        <i
+                                            ng-class="{'fa fa-square-o': !toggle.isChecked, 'fa fa-check-square-o': toggle.isChecked}"
+                                        ></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Split button!</span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="#" ng-click="onSelectCurrentPage()">
+                                                Seleccionar esta página ([[records.currentPage]])
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" ng-click="onSelectAll()">
+                                                Seleccionar todo ([[records.total]])
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#" ng-click="onDeselectAll()">
+                                                Deseleccionar todo
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+                                <span class="small-text" ng-if="records.hasSelected">
+                                    | Registros seleccionados [[ records.countSelected ]]
+                                </span>
+                            </div>
+                        </div>
+    
+                        <div class="row" ng-if="canShowDataTable">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table
+                                        datatable=""
+                                        width="100%"
+                                        dt-instance="dtInstanceCustomerEmployeeCiriticalActivityCallback"
+                                        dt-options="dtOptionsCustomerEmployeeCiriticalActivity"
+                                        dt-columns="dtColumnsCustomerEmployeeCiriticalActivity"
+                                        id="dtCustomerEmployeeCiriticalActivity"
+                                        class="table table-bordered table-hover"
+                                    ></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info" ng-click="onAccept()">
+                        Aceptar
+                    </button>
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

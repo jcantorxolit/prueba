@@ -1,0 +1,14 @@
+
+<div ng-controller="customerConfigWizardJobActivityCtrl" >
+    <div ng-switch="view_component" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/jobactivity/customer_profile_config_sgsst_wizard_tab_job_activity_import.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="staging" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/jobactivity/customer_profile_config_sgsst_wizard_tab_job_activity_staging_list.htm'">
+            </div>
+        </div>
+    </div>
+</div>

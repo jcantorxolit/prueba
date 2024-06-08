@@ -1,0 +1,182 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body" id="contentwrp">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Informacón Tarea </h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="over-title margin-bottom-15">
+                    <span class="text-bold">Proyecto: [[projectTask.name]]</span>
+                </h5>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <h4 class="panel-title">
+                        <span class="text-bold">[[projectTask.customerName]]</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row Accordion-paneHeader">
+            <div class="col-md-12">
+                <p>
+                    [[projectTask.description]]
+                </p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                    <label class="control-label">Tarea / Actividad<span class="symbol required"></span></label>
+                    <input ng-disabled="isview" type="text" placeholder="Ingrese el titulo de la tarea o actividad"
+                        class="form-control" name="name" ng-model="projectTask.task" required />
+                    <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid">El nombre del
+                        proyecto es requerido</span>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                    <label class="control-label">
+                        Tipo tarea<span class="symbol required"></span>
+                    </label>
+                    <ui-select name="type" ng-required="true" ng-disabled="isview" ng-model="projectTask.type" theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.description]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in taskTypes | filter: $select.search track by $index">
+                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es
+                        requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Descripción
+                    </label>
+                    <textarea ng-disabled="isview" placeholder="Escribe aquí la descripción de la tarea..."
+                        data-ng-model="projectTask.observation" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label class="control-label">Inicio</label>
+                    <input class="form-control" kendo-date-picker k-options="datePickerConfig" k-ng-model="projectTask.startDateTime"
+                        style="width: 100%;" />
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label class="control-label">Fin</label>
+                    <input class="form-control" kendo-date-picker k-options="datePickerConfig" k-ng-model="projectTask.endDateTime"
+                        style="width: 100%;" />
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group" ng-class="{'has-error':Form.hours.$dirty && Form.hours.$invalid}">
+                    <label class="control-label">
+                        Duración (Horas) <span class="symbol required"></span>
+                    </label>
+                    <input type="text" placeholder="Horas estimadas" class="form-control" name="duration"
+                        ng-model="projectTask.duration" required />
+                    <span class="error text-small block" ng-if="Form.hours.$dirty && Form.hours.$invalid">La cantidad
+                        de horas estimadas es requerida</span>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group" ng-if="reschedule">
+            <label>
+                <h4 class="panel-title text-primary">Seguimiento Tarea</h4>
+            </label>
+        </div>
+
+        <div class="row" ng-if="reschedule">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <label class="control-label">Acción</label>
+                    <input ng-disabled="true" type="text" class="form-control" name="name" ng-model="projectTask.tracking.action"
+                        required />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row" ng-if="reschedule">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Motivo
+                    </label>
+                    <textarea placeholder="Escribe aquí el motivo..." data-ng-model="projectTask.tracking.description"
+                        class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-o" ng-disabled="!allowToSave">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Actividades</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive" id="dtActivity" style="margin-left: 2px">
+                    <table datatable="" width="100%" dt-instance="dtInstanceTask" dt-options="dtOptionsTask" dt-columns="dtColumnsTask"
+                        class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal-footer">
+
+    </div>
+</form>

@@ -1,0 +1,219 @@
+<div ng-controller="customerDiagnosticRiskMatrixCharacterizationCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">CARACTERIZACIÓN</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                        <label class="control-label" translate="grid.matrix.WORK-PLACE">Centro de Trabajo<span
+                                class=""></span></label>
+
+                        <div class="input-group">
+                            <ui-select name="type" ng-disabled="isView" ng-model="filter.selectedWorkPlace"
+                                on-select="onSelectWorkPlace()" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in workplaceList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="onClearWorkPlace()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf()"
+                            ng-if="can('matriz_peligros_export')">
+                            Exportar Pdf
+                        </button>
+
+                        <button type="button" class="btn btn-success btn-o" ng-click="onExportExcel()"
+                            ng-if="can('matriz_peligros_export')">
+                            Exportar Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="characterization-export-pdf">
+                <div class="row margin-top-15">
+                    <div class="col-md-12">
+                        <div kendo-grid="grid" class="k-parent" parent-width k-options="mainGridOptions"
+                            k-ng-delay="mainGridOptions">
+                            <div style="margin-left: 2%; margin-bottom: 10px; margin-top: 10px;" k-detail-template>
+                                <h5 class="text-orange">Descripción del peligro</h5>
+                                <div kendo-grid="gridItem" name="gridChild" class="hide-grid-header"
+                                    k-options="detailGridOptions(dataItem)">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">GRÁFICAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        Clasificación del <span class="text-bold">peligro</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.classification.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Porcentaje de <span
+                                            class="text-bold">aceptabilidad</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-pie chart-options="chart.pie.options"
+                                        chart-data="chart.acceptability.total.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-20">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">Aceptabilidad por <span
+                                            class="text-bold">clasificación del peligro</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.acceptability.classification.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row margin-top-20">
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.process.$dirty && Form.process.$invalid}">
+                                    <label class="control-label" translate="grid.matrix.PROCESS">Filtrar por
+                                        Proceso<span class=""></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="process" ng-disabled="isView" ng-model="filter.selectedProcess"
+                                            on-select="onSelectProcess()" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in processList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onClearProcess()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                    <label class="control-label">Filtrar por Clasificación<span class=""></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="classification" ng-disabled="isView"
+                                            ng-model="filter.selectedClassification"
+                                            on-select="onSelectClassification()" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in classificationList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onClearClassification()"
+                                                class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        Aceptabilidad por <span class="text-bold">tipo del peligro</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.acceptability.type.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        Medidas de <span class="text-bold">intervención</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.intervention.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>                            
+                            
+                            <div class="col-sm-4">
+                                <div class="text-center margin-bottom-15">
+                                    <h5 class="over-title margin-bottom-15">
+                                        Planes de <span class="text-bold">mejoramiento</span>
+                                    </h5>
+                                    <canvas class="tc-chart" tc-chartjs-pie chart-options="chart.pie.options"
+                                        chart-data="chart.improvementPlan.data" height="400">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+</div>

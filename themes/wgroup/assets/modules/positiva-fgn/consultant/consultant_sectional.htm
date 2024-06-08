@@ -1,0 +1,118 @@
+<div >
+    <div class="panel panel-default">
+
+        <div class="panel-heading border-light">
+            <h4 class="panel-title">
+                <span class="text-bold">CONFIGURACIÓN DE SECCIONALES</span>
+            </h4>
+        </div>
+
+        <div class="panel-body ">
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group" ng-class="{'has-error':Form.regional.$dirty && Form.regional.$invalid}">
+                                    <label class="control-label">Regional<span class="symbol required"></span></label>
+                                    <ui-select name="regional" ng-required="true" on-select="filterSectional()"
+                                        ng-model="entity.regional" theme="bootstrap">
+                                        <ui-select-match placeholder="- Opción -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in regionalList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error':Form.sectional.$dirty && Form.sectional.$invalid}">
+                                    <label class="control-label">Seccional<span class="symbol required"></span></label>
+                                    <ui-select name="sectional" ng-required="true" 
+                                        ng-model="entity.sectional" theme="bootstrap">
+                                        <ui-select-match placeholder="- Opción -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in sectionalList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Tipo<span class="symbol required"></span></label>
+                                    <ui-select name="type" ng-required="true" 
+                                        ng-model="entity.type" theme="bootstrap">
+                                        <ui-select-match placeholder="- Opción -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in typeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        Estado
+                                    </label>
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch  ng-model="entity.isActive" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <br>
+                                <button type="submit" class="btn btn-primary" >
+                                    Guardar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            
+            </form>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnSectional"
+                            dt-options="dtOptionsPositivaFgnSectional" id="dtPositivaFgnSectional" dt-columns="dtColumnsPositivaFgnSectional"
+                            class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCloseModal()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

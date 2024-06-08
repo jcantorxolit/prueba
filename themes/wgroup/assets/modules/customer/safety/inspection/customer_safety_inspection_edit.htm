@@ -1,0 +1,49 @@
+<div ng-controller="customerSafetyInspectionListItemEditCtrl">
+    <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title"><span class="text-bold">LISTAS INSPENCIÓN SEGURIDAD- GESTIÓN</span>
+                        </h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <h4 class="no-margin">[[averageTotal]]%</h4>
+                        <uib-progressbar value="[[averageTotal]]" class="progress-xs no-radius no-margin" type="success"></uib-progressbar>
+                        Promedio Total
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/safety/inspection/customer_safety_inspection_wizard.htm'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Regresar
+                    </button>
+                    |
+                    <button type="button" class="btn btn-primary btn-o back-step btn-wide" ng-if="currentStep > 0"
+                        ng-click="form.prev(Form)">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o next-step btn-wide" ng-if="currentStep < (lists.length + 1)"
+                        ng-click="form.next(Form)">
+                        Siguiente <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerHealthDamageTabsCtrl">
+
+            <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                <div class="col-md-12">
+                    <div class="panel panel-white" id="pnlloading">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">Cargando...</h4>
+                        </div>
+                        <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <p>
+                                    Estamos procesando la información del diagnóstico.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" select="switchTab('disability')">
+                            <uib-tab-heading>
+                                Incapacidad
+                            </uib-tab-heading>
+
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('disability').url">
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('diagnostic')">
+                            <uib-tab-heading>
+                                Origen de Diagnóstico
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='diagnostic'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('diagnostic').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('restriction')">
+                            <uib-tab-heading>
+                                Recomendaciones o Restricciones
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='restriction'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('restriction').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('qualification')">
+                            <uib-tab-heading>
+                                Calificación de Origen
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='qualification'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('qualification').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('qualification_lost')">
+                            <uib-tab-heading>
+                                Calificación de Pérdida
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='qualification_lost'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('qualification_lost').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('administrative')">
+                            <uib-tab-heading>
+                                Proceso Administrativo
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='administrative'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('administrative').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('observation')">
+                            <uib-tab-heading>
+                                Observaciones
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='observation'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('observation').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('analysis')">
+                            <uib-tab-heading>
+                                Análisis de indicadores
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='analysis'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('analysis').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

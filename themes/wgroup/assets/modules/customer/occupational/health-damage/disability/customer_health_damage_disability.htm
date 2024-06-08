@@ -1,0 +1,35 @@
+<div ng-controller="customerHealthDamageDisabilityCtrl">
+    <div ng-switch="tracking_section" data-ng-animate="'wave'" class="">
+        <uib-tabset class="tabbable">
+            <uib-tab active="true" select="switchTab('disability_edit')">
+                <uib-tab-heading>
+                    Análisis por Diagnostico
+                </uib-tab-heading>
+                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('disability_edit').url">
+                </div>
+            </uib-tab>
+
+            <uib-tab select="switchTab('disability_list')">
+                <uib-tab-heading>
+                    Análisis por días de incapacidad
+                </uib-tab-heading>
+                <div ng-if="tabname=='disability_list'">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('disability_list').url">
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab select="switchTab('disability_person')">
+                <uib-tab-heading>
+                    Análisis por persona
+                </uib-tab-heading>
+                <div ng-if="tabname=='disability_person'">
+                    <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('disability_person').url">
+                    </div>
+                </div>
+
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

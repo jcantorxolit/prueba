@@ -1,0 +1,259 @@
+<div ng-controller="customerManagementndicatorsCtrl">
+    <form name="Form" id="frmIndicators" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">FILTROS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>
+                                        Filtrar por año
+                                    </label>
+                                    <ui-select ng-disabled="isView" ng-model="filter.year" theme="bootstrap"
+                                        on-select="onSelectYear()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in years | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search">
+                                            </div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.program.$dirty && Form.program.$invalid}">
+                                    <label class="control-label">Programa Empresarial<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="program" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectProgram()"
+                                        ng-model="filter.program" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in programList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.program.$dirty && Form.program.$invalid">
+                                        El programa empresarial es requerido
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                                    <label class="control-label">Centro de trabajo<span
+                                            class=""></span></label>
+                                    <div class="input-group">
+                                        <ui-select name="workplace" ng-disabled="isView"
+                                            on-select="onSelectWorkplace()"
+                                            ng-model="filter.workplace" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in workplaceList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button ng-click="onRemoveWorkplace()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="error text-small block"
+                                        ng-if="Form.workplace.$dirty && Form.workplace.$invalid">
+                                        El centro de trabajo es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-white margin-5" ng-if="filter.workplace != null">
+
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <span class="text-bold">COMPARACIÓN CENTROS DE TRABAJO</span>
+                        </h4>
+
+                        <div class="panel-tools">
+                            <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top'
+                                uib-tooltip="Adicionar" ng-click="onAddCompare()"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row" ng-repeat="workplace in filter.compareWorkplaceList">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.workplaceCompare.$dirty && Form.workplaceCompare.$invalid}">
+                                    <div class="input-group">
+                                        <ui-select name="workplace" theme="bootstrap" ng-disabled="isView"
+                                            ng-model="workplace.name" on-select="onSelectCompareWorkplace($index)">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in moduleCompareWokplaceList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search">
+                                                </div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button ng-click="onRemoveCompare($index)" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" 
+                            dt-instance="dtInstanceManagementIndicatorSummaryCallback" 
+                            dt-options="dtOptionsManagementIndicatorSummary"
+                            dt-columns="dtColumnsManagementIndicatorSummary" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">PROMEDIO TOTAL PROGRAMA EMPRESARIAL</span></h4>
+            </div>
+    
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf('AV')">
+                                        Exportar PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row export-pdf-average">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.average.data" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">VALORACIÓN DE PROGRAMA EMPRESARIAL</span></h4>
+            </div>
+    
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf('VA')">
+                                        Exportar PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row export-pdf-valoration">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <canvas class="tc-chart" tc-chartjs-radar chart-options="chart.bar.options"
+                                        chart-data="chart.valoration.data" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">PLANES DE MEJORAMIENTO</span></h4>
+            </div>
+    
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf('IP')">
+                                        Exportar PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row export-pdf-improvement-plan">
+                            <div class="col-sm-12">
+                                <div class="text-center margin-bottom-15">
+                                    <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options"
+                                        chart-data="chart.improvementPlan.data" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">RESPONSABLES DE PLANES DE MEJORAMIENTO</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" 
+                                    dt-instance="dtInstanceManagementResponsibleSummaryCallback" 
+                                    dt-options="dtOptionsManagementResponsibleSummary"
+                                    dt-columns="dtColumnsManagementResponsibleSummary" class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

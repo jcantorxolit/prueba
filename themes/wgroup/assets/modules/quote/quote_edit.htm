@@ -1,0 +1,450 @@
+<div ui-view="" class="fade-in-right-big">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Cotizaciones">Cotizaciones</h1>
+                <span class="mainDescription">Desde aquí podrá administrar la información de la cotización.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+
+    <!-- start: FORM BODY -->
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row" ng-controller="quoteEditCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <fieldset>
+                    <legend>Información básica:</legend>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.customer.$dirty && Form.customer.$invalid}">
+                                <label class="control-label">Cliente<span
+                                        class="symbol required"></span></label>
+
+                                <ui-select name="customer" ng-model="quote.customer" theme="bootstrap"
+                                           on-select="changeCustomer($item, $model)"
+                                           ng-disabled="isView" ng-required="true">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in customers | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.customer.$dirty && Form.customer.$invalid">El cliente es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    Fecha límite
+                                </label>
+
+                                <div class='input-group date' id='deadline' ng-if="!isView">
+                                    <input class="form-control" kendo-date-picker k-options="dateConfig" k-ng-model="quote.deadline" style="width: 100%;" required/>
+
+                                </div>
+
+                                <input type="text" class="form-control" ng-if="isView"
+                                       data-ng-model="quote.deadline" disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                <label class="control-label">
+                                    Estado
+                                    <span class="symbol required"></span>
+                                </label>
+                                <ui-select name="status" ng-disabled="isView" ng-model="quote.status"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in statusQuote | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.status.$dirty && Form.status.$invalid">El estado es requerido</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label>
+                                    Descripción
+                                </label>
+
+                            <textarea ng-disabled="isView"
+                                      placeholder="Escribe aquí la descripción del presupuesto"
+                                      data-ng-model="quote.observation"
+                                      class="form-control"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Gástos</label>
+                                <input type="text" placeholder="Gástos" ng-disabled="isView"
+                                       class="form-control" name="expenses"
+                                       id="expenses" value="0" name="demo1"
+                                       ng-model="quote.expenses"
+                                       touchspin data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Iva</label>
+                                <input type="text" placeholder="Iva" ng-disabled="isView"
+                                       class="form-control" name="tax"
+                                       id="tax" value="0"
+                                       ng-model="quote.tax"
+                                       touchspin data-min="0" data-max="100" data-step="0.1" data-decimals="2"
+                                       data-boostat="5" data-maxboostedstep="10" data-postfix="%">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Total</label>
+                                <input type="text" placeholder="Total" ng-disabled="true"
+                                       class="form-control" name="total"
+                                       id="total" value="0" name="demo1"
+                                       ng-model="quote.total"
+                                       data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Total real</label>
+                                <input type="text" placeholder="Total real" ng-disabled="true"
+                                       class="form-control" name="totalModified"
+                                       id="totalModified" value="0" name="demo1"
+                                       ng-model="quote.totalModified"
+                                       data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset>
+                    <legend>Servicios:</legend>
+
+                    <div class="row">
+
+                        <div class="col-md-11">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.customer.$dirty && Form.customer.$invalid}">
+
+
+                                <ui-select name="service" ng-model="quote.service" theme="bootstrap"
+                                           ng-required="false">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in services | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.customer.$dirty && Form.customer.$invalid">El servicio es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="pull-right">
+                                <button type="button" ng-disabled="isView" class="btn btn-primary btn-o"
+                                        ng-click="onAddService()">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row" ng-repeat="detail in quote.details">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <input ng-disabled="true" type="text"
+                                       placeholder="Nombre del servicio"
+                                       class="form-control" name="name"
+                                       ng-model="detail.service.name" required/>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-1">
+
+                            <div class="form-group">
+                                <input ng-disabled="true" type="text"
+                                       placeholder="UND"
+                                       class="form-control" name="name"
+                                       ng-model="detail.service.unitMeasure" required/>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-1">
+
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.quantity.$dirty && Form.quantity.$invalid}">
+
+                                <input type="text"
+                                       placeholder="Cantidad"
+                                       class="form-control" name="quantity" ng-disabled="isView"
+                                       touchspin="" data-verticalbuttons="true"
+                                       data-max="1000000000"
+                                       data-verticalupclass="ti-angle-up"
+                                       data-verticaldownclass="ti-angle-down"
+                                       ng-model="detail.quantity" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.quantity.$dirty && Form.quantity.$invalid">La cantidad es requerida</span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+
+                                <input type="text" placeholder="Total real" ng-disabled="true"
+                                       class="form-control" name="totalModified"
+                                       id="unitValue" value="0" name="demo1"
+                                       ng-model="detail.service.unitValue"
+                                       data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+                                <input type="text" placeholder="Total real" ng-disabled="true"
+                                       class="form-control" name="totalDetail"
+                                       id="totalDetail" value="0"
+                                       ng-model="detail.total"
+                                       data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+                                <input type="text" placeholder="Total real" ng-disabled="isView"
+                                       class="form-control" name="totalModified"
+                                       id="totalDetailModified" value="0" name="totalDetailModified"
+                                       ng-model="detail.totalModified"
+                                       touchspin data-min="-100000000000" data-max="100000000000"
+                                       data-stepinterval="50"
+                                       data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger btn-xs" ng-if="!isView"
+                                        ng-click="onRemoveService($index)"
+                                        tooltip-placement="left" uib-tooltip="Remover servicio">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>Responsables:</legend>
+
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <label class="control-label">Tipo Contacto<span
+                                            class="symbol required"></span></label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre Completo<span
+                                            class="symbol required"></span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label">Email<span
+                                            class="symbol required"></span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="pull-right">
+                                <div class="form-group">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row" ng-repeat="contact in quote.responsible">
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input ng-disabled="true" type="text"
+                                       placeholder="Rol"
+                                       class="form-control" name="role"
+                                       ng-model="contact.role"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input ng-disabled="true" type="text"
+                                       placeholder="Nombre completo"
+                                       class="form-control" name="fullName"
+                                       ng-model="contact.fullName"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input ng-disabled="true" type="text"
+                                       placeholder="Nombre completo"
+                                       class="form-control" name="fullName"
+                                       ng-model="contact.email"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="pull-right">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                        <span class="switch ng-valid"
+                              ng-click="contact.isActive=!contact.isActive"
+                              ng-class="{ checked:contact.isActive }"
+                              ng-model="contact.isActive">
+                            <small></small>
+                            <input ng-disabled="isview" type="checkbox"
+                                   ng-model="contact.isActive" style="display:none"
+                                   class="ng-pristine ng-untouched ng-valid">
+                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+                <div class="row">
+                    <div class="col-sm-6">
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="panel panel-transparent">
+
+                            <div class="panel-body">
+
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <span class="badge">[[summary.subTotal]]</span>
+                                        Sub Total
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">[[summary.expenses]]</span>
+                                        Gastos
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="badge">[[summary.tax]]</span>
+                                        IVA (16%)
+                                    </li>
+                                    <li class="list-group-item text-extra-large text-dark margin-top-15">
+                                        <span class="badge">[[summary.total]]</span>
+                                        <strong>Total Costo:</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-12 margin-bottom-15">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" ng-if="!isView">
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <!-- end: FORM BODY -->
+
+</div>

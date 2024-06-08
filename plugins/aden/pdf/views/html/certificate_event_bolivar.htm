@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+    <title>Certificado de finalización &bull; {{ participantName|title }} &bull; {{ eventName|title }}</title>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/new-certificate.css">
+
+    <style type="text/css">
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+        /* body {
+    line-height: 1;
+    -webkit-print-color-adjust: exact;
+} */
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        body {
+            padding-top: 120px;
+            background: url('https://upgrade.adensoluciones.com/themes/wgroup/assets/images/certificado_bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+            width: 1013px;
+            height: 800px;
+            margin: 50px auto;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .title {
+            letter-spacing: 3px;
+            margin-bottom: 1%;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: bold;
+            margin-top: -5px;
+            color: #0d6c3a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            padding: 1%;
+            letter-spacing: 3px;
+            background: url('https://upgrade.adensoluciones.com/themes/wgroup/assets/images/title_bg.jpg') no-repeat center center;
+            background-size: contain;
+            font-size: 20px;
+            color: #595959;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #595959;
+        }
+
+        h2 span {
+            font: bold italic 35px 'Roboto Condensed', sans-serif;
+            display: block;
+        }
+
+        p {
+            position: relative;
+            font: normal normal 14px 'Roboto Condensed', sans-serif;
+            color: #878786;
+            width: 500px;
+            margin: auto;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            padding-top: 10px;
+            margin-top: 40px;
+            text-align: center;
+            border-top: 3px dotted #d9d9d9;
+            width: 90%;
+        }
+
+        .info p {
+            width: 80%;
+            color: #595959;
+            font-size: 20px;
+            line-height: 1.5em;
+        }
+
+        .signature_wrapper {
+            padding-top: 10px;
+            width: 80%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature_item {
+            width: 45%;
+            max-width: 50%;
+        }
+
+        .signature_item img {
+            height: 160px;
+            max-height: 160px;
+        }
+
+        .signature_item.left {
+            padding-top: 50px;
+            float: left;
+        }
+
+        .signature_item.right {
+            padding-top: 30px;
+            float: right;
+        }
+
+        .signature_item li {
+            font: bold 16px 'Roboto Condensed', sans-serif;
+            color: #595959;
+            word-wrap: break-word;
+        }
+
+        @media print {
+            @page {
+                size: landscape;
+                /* auto is the initial value */
+                margin: 0mm;
+                /* this affects the margin in the printer settings */
+            }
+            h1 {
+                margin-bottom: 0.5cm;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- <img class="logo" src="{{ themePath }}/images/waygroup_logo.png" width="140" alt=""> -->
+        <br>
+        <h1>SEGUROS BOLÍVAR</h1>
+        <br>
+        <p class="subtitle">CERTIFICA QUE</p>
+
+        <h2>{{ participantName|title }} <br>
+            <span>C.C. {{ participantDocumentNumber }}</span>
+        </h2>
+
+        <div class="info" align="center">
+            <p>Recibió capacitación en <span style='font: normal normal 17px "Arial",sans-serif;font-weight: bold;'>{{
+                    eventName|title }}</span> con una intensidad de {{ eventDuration }} horas, realizado en la ciudad de {{ eventCity|title }} el <span style="font-weight: bold;"> día {{ eventDateDay
+                    }} de {{ eventDateMonthName }} de {{ eventDateYear }} </span></p>
+        </div>
+
+        <div class="signature_wrapper">
+            <div class="signature_item left">
+                <img src="{{ providerSignature }}" width="230" alt="">
+                <ul>
+                    <li>{{ providerName }}</li>
+                </ul>
+            </div>
+
+            <div class="signature_item right">
+                <img src="{{ themePath }}/assets/images/olga.jpg" width="230" alt="">
+                <br><br>
+                <ul>
+                    <li>Olga Cecilia Hernández</li>
+                    <li>Subgerente Nacional de Prevención y Bienestar <br>Empresarial</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

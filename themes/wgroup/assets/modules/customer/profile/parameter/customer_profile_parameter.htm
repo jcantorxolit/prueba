@@ -1,0 +1,1075 @@
+<div class="tab1" ng-controller="customerParameterCtrl">
+  <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="row">
+      <div class="col-md-12">
+        <v-accordion class="vAccordion--default" multiple control="secondAccordionControl">
+
+          <v-pane expanded="$first" ng-if="can('cliente_parametros_matriz_select') && !hasMatrixSpecial">
+            <v-pane-header>
+              <h4>MATRIZ DE PELIGROS</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-body">
+                    
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="radio clip-radio radio-primary radio-inline">
+                        <input type="radio" id="GCT45" name="inline" value="G" ng-disabled="!canEditMatrix"
+                          ng-model="entity.matrixType">
+                        <label for="GCT45">
+                          Matriz GTC45 [[ entity.matrixType ]]
+                        </label>
+                      </div>
+
+                      <div class="radio clip-radio radio-primary radio-inline margin-right-20">
+                        <input type="radio" id="EXPRESS" name="inline" value="E" ng-disabled="!canEditMatrix"
+                          ng-model="entity.matrixType">
+                        <label for="EXPRESS" translate="views.EXPRESS-MATRIX-NAME">
+                          Matriz Express
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="alert alert-info">
+                        <h4 class="alert-heading margin-bottom-10">Matriz Express 50:</h4>
+                        <p class="margin-bottom-10">
+                          Diseñada para empresas pequeñas con menos de 50 trabajadores. Esta
+                          matriz ágil y flexible, le permitirá identificar y así mismo crear
+                          planes de acción ante los riesgos más significativos de las labores
+                          y actividades de su Pyme
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="alert alert-info">
+                        <h4 class="alert-heading margin-bottom-10">Matriz GTC-45:</h4>
+                        <p class="margin-bottom-10">
+                          Matriz Diseñada para empresas grandes, esta matriz le permitirá
+                          identificar y así mismo crear planes de acción ante los riesgos más
+                          significativos de las labores y actividades de su organización.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="alert alert-warning">
+                        <p class="margin-bottom-10">
+                          Herramienta tomada de la Agencia Europea para la Seguridad y la
+                          Salud en el Trabajo y ajustada a la normatividad Colombiana
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-md-12">
+                      <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-if="canEdit" ng-click="onUpdateMatrix()">
+                          Guardar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <!-- 
+        <v-pane>
+            <v-pane-header>
+              <h4>PRESUPUESTO HORAS GRUPO ECONÓMICO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Número de Horas Asignadas</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.assignedHours">
+
+                    <div class="col-md-12">
+
+                      <div class="form-group" ng-class="{'has-error':Form.quantity.$dirty && Form.quantity.$invalid}">
+
+                        <input type="text" placeholder="Cantidad Horas" class="form-control" name="quantity"
+                          ng-disabled="!canEdit" touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                          data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                          ng-model="item.value" />
+                        <span class="error text-small block" ng-if="Form.quantity.$dirty && Form.quantity.$invalid">La
+                          cantidad
+                          es requerida</span>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane> 
+        -->
+
+          <v-pane ng-if="hasMatrixSpecial">
+            <v-pane-header>
+              <h4>TIPOS DE SEDE</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left' uib-tooltip="Adicionar"
+                      ng-if="canEdit" ng-click="onAddOfficeTypeMatrixSpecial()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.officeTypeMatrixSpecialList">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <switch disabled="!canEdit" ng-model="item.isActive" class="green">
+                          </switch>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.officeTypeMatrixSpecialList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveOfficeTypeMatrixSpecial($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row margin-top-20">
+                    <div class="col-md-12">
+                      <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                          Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()"
+                          ng-if="can('clientes_cancel')">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane ng-if="hasMatrixSpecial">
+            <v-pane-header>
+              <h4>UNIDADES DE NEGOCIO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left' uib-tooltip="Adicionar"
+                      ng-if="canEdit" ng-click="onAddUnitBusinessMatrixSpecial()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Nombre de la Unidad de Negocio</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.businessUnitMatrixSpecialList">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <switch disabled="!canEdit" ng-model="item.isActive" class="green">
+                          </switch>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.businessUnitMatrixSpecialList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveUnitBusinessMatrixSpecial($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row margin-top-20">
+                    <div class="col-md-12">
+                      <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                          Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()"
+                          ng-if="can('clientes_cancel')">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE DOCUMENTO EMPLEADOS</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left' uib-tooltip="Adicionar"
+                      ng-if="canEdit" ng-click="onAddEmployeeDocumentType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Obligatorio
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.employeeDocumentsTypeList">
+
+
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+                          <div class="checkbox" style="margin-top: 0px !important;">
+                              <span class="switch ng-valid" ng-click="item.isVisible=!item.isVisible"
+                                  ng-class="{ checked:item.isVisible }" ng-model="item.isVisible">
+                                  <small></small>
+                                  <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isVisible"
+                                      style="display:none" class="ng-pristine ng-untouched ng-valid">
+                              </span>
+                          </div>
+                      </div>
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.employeeDocumentsType.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveEmployeeDocumentType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPO INFORMACIÓN CONTACTOS</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddExtraContactInformation()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.extraContactInformation">
+
+
+                    <div class="col-md-11">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.extraContactInformation.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveExtraContactInformation($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE ACTIVIDAD – PLAN DE TRABAJO INTERNO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddProjectType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.projectTypes">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.projectTypes.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveProjectType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE TAREA – PLAN DE TRABAJO INTERNO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddProjectTaskType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Tipo Tarea</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Valor hora</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.projectTaskTypes">
+
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <input type="text" placeholder="Valor hora" ng-disabled="!canEdit" class="form-control"
+                          name="price" id="price" value="0" ng-model="item.data" touchspin data-min="-100000000000"
+                          data-max="100000000000" data-stepinterval="50" data-maxboostedstep="100000000000"
+                          data-prefix="$">
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.projectTaskTypes.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveProjectTaskType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>COMPETENCIAS USUARIO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddUserSkill()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Competencia</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.userSkills">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.userSkills.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveUserSkill($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE ANEXOS</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left' uib-tooltip="Adicionar"
+                      ng-if="canEdit" ng-click="onAddCustomerDocumentType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Tipo Anexo</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Obligatorio
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.documentsTypeList">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.documentsTypeList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveCustomerDocumentType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE CONTACTO</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddContactType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="control-label">Tipo Contacto</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.contactTypeList">
+
+
+                    <div class="col-md-11">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.contactTypeList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveContactType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>TIPOS DE CONTRATISTAS</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddContractorType()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="control-label">
+                          Activo
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.contractorTypeList">
+
+
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control"
+                          name="value" ng-model="item.value" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                      <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                          <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                            ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                            <small></small>
+                            <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive" style="display:none"
+                              class="ng-pristine ng-untouched ng-valid">
+                          </span>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.contractorTypeList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveContractorType($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane>
+            <v-pane-header>
+              <h4>USUARIOS PARA NOTIFICACIÓN</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddUserNotification()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="control-label">Notificar A</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.userNotificationList">
+
+
+                    <div class="col-md-11">
+                      <div class="form-group">
+
+                        <ui-select ng-disabled="isView" ng-model="item.value" theme="bootstrap">
+                          <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.name]]
+                          </ui-select-match>
+                          <ui-select-choices repeat="item in users | filter: $select.search track by $index">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small>
+                              Tipo: <span ng-bind-html="''+item.type | highlight: $select.search"></span>
+                              | Email: <span ng-bind-html="''+item.email | highlight: $select.search"></span>
+                            </small>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.userNotificationList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveUserNotification($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane ng-if="covidBolivarRegisterCandEdit()">
+            <v-pane-header>
+              <h4>HABILITAR REGISTRO COVID 19</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-body">
+                  <div class="row">
+
+                    <div class="col-md-12">
+
+                      <div class="alert alert-info">
+                        <p>
+                          El cliente acepta los documentos de Habeas Data
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="radio clip-radio radio-primary radio-inline">
+                        <input type="radio" id="covid_si" name="inline" value="1"
+                          ng-model="entity.covidBolivarRegister">
+                        <label for="covid_si">
+                          SI
+                        </label>
+                      </div>
+
+                      <div class="radio clip-radio radio-primary radio-inline margin-right-20">
+                        <input type="radio" id="covid_no" name="inline" value="0"
+                          ng-model="entity.covidBolivarRegister">
+                        <label for="covid_no">
+                          NO
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </v-pane-content>
+          </v-pane>
+
+          <v-pane ng-if="can('vr_employee_open')">
+            <v-pane-header>
+              <h4>REALIDAD VIRTUAL</h4>
+            </v-pane-header>
+            <v-pane-content>
+              <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                  <h4 class="panel-title">
+                      <span class="text-bold">EXPERIENCIAS DE REALIDAD VIRTUAL</span>
+                  </h4>
+                  <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="canEdit" tooltip-placement='left'
+                      uib-tooltip="Adicionar" ng-click="onAddExperience()">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="control-label">EXPERIENCIAS</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row" ng-repeat="item in customer.experienceVRList">
+
+                    <div class="col-md-11">
+                      <div class="form-group">
+
+                        <ui-select ng-disabled="isView" ng-model="item.value" theme="bootstrap">
+                          <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                          </ui-select-match>
+                          <ui-select-choices style="position: relative;" ui-disable-choice="valideSingle(item)" repeat="item in experienceVRList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.experienceVRList.length > 0  && canEdit">
+                      <div class="pull-right">
+
+                        <div class="form-group">
+                          <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                            uib-tooltip="Eliminar" ng-click="onRemoveExperienceVR($index)">
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+
+            </v-pane-content>
+          </v-pane>
+
+        </v-accordion>
+      </div>
+    </div>
+    <div class="row margin-top-40" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary" ng-if="canEdit">
+            Guardar
+          </button>
+          <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()" ng-if="can('clientes_cancel')">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

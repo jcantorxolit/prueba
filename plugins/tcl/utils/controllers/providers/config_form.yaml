@@ -1,0 +1,7 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+form: @/plugins/tcl/utils/models/provider/fields.yaml
+modelClass: Tcl\Utils\Models\Provider
+defaultRedirect: tcl/utils/providers

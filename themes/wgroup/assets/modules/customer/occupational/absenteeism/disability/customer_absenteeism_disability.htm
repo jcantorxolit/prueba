@@ -1,0 +1,19 @@
+<div ng-controller="customerAbsenteeismDisabilityCtrl" >
+    <div ng-switch="disability_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/occupational/absenteeism/disability/customer_absenteeism_disability_form_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="edit" class="fade-in-right-big" >
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/occupational/absenteeism/disability/customer_absenteeism_disability_form_edit.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="staging" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/occupational/absenteeism/disability/customer_absenteeism_disability_staging_list.htm'">
+            </div>
+        </div>
+ 
+    </div>
+</div>

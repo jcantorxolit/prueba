@@ -1,0 +1,261 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">CAUSAS INMEDIATAS</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.immediateFactor.$dirty && Form.immediateFactor.$invalid}">
+                                        <label class="control-label">Clasificación<span
+                                                class="symbol required"></span></label>
+                                        <ui-select ng-disabled="isView" ng-model="immediate.factor"
+                                                   name="immediateFactor"
+                                                   theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in factorImmediateList | orderBy:'id' | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.immediateFactor.$dirty && Form.immediateFactor.$invalid">El factor es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.immediateCauseCode.$dirty && Form.immediateCauseCode.$invalid}">
+                                        <label class="control-label">
+                                            Código Causa
+                                            <span class="symbol required"></span>
+                                        </label>
+
+                                        <div class="input-group">
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="immediateCauseCode"
+                                                   ng-model="immediate.cause.code"/>
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onSearchInsecureActList('CI')"
+                                                            ng-disabled="immediate.factor == null"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </span>
+                                        </div>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.immediateCauseCode.$dirty && Form.immediateCauseCode.$invalid">La código es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.immediateCauseName.$dirty && Form.immediateCauseName.$invalid}">
+                                        <label class="control-label">Causa<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder=""
+                                               class="form-control" name="insecureActName"
+                                               ng-model="immediate.cause.name"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.immediateCauseName.$dirty && Form.immediateCauseName.$invalid">La causa es requerida</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary"
+                                                ng-if="!isView"
+                                                ng-click="onAddImmediate()">
+                                            Adicionar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-o"
+                                                ng-click="cancelImmediate()">
+                                            Cancelar
+                                        </button>
+
+                                        <a class="btn btn-wide btn-success btn-o" href="#" ng-click="reloadImmediateData()"><i
+                                                class="glyphicon glyphicon-refresh"></i> Refrescar</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+
+                                            <table datatable="" width="100%" dt-instance="dtInstanceOccupationalInvestigationFactorImmediateCallback" dt-options="dtOptionsOccupationalInvestigationFactorImmediate"
+                                                   id="dtOccupationalInvestigationFactorImmediate"
+                                                   dt-columns="dtColumnsOccupationalInvestigationFactorImmediate"
+                                                   class="table table-bordered table-hover"></table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">CAUSAS BÁSICAS</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.factor.$dirty && Form.factor.$invalid}">
+                                        <label class="control-label">Clasificación<span
+                                                class="symbol required"></span></label>
+                                        <ui-select ng-disabled="isView" ng-model="basic.factor"
+                                                   name="factor"
+                                                   theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in factorBasicList | orderBy:'id' | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.factor.$dirty && Form.factor.$invalid">El factor es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.basicCauseCode.$dirty && Form.basicCauseCode.$invalid}">
+                                        <label class="control-label">
+                                            Código Causa
+                                            <span class="symbol required"></span>
+                                        </label>
+
+                                        <div class="input-group">
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="basicCauseCode"
+                                                   ng-model="basic.cause.code"/>
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onSearchInsecureActList('CB')"
+                                                            ng-disabled="basic.factor == null"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </span>
+                                        </div>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.basicCauseCode.$dirty && Form.basicCauseCode.$invalid">La código es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.basicCauseName.$dirty && Form.basicCauseName.$invalid}">
+                                        <label class="control-label">Causa<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder=""
+                                               class="form-control" name="basicCauseName"
+                                               ng-model="basic.cause.name"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.basicCauseName.$dirty && Form.basicCauseName.$invalid">La causa es requerida</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary"
+                                                ng-if="!isView"
+                                                ng-click="onAddBasic()">
+                                            Adicionar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-o"
+                                                ng-click="cancelBasic()">
+                                            Cancelar
+                                        </button>
+
+                                        <a class="btn btn-wide btn-success btn-o" href="#" ng-click="reloadBasicData()"><i
+                                                class="glyphicon glyphicon-refresh"></i> Refrescar</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+
+                                            <table datatable="" width="100%" dt-instance="dtInstanceOccupationalInvestigationFactorBasicCallback" dt-options="dtOptionsOccupationalInvestigationFactorBasic"
+                                                   id="dtOccupationalInvestigationFactorBasic"
+                                                   dt-columns="dtColumnsOccupationalInvestigationFactorBasic"
+                                                   class="table table-bordered table-hover"></table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">CONCLUSIONES DEL EQUIPO INVESTIGADOR</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                               <textarea ng-disabled="isView"
+                                                         placeholder="Escribe aquí las conclusiones del equipo investigador"
+                                                         data-ng-model="investigation.observation"
+                                                         ng-blur="onBlur($event)"
+                                                         class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

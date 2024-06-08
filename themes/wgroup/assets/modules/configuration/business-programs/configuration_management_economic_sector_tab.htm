@@ -1,0 +1,98 @@
+<div ng-controller="configurationManagemenEconomicSectorListCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.economicSector.$dirty && Form.economicSector.$invalid}">
+                            <label class="control-label"> Sector Económico<span class="symbol required"></span> </label>
+                            <ui-select name="economicSector" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                ng-model="entity.economicSector">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in economicSectorList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.economicSector.$dirty && Form.economicSector.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.program.$dirty && Form.program.$invalid}">
+                            <label class="control-label">
+                                Programa Empresarial<span class="symbol required"></span>
+                            </label>
+                            <div class="input-group">
+                            <ui-select name="program" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                ng-model="entity.program">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in programList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="onRefresh()" ng-disabled="isView"
+                                    class="btn btn-default">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>                                
+                            </span>
+                        </div>
+                            <span class="error text-small block"
+                                ng-if="Form.program.$dirty && Form.program.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" width="100%" dt-instance="dtInstanceProgramManagementEconomicSectorCallback"
+                        dt-options="dtOptionsProgramManagementEconomicSector"
+                        dt-columns="dtColumnsProgramManagementEconomicSector" id="dtProgramManagementEconomicSector"
+                        class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="download" style="position: fixed; display: none; top: -1px; left: -1px;" />
+</div>

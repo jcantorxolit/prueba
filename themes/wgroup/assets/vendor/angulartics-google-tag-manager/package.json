@@ -1,0 +1,65 @@
+{
+  "_from": "angulartics-google-tag-manager",
+  "_id": "angulartics-google-tag-manager@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-WejkqdtdhWk7fN7IGiFRNrBBGOk=",
+  "_location": "/angulartics-google-tag-manager",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angulartics-google-tag-manager",
+    "name": "angulartics-google-tag-manager",
+    "escapedName": "angulartics-google-tag-manager",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angulartics-google-tag-manager/-/angulartics-google-tag-manager-0.0.1.tgz",
+  "_shasum": "59e8e4a9db5d85693b7cdec81a215136b04118e9",
+  "_spec": "angulartics-google-tag-manager",
+  "_where": "D:\\PHP\\web\\themes\\wgroup",
+  "bugs": {
+    "url": "https://github.com/angulartics/angulartics-google-tag-manager/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Jared Dickson",
+      "email": "code@jareddickson.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "Google Tag Manager plugin for Angulartics",
+  "devDependencies": {
+    "uglify-js": "^2.5.0"
+  },
+  "homepage": "https://github.com/angulartics/angulartics-google-tag-manager",
+  "keywords": [
+    "google",
+    "tag manager",
+    "plugin",
+    "angular",
+    "angulartics"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "name": "angulartics-google-tag-manager",
+  "peerDependencies": {
+    "angulartics": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angulartics/angulartics-google-tag-manager.git"
+  },
+  "scripts": {
+    "build": "mkdir -p dist && uglifyjs lib/angulartics-google-tag-manager.js --compress --source-map dist/angulartics-google-tag-manager.min.js.map --source-map-root .. --source-map-url ../dist/angulartics-google-tag-manager.min.js.map -o dist/angulartics-google-tag-manager.min.js",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean"
+  },
+  "version": "0.0.1"
+}

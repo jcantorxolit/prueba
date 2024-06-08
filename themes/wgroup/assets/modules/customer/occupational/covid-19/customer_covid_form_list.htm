@@ -1,0 +1,76 @@
+<div ng-controller="customerCovidListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div data-ng-animate="'wave'" class="fade-in-right-big"
+                data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">HISTÓRICOS DE COVID 19</span></h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <a class="btn btn-wide btn-success" href="#" ng-click="onCreate()"
+                                ng-if="can('empleado_create')"><i class="glyphicon glyphicon-plus"></i> Nuevo
+                            </a>
+
+                            <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()" ng-if="canEditRoot || isCustomerUser()">
+                                <i class="glyphicon glyphicon-upload"></i> Importar</a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <div class="btn-group" uib-dropdown >
+                                    <button type="button" class="btn btn-wide btn-default dropdown-toggle" uib-dropdown-toggle>
+                                        Más acciones... <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li ng-if="can('empleado_export_excel') && canEditRoot">
+                                            <a href="#" ng-click="onExportExcelEmployee()">
+                                                Exportar Información Empleados
+                                            </a>
+                                        </li>
+                        
+                                        <li ng-if="can('empleado_export_pdf') && canEditRoot">
+                                            <a href="#" ng-click="onExportExcelExternal()">
+                                                Exportar Información Externos
+                                            </a>
+                                        </li>
+                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceCustomerCovidCallback"
+                                        dt-options="dtOptionsCustomerCovid" dt-columns="dtColumnsCustomerCovid"
+                                        id="dtCustomerCovid" class="table table-bordered table-hover">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+</div>

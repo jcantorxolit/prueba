@@ -1,0 +1,40 @@
+<div ng-controller="customerConfigWizardProcessStagingListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">                    
+                    <h4 class="panel-title"><span class="text-bold text-uppercase">IMPORTACIÓN</span></h4>
+                    <div class="panel-tools">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="onProcess()">
+                                Procesar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive-large-table">
+                                    <table datatable="" parent-width-full
+                                        dt-instance="dtInstanceCustomerConfigWizardProcessStagingDTCallback"
+                                        dt-options="dtOptionsCustomerConfigWizardProcessStagingDT"
+                                        dt-columns="dtColumnsCustomerConfigWizardProcessStagingDT"
+                                        id="dataCustomerConfigWizardProcessStagingDT"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

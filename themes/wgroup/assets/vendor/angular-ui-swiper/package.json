@@ -1,0 +1,81 @@
+{
+  "_from": "angular-ui-swiper",
+  "_id": "angular-ui-swiper@2.3.8",
+  "_inBundle": false,
+  "_integrity": "sha1-bwF2sUILjCOkBPf7aNoIhPzwYZI=",
+  "_location": "/angular-ui-swiper",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-ui-swiper",
+    "name": "angular-ui-swiper",
+    "escapedName": "angular-ui-swiper",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-ui-swiper/-/angular-ui-swiper-2.3.8.tgz",
+  "_shasum": "6f0176b1420b8c23a404f7fb68da0884fcf06192",
+  "_spec": "angular-ui-swiper",
+  "_where": "C:\\Users\\Usuario\\Desktop\\ui-carousel",
+  "author": {
+    "name": "James A. Meyer"
+  },
+  "bugs": {
+    "url": "https://github.com/nebulr/ui-swiper/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "James Meyer",
+      "email": "james@swiftgrid.io"
+    }
+  ],
+  "dependencies": {
+    "gulp-rename": "^1.2.2"
+  },
+  "deprecated": false,
+  "description": "Most modern mobile touch slider for angular js",
+  "devDependencies": {
+    "browser-sync": "^2.12.1",
+    "connect-modrewrite": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sass-glob": "^1.0.5",
+    "gulp-uglify": "^1.5.3",
+    "gulp-usemin": "^0.3.22",
+    "gulp-util": "^3.0.7"
+  },
+  "homepage": "https://github.com/nebulr/ui-swiper#readme",
+  "keywords": [
+    "ui.swiper",
+    "angularjs",
+    "swiper",
+    "carousel",
+    "animation",
+    "pagination"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "angular-ui-swiper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nebulr/ui-swiper.git"
+  },
+  "scripts": {
+    "start": "",
+    "stop": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.3.8"
+}

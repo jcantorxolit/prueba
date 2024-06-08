@@ -1,0 +1,714 @@
+<div class="row" ng-controller="customerWorkMedicineEditCtrl">
+    <div class="col-md-12">
+        <!-- Se comienza a desarrollar nuevamente esta pantallas JAC -->
+        <div>
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL EMPLEADO</span>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                            <label class="control-label">
+                                                Tipo de identificación<span class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="documentType" ng-required="true" ng-disabled="true"
+                                                       ng-model="medicine.employee.entity.documentType"
+                                                       theme="bootstrap"
+                                                       on-select="changeCountry($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El tipo de identificación es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                            <label class="control-label">
+                                                Número de Identificación
+                                                <span class="symbol required"></span>
+                                            </label>
+
+                                            <div class="input-group">
+                                                <ui-select name="customer" ng-disabled="true"
+                                                           ng-model="medicine.employee"
+                                                           ng-required="true"
+                                                           theme="bootstrap"
+                                                           on-select="changeCustomer($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.entity.documentNumber]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in employees | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.entity.documentNumber | highlight: $select.search"></div>
+                                                        <small>
+                                                            Nombre: <span
+                                                                ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                        </small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onAddDisabilityEmployeeList()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                    <button type="button" ng-click="onAddEmployee()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.customer.$dirty && Form.customer.$invalid">La número de identificación es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha de nacimiento</label>
+                                            <input class="form-control" kendo-date-picker
+                                                   ng-disabled="true"
+                                                   k-options="datePickerConfig"
+                                                   k-ng-model="medicine.employee.entity.birthDate"
+                                                   style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                            <label class="control-label">Género<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="gender"
+                                                   ng-model="medicine.employee.entity.gender.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.gender.$dirty && Form.gender.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Activo
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="true" ng-model="medicine.employee.isActive"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                            <label class="control-label">
+                                                Nombre(s)<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el nombre(s)"
+                                                   class="form-control" name="firstName"
+                                                   ng-model="medicine.employee.entity.firstName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El nombre(s) es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                            <label class="control-label">
+                                                Apellidos<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese los apellidos"
+                                                   class="form-control" name="lastName"
+                                                   ng-model="medicine.employee.entity.lastName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los apellidos son requeridos</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.contractType.$dirty && Form.contractType.$invalid}">
+                                            <label class="control-label">
+                                                Tipo de contrato<span class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="contractType" ng-required="true" ng-disabled="true"
+                                                       ng-model="medicine.employee.contractType" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in contractTypes | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.contractType.$dirty && Form.contractType.$invalid">El tipo de contrato es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                            <label class="control-label">Profesión<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="profession"
+                                                   ng-model="medicine.employee.entity.profession.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.profession.$dirty && Form.profession.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.occupation.$dirty && Form.occupation.$invalid}">
+                                            <label class="control-label">Ocupación<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="occupation"
+                                                   ng-model="medicine.employee.occupation"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.occupation.$dirty && Form.occupation.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.job.$dirty && Form.job.$invalid}">
+                                            <label class="control-label">Cargo<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="job"
+                                                   ng-model="medicine.employee.job.name"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.job.$dirty && Form.job.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.workPlace.$dirty && Form.workPlace.$invalid}">
+                                            <label class="control-label">Centro de trabajo<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="workPlace"
+                                                   ng-model="medicine.employee.workPlace.name"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.workPlace.$dirty && Form.workPlace.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.salary.$dirty && Form.salary.$invalid}">
+                                            <label class="control-label">
+                                                Salario / IBC<span class="symbol required"></span>
+                                            </label>
+                                            <input type="text" placeholder="Salario / IBC" ng-disabled="true"
+                                                   class="form-control" name="salary"
+                                                   value="0" name="demo1"
+                                                   ng-model="medicine.employee.salary"
+                                                   touchspin data-min="-100000000000" data-max="100000000000"
+                                                   data-stepinterval="50"
+                                                   data-maxboostedstep="100000000000" data-prefix="$">
+                                            <span class="error text-small block"
+                                                  ng-if="Form.salary.$dirty && Form.salary.$invalid">El lugar de expedición es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.eps.$dirty && Form.eps.$invalid}">
+                                            <label class="control-label"><span translate="views.EPS">EPS</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="eps"
+                                                   ng-model="medicine.employee.entity.eps.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.eps.$dirty && Form.eps.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.afp.$dirty && Form.afp.$invalid}">
+                                            <label class="control-label">AFP<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="medicine.employee.entity.afp.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.afp.$dirty && Form.afp.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.arl.$dirty && Form.arl.$invalid}">
+                                            <label class="control-label"><span translate="views.ARL">ARL</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="medicine.employee.entity.arl.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.arl.$dirty && Form.arl.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL EXÁMEN</span>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.examinationType.$dirty && Form.examinationType.$invalid}">
+                                            <label class="control-label">
+                                                Tipo de exámen<span class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="examinationType" ng-required="true" ng-disabled="isView"
+                                                       ng-model="medicine.examinationType" theme="bootstrap"
+                                                       on-select="changeCountry($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in examinationTypes | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.examinationType.$dirty && Form.examinationType.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha del Exámen</label>
+                                            <input class="form-control" kendo-date-time-picker
+                                                   k-options="dateTimePickerConfig"
+                                                   k-ng-model="medicine.examinationDate"
+                                                   style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.occupationalConclusion.$dirty && Form.occupationalConclusion.$invalid}">
+                                            <label class="control-label">
+                                                Conclusiones ocupacionales<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="false" type="text"
+                                                   placeholder="Ingrese las conclusiones ocupacionales"
+                                                   class="form-control" name="occupationalConclusion"
+                                                   ng-model="medicine.occupationalConclusion" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.occupationalConclusion.$dirty && Form.occupationalConclusion.$invalid">El registro requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.occupationalBehavior.$dirty && Form.occupationalBehavior.$invalid}">
+                                            <label class="control-label">
+                                                Conductas ocupacionales prever<span
+                                                    class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="false" type="text"
+                                                   placeholder="Ingrese las Conductas ocupacionales prever"
+                                                   class="form-control" name="occupationalBehavior"
+                                                   ng-model="medicine.occupationalBehavior" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.occupationalBehavior.$dirty && Form.occupationalBehavior.$invalid">El registro requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.generalRecommendation.$dirty && Form.generalRecommendation.$invalid}">
+                                            <label class="control-label">
+                                                Recomendaciones generales<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="false" type="text"
+                                                   placeholder="Ingrese las Recomendaciones generales"
+                                                   class="form-control" name="generalRecommendation"
+                                                   ng-model="medicine.generalRecommendation" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.generalRecommendation.$dirty && Form.generalRecommendation.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.medicalConcept.$dirty && Form.medicalConcept.$invalid}">
+                                            <label class="control-label">
+                                                Concepto médico de aptitud ocupacional<span
+                                                    class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="medicalConcept" ng-required="true" ng-disabled="isView"
+                                                       ng-model="medicine.medicalConcept" theme="bootstrap"
+                                                       on-select="changeCountry($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in medicalConcepts | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.medicalConcept.$dirty && Form.medicalConcept.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+
+            <div class="row  margin-top-20 " ng-class="{'show': (canShow != null) , 'hid': (canShow == null) }" ng-if="canShow">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true">
+                            <uib-tab-heading>
+                                Pruebas complementarias
+                            </uib-tab-heading>
+
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span
+                                            class="text-bold">PRUEBAS COMPLEMENTARIAS</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.complementaryTest.$dirty && Form.complementaryTest.$invalid}">
+                                                <label class="control-label">
+                                                    Prueba complementaria<span class="symbol required"></span>
+                                                </label>
+                                                <ui-select name="complementaryTest" ng-required="true"
+                                                           ng-disabled="false"
+                                                           ng-model="complementary.complementaryTest"
+                                                           theme="bootstrap"
+                                                           on-select="onSelectComplementaryTest($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in complementaryTests | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.complementaryTest.$dirty && Form.complementaryTest.$invalid">La prueba complementaria es requerido</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.result.$dirty && Form.result.$invalid}">
+                                                <label class="control-label">
+                                                    Resultado<span class="symbol required"></span>
+                                                </label>
+                                                <ui-select name="result" ng-required="true" ng-disabled="fasle"
+                                                           ng-model="complementary.result" theme="bootstrap"
+                                                           on-select="changeCountry($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in complementaryTestResults | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.result.$dirty && Form.result.$invalid">El resultado es requerido</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.interpretation.$dirty && Form.interpretation.$invalid}">
+                                                <label class="control-label">
+                                                    Interpretación <span class="symbol required"></span>
+                                                </label>
+                                                <input ng-disabled="false" type="text"
+                                                       placeholder="Ingrese la Interpretación"
+                                                       class="form-control" name="interpretation"
+                                                       ng-model="complementary.interpretation" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.interpretation.$dirty && Form.interpretation.$invalid">La interpretación es requerido</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                                        ng-click="saveWorkMedicineComplementary()">
+                                                    Adicionar
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-o"
+                                                        ng-click="clearWorkMedicineComplementary()">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%" 
+                                                    dt-instance="dtInstanceWorkMedicineComplementaryCallback" dt-options="dtOptionsWorkMedicineComplementary"
+                                                       id="dtWorkMedicineComplementary"
+                                                       dt-columns="dtColumnsWorkMedicineComplementary"
+                                                       class="table table-bordered table-hover">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab>
+                            <uib-tab-heading translate="views.WORK-MEDECINE-SVE-TAB">
+                                Pruebas Complementarias SVE
+                            </uib-tab-heading>
+
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span
+                                            class="text-bold" translate="views.WORK-MEDECINE-COMPLEMENTARY-TEST-TITLE">Pruebas complementarias</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <div class="col-md-11">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                                <label class="control-label" translate="views.WORK-MEDECINE-COMPLEMENTARY-TEST-FIELD">
+                                                    Prueba complementaria<span class="symbol required"></span>
+                                                </label>
+                                                <ui-select name="type" ng-required="true" ng-disabled="false"
+                                                           ng-model="sve.type" theme="bootstrap"
+                                                           on-select="changeCountry($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in sveTypes | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.type.$dirty && Form.type.$invalid">La prueba complementaria es requerido</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <label>
+                                                    S.V.E
+                                                </label>
+
+                                                <div class="checkbox" style="margin-top: 0px !important;">
+                                                    <switch disabled="isView" ng-model="sve.isActive"
+                                                            class="green"></switch>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row margin-bottom-15">
+
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                                        ng-click="saveWorkMedicineSve()">
+                                                    Adicionar
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-o"
+                                                        ng-click="clearWorkMedicineSve()">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="table-responsive">
+
+                                                <table datatable="" width="100%" 
+                                                        dt-instance="dtInstanceWorkMedicineSveCallback" 
+                                                        dt-options="dtOptionsWorkMedicineSve"
+                                                       id="dtWorkMedicineSve"
+                                                       dt-columns="dtColumnsWorkMedicineSve"
+                                                       class="table table-bordered table-hover">
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab>
+                            <uib-tab-heading>
+                                Seguimiento
+                            </uib-tab-heading>
+
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">SEGUIMIENTO</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.typeTracking.$dirty && Form.typeTracking.$invalid}">
+                                                <label class="control-label">
+                                                    Tipo de seguimiento<span class="symbol required"></span>
+                                                </label>
+                                                <ui-select name="typeTracking" ng-required="true"
+                                                           ng-disabled="false"
+                                                           ng-model="tracking.type" theme="bootstrap"
+                                                           on-select="changeCountry($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in trackingTypes | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.typeTracking.$dirty && Form.typeTracking.$invalid">El tipo de seguimiento es requerido</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha del seguimiento</label>
+                                                <input class="form-control" kendo-date-time-picker
+                                                       k-options="dateTimePickerConfig"
+                                                       k-ng-model="tracking.dateOf"
+                                                       style="width: 100%;"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                                                <label class="control-label">
+                                                    Observación <span class="symbol required"></span>
+                                                </label>
+                                                <input ng-disabled="false" type="text"
+                                                       placeholder="Ingrese una observación"
+                                                       class="form-control" name="firstName"
+                                                       ng-model="tracking.observation" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.observation.$dirty && Form.observation.$invalid">La observación es requerido</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-success" ng-if="!isView"
+                                                        ng-click="saveWorkMedicineTracking()">
+                                                    Adicionar
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-o"
+                                                        ng-click="clearWorkMedicineTracking()">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+
+                                                <!--<table datatable="" width="100%" dt-instance="dtInstanceWorkMedicineTracking" dt-options="dtOptionsWorkMedicineTracking"
+                                                       id="dtWorkMedicineTracking"
+                                                       dt-columns="dtColumnsWorkMedicineTracking"
+                                                       class="table table-bordered table-hover"></table>-->
+
+                                                <table datatable="" width="100%" 
+                                                    dt-instance="dtInstanceWorkMedicineTrackingCallback" dt-options="dtOptionsWorkMedicineTracking"
+                                                       id="dtWorkMedicineTracking"
+                                                       dt-columns="dtColumnsWorkMedicineTracking"
+                                                       class="table table-bordered table-hover">
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                    </uib-tabset>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

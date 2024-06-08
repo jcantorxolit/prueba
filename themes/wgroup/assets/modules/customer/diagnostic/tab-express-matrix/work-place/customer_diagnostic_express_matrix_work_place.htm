@@ -1,0 +1,45 @@
+<div ng-controller="customerDiagnosticExpressMatrixWorkplaceCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold text-uppercase" translate="views.MATRIX-WORKPLACE-LIST"></span></h4>
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Refrescar"
+                            ng-click="onRefresh()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <p class="custom-text-muted text-large">
+						Elija un centro de trabajo o ingrese uno nuevo.
+					</p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"
+                                ng-if="can('empleado_create') && !isView"><i class="glyphicon glyphicon-plus"></i> 
+                                Agregar centro de trabajo
+                            </a>
+                        </div>    
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceExpressMatrixWorkplaceCallback" 
+                                        dt-options="dtOptionsExpressMatrixWorkplace"
+                                        dt-columns="dtColumnsExpressMatrixWorkplace" 
+                                        id="dtExpressMatrixWorkplace" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

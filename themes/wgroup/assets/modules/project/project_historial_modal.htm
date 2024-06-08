@@ -1,0 +1,38 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">[[title]] Acitividad</h4>
+        </label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Motivo
+                </label>
+                <textarea ng-disabled="isview" placeholder="Escribe aquí el motivo..." data-ng-model="entity.reason"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-4" ng-if="isDateVisible">
+
+            <div class="form-group">
+                <label class="control-label">Fecha de entrega</label>
+                <input class="form-control" kendo-date-picker k-options="datePickerConfig" k-ng-model="entity.deliveryDate"
+                    style="width: 100%;" />
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-o" ng-click="cancel()">
+        Cancelar
+    </button>
+    <button class="btn btn-primary btn-o" ng-click="saveTracking()">
+        Guardar
+    </button>
+</div>

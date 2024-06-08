@@ -1,0 +1,116 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">PLANTILLA</h4>
+            </label>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{'has-error':Form.template.$dirty && Form.template.$invalid}">
+                    <label class="control-label">
+                        Plantilla
+                        <span class="symbol required"></span>
+                    </label>
+                    <ui-select name="template" ng-disabled="isView" ng-model="templateManage.template" ng-required="true" theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in templateList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="error text-small block" ng-if="Form.template.$dirty && Form.template.$invalid">El tipo es
+                        requerido</span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{'has-error':Form.filename.$dirty && Form.filename.$invalid}">
+                    <label class="control-label">Archivo <span class="symbol required"></span></label>
+                    <input ng-disabled="true" type="text" placeholder="Ingrese autor/emisor" class="form-control"
+                        name="filename" ng-model="templateManage.template.code" />
+                    <span class="error text-small block" ng-if="Form.author.$dirty && Form.filename.$invalid">El registro es requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                    <label class="control-label">Descripción <span class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text" placeholder="Ingrese el nombre" class="form-control" name="description"
+                        ng-model="templateManage.description" required />
+                    <span class="error text-small block" ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerido</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" ng-if="!isView">
+            <div class="col-md-12">
+
+                <p>
+                    Cantidad anexos: [[ uploaderResource.queue.length ]]
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Nombre</th>
+                                <th ng-show="uploaderResource.isHTML5">Tamaño</th>
+                                <th ng-show="uploaderResource.isHTML5">Progreso</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in uploaderResource.queue">
+                                <td><strong>[[ item.file.name ]]</strong></td>
+                                <td ng-show="uploaderResource.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2]] MB
+                                </td>
+                                <td ng-show="uploaderResource.isHTML5">
+                                    <div class="progress progress-xs margin-bottom-0">
+                                        <div class="progress-bar" role="uib-progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center"><span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span><span
+                                        ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span><span
+                                        ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span></td>
+                                <td nowrap>
+
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remover
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+
+                    <span class="btn btn-primary btn-o btn-file"> Seleccionar anexo
+                        <input type="file" nv-file-select="" uploader="uploaderResource" ng-disabled="uploaderResource.getNotUploadedItems().length > 0" />
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

@@ -1,0 +1,19 @@
+<div ng-controller="customerImprovementPlanCtrl" >
+    <div ng-switch="improvement_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/action-plan/customer_improvement_plan_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="attachment" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/action-plan/customer_improvement_plan_attachment.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="edit" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/action-plan/tabs/customer_improvement_plan_form_tabs.htm'">
+            </div>
+        </div>
+
+    </div>
+</div>

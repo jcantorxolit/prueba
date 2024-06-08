@@ -1,0 +1,12 @@
+<div ng-controller="configurationRoadSafetyItemCtrl" >
+    <div ng-switch="standard_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/configuration/road-safety/criteria/configuration_road_safety_item_list.htm'">
+            </div>
+        </div>
+        <div ng-switch-when="edit" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/configuration/road-safety/criteria/configuration_road_safety_item_edit.htm'">
+            </div>
+        </div>
+    </div>
+</div>

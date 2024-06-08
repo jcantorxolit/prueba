@@ -1,0 +1,132 @@
+<div ng-controller="customerEvaluationMinimumStandardImport0312Ctrl">
+    <form name="Form" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.parent.$dirty && Form.parent.$invalid}">
+                                    <label class="control-label">Estándar (Padre)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="parent" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectParent()"
+                                        ng-model="entity.customerEvaluationMinimumStardardParent" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in parentList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.parent.$dirty && Form.parent.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.standard.$dirty && Form.standard.$invalid}">
+                                    <label class="control-label">Sub - Estándar (Hijo)<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="standard" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectStandard()" ng-model="entity.customerEvaluationMinimumStardard"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in standardList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.standard.$dirty && Form.standard.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group" ng-class="{'has-error':Form.item.$dirty && Form.item.$invalid}">
+                                    <label class="control-label">Item<span class="symbol required"></span></label>
+
+                                    <ui-select name="item" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectStandardItem()" ng-model="entity.customerEvaluationMinimumStardardItem" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in standardItemList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.item.$dirty && Form.item.$invalid">El registro es
+                                        requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 margin-bottom-15">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success" ng-if="!isView">
+                        Importar
+                    </button>
+                    <button type="button" class="btn btn-success btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">ANEXOS DISPONIBLES</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceMinimumStandardItemDocument0312Callback"
+                                    dt-options="dtOptionsMinimumStandardItemDocument0312"
+                                    dt-columns="dtColumnsMinimumStandardItemDocument0312"
+                                    id="dtMinimumStandardItemDocument0312" class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+    </form>
+</div>

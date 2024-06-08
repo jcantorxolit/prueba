@@ -1,0 +1,587 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración del Peligro</h4>
+            </label>
+        </div>
+
+        <fieldset>
+            <legend>Actividad:</legend>
+
+            <div class="row">
+                <textarea ng-disabled="true" placeholder="Escribe aquí la actividad..." data-ng-model="activity.name"
+                    class="form-control"></textarea>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Peligro:</legend>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                        <label class="control-label">Clasificación<span class="symbol required"></span></label>
+
+                        <ui-select name="classification" ng-required="true" ng-disabled="isView"
+                            ng-model="hazard.classification" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="item in classifications | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block"
+                            ng-if="Form.classification.$dirty && Form.classification.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error':Form.typeHazard.$dirty && Form.typeHazard.$invalid}">
+                        <label class="control-label">Tipo peligro<span class="symbol required"></span></label>
+
+                        <ui-select name="typeHazard" ng-required="true" ng-disabled="isView || types.length == 0"
+                            ng-model="hazard.type" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in types | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block"
+                            ng-if="Form.typeHazard.$dirty && Form.typeHazard.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                        <label class="control-label">Descripción<span class="symbol required"></span></label>
+
+                        <ui-select name="description" ng-required="true"
+                            ng-disabled="isView || descriptions.length == 0" ng-model="hazard.description"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in descriptions | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block"
+                            ng-if="Form.description.$dirty && Form.description.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.health.$dirty && Form.health.$invalid}">
+                        <label class="control-label">Posibles efectos en la salud<span
+                                class="symbol required"></span></label>
+
+                        <ui-select name="health" ng-required="true" ng-disabled="isView || healthEffects.length == 0"
+                            ng-model="hazard.health" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in healthEffects | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.health.$dirty && Form.health.$invalid">El
+                            registro es reguqerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                        <label class="control-label"><span translate="views.RISK-MATRIX-MODAL-DESCRIPTION">Observación
+                                de la descripción</span><span class="symbol required"></span></label>
+
+                        <textarea ng-disabled="isView" placeholder="Escribe aquí la observación..."
+                            data-ng-model="hazard.observation" class="form-control"></textarea>
+
+                        <span class="error text-small block"
+                            ng-if="Form.observation.$dirty && Form.observation.$invalid">El
+                            registro es reguqerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group" ng-class="{'has-error':Form.exposure.$dirty && Form.exposure.$invalid}">
+                        <label class="control-label">Tiempo Exposición</label>
+                        <input type="text" placeholder="Tiempo exposición" class="form-control" name="exposure"
+                            ng-disabled="isView" touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                            data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                            ng-model="hazard.exposure" required />
+                        <span class="error text-small block" ng-if="Form.exposure.$dirty && Form.exposure.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Controles Existentes:</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.controlSource.$dirty && Form.controlSource.$invalid}">
+                        <label class="control-label">[[controlMethodSourceLabel]]<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Descripción Tipo Control"
+                            class="form-control" name="controlSource" ng-model="hazard.controlMethodSourceText"
+                            required />
+                        <span class="error text-small block"
+                            ng-if="Form.controlSource.$dirty && Form.controlSource.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.controlMedium.$dirty && Form.controlMedium.$invalid}">
+                        <label class="control-label">[[controlMethodMediumLabel]]<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Descripción Tipo Control"
+                            class="form-control" name="controlMedium" ng-model="hazard.controlMethodMediumText"
+                            required />
+                        <span class="error text-small block"
+                            ng-if="Form.controlMedium.$dirty && Form.controlMedium.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="controlMethodAdministrativeLabel != ''">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.controlAdministrative.$dirty && Form.controlAdministrative.$invalid}">
+                        <label class="control-label">[[controlMethodAdministrativeLabel]]<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Descripción Tipo Control"
+                            class="form-control" name="controlAdministrative"
+                            ng-model="hazard.controlMethodAdministrativeText" required />
+                        <span class="error text-small block"
+                            ng-if="Form.controlAdministrative.$dirty && Form.controlAdministrative.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.controlPerson.$dirty && Form.controlPerson.$invalid}">
+                        <label class="control-label">[[controlMethodPersonLabel]]<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Descripción Tipo Control"
+                            class="form-control" name="controlPerson" ng-model="hazard.controlMethodPersonText"
+                            required />
+                        <span class="error text-small block"
+                            ng-if="Form.controlPerson.$dirty && Form.controlPerson.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Evaluacion del Riesgo:</legend>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.measureNd.$dirty && Form.measureNd.$invalid}">
+                        <label class="control-label">Nivel deficiencia (ND)<span class="symbol required"></span></label>
+
+                        <ui-select name="measureNd" ng-required="true" ng-disabled="isView" ng-model="hazard.measureND"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in measuresND | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.measureNd.$dirty && Form.measureNd.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.measureNe.$dirty && Form.measureNe.$invalid}">
+                        <label class="control-label">Nivel exposición (NE)<span class="symbol required"></span></label>
+
+                        <ui-select name="measureNe" ng-required="true" ng-disabled="isView" ng-model="hazard.measureNE"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in measuresNE | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.measureNe.$dirty && Form.measureNe.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.measureNc.$dirty && Form.measureNc.$invalid}">
+                        <label class="control-label">Nivel consecuencia (NC)<span
+                                class="symbol required"></span></label>
+
+                        <ui-select name="measureNc" ng-required="true" ng-disabled="isView" ng-model="hazard.measureNC"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in measuresNC | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.measureNc.$dirty && Form.measureNc.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.levelP.$dirty && Form.levelP.$invalid}">
+                        <label class="control-label">Nivel probabilidad</label>
+                        <input ng-disabled="true" type="text" placeholder="Cálculo" class="form-control" name="levelP"
+                            ng-model="hazard.levelP" required />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.levelIP.$dirty && Form.levelIP.$invalid}">
+                        <label class="control-label">Interp Nivel probabilidad</label>
+                        <input ng-disabled="true" type="text" placeholder="Cálculo" class="form-control" name="levelIP"
+                            ng-model="hazard.levelIP" required />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-error':Form.levelR.$dirty && Form.levelR.$invalid}">
+                        <label class="control-label">Nivel riesgo</label>
+                        <input ng-disabled="true" type="text" placeholder="Cálculo" class="form-control" name="levelR"
+                            ng-model="hazard.levelR" required />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Valoración del Riesgo:</legend>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="form-group" ng-class="{'has-error':Form.riskValue.$dirty && Form.riskValue.$invalid}">
+                        <input ng-disabled="true" type="text" placeholder="Riesgo" class="form-control" name="riskValue"
+                            ng-model="hazard.riskValue" required />
+                    </div>
+                </div>
+
+                <div id="contentwrp" class="col-md-1">
+                    <div class="form-group">
+                        <label ng-switch="hazard.riskValue">
+
+                            <i class="fa fa-check-circle-o indicator" ng-style="{color:'#D43F3A'}"
+                                ng-switch-when="No Aceptable"></i>
+                            <i class="fa fa-check-circle-o indicator" ng-style="{color:'#FFFF00'}"
+                                ng-switch-when="No Aceptable o Aceptable con control especifico"></i>
+                            <i class="fa fa-check-circle-o indicator" ng-style="{color:'#46B8DA'}"
+                                ng-switch-when="Mejorable"></i>
+                            <i class="fa fa-check-circle-o indicator" ng-style="{color:'#5CB85C'}"
+                                ng-switch-when="Aceptable"></i>
+                            <i class="fa fa-question-circle indicator" ng-switch-default></i>
+
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.riskText.$dirty && Form.riskText.$invalid}">
+                        <textarea ng-disabled="true" placeholder="" data-ng-model="hazard.riskText"
+                            class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Trabajadores Expuestos:</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.exposed.$dirty && Form.exposed.$invalid}">
+                        <label class="control-label">Trabajadores Vinculados o en Misión<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Ingrese Número" class="form-control"
+                            name="exposed" ng-model="hazard.exposed" required />
+                        <span class="error text-small block" ng-if="Form.exposed.$dirty && Form.exposed.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.controlMedium.$dirty && Form.controlMedium.$invalid}">
+                        <label class="control-label">Trabajadores Contratistas<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Ingrese Número" class="form-control"
+                            name="contractors" ng-model="hazard.contractors" required />
+                        <span class="error text-small block"
+                            ng-if="Form.contractors.$dirty && Form.contractors.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.visitors.$dirty && Form.visitors.$invalid}">
+                        <label class="control-label">Visitantes<span class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text" placeholder="Ingrese Número" class="form-control"
+                            name="visitors" ng-model="hazard.visitors" required />
+                        <span class="error text-small block" ng-if="Form.visitors.$dirty && Form.visitors.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Medidas de Intervención:</legend>
+
+            <div id="panelSkills" class="panel panel-white panelSkills">
+                <div class="panel-heading border-light">
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar"
+                            ng-click="onAddIntervention()" ng-if="!isView"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.typeMeasure.$dirty && Form.typeMeasure.$invalid}">
+                                <label class="control-label">Tipo medida</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.typeMeasureText.$dirty && Form.typeMeasureText.$invalid}">
+                                <label class="control-label">Medida</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" ng-repeat="intervention in hazard.interventions">
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.typeMeasure.$dirty && Form.typeMeasure.$invalid}">
+                                <ui-select name="typeMeasure" ng-required="true" ng-disabled="isView"
+                                    ng-model="intervention.type" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in typesMeasure | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.typeMeasure.$dirty && Form.typeMeasure.$invalid">El
+                                    registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.typeMeasureText.$dirty && Form.typeMeasureText.$invalid}">
+                                <input ng-disabled="isView" type="text" placeholder="Descripción" class="form-control"
+                                    name="typeMeasureText" ng-model="intervention.description" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.tracking.$dirty && Form.tracking.$invalid}">
+                                <ui-select name="typeMeasure" ng-required="true" ng-disabled="isView"
+                                    ng-model="intervention.tracking" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seguimiento y Medición -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in trackingList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.tracking.$dirty && Form.tracking.$invalid">El
+                                    registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                                <input ng-disabled="isView" type="text" placeholder="Observación" class="form-control"
+                                    name="observation" ng-model="intervention.observation" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-1" ng-if="hazard.interventions.length > 0  && !isView">
+                            <div class="pull-right">
+                                <div class="form-group">
+                                    <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                        uib-tooltip="Eliminar" ng-click="onRemoveIntervention($index)"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+            </div>
+        </fieldset>
+
+        <fieldset ng-if="hazard.id > 0">
+            <legend>Motivo de la Actualización:</legend>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.reason.$dirty && Form.reason.$invalid}">
+                        <label class="control-label">Motivo<span class="symbol required"></span></label>
+
+                        <ui-select name="reason" ng-required="true" ng-disabled="isView" ng-model="hazard.reason"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in reasonList | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.reason.$dirty && Form.reason.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                        ng-class="{'has-error':Form.reasonObservation.$dirty && Form.reasonObservation.$invalid}">
+                        <label class="control-label">Observación<span class="symbol required"></span></label>
+                        <textarea name="reasonObservation" ng-disabled="isView" placeholder="Observación"
+                            ng-model="hazard.reasonObservation" class="form-control" required></textarea>
+                        <span class="error text-small block"
+                            ng-if="Form.reasonObservation.$dirty && Form.reasonObservation.$invalid">El
+                            registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+
+                <table datatable="" width="100%" dt-instance="dtInstanceConfigJobActivityHazardReasonCallback"
+                    dt-options="dtOptionsConfigJobActivityHazardReason"
+                    dt-columns="dtColumnsConfigJobActivityHazardReason"
+                    class="table table-bordered table-hover"></table>
+
+            </div>
+
+        </fieldset>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+        |
+        <button type="button" class="btn btn-light-yellow btn-o" ng-click="onClear()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">RIESGOS ASOCIADOS A LA ACTIVIDAD</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+
+                                <table datatable="" width="100%" dt-instance="dtInstanceConfigJobActivityHazard"
+                                    dt-options="dtOptionsConfigJobActivityHazard"
+                                    dt-columns="dtColumnsConfigJobActivityHazard" id="dtConfigJobActivityHazard"
+                                    class="table table-bordered table-hover"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/minimum-standard/style.css">
+
+    <style>
+        .pie-chart {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+            width: 95%;
+            margin-bottom: 20px;
+            z-index: 9999;
+            position: absolute;
+            left: 50px;
+        }
+
+        .title-chart {
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+
+        /*RESET*/
+
+
+
+
+        .wrapper {
+            position: relative;
+            margin: 50px auto;
+            width: 20cm;
+            font-family: 'arial', sans-serif;
+            font-size: 7pt;
+        }
+
+        .formulario {
+            position: relative;
+            width: 100%;
+            /*    table-layout: fixed;*/
+            border: 0.09cm solid #000;
+        }
+
+        .wrapper h1 {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.5cm;
+        }
+
+        .wrapper h2 {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .s_1 {
+            width: 2.44cm;
+            display: inline-block;
+            border-bottom: 0.01cm solid #000;
+            margin: 0 0.2cm;
+        }
+
+        .s_2 {
+            width: 0.7cm;
+            display: inline-block;
+            border-bottom: 0.01cm solid #000;
+            margin: 0 0.2cm;
+        }
+
+        .formulario td {
+            border: 1px solid #ccc;
+            padding: 0.04cm 0.09cm;
+            ;
+            vertical-align: middle;
+            font-size: 6pt;
+        }
+
+        .formulario tr {
+            /*    height: 0.7cm;*/
+        }
+
+        .h_0-6 {
+            height: 0.6cm;
+        }
+
+        .formulario td.ciclo {
+            width: 1.5cm;
+            font-size: 6pt;
+            vertical-align: middle;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .formulario td.estandar {
+            width: 5cm;
+            font-size: 7pt;
+            vertical-align: middle;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .formulario td.item_estandar {
+            width: 4cm !important;
+            font-size: 7pt;
+            vertical-align: middle;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .formulario td.item_estandar_item {
+            width: 4cm !important;
+        }
+
+        .formulario td.valor {
+            width: 0.7cm;
+            font-size: 6pt;
+            vertical-align: middle;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .formulario td.valor_item {
+            width: 0.7cm;
+        }
+
+        .formulario td.peso {
+            width: 1.3cm;
+            font-size: 5pt;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .formulario td.puntaje {
+            /*    width: 3.25cm !important;*/
+            font-size: 6pt;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .formulario td.calificacion {
+            width: 1.3cm;
+            font-size: 5pt;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .formulario td.cumple,
+        .formulario td.no_cumple,
+        .formulario td.no_aplica {
+            width: 0.7cm;
+            font-size: 5pt;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+
+        .rotate {
+            transform:
+                -moz-transform: rotate(-90.0deg);
+            /* FF3.5+ */
+            -o-transform: rotate(-90.0deg);
+            /* Opera 10.5 */
+            -webkit-transform: rotate(-90.0deg);
+            /* Saf3.1+, Chrome */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);
+            /* IE6,IE7 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";
+            /* IE8 */
+        }
+
+        .intro {
+            font-size: 10pt;
+            padding: 0.2cm;
+        }
+
+        .title {
+            font-size: 9pt;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.1cm 0.2cm;
+        }
+
+        .title_bg {
+            background-color: #e5e5e5;
+        }
+
+
+        .left_title_bg {
+            background-color: #dbdbdb;
+        }
+
+
+
+        .item {
+            height: 0.35cm;
+            font-size: 6pt;
+        }
+
+        .estandar_title {
+            font-size: 6pt;
+            width: 2cm;
+        }
+
+        .estandar_title_02 {
+            width: 3.5cm;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        p.left {
+            float: left;
+            font-weight: bold;
+        }
+
+        p.right {
+            float: right;
+            font-weight: bold;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .break {
+            page-break-before: always;
+        }
+
+        .break span {
+            display: block;
+            margin: 30px 0;
+        }
+
+        @media print {
+            .break span {
+                display: none;
+            }
+
+            .title_bg {
+                background-color: #e5e5e5 !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .left_title_bg {
+                background-color: #dbdbdb !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <h1>AUTOEVALUACIÓN DE ESTÁNDARES MÍNIMOS</h1>
+    <br>
+    <br>
+    <h2><strong>EMPRESA: </strong>{{customer.name}}</h2>
+    <h2><strong>NIT: </strong>{{customer.documentNumber}}</h2>
+    <h2><strong>DIRECCIÓN: </strong>{{customer.address}}</h2>
+    <h2><strong>TELÉFONO: </strong>{{customer.phone}}</h2>
+    <h2><strong>FECHA DE GENERACIÓN: </strong>{{customer.date}}</h2>
+    <table class="formulario" width="100%" style="margin-top: 1cm">
+        <tr>
+            <td colspan="11">
+                <div class="intro">Continuación de la resolución "Por la cual se definen los Estándares Mínimos del
+                    Sistema de Gestión de Seguridad y Salud en el Trabajo para empleadores y contratantes"
+                </div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td colspan="11">
+                <div class="title">ESTÁNDARES MÍNIMOS SG-SST</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td colspan="11">
+                <div class="title">TABLA DE VALORES Y CALIFICACIÓN</div>
+            </td>
+        </tr>
+        <tr class="title_bg">
+            <td rowspan="3" width="14" class="ciclo">CICLO</td>
+            <td colspan="2" rowspan="3" width="140" class="estandar">ESTÁNDAR</td>
+            <td rowspan="3" width="160" class="item_estandar">ÍTEM DEL ESTÁNDAR</td>
+            <td rowspan="3" width="17" class="valor">VALOR</td>
+            <td rowspan="3" width="26" class="peso">PESO PORCENTUAL</td>
+            <td colspan="4" width="84" class="puntaje">PUNTAJE POSIBLE</td>
+            <td rowspan="3" width="28" class="calificacion">CALIFICACIÓN DE LA EMPRESA O CONTRATANTE</td>
+        </tr>
+        <tr class="title_bg">
+            <td rowspan="2" class="cumple">CUMPLE</td>
+            <td rowspan="2" class="no_cumple">NO CUMPLE</td>
+            <td colspan="2" class="no_aplica">NO APLICA</td>
+        </tr>
+        <tr class="title_bg">
+            <td class="no_aplica">JUSTIFICA</td>
+            <td class="no_aplica">NO JUSTIFICA</td>
+        </tr>
+
+        {% set weightPercent = 0 %}
+        {% set totalChild = 0 %}
+
+        {% for c in cycles %}
+
+            {% set printCycle = true %}
+
+            {% for sp in c.standards %}
+
+                {% set printParent = true %}
+
+                {% for sc in sp.children %}
+
+                    {% set printChild = true %}
+
+                    {% for item in sc.items %}
+                        <tr>
+                            {% if printCycle %}
+                            <td rowspan="{{ c.items }}" class="ciclo left_title_bg">
+                                <div class="rotate">I.&nbsp;{{ c.name }}</div>
+                                <!-- START CYCLE -->
+                            </td>
+                            {% set printCycle = false %}
+                            {% endif %}
+
+                            {% if printParent %}
+                            <td rowspan="{{ sp.total }}" valign="middle" width="37" class="estandar_title">{{ sp.description }}</td>
+                            <!-- START STANDARD PARENT -->
+                            {% set printParent = false %}
+                            {% endif %}
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="estandar_title_02">{{ sc.description}}</td>
+                            <!-- START STANDARD CHILD -->
+                            {% endif %}
+
+                            <td class="item">{{item.numeral}} {{item.description}}</td>
+                            <!-- START STANDARD ITEMS -->
+                            <td class="center">{{item.value}}</td>
+
+                            {% set weightPercent = weightPercent + item.value %}
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="center">{{ sc.weight }}</td>
+                            {% endif %}
+
+                            <td class="center">
+                                {% if item.rate.code == 'cp' %}
+                                {{item.value}}
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'nc' %}
+                                0
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'nac' %}
+                                {{item.value}}
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if item.rate.code == 'nas' %}
+                                0
+                                {% endif %}
+                            </td>
+
+                            {% if printChild %}
+                            <td rowspan="{{ sc.items|length }}" class="center">{{ sc.totalAverage }}</td>
+                            {% set totalChild = totalChild + sc.totalAverage %}
+                            {% set printChild = false %}
+                            {% endif %}
+                        </tr>
+
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+
+        {% endfor %}
+
+        <tr>
+            <td colspan="5" class="right title_bg">TOTALES</td>
+            <td class="center title_bg">{{ weightPercent }}</td>
+            <td class="title_bg"></td>
+            <td class="title_bg"></td>
+            <td class="title_bg"></td>
+            <td class="title_bg"></td>
+            <td class="right title_bg">{{ totalChild }}</td>
+        </tr>
+        <tr>
+            <td colspan="11">Cuando se cumple con el ítem del estándar la calificación será la máxima del respectivo
+                ítem, de lo contrario su calificación será igual a cero (0).Si el estándar No Aplica, se deberá
+                justificar la situación y se calificará con el porcentaje máximo del ítem indicado para cada estándar.
+                En caso de no justificarse, la calificación el estándar será igual a cero (0)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="11">El presente formulario es documento público, no se debe consignar hecho o manifestaciones
+                falsas y está sujeto a las sanciones establecidas en los artículos 288 y 294 de la Ley 599 de 2000
+                (Código Penal Colombiano)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="11" height="28" style="vertical-align:bottom;">
+                <p class="left"> <br>FIRMA DEL EMPLEADOR O CONTRATANTE </p>
+
+                <p class="right"> <br>FIRMA DEL RESPONSABLE DE LA EJECUCIÓN DEL SG-SST </p>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec;width: 50%; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>CRITERIO</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                <label>ACCIÓN</label>
+            </td>
+
+        </tr>
+        {% if totalChild <= 60 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">CRÍTICO</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Realizar y tener a disposición del Ministerio del Trabajo un Plan de Mejoramiento de inmediato.</li>
+                        <li>Enviar a la respectiva Administradora de Riesgos Laborales a la que se encuentre afiliada la empresa o contratante, un reporte de avances en el término máximo de tres (3) meses después de realizada la autoevaluación de Estándares Mínimos.</li>
+                        <li>Seguimiento anual y plan de visita a la empresa con valoración crítica, por parte del Ministerio del Trabajo.</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        {% if totalChild >= 61 and totalChild <= 85 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">MODERADAMENTE ACEPTABLE</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Realizar y tener a disposición del Ministerio del Trabajo un Plan de Mejoramiento.</li>
+                        <li>Enviar a la Administradora de Riesgos Laborales un reporte de avances en el término máximo de seis (6) meses después de realizada la autoevaluación de Estándares Mínimos.</li>
+                        <li>Plan de visita por parte del Ministerio del Trabajo.</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        {% if totalChild > 85 %}
+        <tr>
+            <td style="border: 1px solid #cecece;text-align:center;padding:5px" class="center" valign="middle">
+                <span class="">ACEPTABLE</span>
+            </td>
+
+            <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                <span class="">
+                    <ul>
+                        <li>Mantener la calificación y evidencias a disposición del Ministerio del Trabajo, e incluir en el Plan de Anual de Trabajo las mejoras detectadas..</li>
+                    </ul>
+                </span>
+            </td>
+
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+
+    <p class="break"><span></span></p>
+
+    <h1>Planes de mejoramiento</h1>
+
+
+    {% for p in plans %}
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px;width: 10%">
+                <label>{{ p.numeral }}</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:left;font-size: 12px">
+                <label>{{ p.description }}</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 10px;margin-top: 10px">
+
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold;width: 30%">
+                            <label>PLAN DE MEJORAMIENTO:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_description }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>RESPONSABLE:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_responsible }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>FECHA:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_endDate }}</span>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+                    <tbody>
+                    <tr style="font-weight:bold">
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Plan de Acción</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Responsable</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Fecha</label>
+                        </td>
+                    </tr>
+                    {% for a in p.actions %}
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.activity }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.responsible.name }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.endDateFormat }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+</body>
+
+</html>

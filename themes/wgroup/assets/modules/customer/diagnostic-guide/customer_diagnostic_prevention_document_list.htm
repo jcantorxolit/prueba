@@ -1,0 +1,22 @@
+<div ng-controller="customerDiagnosticPreventionDocumentListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i class="glyphicon glyphicon-plus"></i>
+                Crear documento</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive" id="dtagents">
+                <table datatable="" width="100%" 
+                    dt-instance="dtInstanceCustomerDiagnosticPreventionDocument"
+                    dt-options="dtOptionsCustomerDiagnosticPreventionDocument" 
+                    dt-columns="dtColumnsCustomerDiagnosticPreventionDocument"
+                    id="dtCustomerDiagnosticPreventionDocument" 
+                    class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src="" />
+</div>
+<!-- end: RESPONSIVE TABLE -->

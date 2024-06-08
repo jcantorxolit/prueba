@@ -1,0 +1,21 @@
+<div ng-controller="configurationRoadSafetyItemListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i class="glyphicon glyphicon-plus"></i>
+                Crear Criterio</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" id="dtRoadSafetyItem" width="100%"
+                       dt-instance="dtInstanceRoadSafetyItem"
+                       dt-options="dtOptionsRoadSafetyItem"
+                       dt-columns="dtColumnsRoadSafetyItem"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+</div>
+<!-- end: RESPONSIVE TABLE -->

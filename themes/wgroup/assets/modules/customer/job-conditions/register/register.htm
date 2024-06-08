@@ -1,0 +1,23 @@
+<div ng-controller="CustomerJobConditionsRegisterCtrl">
+
+    <div ng-switch="section" data-ng-animate="'wave'">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/register/register_list.htm'"></div>
+        </div>
+
+        <div ng-switch-when="edit" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/register/register_edit.htm'"></div>
+        </div>
+
+        <div ng-switch-when="evaluation" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/register/evaluation/evaluation_edit.htm'"></div>
+        </div>
+
+        <!--Import-->
+        <div ng-switch-when="stagingEmployee" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/register/import/job_condition_staging_list.htm'">
+            </div>
+        </div>
+    </div>
+
+</div>

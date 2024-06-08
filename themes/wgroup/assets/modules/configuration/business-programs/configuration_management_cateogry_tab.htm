@@ -1,0 +1,140 @@
+<div ng-controller="configurationManagementCategoryListCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Programa<span
+                                            class="symbol required"></span></label>
+
+                                    <div class="input-group">
+                                        <ui-select name="type" ng-required="true" ng-disabled="isView"
+                                                   ng-model="category.program" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in programs | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.type.$dirty && Form.type.$invalid">El programa es requerido</span>
+                                    <span class="input-group-btn">
+                                        <button type="button" ng-click="refreshProgram()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-refresh"></span>
+                                        </button>
+                                    </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label">Categoría<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isview" type="text"
+                                           placeholder="Ingrese la actividad"
+                                           class="form-control" name="name"
+                                           ng-model="category.name" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.name.$dirty && Form.name.$invalid">La categoría es requerida</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                    <label class="control-label">Estado<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="status" ng-required="true" ng-disabled="isview"
+                                               ng-model="category.status" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in status | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.status.$dirty && Form.status.$invalid">El estado es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row rowactions actionswzr">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" ng-if="!isview" ng-click="save()">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clear()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">CATEGORÍASS</span></h4>
+
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm"
+                           tooltip-placement='top' uib-tooltip="Refrescar"
+                           ng-click="reloadData()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceConfigCategoryManagement" dt-options="dtOptionsConfigCategoryManagement"
+                                           dt-columns="dtColumnsConfigCategoryManagement"
+                                           id="dtConfigCategoryManagement"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

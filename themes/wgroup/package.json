@@ -1,0 +1,36 @@
+{
+  "name": "sylogi",
+  "version": "1.8.1",
+  "description": "Sylogi Instance",
+  "main": "index.html",
+  "private": true,
+  "scripts": {
+    "dev": "gulp dev",
+    "watch": "gulp watch",
+    "prod": "gulp prod --compress"
+  },
+  "author": "David Blandon",
+  "license": "AdeN.",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "event-stream": "^3.3.5",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "gulp": "^4.0.0",
+    "gulp-angular-templatecache": "^1.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-uglify": "^1.5.4",
+    "gulp-useref": "^3.1.5",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^5.0.1",
+    "lodash": "^4.17.11",
+    "run-sequence": "^2.2.1"
+  },
+  "dependencies": {
+    "gulp-cssnano": "^2.1.3",
+    "gulp-shell": "^0.6.3"
+  }
+}

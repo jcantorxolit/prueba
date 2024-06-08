@@ -1,0 +1,93 @@
+<div ng-controller="customerDocumentSettingCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">CONFIGURACIÓN SEGURIDAD ANEXOS</span></h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label>
+                            Tipos de documentos
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-disabled="isView" ng-model="setting.documentType" theme="bootstrap" on-select="onSelectDocumentType($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in documentTypeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClear()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <label class="control-label">Documento Público<span class="symbol required"></span></label>
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="isView" ng-model="setting.isPublic" class="green"></switch>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <label class="control-label">Encriptar<span class="symbol required"></span></label>
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <switch disabled="isView" ng-model="setting.isProtected" class="green"></switch>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-click="onSave()" ng-disabled="setting.documentType == null">
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Regresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row" ng-if="setting.documentType != null">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" dt-instance="dtInstanceCustomerDocumentSecurityUserCallback"
+                                dt-options="dtOptionsCustomerDocumentSecurityUser" dt-columns="dtColumnsCustomerDocumentSecurityUser"
+                                id="dtCustomerDocumentSecurityUser" class="table table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

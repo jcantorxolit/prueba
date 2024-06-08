@@ -1,0 +1,112 @@
+<div ng-controller="customerDiagnosticObservationListCtrl">
+    <form name="Form" id="frmobs" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Fecha<span class="symbol required"></span></label>
+
+                                    <input type="text" class="form-control" data-ng-model="observation.currentDate"
+                                        disabled="true" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.agent.$dirty && Form.agent.$invalid}">
+                                    <label class="control-label">
+                                        Asesor<span class="symbol required"></span>
+                                    </label>
+
+                                    <ui-select name="agent" ng-model="observation.agent" theme="bootstrap" ng-disabled="isView"
+                                        ng-required="true">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in agents | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block" ng-if="Form.agent.$dirty && Form.agent.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group" ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                                    <label class="control-label">Observación<span class="symbol required"></span></label>
+
+                                    <textarea placeholder="Ingrese la observación..." ng-disabled="isView" ng-model="observation.description"
+                                        name="observation" class="form-control" ng-required="true"></textarea>
+
+                                    <span class="error text-small block" ng-if="Form.observation.$dirty && Form.observation.$invalid">El
+                                        registro es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">OBSERVACIONES</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceDiagnosticObservationCallback"
+                                        dt-options="dtOptionsDiagnosticObservation" 
+                                        dt-columns="dtColumnsDiagnosticObservation"
+                                        id="dtDiagnosticObservation" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

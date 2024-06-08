@@ -1,0 +1,96 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="dashboardDiagnosticCustomerGeneralRoadSafetyCtrl">
+        <div class="panel-body ">
+
+            <div class="row display-flex flex-justify-end">
+
+                    <div class="col-md-2 form-group">
+                        <label class="control-label">Periodo</label>
+
+                        <ui-select name="year" ng-model="entity.period" theme="bootstrap"
+                                   ng-required="true" on-select="onChangePeriod()">
+
+                            <ui-select-match placeholder="- Año -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="item in periods | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+                    <div class="col-md-2 form-group margin-top-25 margin-right-20">
+                        <ui-select name="month" ng-model="entity.month" theme="bootstrap"
+                                   ng-required="true" on-select="onRefresh()">
+
+                            <ui-select-match placeholder="- Mes -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="month in months | filter: $select.search track by $index">
+                                <div ng-bind-html="month.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+
+                    <div class="col-md-2 form-group">
+                        <label class="control-label">Comparar periodo</label>
+                    
+                        <ui-select name="yearCompare" ng-model="entity.comparePeriod" theme="bootstrap"
+                                   ng-required="true" on-select="onChangeComparePeriod()">
+
+                            <ui-select-match placeholder="- Año -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                    
+                            <ui-select-choices
+                                    repeat="item in periods | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+                    <div class="col-md-2 form-group margin-top-25">
+                        <ui-select name="monthCompare" ng-model="entity.compareMonth" theme="bootstrap"
+                                   ng-required="true" on-select="onRefresh()">
+
+                            <ui-select-match placeholder="- Mes -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="item in compareMonths | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+            </div>
+
+
+
+            <div class="margin-top-30">
+
+                <div class="text-center">
+                    <div class="text-primary text-extra-extra-large">[[percent]] %</div>
+                    <h5>Porcentaje de cumplimiento</h5>
+                </div>
+
+                <canvas class="tc-chart" tc-chartjs-bar
+                        chart-options="chart.bar.options"
+                        chart-data="chart.data.roadSafetyChartBar"
+                        chart-legend="barChart2" height="100">
+                </canvas>
+
+            </div>
+
+        </div>
+    </div>
+</div>

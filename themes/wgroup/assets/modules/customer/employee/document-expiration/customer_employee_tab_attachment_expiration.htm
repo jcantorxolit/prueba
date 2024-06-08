@@ -1,0 +1,78 @@
+<!-- start: RESPONSIVE TABLE -->
+<div class="container-fluid container-fullw bg-white" ng-controller="customerEmployeeDocumentExpirationListCtrl">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por año</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <input ng-disabled="false" type="text" placeholder="Ingrese el año" class="form-control" ng-model="filter.selectedYear" />
+                            <span class="input-group-btn">
+                                <button ng-click="onSearchYear()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearYear()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por mes</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-disabled="isView" ng-model="filter.selectedMonth" theme="bootstrap" 
+                                on-select="onSelectMonth($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in months | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearMonth()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" 
+                    dt-instance="dtInstanceCertificateExpirationCallback" 
+                    dt-options="dtOptionsCertificateExpiration"
+                    dt-columns="dtColumnsCertificateExpiration" 
+                    id="dtCertificateExpiration" 
+                    class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src="" />
+
+</div>
+<!-- end: RESPONSIVE TABLE -->

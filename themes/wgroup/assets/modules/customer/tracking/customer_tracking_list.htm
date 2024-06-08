@@ -1,0 +1,49 @@
+<div ng-controller="customerTrackingListCtrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="editTracking(0)" ng-if="can('seguimiento_create')"><i
+                    class="glyphicon glyphicon-plus"></i> Crear seguimiento</a>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="pull-right">
+                <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-wide btn-default dropdown-toggle" uib-dropdown-toggle>
+                        Más acciones... <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">          
+                        <li>
+                            <a href="#" ng-click="onAttachment()">
+                                Ver Todos los Anexos
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" ng-click="onDownloadAttachment()">
+                                Descargar Anexos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" width="100%"
+                           dt-instance="dtInstanceTracking"
+                           dt-options="dtOptionsTracking"
+                           dt-columns="dtColumnsTracking"
+                           id="dtCustomerTracking"
+                           class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

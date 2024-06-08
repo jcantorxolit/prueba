@@ -1,0 +1,184 @@
+<div ng-controller="customerEmployeeIndicatorsDocumentsCtrl">
+
+    <div class="padding-top-30">
+        <h3 class="panel-title margin-bottom-15 text-bold">DOCUMENTOS DE SOPORTE</h3>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Periodo</label>
+
+                <ui-select ng-model="filters.year" theme="bootstrap" on-select="onChangeWorkplace($item, $model)">
+                    <ui-select-match placeholder="- Seleccionar -">
+                        [[$select.selected.year]]
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in yearList | filter: $select.search track by $index">
+                        <div ng-bind-html="item.year | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Centro de trabajo</label>
+
+                <div class="input-group">
+                    <ui-select ng-model="filters.workplace" theme="bootstrap" on-select="onChangeWorkplace($item, $model)">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.name]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in workplaces | filter: $select.search track by $index">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                        <button ng-click="onClearFilterWorkplace()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                   </span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-1 col-md-push-6">
+            <a class="float-left btn btn-azure" href="#" ng-click="onConsolidate()">
+                <div class="text-center">Consolidar</div>
+            </a>
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-bold">DOCUMENTOS DE SOPORTE</h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row text-center">
+                    <h2 class="text-bold">[[totalDocuments]]</h2>
+                    <h6>Total</h6>
+                    <h6>Soportes</h6>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas class="tc-chart" tc-chartjs-doughnut
+                                chart-options="chart.doughnut.options"
+                                chart-data="chart.data.documentsByStatus"
+                                height="200">
+                        </canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas class="tc-chart" tc-chartjs-doughnut
+                                chart-options="chart.doughnut.options"
+                                chart-data="chart.data.authorizedDocuments"
+                                height="200">
+                        </canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="row margin-top-110">
+        <div class="panel-body">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">Cantidad de Documentos por Centro de Trabajo</h4>
+            </div>
+            <div class="panel-body">
+                <canvas class="tc-chart" height="80" tc-chartjs-line
+                        chart-options="chart.line.options"
+                        chart-data="chart.data.documentsByWorkplaces"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-110">
+        <div class="panel-body">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">Cantidad de documentos vigentes, vencidos y anulados por Centro de Trabajo</h4>
+            </div>
+            <div class="panel-body">
+                <canvas class="tc-chart" height="80" tc-chartjs-bar
+                        chart-options="chart.barWithScales.options"
+                        chart-data="chart.data.statusDocumentsByWorkplaces"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-110">
+        <div class="panel-body">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">Cantidad de documentos aprobados y denegados por Centro de Trabajo</h4>
+            </div>
+            <div class="panel-body">
+                <canvas class="tc-chart" height="80" tc-chartjs-bar
+                        chart-options="chart.barWithScales.options"
+                        chart-data="chart.data.authorizedDocumentsByWorkplaces"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row margin-top-110">
+        <h3 class="text-primary">Cantidad de documentos de soporte durante el periodo</h3>
+
+        <div class="row">
+            <div class="panel-body">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Cantidad de documentos por periodo</h4>
+                </div>
+                <div class="panel-body">
+                    <canvas class="tc-chart" height="80" tc-chartjs-line
+                            chart-options="chart.line.options"
+                            chart-data="chart.data.amountDocumentsByPeriod"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row margin-top-110">
+            <div class="panel-body">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Cantidad de documentos, vigentes, vencidos y anulados por periodo</h4>
+                </div>
+                <div class="panel-body">
+                    <canvas class="tc-chart" height="80" tc-chartjs-line
+                            chart-options="chart.line.options"
+                            chart-data="chart.data.amountDocumentsByStatusByPeriod"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row margin-top-110">
+            <div class="panel-body">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">Cantidad de documentos aprobados y denegados por periodo</h4>
+                </div>
+                <div class="panel-body">
+                    <canvas class="tc-chart" height="80" tc-chartjs-line
+                            chart-options="chart.line.options"
+                            chart-data="chart.data.amountApprovedVsDeniedDocumentsByPeriod"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

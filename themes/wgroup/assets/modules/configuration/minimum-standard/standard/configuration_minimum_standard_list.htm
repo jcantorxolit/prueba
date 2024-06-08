@@ -1,0 +1,21 @@
+<div ng-controller="configurationMinimumStandardListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i class="glyphicon glyphicon-plus"></i>
+                Crear estándar</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" id="dtMinimumStandard" width="100%"
+                       dt-instance="dtInstanceMinimumStandard"
+                       dt-options="dtOptionsMinimumStandard"
+                       dt-columns="dtColumnsMinimumStandard"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' src=""/>
+</div>
+<!-- end: RESPONSIVE TABLE -->

@@ -1,0 +1,121 @@
+<div class="tab1" ng-controller="customerManacleCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">REGISTRO</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.registrationDate.$dirty && Form.registrationDate.$invalid}">
+                            <label class="control-label">Fecha Registro <span class="symbol required"></span></label>
+                            <input class="form-control" kendo-date-picker 
+                                name="registrationDate" 
+                                ng-required="true"
+                                k-options="datePickerConfig" 
+                                k-max="maxDate"
+                                ng-disabled="entity.id != 0"
+                                onkeydown="return false;"
+                                k-ng-model="entity.registrationDate"
+                                style="width: 100%;" />
+                        </div>
+                        <span class="error text-small block" ng-if="Form.registrationDate.$dirty && Form.registrationDate.$invalid">
+                            La fecha es requerida
+                        </span>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.number.$dirty && Form.number.$invalid}">
+                            <label class="control-label"> Número Manilla<span
+                                    class="symbol required"></span></label>
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese el valor"
+                                class="form-control" name="number" ng-model="entity.number"
+                                required />
+                            <span class="error text-small block"
+                                ng-if="Form.number.$dirty && Form.number.$invalid">
+                                El valor es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.isActive.$dirty && Form.isActive.$invalid}">
+                            <label class="control-label">Estado<span
+                                    class="symbol required"></span></label>
+
+                            <ui-select name="isActive" ng-required="true"
+                                ng-model="entity.isActive" theme="bootstrap" >
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in statusList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.isActive.$dirty && Form.isActive.$invalid">
+                                El estado es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <br>
+                        <div class="pull-center">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">MANILLAS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-wide btn-info" href="#" ng-click="onImport()" >
+                                <i class="glyphicon glyphicon-upload"></i> Importar</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceManacleCallback" 
+                                        dt-options="dtOptionsManacle"
+                                        dt-columns="dtColumnsManacle" 
+                                        id="dtManacle"
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

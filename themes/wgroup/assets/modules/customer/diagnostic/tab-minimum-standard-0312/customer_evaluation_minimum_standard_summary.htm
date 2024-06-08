@@ -1,0 +1,97 @@
+<div class="minimun-standard-0312-export-pdf" ng-controller="customerEvaluationMinimumStandardSummary0312Ctrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">RESUMEN DE AUTOEVALUACIÓN</span></h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row" ng-if="currentId != 0">
+                <div class="col-md-6">
+                    <a class="btn btn-wide btn-success" href="#" ng-click="onViewReport()">
+                        <i class="glyphicon glyphicon-list-alt"></i> Ver reporte
+                    </a>
+                    <a class="btn btn-wide btn-info" href="#" ng-click="onViewMonthlyReport()">
+                        <i class="glyphicon glyphicon-list-alt"></i> Ver reporte mensual
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="pull-right">
+                        <div class="btn-group" uib-dropdown>
+                            <button type="button" class="btn btn-wide btn-default dropdown-toggle" uib-dropdown-toggle>
+                                Más acciones... <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#" ng-click="onReportExportPdf()" ng-if="can('diagnostico_export_pdf')">
+                                        Exportar Tabla de Valores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" ng-click="onExportPdf()" ng-if="can('diagnostico_export_pdf')">
+                                        Exportar PDF
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" ng-click="onExportExcel()" ng-if="can('diagnostico_export_excel')">
+                                        Exportar Excel
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li ng-if="!isView">
+                                    <a href="#" ng-click="onImport()">
+                                        Importar Anexos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" ng-click="onAttachment()">
+                                        Ver Todos los Anexos
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%"
+                                dt-instance="dtInstanceEvaluationMinimumStandardSummary0312Callback"
+                                dt-options="dtOptionsEvaluationMinimumStandardSummary0312"
+                                dt-columns="dtColumnsEvaluationMinimumStandardSummary0312"
+                                class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-ng-animate="'wave'" class="fade-in-right-big"
+        data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard-0312/customer_evaluation_minimum_standard_stats.htm'">
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" ng-click="onContinue()" ng-if="currentId != 0">
+                    Continuar
+                </button>
+                <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                    Regresar
+                </button>                
+            </div>
+        </div>
+    </div>
+
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

@@ -1,0 +1,33 @@
+<!--DIAGNOSTIC EM -->
+<div ng-controller="customerEvaluationMinimumStandardCtrl" >
+    <div ng-switch="standard_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+
+        </div>
+
+        <div ng-switch-when="summary" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard/customer_evaluation_minimum_standard_summary.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="edit" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard/customer_evaluation_minimum_standard_edit.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="config" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard/customer_configuration_minimum_standard_item_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="report" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard/customer_evaluation_minimum_standard_report.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="monthlyReport" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-minimum-standard/customer_evaluation_minimum_standard_monthly_report.htm'">
+            </div>
+        </div>
+    </div>
+</div>

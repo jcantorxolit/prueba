@@ -1,0 +1,376 @@
+<?php
+/**
+ * User: DAB
+ * Date: 25/09/2018
+ * Time: 6:14 PM
+ */
+
+namespace AdeN\Api\Modules\Customer\RoadSafety40595\Container\RoadSafetyTracking40595\Http\Controllers;
+
+use DB;
+use Excel;
+use Exception;
+use Illuminate\Support\Facades\Input;
+use Log;
+use Request;
+use Response;
+use Session;
+use Validator;
+
+use Wgroup\Traits\UserSecurity;
+
+use AdeN\Api\Classes\BaseController;
+use AdeN\Api\Helpers\CriteriaHelper;
+use AdeN\Api\Helpers\HttpHelper;
+
+use AdeN\Api\Modules\Customer\RoadSafety40595\Container\RoadSafetyTracking40595\CustomerRoadSafetyTracking40595Repository;
+
+class CustomerRoadSafetyTracking40595Controller extends BaseController
+{
+    use UserSecurity;
+
+    private $repository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->repository = new CustomerRoadSafetyTracking40595Repository();
+        $this->request = app('Input');
+
+        $this->run();
+    }
+
+    public function index()
+    {
+        $request = Request::instance();
+
+        $content = $request->getContent();
+
+        try {
+
+            $mandatoryFilters = [];
+
+            $criteria = CriteriaHelper::parse($content, $mandatoryFilters);
+
+            $defaultFilters = [
+                array("field" => 'id', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'customerRoadSafetyId', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'roadSafetyCycle', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'roadSafetyParentId', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'items', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'checked', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'avgProgress', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'avgTotal', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'total', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'accomplish', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'noAccomplish', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'noApplyWithJustification', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'noApplyWithoutJustification', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'noChecked', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'year', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'month', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'createdAt', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'createdBy', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'updatedAt', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'updatedBy', "operator" => 'like', "value" => $criteria->search),
+            ];
+
+            $criteria = CriteriaHelper::addFilters($criteria, $defaultFilters);
+
+
+            $result = $this->repository->all($criteria);
+
+            $this->response->setData($result["data"]);
+            $this->response->setRecordsTotal($result["recordsTotal"]);
+            $this->response->setRecordsFiltered($result["recordsFiltered"]);
+            $this->response->setDraw($result["draw"]);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+            $this->response->setError($ex->getMessage());
+        }
+
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function indexSummaryCycle()
+    {
+        $request = Request::instance();
+
+        $content = $request->getContent();
+
+        try {
+
+            $mandatoryFilters = [
+                array("field" => 'customerRoadSafetyId', "operator" => 'eq'),
+                array("field" => 'year', "operator" => 'eq'),
+            ];
+
+            $criteria = CriteriaHelper::parse($content, $mandatoryFilters);
+
+            $defaultFilters = [
+                array("field" => 'name', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'abbreviation', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jan', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'feb', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'mar', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'apr', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'may', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jun', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jul', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'aug', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'sep', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'oct', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'nov', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'dec', "operator" => 'like', "value" => $criteria->search),
+            ];
+
+            $criteria = CriteriaHelper::addFilters($criteria, $defaultFilters);
+
+
+            $result = $this->repository->allSummaryCycle($criteria);
+
+            $this->response->setData($result["data"]);
+            $this->response->setRecordsTotal($result["recordsTotal"]);
+            $this->response->setRecordsFiltered($result["recordsFiltered"]);
+            $this->response->setDraw($result["draw"]);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+            $this->response->setError($ex->getMessage());
+        }
+
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function indexSummaryCycleDetail()
+    {
+        $request = Request::instance();
+
+        $content = $request->getContent();
+
+        try {
+
+            $mandatoryFilters = [
+                array("field" => 'customerRoadSafetyId', "operator" => 'eq'),
+                array("field" => 'cycle', "operator" => 'eq'),
+                array("field" => 'year', "operator" => 'eq'),
+            ];
+
+            $criteria = CriteriaHelper::parse($content, $mandatoryFilters);
+
+            $defaultFilters = [
+                array("field" => 'indicator', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jan', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'feb', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'mar', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'apr', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'may', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jun', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jul', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'aug', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'sep', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'oct', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'nov', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'dec', "operator" => 'like', "value" => $criteria->search),
+            ];
+
+            $criteria = CriteriaHelper::addFilters($criteria, $defaultFilters);
+
+
+            $result = $this->repository->allSummaryCycleDetail($criteria);
+
+            $this->response->setData($result["data"]);
+            $this->response->setRecordsTotal($result["recordsTotal"]);
+            $this->response->setRecordsFiltered($result["recordsFiltered"]);
+            $this->response->setDraw($result["draw"]);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+            $this->response->setError($ex->getMessage());
+        }
+
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function indexSummaryIndicator()
+    {
+        $request = Request::instance();
+
+        $content = $request->getContent();
+
+        try {
+
+            $mandatoryFilters = [
+                array("field" => 'customerRoadSafetyId', "operator" => 'eq'),
+                array("field" => 'year', "operator" => 'eq'),
+            ];
+
+            $criteria = CriteriaHelper::parse($content, $mandatoryFilters);
+
+            $defaultFilters = [
+                array("field" => 'indicator', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jan', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'feb', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'mar', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'apr', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'may', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jun', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'jul', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'aug', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'sep', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'oct', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'nov', "operator" => 'like', "value" => $criteria->search),
+                array("field" => 'dec', "operator" => 'like', "value" => $criteria->search),
+            ];
+
+            $criteria = CriteriaHelper::addFilters($criteria, $defaultFilters);
+
+
+            $result = $this->repository->allSummaryIndicator($criteria);
+
+            $this->response->setData($result["data"]);
+            $this->response->setRecordsTotal($result["recordsTotal"]);
+            $this->response->setRecordsFiltered($result["recordsFiltered"]);
+            $this->response->setDraw($result["draw"]);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+            $this->response->setError($ex->getMessage());
+        }
+
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function store()
+    {
+        $content = $this->request->get("data", "");;
+
+        try {
+            $entity = HttpHelper::parse($content, true);
+            $result = $this->repository->insertOrUpdate($entity);
+            $this->response->setResult($result);
+        } catch (\Exception $ex) {
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+        }
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function destroy()
+    {
+        $id = $this->request->get("id", "");
+
+        try {
+            $this->repository->delete($id);
+            $this->response->setResult(1);
+        } catch (\Exception $ex) {
+            $this->response->setResult(0);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+        }
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function show()
+    {
+        $id = $this->request->get("id", "");
+
+        try {
+            $result = $this->repository->parseModelWithRelations($this->repository->find($id));
+            $this->response->setResult($result);
+        } catch (Exception $ex) {
+            $this->response->setResult(0);
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+        }
+
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function upload()
+    {
+        $id = $this->request->get("id", "0");
+        try {
+
+            $allFiles = Input::file();
+
+            $model = $this->repository->find($id);
+
+            foreach ($allFiles as $file) {
+                $this->repository->checkUploadPostBack($file, $model);
+            }
+            $model = $this->repository->find($id);
+            $this->response->setResult($model);
+        } catch (Exception $ex) {
+            $this->response->setStatuscode(404);
+            $this->response->setMessage($ex->getMessage());
+        }
+        return Response::json($this->response, $this->response->getStatuscode());
+    }
+
+    public function download()
+    {
+        $id = $this->request->get("id", "0");
+        try {
+
+            $model = $this->repository->find($id);
+
+            $file = $model->document->getDiskPath();
+
+            $headers = $this->repository->getDownloadHeaders($model->document);
+
+            //return Response::download($file, $model->document->file_name, $headers);
+            return $model->document->download();
+        } catch (Exception $ex) {
+            $this->response->setStatuscode(404);
+            $this->response->setMessage($ex->getMessage());
+            return Response::json($this->response, $this->response->getStatuscode());
+        }
+    }
+
+    public function exportSummaryCycle()
+    {
+
+        set_time_limit(0);
+
+        $content = $this->request->get("data", "");
+
+        try {
+
+            $criteria = HttpHelper::parse($content, true);
+
+            $this->repository->exportSummaryCycleExcel($criteria);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            // error on server
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+        }
+    }
+
+    public function exportSummaryIndicator()
+    {
+
+        set_time_limit(0);
+
+        $content = $this->request->get("data", "");
+
+        try {
+
+            $criteria = HttpHelper::parse($content, true);
+
+            $this->repository->exportSummaryIndicadorExcel($criteria);
+        } catch (Exception $ex) {
+            Log::error($ex);
+            // error on server
+            $this->response->setStatuscode(500);
+            $this->response->setMessage($ex->getMessage());
+        }
+    }
+}

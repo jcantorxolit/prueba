@@ -1,0 +1,33 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Clientes">Clientes</h1>
+            <span class="mainDescription">Desde aquí podrá administrar la información de los clientes.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: RESPONSIVE TABLE -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-transparent">
+                <div class="panel-body">
+                    <p>
+                        <a class="btn btn-wide btn-primary" href="#" ng-click="createCustomer()"><i class="glyphicon glyphicon-plus"></i> Crear cliente</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstance" dt-options="dtOptions" dt-columns="dtColumns"  class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: RESPONSIVE TABLE -->

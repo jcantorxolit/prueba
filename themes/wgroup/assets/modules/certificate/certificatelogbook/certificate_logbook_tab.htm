@@ -1,0 +1,90 @@
+<div ng-controller="certificateLogBookTabsCtrl">
+
+
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+
+        <div class="row" ng-if="tabname=='certificate'">
+
+            <div class="col-sm-10" ng-if="titletab == 'list'">
+                <h1 class="mainTitle">Experiencia de Trabajo</h1>
+                <span class="mainDescription">Desde este formulario usted podrá consultar la experiencia laboral en ALTURAS</span>
+            </div>
+
+            <div class="col-sm-10" ng-if="titletab == 'create'">
+                <h1 class="mainTitle">Creación del Programa</h1>
+                <span class="mainDescription">Desde este formulario usted podrá crear la información del programa seleccionado</span>
+            </div>
+
+            <div class="col-sm-10" ng-if="titletab == 'edit'">
+                <h1 class="mainTitle">Actualización del Programa</h1>
+                <span class="mainDescription">Desde este formulario usted podrá actualizar la información del programa seleccionado</span>
+            </div>
+
+
+            <div class="col-sm-10" ng-if="titletab == 'view'">
+                <h1 class="mainTitle">Información del programa</h1>
+                <span class="mainDescription">Desde este formulario usted podrá visualizar la información del programa seleccionado</span>
+
+            </div>
+
+        </div>
+
+        <div class="row" ng-if="tabname=='expiration'">
+            <div class="col-sm-10" ng-if="titletab == 'list'">
+                <h1 class="mainTitle">Cursos de Capacitación</h1>
+                <span class="mainDescription">Desde este formulario usted podrá consultar los cursos de capacitación asistidos en ALTURAS</span>
+            </div>
+
+            <div class="col-sm-10" ng-if="titletab == 'create'">
+                <h1 class="mainTitle">Creación del Curso</h1>
+                <span class="mainDescription">Desde este formulario usted podrá crear la información del curso seleccionado</span>
+            </div>
+
+            <div class="col-sm-10" ng-if="titletab == 'edit'">
+                <h1 class="mainTitle">Actualización del Curso</h1>
+                <span class="mainDescription">Desde este formulario usted podrá actualizar el curso seleccionado</span>
+            </div>
+
+            <div class="col-sm-10" ng-if="titletab == 'view'">
+                <h1 class="mainTitle">Información del Curso</h1>
+                <span class="mainDescription">Desde este formulario usted podrá visualizar el curso seleccionado</span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- end: PAGE TITLE -->
+    <!-- start: FORM VALIDATION -->
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <uib-tabset class="tabbable">
+                    <uib-tab select="switchTab('certificate','list')">
+                        <uib-tab-heading>
+                            <i class="glyphicon glyphicon-file"></i>  Experiencia de Trabajo
+                        </uib-tab-heading>
+
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificatelogbook/certificate_logbook.htm'">
+                        </div>
+
+                    </uib-tab>
+                    <uib-tab disabled="false" select="switchTab('expiration','list')" ng-if="false" >
+                        <uib-tab-heading>
+                            <i class="glyphicon glyphicon-earphone"></i> Cursos de Capacitación
+                        </uib-tab-heading>
+
+                        <div ng-if="tabname=='grade' || tabsloaded.indexOf('expiration') >= 0">
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificatelogbook/certificate_logbook_course.htm'">
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                </uib-tabset>
+
+            </div>
+        </div>
+    </div>
+    <!-- end: FORM VALIDATION -->
+</div>

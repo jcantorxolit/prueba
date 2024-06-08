@@ -1,0 +1,185 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+
+            <div class="row margin-bottom-15">
+                <div class="col-md-12">
+                    <a class="btn btn-wide btn-success" href="#"
+                    ng-if="!isView" ng-click="onAddWitness()"><i
+                            class="glyphicon glyphicon-plus"></i> Adicionar relato</a>
+                </div>
+            </div>
+
+            <!--START STORY-->
+            <div class="row" ng-repeat="witness in investigation.witnessList">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">RELATO DEL ACCIDENTE</span>
+                            </h4>
+                            <div class="panel-tools">
+                                <a href='#' class="btn btn-danger btn-sm" ng-disabled="isView"
+                                   tooltip-placement='top' tooltip="Remover relato"
+                                   ng-click="onRemoveWitness($index)"><i class="fa fa-trash"> </i>Eliminar</a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-9">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.testimonyType.$dirty && Form.testimonyType.$invalid}">
+                                        <label class="control-label">Tipo de testimonio<span
+                                                    class="symbol required"></span></label>
+
+                                        <ui-select name="testimonyType" ng-required="currentStep == 4"
+                                                   ng-disabled="isView"
+                                                   ng-model="witness.type" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in testimonyList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.testimonyType.$dirty && Form.testimonyType.$invalid">El día de la semana es requerido</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentIsWatching.$dirty && Form.accidentIsWatching.$invalid}">
+                                        <label class="control-label">Presenció el accidente?<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentIsWatching"
+                                                   ng-model="witness.isWatching"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 4">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in conditionalList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentIsWatching.$dirty && Form.accidentIsWatching.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.witnessDocumentNumber.$dirty && Form.witnessDocumentNumber.$invalid}">
+                                        <label class="control-label">
+                                            Número de Identificación
+                                            <span class="symbol required"></span>
+                                        </label>
+
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese el número de identificación"
+                                               class="form-control" name="witnessDocumentNumber"
+                                               ng-model="witness.documentNumber" ng-required="currentStep == 4"/>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.witnessDocumentNumber.$dirty && Form.witnessDocumentNumber.$invalid">El número de identificación es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.witnessDocumentType.$dirty && Form.witnessDocumentType.$invalid}">
+                                        <label class="control-label">
+                                            Tipo de identificación<span class="symbol required"></span>
+                                        </label>
+                                        <ui-select name="witnessDocumentType" ng-required="currentStep == 4" ng-disabled="isView"
+                                                   ng-model="witness.documentType"
+                                                   theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.witnessDocumentType.$dirty && Form.witnessDocumentType.$invalid">El tipo de identificación es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.witnessFullName.$dirty && Form.witnessFullName.$invalid}">
+                                        <label class="control-label">
+                                            Nombre Completo<span class="symbol required"></span>
+                                        </label>
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese el nombre(s)"
+                                               class="form-control" name="witnessFullName"
+                                               ng-model="witness.name" ng-required="currentStep == 4"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.witnessFullName.$dirty && Form.witnessFullName.$invalid">El nombre(s) es requerido</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.witnessJob.$dirty && Form.witnessJob.$invalid}">
+                                        <label class="control-label">
+                                            Cargo<span class="symbol required"></span>
+                                        </label>
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese el cargo"
+                                               class="form-control" name="witnessJob"
+                                               ng-model="witness.job" ng-required="currentStep == 4"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.witnessJob.$dirty && Form.witnessJob.$invalid">El cargo es requerido</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Relato
+                                        </label>
+
+                                        <textarea ng-disabled="isView"
+                                                  placeholder="Escribe aquí el relato..."
+                                                  data-ng-model="witness.story"
+                                                  class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!--END ACCIDENT-->
+
+        </div>
+    </div>
+</div>
+
+
+

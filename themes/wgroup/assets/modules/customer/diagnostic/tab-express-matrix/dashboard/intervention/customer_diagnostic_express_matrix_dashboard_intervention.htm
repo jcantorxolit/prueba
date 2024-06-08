@@ -1,0 +1,295 @@
+<div ng-controller="customerDiagnosticExpressMatrixInterventionCtrl">
+    <div class="row">
+        <div class="col-md-6 border-right">
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <a class="btn-link link-underline link-italic text-label" href="#" ng-click="onBack()">
+                        <i class="ti ti-back-left"></i>
+                        Volver al tablero
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <div class="radio clip-radio radio-primary radio-inline">
+                            <input type="radio" id="current" name="inline" value="C" ng-model="filter.view"
+                                ng-change='onChangeView()'>
+                            <label for="current">
+                                Actual
+                            </label>
+                        </div>
+
+                        <div class="radio clip-radio radio-primary radio-inline margin-right-20">
+                            <input type="radio" id="historical" name="inline" value="H" ng-model="filter.view"
+                                ng-change='onChangeView()'>
+                            <label for="historical">
+                                Histórico
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="panel-title margin-bottom-15"><span class="text-bold">[[entity.name]]</span></h4>
+
+            <p class="custom-text-muted text-large margin-top-5 margin-bottom-15">
+                Si hay riesgos identificados, realice su respectivo plan de intervención, de no tenerlos, no se requiere elaborar plan.
+            </p>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 intervention">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-default text-bold"
+                            ng-class="{'disabled':!question.isActive, 'active': $index == currentIndex}" href="#"
+                            ng-click="onSelectQuestion(question, $index)" ng-repeat="question in entity.questionList">
+                            <div class="row margin-right-30">
+                                <div class="col-md-12">
+                                    <i class="margin-right-10 float-left text-grey"
+                                        ng-class="{'fa fa-circle': $index == currentIndex, 'fa fa-circle-o': $index != currentIndex}"></i>
+                                    <p class="no-margin error-full-page">[[question.description ]]</p>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div perfect-scrollbar wheel-propagation="false" class="col-md-6 border-right"
+            ng-class="{'partition-grey-backdrop': currentIndex != -1}">
+            <div ng-controller="customerDiagnosticExpressMatrixInterventionDetailCtrl">
+                <div class="row" ng-class="{'margin-top-20': interventionList.length > 0}">
+                    <div class="col-md-12">
+                        <uib-accordion close-others="true">
+                            <div uib-accordion-group class="partition-grey-panel" is-open="intervention.isOpen"
+                                ng-repeat="intervention in interventionList">
+                                <uib-accordion-heading>
+                                    <div class="col-md-10 padding-left-10">
+                                        <span class="text-bold text-large text-label">[[ intervention.name ]]</span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span class="text-small" ng-if="!intervention.isHistorical"
+                                            ng-class="{'has-success': !intervention.isClosed}">[[
+                                            intervention.isClosed ? 'Cerrado' : 'Abierto' ]]</span>
+                                        <span class="text-small" ng-if="intervention.isHistorical">[[
+                                            intervention.executionDate | date : "dd/MM/yyyy" ]]</span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <i class="pull-right glyphicon"
+                                            ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                    </div>
+                                </uib-accordion-heading>
+                                <div class="padding-top-20 padding-bottom-20 padding-horizontal-10">
+
+                                    <form name="FormIntervention[[$index]]" id="formIntervention[[$index]]" novalidate
+                                        ng-submit="onSubmit(this, $index, intervention)">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':getForm($index).name.$dirty && getForm($index).name.$invalid}">
+                                                    <label class="control-label text-bold text-large">
+                                                        Nombre del plan<span class="symbol required"></span></label>
+                                                    <input
+                                                        ng-disabled="isView || intervention.isHistorical || intervention.isClosed"
+                                                        type="text" placeholder="Ingrese el registro" maxlength="120"
+                                                        class="form-control" name="name" ng-model="intervention.name"
+                                                        required />
+                                                    <span class="error text-small block"
+                                                        ng-if="getForm($index).name.$dirty && getForm($index).name.$invalid">
+                                                        El registro es requerido
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':getForm($index).description.$dirty && getForm($index).description.$invalid}">
+                                                    <label class="control-label text-bold text-large">
+                                                        Descripción<span class="symbol required"></span>
+                                                    </label>
+                                                    <textarea
+                                                        ng-disabled="isView || intervention.isHistorical || intervention.isClosed"
+                                                        type="text" placeholder="Ingresar la descripción"
+                                                        class="form-control" name="description"
+                                                        ng-model="intervention.description" required></textarea>
+                                                    <span class="error text-small block"
+                                                        ng-if="getForm($index).description.$dirty && getForm($index).description.$invalid">
+                                                        El registro es requerido
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':getForm($index).responsible.$dirty && getForm($index).responsible.$invalid}">
+                                                    <label class="control-label text-bold text-large">Responsable<span
+                                                            class="symbol required"></span></label>
+
+                                                    <ui-select name="responsible" ng-required="true"
+                                                        ng-disabled="isView || intervention.isHistorical || intervention.isClosed"
+                                                        ng-model="intervention.responsible" theme="bootstrap">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.name]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item in responsibleList | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.name | highlight: $select.search">
+                                                            </div>
+                                                            <small>
+                                                                Tipo: <span
+                                                                    ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                                            </small>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error text-small block"
+                                                        ng-if="getForm($index).responsible.$dirty && getForm($index).responsible.$invalid">
+                                                        El registro es requerido</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':getForm($index).amount.$dirty && getForm($index).amount.$invalid}">
+                                                    <label class="control-label text-bold text-large">Presupuesto<span
+                                                            class="symbol required"></span></label>
+                                                    <input
+                                                        ng-disabled="isView || intervention.isHistorical || intervention.isClosed"
+                                                        type="text" placeholder="Ingresar valor evento"
+                                                        class="form-control" name="amount" ui-money-mask="0"
+                                                        ng-model="intervention.amount" required />
+                                                    <span class="error text-small block"
+                                                        ng-if="getForm($index).amount.$dirty && getForm($index).amount.$invalid">
+                                                        El registro es requerido
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row  margin-bottom-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':getForm($index).executionDate.$dirty && getForm($index).executionDate.$invalid}">
+                                                    <label class="control-label text-bold text-large">Fecha de ejecución<span
+                                                            class="symbol required"></span></label>
+                                                    <input class="form-control" kendo-date-picker
+                                                        placeholder="DD/MM/AAAA" name='executionDate'
+                                                        k-on-change="onChangeExecutionDate(kendoEvent)"
+                                                        k-options="datePickerConfig"
+                                                        k-ng-model="intervention.executionDate"
+                                                        ng-disabled="isView || intervention.isHistorical || intervention.isClosed"
+                                                        style="width: 100%;" required />
+                                                    <span class="error text-small block"
+                                                        ng-if="getForm($index).executionDate.$dirty && getForm($index).executionDate.$invalid">
+                                                        El registro es requerido
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="margin-vertical-20"
+                                            ng-if="isView || intervention.isHistorical || intervention.isClosed">
+
+                                        <div class="row">
+                                            <div class="col-md-12 margin-bottom-5"
+                                                ng-repeat="item in intervention.files">
+                                                <a class="btn-link" href="#" ng-click="onDownload(item.id)">
+                                                    <i class="glyphicon glyphicon-paperclip"></i>
+                                                    [[ item.name ]]
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <hr class="margin-bottom-10" ng-if="intervention.files.length > 0">
+
+                                        <div class="row">
+                                            <div class="col-md-12 margin-bottom-5"
+                                                ng-repeat="item in fileUploader[$index].queue">
+                                                <span><i class="glyphicon glyphicon-paperclip"></i> [[
+                                                    item.file.name ]]
+                                                </span>
+                                                <button type="button" class="btn btn-danger btn-xs"
+                                                    uib-tooltip="Eliminar" tooltip-placement='left'
+                                                    ng-click="item.remove()">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-bottom-20"
+                                            ng-if="!intervention.isHistorical && !intervention.isClosed && !isView">
+                                            <div class="col-md-12">
+                                                <span class="btn-link btn-file">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                    Adjuntar evidencia
+                                                    <input type="file" accept=".xlsx,.xls,image/*,.doc,.docx,.pdf"
+                                                        nv-file-select="" uploader="fileUploader[$index]" multiple />
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" ng-if="!intervention.isHistorical && !intervention.isClosed">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label text-bold text-large">
+                                                        Estado del plan
+                                                    </label>
+                                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                                        <span class="control-label col-md-1 no-padding margin-top-5 text-label">Cerrado</span>
+                                                        <switch disabled="isView" ng-model="intervention.status" on="Si"
+                                                            off="No" class="green"></switch>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-top-15"
+                                            ng-if="!intervention.isHistorical && !intervention.isClosed && !isView">
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                    ng-disabled='getForm($index).$invalid'>
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="pull-right">
+                                                    <a class="btn-link link-underline" href="#" ng-if="false"
+                                                        ng-click="onRemoveIntervention(intervention)">
+                                                        Borrar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-20"
+                    ng-if="filter.selectedQuestion != null && filter.selectedView == 'C' && !isView">
+                    <div class="col-md-12">
+                        <a class="btn-link" href="#" ng-click="onAddIntervention()">
+                            <i class="fa fa-plus-circle"></i>
+                            Añadir otro plan de intervención
+                        </a>
+                    </div>
+                </div>
+
+                <iframe id="downloadIntervention" style='position:fixed;display:none;top:-1px;left:-1px;' />
+            </div>
+        </div>
+    </div>
+</div>

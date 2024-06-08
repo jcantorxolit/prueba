@@ -1,0 +1,114 @@
+<div ng-controller="dashboardDiagnosticCustomerEmployeeOccupationalMedicineCtrl">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title text-primary">MEDICINA LABORAL</h4>
+    </div>
+    <div class="panel-body partition-light-grey">
+
+        <div class="row display-flex flex-justify-end">
+
+
+            <div class="col-md-2 form-group"
+                 ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                <label class="control-label">Periodo</label>
+
+                <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                           ng-required="true" on-select="onSelectPeriod()">
+                    <ui-select-match placeholder="- Seleccionar -">
+                        [[$select.selected.item]]
+                    </ui-select-match>
+
+                    <ui-select-choices
+                            repeat="period in periods | filter: $select.search track by $index">
+                        <div ng-bind-html="period.item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+
+            <div class="col-md-2 form-group">
+                <label class="control-label">Centro de trabajo</label>
+                <div class="input-group">
+                    <ui-select name="workPlace" ng-model="entity.workplace" theme="bootstrap"
+                               ng-required="true" on-select="onRefresh()">
+
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.name]]
+                        </ui-select-match>
+
+                        <ui-select-choices
+                                repeat="workPlace in workplaceList | filter: $select.search track by $index">
+                            <div ng-bind-html="workPlace.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                    <span class="input-group-btn">
+                        <button ng-click="onClearWorkplace()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4 display-flex flex-justify-center flex-align-center">
+                <div>
+                    <canvas class="tc-chart" height="250" tc-chartjs-bar
+                            chart-options="chart.bar.options"
+                            chart-data="chart.data.ausentismVsInvestigationAT"></canvas>
+
+                </div>
+            </div>
+
+            <div class="col-md-2 display-flex flex-justify-center flex-align-center">
+                <div>
+                    <canvas class="tc-chart margin-top-20" height="250" tc-chartjs-doughnut
+                            chart-options="chart.doughnut.options"
+                            chart-data="chart.data.chartPieAbsenteeisByCause"></canvas>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="col-md-6 margin-top-20 margin-bottom-20">
+                    <h4 class="text-center text-primary text-bold text-extra-large">AUSENTISMO GENERAL</h4>
+                    <div class="display-flex flex-justify-around flex-align-center">
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.eventNumberTotal]]</span> <br> Número de <br> eventos</div>
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.disabilityDaysTotal]]</span> <br> Días de <br> incapacitantes</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 margin-top-20 margin-bottom-20">
+                    <h4 class="text-center text-primary text-bold text-extra-large">AT</h4>
+                    <div class="display-flex flex-justify-around flex-align-center">
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.eventNumberAT]]</span> <br> Número de <br> eventos</div>
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.disabilityDaysAT]]</span> <br> Días de <br> incapacitantes</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 margin-top-20 margin-bottom-20">
+                    <h4 class="text-center text-primary text-bold text-extra-large">EL</h4>
+                    <div class="display-flex flex-justify-around flex-align-center">
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.eventNumberEL]]</span> <br> Número de <br> eventos</div>
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.disabilityDaysEL]]</span> <br> Días de <br> incapacitantes</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 margin-top-20 margin-bottom-20">
+                    <h4 class="text-center text-primary text-bold text-extra-large">EC</h4>
+                    <div class="display-flex flex-justify-around flex-align-center">
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.eventNumberEC]]</span> <br> Número de <br> eventos</div>
+                        <div class="text-center"><span class="text-bold text-large">[[chart.data.kpis.disabilityDaysEC]]</span> <br> Días de <br> incapacitantes</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,101 @@
+<div ng-controller="customerManagementSettingCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">CONFIGURACIÓN DE GESTIÓN (PROGRAMAS
+                        EMPRESARIALES)</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.economicSector.$dirty && Form.economicSector.$invalid}">
+                            <label class="control-label"> Sector Económico<span class="symbol required"></span> </label>
+                            <ui-select name="economicSector" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                on-select="onSelectEconomicSector()" ng-model="entity.economicSector">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in economicSectorList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.economicSector.$dirty && Form.economicSector.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                            <label class="control-label">
+                                Centro de Trabajo<span class="symbol required"></span>
+                            </label>
+                            <div class="input-group">
+                                <ui-select name="program" theme="bootstrap" ng-required="true" ng-disabled="isView"
+                                    on-select="onSelectWorkplace()" ng-model="entity.customerWorkplace">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in workplaceList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onRefresh()" ng-disabled="isView"
+                                        uib-tooltip="Refrescar Lista"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-refresh"></span>
+                                    </button>
+                                    <button type="button" ng-click="onCreate()" ng-disabled="isView"
+                                        uib-tooltip="Crear Centro de Trabajo"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>                                    
+                                </span>
+                            </div>
+                            <span class="error text-small block"
+                                ng-if="Form.workplace.$dirty && Form.workplace.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" dt-instance="dtInstanceManagementSetting"
+                                    dt-options="dtOptionsManagementSetting" dt-columns="dtColumnsManagementSetting"
+                                    class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success" ng-disabled="entity.id > 0">
+                        Guardar
+                    </button>
+
+                    <button type="button" class="btn btn-primary" ng-click="onContinue()" ng-disabled="entity.id == 0">
+                        Continuar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

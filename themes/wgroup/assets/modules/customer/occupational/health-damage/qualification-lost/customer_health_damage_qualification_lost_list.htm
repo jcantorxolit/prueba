@@ -1,0 +1,25 @@
+<div  ng-controller="customerHealthDamageQualificationLostListCtrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="editWorkMedicine(0)" ng-if="can('seguimiento_create')"><i
+                    class="glyphicon glyphicon-plus"></i> Crear pérdida</a>
+        </div>
+
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" id="dtHealthDamageQualificationLost" width="100%" dt-instance="dtInstanceHealthDamageQualificationLost" dt-options="dtOptionsHealthDamageQualificationLost" dt-columns="dtColumnsHealthDamageQualificationLost"
+                           class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

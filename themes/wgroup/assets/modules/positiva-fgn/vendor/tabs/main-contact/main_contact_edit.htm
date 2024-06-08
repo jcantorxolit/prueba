@@ -1,0 +1,141 @@
+<div class="tab1" ng-controller="mainContactEditCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white tab4">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">CONTACTOS PRINCIPALES</span>
+                </h4>
+
+                <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar" ng-click="addMainContact()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label class="control-label">Tipo Contacto
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Primer Apellido
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Segundo Apellido</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="col-md-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Nombre
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row" ng-repeat="contact in entity.maincontacts">
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.contactType.$dirty && Form.contactType.$invalid && !contact.contactType}">
+                            <ui-select ng-model="contact.contactType" name="contactType" theme="bootstrap" ng-required="true" required>
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in contactTypesList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.contactType.$dirty && Form.contactType.$invalid && !contact.contactType">
+                                El valor es requerido.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.firstLastName.$dirty && Form.firstLastName.$invalid && !contact.firstLastName}">
+                            <input type="text" placeholder="Ingresa el valor" class="form-control" name="firstLastName" ng-model="contact.firstLastName" ng-required="true"
+                            />
+                            <span class="error text-small block" ng-if="Form.firstLastName.$dirty && Form.firstLastName.$invalid && !contact.firstLastName">
+                                El valor es requerido.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ingresa el valor" class="form-control" name="secondLastName" ng-model="contact.secondLastName"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid && !contact.name}">
+                            <input type="text" placeholder="Ingresa el valor" class="form-control" name="name" ng-model="contact.name" ng-required="true"
+                            />
+                            <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid && !contact.name">
+                                El valor es requerido.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="pull-right">
+                            <div class="form-group">
+
+                                <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top'  uib-tooltip="Agregar Información" ng-click="addInfoContact(contact)">
+                                    <i class='fa fa-pencil-square-o'></i>
+                                </a>
+
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' 
+                                    uib-tooltip="Eliminar" ng-click="removeMainContact($index, contact)">
+                                    <i class='fa fa-trash-o'></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: -100px" class="row" >
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit"  ng-if="entity.maincontacts.length > 0" class="btn btn-primary" >
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

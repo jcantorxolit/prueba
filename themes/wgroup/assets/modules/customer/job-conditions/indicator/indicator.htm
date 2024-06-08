@@ -1,0 +1,19 @@
+<div ng-controller="CustomerJobConditionsIndicatorCtrl">
+
+    <div ng-switch="section" data-ng-animate="'wave'">
+
+        <div ng-switch-when="dashboard" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/indicator/dashboard/dashboard.htm'"></div>
+        </div>
+
+        <div ng-switch-when="intervention" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/indicator/intervention/intervention.htm'"></div>
+        </div>
+
+        <div ng-switch-when="indicators" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/job-conditions/indicator/indicators/indicators.htm'"></div>
+        </div>
+
+    </div>
+
+</div>

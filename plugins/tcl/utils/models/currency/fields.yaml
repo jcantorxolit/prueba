@@ -1,0 +1,24 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: tcl.utils::lang.currency.name
+        span: auto
+
+    code:
+        label: tcl.utils::lang.currency.code
+        span: auto
+
+    is_enabled:
+        label: tcl.utils::lang.currency.is_enabled
+        type: checkbox
+        comment: tcl.utils::lang.currency.is_enabled_help
+        span: auto
+
+    is_default:
+        label: tcl.utils::lang.currency.is_default
+        type: checkbox
+        comment: tcl.utils::lang.currency.is_default_help
+        span: auto

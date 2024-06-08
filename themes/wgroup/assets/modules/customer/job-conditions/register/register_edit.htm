@@ -1,0 +1,168 @@
+<div class="fade-in-right-big">
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="jobConditionsRegisterEditCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.identificationType.$dirty && Form.identificationType.$invalid}">
+                                            <label class="control-label">Tipo Identificación <span class="symbol required"></span></label>
+                                            <input type="text" class="form-control" name="identificationType" ng-model="entity.employee.documentType.item" ng-required="true" ng-disabled="true" />
+
+                                            <span class="error text-small block" ng-if="Form.identificationType.$dirty && Form.identificationType.$invalid">
+                                            El tipo de identificación es requerido
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                            <label class="control-label">Número Identificación<span class="symbol required"></span></label>
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-required="true" ng-disabled="true" name="documentNumber" ng-model="entity.employee.documentNumber" />
+
+                                                <span class="input-group-btn" ng-show="hasChangeEmployee()">
+                                                    <button type="button" class="btn btn-default" ng-click="onSearchEmployee()" ng-disabled="isView">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+
+                                            <span class="error text-small block" ng-if="Form.customer.$dirty && Form.customer.$invalid">
+                                            El número de identificación es requerido
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.fullName.$dirty && Form.fullName.$invalid}">
+                                            <label class="control-label">Nombre <span class="symbol required"></span></label>
+                                            <input type="text" placeholder="Ingrese el nombre(s)" class="form-control" name="fullName" ng-disabled="true" ng-required="true" ng-model="entity.employee.fullName" />
+                                            <span class="error text-small block" ng-if="Form.fullName.$dirty && Form.fullName.$invalid">El nombre(s) es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                            <label class="control-label">Género <span class="symbol required"></span></label>
+                                            <input type="text" class="form-control" name="gender" ng-model="entity.employee.gender.item" ng-disabled="true" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.immediateBoss.$dirty && Form.immediateBoss.$invalid}">
+                                            <label class="control-label">Jefe Inmediato<span class="symbol required"></span></label>
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-required="true" ng-disabled="true" name="immediateBoss" ng-model="entity.boss.fullName" />
+
+                                                <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="onSearchBoss()" ng-disabled="isView">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                                </span>
+                                            </div>
+
+                                            <span class="error text-small block" ng-if="Form.customer.$dirty && Form.customer.$invalid">
+                                            El jefe inmediato es requerido
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row padding-bottom-20" ng-if="!isView">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-primary btn-o" ng-click="!entity.id ? form.reset() : onClear()">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-white" ng-if="entity.id">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">AUTO EVALUACIONES </span></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group" ng-class="{'has-error':Form.profile.$dirty && Form.profile.$invalid}">
+                                            <div class="input-group">
+                                                <label class="control-label">Año / Mes</label>
+
+                                                <ui-select name="period" ng-model="entity.period" theme="bootstrap" popover-title="Información" popover-is-open="textProfile != null" uib-popover-html="textProfile" popover-trigger="'outsideClick'"
+                                                           on-select="onFilterByPeriod()">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.date]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="period in periods  | orderBy:'periods.date' | filter: $select.search track by $index">
+                                                        <div ng-bind-html="period.date | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="input-group-btn" style="vertical-align: bottom;">
+                                                    <button type="button" ng-click="onClearFilter()" class="btn btn-default" ng-disabled="isView">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 pull-right" ng-if="!isView">
+                                        <a class="btn btn-wide btn-green pull-right" href="#" ng-click="onDoSelfAssessment()">
+                                            <em class="glyphicon glyphicon-plus"></em> Nuevo
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%" class="table table-bordered table-hover"
+                                                       dt-instance="dtInstanceJobConditionsSelfEvaluationsCallback"
+                                                       dt-options="dtOptionsJobConditionsSelfEvaluations"
+                                                       id="dtJobConditionsSelfEvaluations"
+                                                       dt-columns="dtColumnsJobConditionsSelfEvaluations"></table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-primary" ng-click="onBack()" ng-if="!isCustomerUser()">Regresar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

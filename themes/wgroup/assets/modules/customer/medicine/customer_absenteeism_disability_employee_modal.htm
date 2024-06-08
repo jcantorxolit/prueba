@@ -1,0 +1,191 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Información Básica Empleado</h4>
+            </label>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                    <label class="control-label">
+                        Tipo de Documento<span class="symbol required"></span>
+                    </label>
+
+                    <ui-select name="documentType" ng-model="employee.entity.documentType" theme="bootstrap"
+                               ng-disabled="isView" ng-required="true">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="item in documentTypes | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                    <span class="error text-small block" ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El tipo de documento es requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class=" row">
+
+            <div class="col-md-12">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.document.$dirty && Form.document.$invalid}">
+                    <label class="control-label">
+                        Número de documento<span class="symbol required"></span>
+                    </label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese el número de documento"
+                           class="form-control" name="document"
+                           ng-model="employee.entity.documentNumber" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.document.$dirty && Form.document.$invalid">Número de documento es requerido</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                    <label class="control-label">Nombre<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese el nombre"
+                           class="form-control" name="name"
+                           ng-model="employee.entity.firstName" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                    <label class="control-label">Apellidos<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder="Ingrese los apellidos"
+                           class="form-control" name="lastName"
+                           ng-model="employee.entity.lastName" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los apellidos son requeridos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-md-12">
+              <div class="form-group"
+                   ng-class="{'has-error':Form.contractType.$dirty && Form.contractType.$invalid}">
+                  <label class="control-label">Tipo de Contrato<span
+                          class="symbol required"></span></label>
+
+                  <ui-select name="contractType" ng-model="employee.contractType" theme="bootstrap"
+                             ng-disabled="isView" ng-required="true">
+                      <ui-select-match placeholder="- Seleccionar -">
+                          [[$select.selected.item]]
+                      </ui-select-match>
+                      <ui-select-choices
+                              repeat="item in contractTypes | filter: $select.search track by $index">
+                          <div ng-bind-html="item.item | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+
+                          <span class="error text-small block"
+                                ng-if="Form.contractType.$dirty && Form.contractType.$invalid">El tipo de contrato es requerido</span>
+              </div>
+          </div>
+      </div>
+
+      <!--<div class="row">
+
+          <div col-md-12">
+              <div class="form-group"
+                   ng-class="{'has-error':Form.workPlace.$dirty && Form.workPlace.$invalid}">
+                  <label class="control-label">
+                      Centro de Trabajo<span class=""></span>
+                  </label>
+
+                  <ui-select name="workPlace" ng-model="employee.workPlace" theme="bootstrap"
+                             ng-disabled="isView" ng-required="true">
+                      <ui-select-match placeholder="- Seleccionar -">
+                          [[$select.selected.name]]
+                      </ui-select-match>
+                      <ui-select-choices
+                              repeat="item in workPlaces | filter: $select.search track by $index">
+                          <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+
+                  <span class="error text-small block" ng-if="Form.workPlace.$dirty && Form.workPlace.$invalid">El centro de trabajo es requerido</span>
+              </div>
+          </div>
+
+      </div>
+
+      <div class="row">
+
+          <div class="col-md-12">
+              <div class="form-group"
+                   ng-class="{'has-error':Form.job.$dirty && Form.job.$invalid}">
+                  <label class="control-label">
+                      Cargo<span class="symbol required"></span>
+                  </label>
+
+                  <ui-select name="job" ng-model="employee.job" theme="bootstrap"
+                             ng-disabled="isView" ng-required="true">
+                      <ui-select-match placeholder="- Seleccionar -">
+                          [[$select.selected.name]]
+                      </ui-select-match>
+                      <ui-select-choices
+                              repeat="item in jobs | filter: $select.search track by $index">
+                          <div ng-bind-html="item.name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                  </ui-select>
+
+                  <span class="error text-small block" ng-if="Form.job.$dirty && Form.job.$invalid">El cargo es requerido</span>
+              </div>
+          </div>
+
+      </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.salary.$dirty && Form.salary.$invalid}">
+                    <label class="control-label">Salario / IBC<span
+                            class="symbol required"></span></label>
+                    <input type="text"
+                           placeholder="Ingrese el salario"
+                           class="form-control" name="salary" ng-disabled="isView"
+                           touchspin data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                           data-maxboostedstep="100000000000" data-prefix="$"
+                           ng-model="employee.salary" required/>
+                        <span class="error text-small block"
+                              ng-if="Form.salary.$dirty && Form.salary.$invalid">El salario es requerido</span>
+                </div>
+
+            </div>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancelEmployee()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>

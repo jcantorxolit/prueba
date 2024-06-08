@@ -1,0 +1,554 @@
+<div class="tab1">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Información básica:</legend>
+            <div class=" row">
+
+                <div class="col-md-2">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                        <label class="control-label">Código <span
+                                class="symbol"></span></label>
+                        <input ng-disabled="true" type="text"
+                               placeholder="Ingrese el código del programa"
+                               class="form-control" name="code"
+                               ng-model="program.code"/>
+                    <span class="error text-small block"
+                          ng-if="Form.code.$dirty && Form.code.$invalid">El código es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                        <label class="control-label">Nombre <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el nombre del programa"
+                               class="form-control" name="name"
+                               ng-model="program.name" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Valor</label>
+                        <input type="text" placeholder="Valor" ng-disabled="isView"
+                               class="form-control" name="amount" value="0"
+                               ng-model="program.amount"
+                               data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                               data-maxboostedstep="100000000000" data-prefix="$">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group" ng-class="{'has-error':Form.currency.$dirty && Form.currency.$invalid}">
+                        <label class="control-label">
+                            Moneda
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="currency" ng-disabled="isView" ng-model="program.currency"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in currencies | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.currency.$dirty && Form.currency.$invalid">La moneda es requerida</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class=" row">
+
+                <div class="col-md-2">
+                    <div class="form-group" ng-class="{'has-error':Form.category.$dirty && Form.category.$invalid}">
+                        <label class="control-label">
+                            Categoría
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="category" ng-disabled="isView" ng-model="program.category"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in categories | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.currency.$dirty && Form.currency.$invalid">La categoría es requerida</span>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group" ng-class="{'has-error':Form.speciality.$dirty && Form.speciality.$invalid}">
+                        <label class="control-label">
+                            Competencia
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="speciality" ng-disabled="isView" ng-model="program.speciality"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in specialities | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.speciality.$dirty && Form.speciality.$invalid">La especialidad es requerida</span>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.capacity.$dirty && Form.capacity.$invalid}">
+                        <label class="control-label">
+                            Capacidad
+                            <span class="symbol required"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Capacidad"
+                               class="form-control" name="capacity" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="program.capacity" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.capacity.$dirty && Form.capacity.$invalid">La capacidad es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.duration.$dirty && Form.duration.$invalid}">
+                        <label class="control-label">
+                            Duración (h)
+                            <span class="symbol required"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Duración"
+                               class="form-control" name="duration" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="program.hourDuration" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.duration.$dirty && Form.duration.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.validityNumber.$dirty && Form.validityNumber.$invalid}">
+                        <label class="control-label">
+                            Vigencia
+                            <span class="symbol required"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Vigencia"
+                               class="form-control" name="validityNumber" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="program.validityNumber" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.validityNumber.$dirty && Form.validityNumber.$invalid">La duración es requerida</span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-2">
+                    <div class="form-group" ng-class="{'has-error':Form.validityType.$dirty && Form.validityType.$invalid}">
+                        <label class="control-label">
+                            Tipo de vigencia
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="validityType" ng-disabled="isView" ng-model="program.validityType"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in validities | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.validityType.$dirty && Form.validityType.$invalid">El tipo de vigencia es requerida</span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class=" row">
+
+                <div class="col-md-2">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.resolution.$dirty && Form.resolution.$invalid}">
+                        <label class="control-label">Resolución de autorización <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese la resolución"
+                               class="form-control" name="code"
+                               ng-model="program.authorizationResolution" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.resolution.$dirty && Form.resolution.$invalid">La resolución es requerida</span>
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                        <label class="control-label">Entidad que autoriza <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el nombre de la entidad"
+                               class="form-control" name="name"
+                               ng-model="program.authorizingEntity" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.name.$dirty && Form.name.$invalid">La entidad es requerida</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Leyenda 1
+                        </label>
+                        <div class="note-editor">
+                                    <textarea class="form-control" name="captionFooter"
+                                              ng-model="program.captionHeader"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>
+                            Leyenda 2
+                        </label>
+                        <div class="note-editor">
+                                    <textarea class="form-control" name="captionHeader"
+                                              ng-model="program.captionFooter"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label>
+                            Descripción
+                        </label>
+
+                            <textarea ng-disabled="isView"
+                                      placeholder="Escribe aquí la descripción del programa"
+                                      data-ng-model="program.description"
+                                      class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Activo
+                        </label>
+
+                        <div class="checkbox">
+                                                <span class="switch ng-valid" ng-if="!isView"
+                                                      ng-click="program.isActive=!program.isActive"
+                                                      ng-class="{ checked:program.isActive }"
+                                                      ng-model="program.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="program.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isView"
+                                                      ng-class="{ checked:program.isActive }"
+                                                      ng-model="program.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="program.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Condiciones especiales:</legend>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="form-group">
+                        <label>
+                            Categoría
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-11">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.specialityCategory.$dirty && Form.specialityCategory.$invalid}">
+
+
+                        <ui-select name="specialityCategory" ng-model="program.specialityCategory" theme="bootstrap"
+                                   ng-required="false">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in specialityCategories | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.specialityCategory.$dirty && Form.specialityCategory.$invalid">La categoría es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <button type="button" ng-disabled="isView" class="btn btn-primary btn-o"
+                                ng-click="onAddSpeciality()">
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row" ng-repeat="speciality in program.specialities">
+
+                <div class="col-md-11">
+                    <div class="form-group">
+                        <label>
+                            [[speciality.category.item]]
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger btn-xs" ng-if="!isView"
+                                ng-click="onRemoveSpeciality($index)"
+                                tooltip-placement="top" uib-tooltip="Remover cateogria">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Requisitos:</legend>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>
+                            Requisito
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>
+                            Obligatorio
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-md-10">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.requirement.$dirty && Form.requirement.$invalid}">
+
+
+                        <ui-select name="requirement" ng-model="program.requirement" theme="bootstrap"
+                                   ng-required="false">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in requirements | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.requirement.$dirty && Form.requirement.$invalid">El requisito es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+
+                    <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0 !important">
+                                                <span class="switch ng-valid" ng-if="!isView"
+                                                      ng-click="program.isMandatory=!program.isMandatory"
+                                                      ng-class="{ checked:program.isMandatory }"
+                                                      ng-model="program.isMandatory">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="program.isMandatory" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isView"
+                                                      ng-class="{ checked:program.isMandatory }"
+                                                      ng-model="program.isMandatory">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="program.isMandatory" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="pull-right">
+                        <button type="button" ng-disabled="isView" class="btn btn-primary btn-o"
+                                ng-click="onAddRequirement()">
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row" ng-repeat="req in program.requirements">
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>
+                            [[req.requirement.item]]
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+
+                    <div class="form-group">
+
+                        <div class="checkbox" style="margin-top: 0 !important">
+                        <span class="switch ng-valid"
+                              ng-click="req.isMandatory=!req.isMandatory"
+                              ng-class="{ checked:req.isMandatory }"
+                              ng-model="req.isMandatory">
+                            <small></small>
+                            <input ng-disabled="isView" type="checkbox"
+                                   ng-model="req.isMandatory" style="display:none"
+                                   class="ng-pristine ng-untouched ng-valid">
+                        </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger btn-xs" ng-if="!isView"
+                                ng-click="onRemoveRequirement($index)"
+                                tooltip-placement="top" uib-tooltip="Remover requerimiento">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>

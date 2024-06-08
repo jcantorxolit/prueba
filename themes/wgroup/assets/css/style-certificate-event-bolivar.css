@@ -1,0 +1,239 @@
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+body {
+    line-height: 1;
+    -webkit-print-color-adjust: exact;
+    position: relative;
+    background: url('../images/certificado_bg.jpg') no-repeat center center;
+    background-size: cover;
+    width: 1013px;
+    height: 759px;
+    margin: 50px auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.container {
+    margin-top: 20%!important;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+h1 {
+    font: normal 35px 'Roboto Condensed', sans-serif;
+    color: #0d6c3a;
+    margin-bottom: 15px;
+    margin-top: 100px;
+}
+
+.subtitle {
+    background: url('../images/title_bg.png') no-repeat center center;
+    background-size: contain;
+    font-size: 20px;
+    color: #595959;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+h2 {
+    font: bold italic 40px 'Roboto Condensed', sans-serif;
+    margin-bottom: 15px;
+    color: #595959;
+}
+
+h2 span {
+    font: bold italic 35px 'Roboto Condensed', sans-serif;
+    display: block;
+}
+
+p {
+    position: relative;
+    font: normal normal 14px 'Roboto Condensed', sans-serif;
+    color: #878786;
+    width: 500px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.info {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.info p {
+    width: 70%;
+    border-top: 3px dotted #d9d9d9;
+    padding-top: 10px;
+    color: #595959;
+    font-size: 16px;
+    line-height: 1.5em;
+}
+
+.signature_wrapper {
+    padding-top: 10px;
+    width: 60%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signature_item.left {
+    padding-top: 50px;
+    float: left;
+}
+
+.signature_item.right {
+    padding-top: 30px;
+    float: right;
+}
+
+.signature_item li {
+    font: bold italic 14px 'Roboto Condensed', sans-serif;
+    color: #595959;
+}
+
+@media print {
+    @page {
+        size: landscape;
+        /* auto is the initial value */
+        margin: 0mm;
+        /* this affects the margin in the printer settings */
+    }
+    h1 {
+        margin-bottom: 0.5cm;
+    }
+}

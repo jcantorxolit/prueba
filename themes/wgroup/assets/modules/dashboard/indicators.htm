@@ -1,0 +1,109 @@
+
+	<div class="panel panel-white">
+        
+		<div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">[[indicator.name]]</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+				
+				<!-- Tiles -->
+				<div class=" text-center text-large" ng-class="{
+								 'col-sm-3': indicator.items.length > 1 || indicator.counters.length > 1, 
+								 'col-sm-12': indicator.items.length == 0 && indicator.counters.length == 0, 
+								 'col-sm-6': indicator.items.length == 1 || indicator.counters.length == 1 
+								}" 
+								ng-if="indicator.tiles.length > 0">
+					
+					<div class="row">
+						<div ng-class="{
+								 'col-sm-2': indicator.tiles.length > 4, 
+								 'col-sm-3': indicator.tiles.length == 4,
+								 'col-sm-4': indicator.tiles.length == 3, 
+								 'col-sm-6': indicator.tiles.length == 2, 
+								 'col-sm-12': indicator.tiles.length == 1 
+								}" 
+								ng-repeat="item in indicator.tiles track by $index">
+						
+							<div class="row">
+								<div class="col-sm-12">
+									<h1 class="mainTitle"><span class="text-bold">[[item.value]][[item.symbol]]</span></h1>
+									<h2 class="mainDescription">[[item.name]]</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="" ng-class="{
+								'border-left':!$first, 
+								'col-sm-2': item.items.length > 4,
+								'col-sm-3': item.items.length == 4,
+								'col-sm-4': item.items.length == 3, 
+								'col-sm-6': item.items.length == 2, 
+								'col-sm-12': item.items.length == 1
+								}" ng-repeat="itemDetail in item.items track by $index">
+									<h4 class="mainTitle"><span class="text-bold">[[itemDetail.value]][[itemDetail.symbol]]</span></h4>
+									<h5 class="mainDescription">[[itemDetail.name]]</h5>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				
+				<!-- Progress bars -->
+				<div class=""
+						ng-class="{
+						'col-sm-3':indicator.items.length == 1, 
+						'col-sm-9':indicator.items.length > 1 && indicator.tiles.length > 0,
+						'col-sm-12':indicator.items.length > 1 && indicator.tiles.length == 0
+						}" 
+						ng-if="indicator.items.length > 0">
+					<div class="row">
+						<div class="" ng-class="{
+						'col-sm-12':indicator.items.length == 1, 
+						'col-sm-6':indicator.items.length == 2, 
+						'col-sm-4':indicator.items.length == 3, 
+						'col-sm-3':indicator.items.length == 4, 
+						'col-sm-2':indicator.items.length > 4
+						}" ng-init="isFirstCol = $first" ng-repeat="item in indicator.items track by $index">
+							<h5 class="over-title margin-bottom-15"><span class="text-bold">[[item.title]]</span></h5>
+
+							<div class="row" ng-repeat="result in item.results">
+								<div class="col-sm-6" ng-if="isFirstCol">[[result.name]]</div>
+								<div class="col-sm-6" ng-class="{'black-color':result.value < 30}" >
+									<progressbar value="result.value" class="" type="danger" ng-if="result.value < 50">[[result.value]][[result.symbol]]</progressbar>
+									<progressbar value="result.value" class="" type="warning" ng-if="result.value >= 50 && result.value <= 60">[[result.value]][[result.symbol]]</progressbar>
+									<progressbar value="result.value" class="" type="info" ng-if="result.value > 60 && result.value < 95">[[result.value]][[result.symbol]]</progressbar>
+									<progressbar value="result.value" class="" type="success" ng-if="result.value >= 95">[[result.value]][[result.symbol]]</progressbar>                            
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Counters -->
+				<div class=""
+						ng-class="{
+						'col-sm-3':indicator.counters.length == 1, 
+						'col-sm-9':indicator.counters.length > 1 && indicator.tiles.length > 0,
+						'col-sm-12':indicator.counters.length > 1 && indicator.tiles.length == 0
+						}" 
+						ng-if="indicator.counters.length > 0">
+					<div class="row">
+						<div class="" ng-class="{
+						'col-sm-12':indicator.counters.length == 1,
+						'col-sm-2':indicator.counters.length > 1
+						}" ng-init="isFirstCol = $first" ng-repeat="item in indicator.counters track by $index">
+							<h5 class="over-title margin-bottom-15"><span class="text-bold">[[item.name]]</span></h5>
+
+							<div class="row " ng-class="{'border-left':!isFirstCol}" ng-repeat="result in item.items">
+								<div class="col-sm-6" >[[result.name]]</div>
+								<div class="col-sm-6 text-bold" >[[result.value]][[result.symbol]]</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+            </div>
+        </div>
+    </div>

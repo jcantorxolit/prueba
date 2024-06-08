@@ -1,0 +1,36 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">[[title || 'Empleados']]</h4>
+            </label>
+        </div>
+
+        <div class="row" ng-if="canFilter">
+            <div class="col-md-12">
+                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstanceModalEmployeeList" dt-options="dtOptionsModalEmployeeList" id="dtModalEmployeeList" dt-columns="dtColumnsModalEmployeeList" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-if="canCreate" class="btn btn-success btn-o pull-left" ng-click="onCreate()">
+            Crear empleado
+        </button>
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+    </div>
+</form>

@@ -1,0 +1,77 @@
+<div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+    <div class="col-md-12">
+        <div class="panel panel-white" id="pnlloading">
+            <div class="panel-heading">
+                <h4 class="panel-title text-primary">Cargando...</h4>
+            </div>
+            <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <p>
+                        Estamos procesando la información del curso.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab1 row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }"
+     ng-show="!loading">
+
+
+
+    <fieldset>
+        <legend>Información básica:</legend>
+
+        <div class="alert alert-block alert-info fade in">
+            <button data-ct-dismiss="alert" class="close" type="button">
+                ×
+            </button>
+            <h4 class="alert-heading margin-bottom-10"><i class="ti-info"></i> Info!</h4>
+            <p class="margin-bottom-10">
+                Los certificados solo se podrán generar cuando el curso tenga el estado Cerrado.
+            </p>
+            <p class="margin-bottom-10">
+                Los certificados solo se generaran para los participantes que cumplen los requisitos.
+            </p>
+        </div>
+
+        <div class="row margin-bottom-15" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" ng-click="onGenerate()" ng-if="grade.status.item=='Cerrado'">
+                        Generar
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+                        Cancelar
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-o btn-wide" ng-click="onCancel()">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" 
+                                dt-instance="dtInstanceCustomerInternalCertificateParticipantCallback" 
+                                dt-options="dtOptionsCustomerInternalCertificateParticipant"
+                                dt-columns="dtColumnsCustomerInternalCertificateParticipant" 
+                                id="dtCustomerInternalCertificateParticipants"
+                                class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+    </fieldset>
+
+</div>

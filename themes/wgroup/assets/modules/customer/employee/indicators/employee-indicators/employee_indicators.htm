@@ -1,0 +1,243 @@
+<div ng-controller="customerEmployeeIndicatorsEmployeesCtrl">
+
+    <div class="padding-top-30">
+        <h3 class="panel-title margin-bottom-15 text-bold">INDICADORES PERFIL SOCIODEMOGRÁFICO</h3>
+    </div>
+
+    <div class="row margin-bottom-20">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Centro de trabajo</label>
+
+                <div class="input-group">
+                    <ui-select ng-model="filters.workplace" theme="bootstrap"
+                               on-select="onChangeWorkplace($item, $model)">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.name]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in workplaces | filter: $select.search track by $index">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                        <button ng-click="onClearFilterWorkplace()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                   </span>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-3 col-md-push-6">
+            <div class="pull-right">
+                <a class="float-left btn btn-primary margin-left-15" href="#" ng-click="onConsolidate()">
+                    <div class="text-center text-large">Consolidar</div>
+                </a>
+
+                <a class="float-left btn btn-azure margin-left-15" href="#" ng-click="onGoToSummary()">
+                    <div class="text-center text-large">Indicadores Empleados</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row margin-top-110">
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">TIPO DE VIVIENDA</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-doughnut
+                    chart-options="chart.doughnut.options"
+                    chart-data="chart.data.typeHousing"
+                    height="200">
+            </canvas>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">ANTIGÜEDAD EMPRESA</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-doughnut
+                    chart-options="chart.doughnut.options"
+                    chart-data="chart.data.antiquityCompany"
+                    height="200">
+            </canvas>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">ANTIGÜEDAD CARGO</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-doughnut
+                    chart-options="chart.doughnut.options"
+                    chart-data="chart.data.antiquityJob"
+                    height="200">
+            </canvas>
+        </div>
+
+    </div>
+
+
+    <div class="row margin-top-110">
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">TIENEN HIJOS</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-doughnut
+                    chart-options="chart.doughnut.options"
+                    chart-data="chart.data.hasChildren"
+                    height="200">
+            </canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">ESTRATO SOCIOECONÓMICO</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-bar
+                    chart-options="chart.bar.options"
+                    chart-data="chart.data.stratum"
+                    height="200">
+            </canvas>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">ESTADO CIVIL</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-bar
+                    chart-options="chart.bar.options"
+                    chart-data="chart.data.civilStatus"
+                    height="200">
+            </canvas>
+        </div>
+
+
+    </div>
+
+
+    <div class="row margin-top-110">
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">GRADO ESCOLARIDAD</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-bar
+                    chart-options="chart.bar.options"
+                    chart-data="chart.data.scholarship"
+                    height="200">
+            </canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">GÉNERO</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-doughnut
+                    chart-options="chart.doughnut.options"
+                    chart-data="chart.data.gender"
+                    height="200">
+            </canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">EDAD</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-horizontalbar
+                    chart-options="chart.horizontalBar.options"
+                    chart-data="chart.data.age"
+                    height="200">
+            </canvas>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row margin-top-110">
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">PRACTICA ALGÚN DEPORTE</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-horizontalbar
+                    chart-options="chart.horizontalBar.options"
+                    chart-data="chart.data.practiceSports"
+                    height="200">
+            </canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">CONSUME BEBIDAS ALCOHÓLICAS</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-horizontalbar
+                    chart-options="chart.horizontalBar.options"
+                    chart-data="chart.data.drinkAlcoholic"
+                    height="200">
+            </canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">FUMA</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-horizontalbar
+                    chart-options="chart.horizontalBar.options"
+                    chart-data="chart.data.smokes"
+                    height="200">
+            </canvas>
+        </div>
+    </div>
+
+
+    <div class="row margin-top-110">
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">DIAGNÓSTICO DE ENFERMEDADES</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-horizontalbar
+                    chart-options="chart.horizontalBar.options"
+                    chart-data="chart.data.diagnosedDisease"
+                    height="200">
+            </canvas>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">TURNOS DE TRABAJO</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-bar
+                    chart-options="chart.bar.options"
+                    chart-data="chart.data.workShift"
+                    height="200">
+            </canvas>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h4 class="text-center">ÁREA DE TRABAJO</h4>
+            </div>
+            <canvas class="tc-chart" tc-chartjs-bar
+                    chart-options="chart.bar.options"
+                    chart-data="chart.data.workArea"
+                    height="200">
+            </canvas>
+        </div>
+
+    </div>
+
+</div>

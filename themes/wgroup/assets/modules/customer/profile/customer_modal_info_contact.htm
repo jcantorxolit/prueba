@@ -1,0 +1,50 @@
+<div id="panelInfoContact" class="panel panelclone panel-white panelInfoContact">
+    <div class="panel-heading border-light">
+        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN ADICIONAL DE CONTACTO</span></h4>
+        <div class="panel-tools">
+            <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar" ng-click="addInfo()">
+                <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    <div class="panel-body modal-body">
+        <div class="row" ng-repeat="contact in mainContact.info">
+
+            <div class="col-md-4">
+                <div class="form-group">
+
+                    <ui-select ng-model="contact.type" theme="bootstrap" ng-disabled="isView">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices  repeat="item in extrainfo | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+
+            <div class=""
+                 ng-class='{"col-md-7": (mainContact.info.length > 1 && !isView), "col-md-8" : (mainContact.info.length <= 1 || isView) }'>
+                <div class="form-group">
+                    <input ng-disabled="isView" type="text" placeholder="Ingresa el valor" class="form-control" name="value"
+                           ng-model="contact.value"/>
+                </div>
+            </div>
+
+            <div class="col-md-1" ng-if="mainContact.info.length > 1" ng-if="!isView">
+                <div class="pull-right">
+                    <div class="form-group">
+                        <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' uib-tooltip="Eliminar"
+                           ng-click="removeContact($index)"><i
+                                class='fa fa-trash-o'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer noborder">
+    <button class="btn btn-primary" ng-click="ok()">Aceptar</button>
+</div>

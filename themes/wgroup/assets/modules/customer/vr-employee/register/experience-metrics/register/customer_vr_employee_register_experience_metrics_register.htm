@@ -1,0 +1,229 @@
+<div ng-controller="customerVrEmployeeRegisterExperienceMetricsRegisterCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS DEL EMPLEADO</span></h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="user-left">
+                        <div class="center">
+                            <div class="user-image">
+                                <div class="thumbnail">
+                                    <img width="400px" height="200px" ng-if="!entity.employee.logo"
+                                        src="https://via.placeholder.com/300"
+                                        alt="" class="media-object">
+                                    <img ng-src="[[entity.employee.logo.path]]" alt="" ng-if="entity.employee.logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Número de documento
+                                </label>
+                                <input ng-disabled="true" type="text" ng-pattern="pattern"
+                                    placeholder="Ingrese el número de documento" class="form-control" name="document"
+                                    ng-model="entity.employee.documentNumber" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                <label class="control-label">
+                                    Tipo de Documento
+                                </label>
+
+                                <input ng-disabled="true" type="text" placeholder="Tipo de Documento"
+                                    class="form-control" name="documentType"
+                                    ng-model="entity.employee.documentType.item" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                <label class="control-label">
+                                    Género
+                                </label>
+
+                                <input ng-disabled="true" type="text" placeholder="Tipo de Documento"
+                                    class="form-control" name="gender" ng-model="entity.employee.gender.item" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nombre(s)</label>
+                                <input ng-disabled="true" type="text" placeholder="Nombres" class="form-control"
+                                    name="firstName" ng-model="entity.employee.firstName" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Apellidos</label>
+                                <input ng-disabled="true" type="text" placeholder="Apellidos" class="form-control"
+                                    name="lastName" ng-model="entity.employee.lastName" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label class="control-label padding-right-20">Fecha de Realización </label>
+                        <input class="form-control" kendo-date-picker name="registrationDate"
+                            k-options="datePickerConfig" k-max="maxDate" ng-disabled="isView || disabledDate || experienceStats.answers > 0" onkeydown="return false;"
+                            k-ng-model="entity.registrationDate" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="partition-light-grey padding-15 margin-bottom-10">
+                    <h4 class="no-margin"><span class="text-bold">VALORACIÓN DE EXPERIENCIAS</span></h4>
+                </div>
+
+                <div class="row" >
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-default text-bold" href="#"
+                                ng-click="onAnswerQuestions(experience)"
+                                ng-init="experience.index = $index+1"
+                                ng-repeat="experience in employeeExperienceList">
+                                <i class="fa fa-circle margin-right-10"
+                                    ng-class="{'has-success':experience.isActive && experience.questions == experience.answers,
+                                        'has-warning': experience.isActive && experience.questions != experience.answers}">
+                                </i>
+                                <h5 class="inline-block padding-top-10">[[ experience.experience ]]</h5>
+                                <h4 class="inline-block padding-top-10 pull-right [[experience.color_percent]]">[[ experience.percent ]]%</h4>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="col-md-10 text-center">
+                            <h4 class="margin-bottom-10 margin-top-10">AVANCE VALORACIÓN EXPERIENCIAS</h4>
+
+                            <ui-knob value="experienceStats.percentage" options="options"></ui-knob>
+
+                            <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                                Ha completado [[ experienceStats.answers ]] de [[ experienceStats.questions ]] métricas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <br>
+
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="partition-light-grey padding-15 margin-bottom-10">
+                    <h4 class="no-margin"><span class="text-bold">INDICADORES DE PROGRESO</span></h4>
+                </div>
+
+                <div class="col-md-6" ng-repeat="experience in employeeExperienceList"  ng-if="entity.registrationDate">
+                    <div class="panel panel-white">
+
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title">
+                                <span class="text-bold">[[ experience.experience ]]</span>
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+
+                                <div class="col-md-12 padding-horizontal-0">
+                                    <b>Contestadas</b>
+                                    <div class="row">
+                                        <div class="col-md-10 padding-horizontal-0">
+                                            <uib-progressbar animate="true" value="[[experience.answers]]" max="[[experience.questions]]" type="info"></uib-progressbar>
+                                        </div>
+                                        <div class="col-md-2 padding-horizontal-0">
+                                            <div class="label">
+                                                <b class="text-info fa-2x">[[experience.answers]]</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br><br><br>
+
+                                <div class="col-md-12 padding-horizontal-0">
+                                    <b>Pendientes</b>
+                                    <div class="row">
+                                        <div class="col-md-10 padding-horizontal-0">
+                                            <uib-progressbar animate="true" value="[[experience.questions - experience.answers]]" max="[[experience.questions]]"  type="warning"></uib-progressbar>
+                                        </div>
+                                        <div class="col-md-2 padding-horizontal-0">
+                                            <div class="label">
+                                                <b class="text-info fa-2x">[[experience.questions - experience.answers]]</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <b>Correctas</b>
+                                <canvas class="tc-chart" height="50" width="100" tc-chartjs-pie
+                                        chart-options="chart.pie.options"
+                                        chart-data="experience.chartPieData"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row padding-bottom-20">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary"  ng-click="onContinue()">
+                    Continuar
+                </button>
+                <button type="button" ng-if="goToFormVrEmployee" class="btn btn-primary btn-o" ng-click="onBack()">
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-warning btn-o" ng-click="onHome()">
+                    Ir al listado
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

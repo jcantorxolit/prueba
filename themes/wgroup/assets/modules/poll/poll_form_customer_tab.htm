@@ -1,0 +1,225 @@
+<div class="tab1" ng-controller="pollCustomerCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <fieldset>
+            <legend>Colección de datos / Campos:</legend>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                        <label class="control-label">
+                            Colección
+                            <span class="symbol required"></span>
+                        </label>
+                        <ui-select name="collection" ng-disabled="isView" ng-model="pollCustomer.poll.collection"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in collectionsReport | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.status.$dirty && Form.status.$invalid">La colección es requerida</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Filtros:</legend>
+
+            <div id="panelOccupations" class="panel panelclone panel-white panelOccupations">
+                <div class="panel-heading border-light">
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm"
+                           tooltip-placement='top' uib-tooltip="Adicionar"
+                           ng-click="addFilter()"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>
+                                Campo
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                Criterio
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                Valor
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                Condición
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-repeat="filter in pollCustomer.filters">
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <ui-select name="collection" ng-disabled="isView" ng-model="filter.field"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.alias]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in pollCustomer.poll.collection.dataFields | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.alias | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <ui-select name="collection" ng-disabled="isView" ng-model="filter.criteria"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in criteria | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <input type="text"
+                                       placeholder="Ingrese la valor"
+                                       class="form-control" name="license"
+                                       ng-model="filter.value"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <ui-select name="collection" ng-disabled="isView" ng-model="filter.condition"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in conditions | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1" ng-if="pollCustomer.filters.length >= 0  && !isView">
+                            <div class="pull-right">
+
+                                <div class="form-group">
+                                    <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                       uib-tooltip="Eliminar"
+                                       ng-click="removeFilter($index)"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-info" ng-if="!isView">
+                        Consultar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <fieldset>
+        <legend>Resultados:</legend>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info btn-o" ng-click="onGenerate()"
+                            ng-if="can('clientes_cancel')">
+                        Generar encuesta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+
+                        <table datatable="" width="100%" dt-instance="dtInstance" dt-options="dtPollCustomerResult" id="dtPollCustomerResult"
+                               dt-columns="dtPollCustomerResultColumns"
+                               class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Participantes:</legend>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+
+                        <table datatable="" width="100%" dt-instance="dtInstanceCustomerPollCallback" dt-options="dtPollCustomerOptions" id="dtPollCustomerOptions"
+                               dt-columns="dtPollCustomerColumns"
+                               class="table table-bordered table-hover"></table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </fieldset>
+
+</div>

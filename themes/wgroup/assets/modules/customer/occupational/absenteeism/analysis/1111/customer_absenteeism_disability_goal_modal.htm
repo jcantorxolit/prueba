@@ -1,0 +1,148 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración metas indicadores</h4>
+            </label>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                    <label class="control-label">Periodo</label>
+                    <ui-select ng-disabled="disabledType" ng-model="indicator.period"
+                               theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="item in period | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.targetEvent.$dirty && targetEvent.targetIS.$invalid}">
+                    <label class="control-label">Meta Eventos<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="false" type="text" placeholder="Ingrese la meta eventos"
+                           class="form-control" name="targetEvent"
+                           ng-model="indicator.targetEvent" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.targetEvent.$dirty && Form.targetEvent.$invalid">La meta eventos es requerida</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.targetDay.$dirty && Form.targetDay.$invalid}">
+                    <label class="control-label">Meta Días Incapacitantes<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="false" type="text" placeholder="Ingrese la meta de días"
+                           class="form-control" name="targetDay"
+                           ng-model="indicator.targetDay" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.targetDay.$dirty && Form.targetDay.$invalid">La meta de días es requerida</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.targetIF.$dirty && Form.targetIF.$invalid}">
+                    <label class="control-label">Meta IF<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="false" type="text" placeholder="Ingrese la meta IF"
+                           class="form-control" name="targetIF"
+                           ng-model="indicator.targetIF" required/>
+                <span class="error text-small block"
+                      ng-if="Form.targetIF.$dirty && Form.targetIF.$invalid">La meta IF es requerida</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.targetIS.$dirty && Form.targetIS.$invalid}">
+                    <label class="control-label">Meta IS<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="false" type="text" placeholder="Ingrese la meta IS"
+                           class="form-control" name="targetIS"
+                           ng-model="indicator.targetIS" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.targetIS.$dirty && Form.targetIS.$invalid">La meta IS es requerida</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.targetILI.$dirty && Form.targetILI.$invalid}">
+                    <label class="control-label">Meta ILI<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="false" type="text" placeholder="Ingrese la meta ILI"
+                           class="form-control" name="targetILI"
+                           ng-model="indicator.targetILI" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.targetILI.$dirty && Form.targetILI.$invalid">La meta ILI es requerida</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Adicionar
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onReset()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">METAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="table-responsive">
+
+                                        <table datatable="" width="100%" dt-instance="dtInstanceGoalIndicator" dt-options="dtOptionsGoalIndicator"
+                                               id="dtDisabilityGoalIndicator"
+                                               dt-columns="dtColumnsGoalIndicator"
+                                               class="table table-bordered table-hover"></table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+    </div>
+</form>

@@ -1,0 +1,174 @@
+<div class="tab1" ng-controller="customerManacleEmployeeCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">REGISTRO</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error':Form.registrationDate.$dirty && Form.registrationDate.$invalid}">
+                            <label class="control-label">Fecha Registro <span class="symbol required"></span></label>
+                            <input class="form-control" kendo-date-picker 
+                                name="registrationDate" 
+                                ng-required="true"
+                                k-options="datePickerConfig" 
+                                k-max="maxDate"
+                                ng-disabled="entity.id != 0"
+                                onkeydown="return false;"
+                                k-ng-model="entity.registrationDate"
+                                style="width: 100%;" />
+                        </div>
+                        <span class="error text-small block" ng-if="Form.registrationDate.$dirty && Form.registrationDate.$invalid">
+                            La fecha es requerida
+                        </span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <!-- <div class="pull-right"> -->
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch disabled="isView" ng-model="entity.isActive" class="green"></switch>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1" >
+                        <div class="form-group" ng-class="{'has-error':Form.manacleNumber.$dirty && Form.manacleNumber.$invalid}">
+                            <label class="control-label"> Número Manilla<span class="symbol required"></span></label>
+                            <div class="input-group">
+                                <input type="text" placeholder="Ingrese el valor"
+                                    class="form-control" name="manacleNumber" ng-model="entity.manacleNumber" ng-disabled="true" required />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onSearchManacle()" ng-disabled="isView"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <span class="error text-small block" ng-if="Form.manacleNumber.$dirty && Form.manacleNumber.$invalid">
+                                El valor es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                            <label class="control-label">Número Identificación<span class="symbol required"></span></label>
+                            <div class="input-group">
+                                <input ng-disabled="true" type="text" placeholder="Número Identificación" class="form-control"
+                                    name="documentNumber" ng-model="entity.documentNumber" required />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onSearchEmployee()" ng-disabled="isView"
+                                        class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <span class="error text-small block" ng-if="Form.documentNumber.$dirty && Form.documentNumber.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                            <label class="control-label">Tipo identificación<span class="symbol required"></span></label>
+                            <input ng-disabled="true" type="text" placeholder="Tipo identificación" class="form-control"
+                                    name="documentType" ng-model="entity.documentType" required />
+                            <span class="error text-small block" ng-if="Form.documentType.$dirty && Form.documentType.$invalid">
+                                El tipo de identificación es requerido</span>
+                        </div>
+                    </div>
+                
+                </div>
+                
+                <div class="row">
+                
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                            <label class="control-label">Nombre(s)<span class="symbol required"></span></label>
+                            <input ng-disabled="true" type="text" placeholder="Nombre(s)" class="form-control"
+                                name="firstName" ng-model="entity.firstName" required />
+                            <span class="error text-small block" ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El
+                                nombre(s) es requerido</span>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                            <label class="control-label">Apellidos<span class="symbol required"></span></label>
+                            <input ng-disabled="true" type="text" placeholder="Apellidos" class="form-control"
+                                name="lastName" ng-model="entity.lastName" required />
+                            <span class="error text-small block" ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los
+                                apellidos son requeridos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">EMPLEADOS CON MANILLAS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-wide btn-info" href="#" ng-click="onImport()" >
+                                <i class="glyphicon glyphicon-upload"></i> Importar</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceManacleCallback" 
+                                        dt-options="dtOptionsManacle"
+                                        dt-columns="dtColumnsManacle" 
+                                        id="dtManacleEmployee"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

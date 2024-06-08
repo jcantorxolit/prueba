@@ -1,0 +1,93 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="dashboardDiagnosticCustomerBusinessProgramCtrl">
+        <div class="panel-body ">
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">PROGRAMAS EMPRESARIALES</h4>
+                </div>
+                <div class="panel-body partition-light-grey">
+
+                    <div class="row display-flex flex-justify-end">
+
+                        <div class="col-md-2 form-group">
+                            <label class="control-label">Centro de Trabajo</label>
+
+                            <ui-select name="workplace" ng-model="entity.workplace" theme="bootstrap"
+                                       ng-required="true" on-select="onChangeWorkplace()">
+
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+
+                                <ui-select-choices
+                                        repeat="workplace in workplaceList | filter: $select.search track by $index">
+                                    <div ng-bind-html="workplace.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-md-2 form-group">
+                            <label class="control-label">Periodo</label>
+
+                            <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                                       ng-required="true" on-select="onRefresh()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+
+                                <ui-select-choices
+                                        repeat="period in periods | filter: $select.search track by $index">
+                                    <div ng-bind-html="period.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row display-flex flex-wrap margin-top-30">
+
+                        <div class="col-md-6 display-flex flex-justify-center flex-align-center flex-direction-column margin-top-20 margin-bottom-20"
+                             ng-repeat="program in chart.data.programs">
+
+                            <h5 class="text-center">[[program.name]]</h5>
+
+                            <div class="display-flex flex-justify-center flex-align-center margin-top-20">
+                                <ui-knob value="program.average" options="program.options"></ui-knob>
+
+                                <div class="col-md-8">
+                                    <div class="col-md-6 margin-top-5 margin-bottom-5 display-flex flex-direction-column"
+                                        ng-repeat="rate in chart.data.rates">
+                                        <span class="text-bold text-large text-dark">[[getProgramValue(rate, program)]] %</span>
+                                        <p>[[rate.text]]</p>
+                                    </div>
+                                    <!-- <div class="col-md-6 margin-top-5 margin-bottom-5 display-flex flex-direction-column">
+                                        <span class="text-bold text-large text-dark">[[program.parcial]] %</span>
+                                        <p> Parcial</p>
+                                    </div>
+                                    <div class="col-md-6 margin-top-5 margin-bottom-5 display-flex flex-direction-column">
+                                        <span class="text-bold text-large text-dark">[[program.nocumple]] %</span>
+                                        <p> No Cumple</p>
+                                    </div>
+                                    <div class="col-md-6 margin-top-5 margin-bottom-5 display-flex flex-direction-column">
+                                        <span class="text-bold text-large text-dark">[[program.noaplica]] %</span>
+                                        <p> No Aplica</p>
+                                    </div> -->
+                                    <div class="col-md-6 margin-top-5 margin-bottom-5 display-flex flex-direction-column">
+                                        <span class="text-bold text-large text-dark">[[program.nocontesta]] %</span>
+                                        <p> Sin Calificar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

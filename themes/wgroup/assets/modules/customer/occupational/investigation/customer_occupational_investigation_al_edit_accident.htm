@@ -1,0 +1,611 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+
+            <!--START ACCIDENT-->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL ACCIDENTE</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentDate.$dirty && Form.accidentDate.$invalid}">
+                                        <label class="control-label">
+                                            Fecha del accidente <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" kendo-date-time-picker
+                                               ng-disabled="true"
+                                               name="accidentDate"
+                                               k-options="dateConfig"
+                                               k-ng-model="investigation.accidentDate"
+                                               ng-required="currentStep == 0"
+                                               style="width: 100%;"/>
+                                        <span class="error text-small block"
+                                              ng-if="Form.accidentDate.$dirty && Form.accidentDate.$invalid">La fecha del accidente es requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentWeekDay.$dirty && Form.accidentWeekDay.$invalid}">
+                                        <label class="control-label">Día de la semana en el que ocurrió el
+                                            accidente<span
+                                                    class="symbol required"></span></label>
+
+                                        <ui-select name="accidentWeekDay" ng-required="currentStep == 3"
+                                                   ng-disabled="true"
+                                                   ng-model="investigation.accidentWeekDay" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in weekDays | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.accidentWeekDay.$dirty && Form.accidentWeekDay.$invalid">El día de la semana es requerido</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentWorkingDay.$dirty && Form.accidentWorkingDay.$invalid}">
+                                        <label class="control-label">Jornada en que sucede<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentWorkingDay" ng-required="currentStep == 3"
+                                                   ng-disabled="isView"
+                                                   ng-model="investigation.accidentWorkingDay" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentWorkingDayList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.accidentWorkingDay.$dirty && Form.accidentWorkingDay.$invalid">La jornada es requerida</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentCategory.$dirty && Form.accidentCategory.$invalid}">
+                                        <label class="control-label">Tipo de accidente<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentCategory" ng-model="investigation.accidentCategory"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="true2">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentCategoryList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentCategory.$dirty && Form.accidentCategory.$invalid">El tipo de accidente</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentWorkTimeHour.$dirty && Form.accidentWorkTimeHour.$invalid}">
+                                        <label class="control-label">Tiempo laborado (HORAS)<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese las horas"
+                                               class="form-control" name="accidentWorkTimeHour"
+                                               touchspin="" data-verticalbuttons="true"
+                                               data-max="100"
+                                               data-verticalupclass="ti-angle-up"
+                                               data-verticaldownclass="ti-angle-down"
+                                               ng-model="investigation.accidentWorkTimeHour"
+                                               ng-required="currentStep == 3"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.accidentWorkTimeHour.$dirty && Form.accidentWorkTimeHour.$invalid">El tiempo laborado es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentWorkTimeMinute.$dirty && Form.accidentWorkTimeMinute.$invalid}">
+                                        <label class="control-label">Tiempo laborado (MINUTOS)<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese los minutos"
+                                               class="form-control" name="accidentWorkTimeMinute"
+                                               touchspin="" data-verticalbuttons="true"
+                                               data-max="60"
+                                               data-verticalupclass="ti-angle-up"
+                                               data-verticaldownclass="ti-angle-down"
+                                               ng-model="investigation.accidentWorkTimeMinute"
+                                               ng-required="currentStep == 3"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.accidentWorkTimeMinute.$dirty && Form.accidentWorkTimeMinute.$invalid">El tiempo laborado es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentIsDeathCause.$dirty && Form.accidentIsDeathCause.$invalid}">
+                                        <label class="control-label">Causó la muerte al trabajador?<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentIsDeathCause"
+                                                   ng-model="investigation.accidentIsDeathCause"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in conditionalList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentIsDeathCause.$dirty && Form.accidentIsDeathCause.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentDateOfDeath.$dirty && Form.accidentDateOfDeath.$invalid}">
+                                        <label class="control-label">
+                                            Fecha de la muerte <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" kendo-date-time-picker
+                                               name="accidentDateOfDeath"
+                                               k-options="dateConfig"
+                                               k-ng-model="investigation.accidentDateOfDeath"
+                                               ng-required="currentStep == 3"
+                                               ng-disabled="investigation.accidentIsDeathCause.value != 1"
+                                               style="width: 100%;"/>
+                                     <span class="error text-small block"
+                                           ng-if="Form.accidentDateOfDeath.$dirty && Form.accidentDateOfDeath.$invalid">La fecha de la muerte es requerida</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentIsRegularWork.$dirty && Form.accidentIsRegularWork.$invalid}">
+                                        <label class="control-label">Estaba realizando su labor
+                                            habitual?<span
+                                                    class="symbol required"></span></label>
+
+                                        <ui-select name="accidentIsRegularWork"
+                                                   ng-model="investigation.accidentIsRegularWork"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in conditionalList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentIsRegularWork.$dirty && Form.accidentIsRegularWork.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentOtherRegularWorkText.$dirty && Form.accidentOtherRegularWorkText.$invalid}">
+                                        <label class="control-label">Cual labor estaba realizando<span
+                                                class="symbol required"></span></label>
+
+                                        <input ng-disabled="isView || investigation.accidentIsRegularWork.value == '1'"
+                                               type="text"
+                                               placeholder="Ingrese la labor"
+                                               class="form-control" name="accidentOtherRegularWorkText"
+                                               ng-model="investigation.accidentOtherRegularWorkText"
+                                               ng-required="investigation.accidentIsRegularWork.value == '0'"/>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentOtherRegularWorkText.$dirty && Form.accidentOtherRegularWorkText.$invalid">La labor es requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentOtherRegularWorkTextCode.$dirty && Form.accidentOtherRegularWorkTextCode.$invalid}">
+                                        <label class="control-label">Código labor<span
+                                                class="symbol required"></span></label>
+
+                                        <input ng-disabled="isView || investigation.accidentIsRegularWork.value == '1'"
+                                               type="text"
+                                               placeholder="Ingrese la información"
+                                               class="form-control" name="accidentOtherRegularWorkTextCode"
+                                               ng-model="investigation.accidentOtherRegularWorkTextCode"
+                                               ng-required="investigation.accidentIsRegularWork.value == '0'"/>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentOtherRegularWorkTextCode.$dirty && Form.accidentOtherRegularWorkTextCode.$invalid">La labor es requerida</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentCountry.$dirty && Form.accidentCountry.$invalid}">
+                                        <label>
+                                            País<span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="accidentCountry" id="accidentCountry"
+                                                   on-select="onSelectCountryAccident()"
+                                                   ng-model="investigation.accidentCountry" theme="bootstrap"
+                                                   ng-required="currentStep == 3"
+                                                   allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -"
+                                                             class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in countryList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentCountry.$dirty && Form.accidentCountry.$invalid">El país es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentState.$dirty && Form.accidentState.$invalid}">
+                                        <label>
+                                            <span translate="views.STATE">Departamento</span><span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="accidentState" ng-model="investigation.accidentState"
+                                                   theme="bootstrap"
+                                                   on-select="onSelectStateAccident()"
+                                                   ng-disabled="isView" ng-required="currentStep == 3">
+                                            <ui-select-match placeholder="- Seleccionar -"
+                                                             class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentStateList | filter: $select.search">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentState.$dirty && Form.accidentState.$invalid">El registro es requerido</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentCity.$dirty && Form.accidentCity.$invalid}">
+                                        <label>
+                                            <span translate="views.CITY">Ciudad</span><span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="accidentCity" id="ddlTown"
+                                                   ng-model="investigation.accidentCity"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3"
+                                                   allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -"
+                                                             class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentCityList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentCity.$dirty && Form.accidentCity.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentZone.$dirty && Form.accidentZone.$invalid}">
+                                        <label>
+                                            Zona<span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="accidentZone" id="accidentZone"
+                                                   ng-model="investigation.accidentZone" theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3"
+                                                   ng-disabled="towns.length == 0"
+                                                   allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -"
+                                                             class="txtselected">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentZoneList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentZone.$dirty && Form.accidentZone.$invalid">La zona es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentLocation.$dirty && Form.accidentLocation.$invalid}">
+                                        <label class="control-label">Lugar donde ocurrió el accidente<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentLocation" ng-model="investigation.accidentLocation"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in accidentLocationList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentLocation.$dirty && Form.accidentLocation.$invalid">El lugar es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.accidentPlace.$dirty && Form.accidentPlace.$invalid}">
+                                        <label class="control-label">Indique el lugar<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="accidentPlace" ng-model="investigation.accidentPlace"
+                                                   theme="bootstrap"
+                                                   ng-disabled="isView" ng-required="currentStep == 3">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in report_place | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.accidentPlace.$dirty && Form.accidentPlace.$invalid">El sitio es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Descripción del accidente
+                                        </label>
+
+                                                            <textarea ng-disabled="isView"
+                                                                      placeholder="Escribe aquí la descripción..."
+                                                                      data-ng-model="investigation.accidentInjuryTypeText"
+                                                                      class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend>Tipo de lesión:</legend>
+
+                                        <div class="row" ng-repeat="lesion in investigation.lesions">
+
+                                            <div class="col-md-11">
+
+                                                <div class="form-group">
+                                                    <input ng-disabled="true" type="text"
+                                                           placeholder="Descripción"
+                                                           class="form-control" name="name"
+                                                           ng-model="lesion.description"/>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+
+                                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                                <span class="switch ng-valid"
+                                                      ng-click="lesion.isActive=!lesion.isActive"
+                                                      ng-class="{ checked:lesion.isActive }"
+                                                      ng-model="lesion.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="lesion.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <fieldset>
+                                        <legend>Parte del cuerpo aparentemente afectada:</legend>
+
+                                        <div class="row" ng-repeat="body in investigation.bodies">
+
+                                            <div class="col-md-11">
+
+                                                <div class="form-group">
+                                                    <input ng-disabled="true" type="text"
+                                                           placeholder="Descripción"
+                                                           class="form-control" name="name"
+                                                           ng-model="body.description"/>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+
+                                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                                <span class="switch ng-valid"
+                                                      ng-click="body.isActive=!body.isActive"
+                                                      ng-class="{ checked:body.isActive }"
+                                                      ng-model="body.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="body.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend>Agente del accidente (con que se lesionó el trabajador):</legend>
+
+                                        <div class="row" ng-repeat="factor in investigation.factors">
+
+                                            <div class="col-md-11">
+
+                                                <div class="form-group">
+                                                    <input ng-disabled="true" type="text"
+                                                           placeholder="Descripción"
+                                                           class="form-control" name="name"
+                                                           ng-model="factor.description"/>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+
+                                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                                <span class="switch ng-valid"
+                                                      ng-click="factor.isActive=!factor.isActive"
+                                                      ng-class="{ checked:factor.isActive }"
+                                                      ng-model="factor.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="factor.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <fieldset>
+                                        <legend>Mecanismo o forma del accidente:</legend>
+
+                                        <div class="row" ng-repeat="mechanism in investigation.mechanisms">
+
+                                            <div class="col-md-11">
+
+                                                <div class="form-group">
+                                                    <input ng-disabled="true" type="text"
+                                                           placeholder="Descripción"
+                                                           class="form-control" name="name"
+                                                           ng-model="mechanism.description"/>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+
+                                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                                <span class="switch ng-valid"
+                                                      ng-click="mechanism.isActive=!mechanism.isActive"
+                                                      ng-class="{ checked:mechanism.isActive }"
+                                                      ng-model="mechanism.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="mechanism.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--END ACCIDENT-->
+
+        </div>
+    </div>
+</div>
+
+
+

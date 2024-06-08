@@ -1,0 +1,106 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">EMPRESAS</h4>
+            </label>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':Form.template.$dirty && Form.template.$invalid}">
+                    <label class="control-label">
+                        Tipo relación
+                        <span class="symbol required"></span>
+                    </label>
+                    <ui-select name="template" ng-disabled="isView" ng-model="entity.type" ng-required="true" theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in typeList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="error text-small block" ng-if="Form.template.$dirty && Form.template.$invalid">El tipo de relación es
+                        requerido</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div ng-if="!isEdit">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group" uib-dropdown>
+                        <button
+                            type="button"
+                            class="btn btn-default"
+                            ng-disabled="toggle.selectAll"
+                            ng-click="onToggle()"
+                            uib-tooltip="[[ toggle.isChecked ? 'Deseleccionar esta página' : 'Seleccionar esta página']]"
+                        >
+                            <i
+                                ng-class="{'fa fa-square-o': !toggle.isChecked, 'fa fa-check-square-o': toggle.isChecked}"
+                            ></i>
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
+                            <span class="caret"></span>
+                            <span class="sr-only">Split button!</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" ng-click="onSelectCurrentPage()">
+                                    Seleccionar esta página ([[records.currentPage]])
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="onSelectAll()">
+                                    Seleccionar todo ([[records.total]])
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" ng-click="onDeselectAll()">
+                                    Deseleccionar todo
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <span class="small-text" ng-if="records.hasSelected">
+                        | Registros seleccionados [[ records.countSelected ]]
+                    </span>
+                </div>
+            </div>
+
+            <div class="row" ng-if="canShowDataTable">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table
+                            datatable=""
+                            width="100%"
+                            dt-instance="dtInstanceCustomerAgentRelationCallback"
+                            dt-options="dtOptionsCustomerAgentRelation"
+                            dt-columns="dtColumnsCustomerAgentRelation"
+                            id="dtCustomerAgentRelation"
+                            class="table table-bordered table-hover"
+                        ></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancelModal()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

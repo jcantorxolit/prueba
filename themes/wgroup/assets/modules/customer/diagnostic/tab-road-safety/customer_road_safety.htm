@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerRoadSafetyTabsCtrl">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable" active="tabActive">
+
+                        <uib-tab index="0" select="switchTab('tab_road_safety_40595','list')" ng-if="can('road_safety_40595_open')">
+                            <uib-tab-heading>
+                                PESV Resolución 40595
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_road_safety_40595').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab index="1" select="switchTab('tab_road_safety_1565','list')" ng-if="can('road_safety_1565_open')">
+                            <uib-tab-heading>
+                                PESV Resolución 1565
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('tab_road_safety_1565').url">
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

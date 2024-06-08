@@ -1,0 +1,453 @@
+<div class="row" ng-controller="customerTrackingEditCtrl">
+    <div class="col-md-12">
+
+        <div>
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>
+                                                Responsable
+                                            </label>
+                                            <ui-select ng-disabled="isView" ng-model="tracking.agent" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.name]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in agents | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    <small>
+                                                        Tipo: <span ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                                    </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Tipo de Seguimiento
+                                            </label>
+                                            <ui-select ng-disabled="isView" ng-model="tracking.type" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in typesTraking | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Estado del Seguimiento
+                                            </label>
+                                            <ui-select ng-disabled="isView" ng-model="tracking.status" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in statusTracking | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Fecha de registro
+                                            </label>
+                                            <input ng-disabled="true" type="text" placeholder="Fecha de registro" class="form-control"
+                                                name="createdAt" ng-model="tracking.createdAt" />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+
+                                    <div class="col-md-2" ng-if="!$scope.isCustomer">
+
+                                        <div class="form-group">
+                                            <label>
+                                                Mostrar al cliente
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView || isCustomer" ng-model="tracking.isVisible" on="Si" off="No" class="green"></switch>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>
+                                                Programar evento
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="tracking.isEventSchedule" on="Si" off="No" class="green"></switch>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Fecha del evento
+                                            </label>
+
+                                            <input class="form-control" ng-if="!isView" kendo-date-time-picker
+                                                k-options="datePickerConfig" k-ng-model="tracking.eventDate" style="width: 100%;" />
+
+
+                                            <input type="text" class="form-control" ng-if="isView" data-ng-model="tracking.eventDateTime"
+                                                disabled="true" />
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="form-group">
+                                            <label>
+                                                Descripción del evento
+                                            </label>
+
+                                            <textarea ng-disabled="isView || tracking.id != 0" placeholder="Escribe aquí la descripción del evento..."
+                                                data-ng-model="tracking.observation" class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row" ng-if="tracking.id != 0">
+                                    <div class="col-md-12">
+
+                                        <div class="form-group">
+                                            <label>
+                                                Comentarios del evento
+                                            </label>
+
+                                            <textarea ng-disabled="isView" placeholder="Escribe aquí el comentario del evento..."
+                                                data-ng-model="tracking.comment" class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-white" ng-if="tracking.id != 0">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">COMENTARIOS</span></h4>
+                                <div class="panel-tools">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" ng-if="false" tooltip-placement='top'
+                                        uib-tooltip="Adicionar" ng-click="onAddComment()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%" 
+                                                    dt-instance="dtInstanceCustomerTrackingCommentCallback"
+                                                    dt-options="dtOptionsCustomerTrackingComment" 
+                                                    dt-columns="dtColumnsCustomerTrackingComment"
+                                                    id="dtCustomerTrackingComment" class="table table-bordered table-hover">
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="panelNotify" class="panel panelclone panel-white panelNotify">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE NOTIFICACIÓN</span>
+                                </h4>
+                                <div class="panel-tools">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' ng-if="!isView"
+                                        uib-tooltip="Adicionar" ng-click="onAddNotification()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
+                                                Notificar A
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Tipo
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                E-mail
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row" ng-repeat="notification in tracking.notifications">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+
+                                            <ui-select ng-disabled="isView" ng-model="notification.user" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.name]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in users | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    <small>
+                                                        Tipo: <span ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                                    </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+
+                                            <input ng-disabled="true" type="text" class="form-control" name="time"
+                                                ng-model="notification.user.type" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+
+                                            <input ng-disabled="true" type="text" class="form-control" name="email"
+                                                ng-model="notification.user.email" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1" ng-if="tracking.notifications.length > 1 && !isView">
+                                        <div class="pull-right">
+
+                                            <div class="form-group">
+                                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                                    uib-tooltip="Eliminar" ng-click="onRemoveNotification($index)"><i
+                                                        class='fa fa-trash-o'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="panelAlerts" class="panel panelclone panel-white panelAlerts">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE ALERTAMIENTO</span>
+                                </h4>
+                                <div class="panel-tools">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' ng-if="!isView"
+                                        uib-tooltip="Adicionar" ng-click="onAddAlert()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Tipo de alerta
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label class="control-label">Tiempo<span class="symbol required"></span></label>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Tipo de tiempo
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Preferencia
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Estado
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-repeat="alert in tracking.alerts">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+
+                                            <ui-select ng-disabled="isView" ng-model="alert.type" theme="bootstrap">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in typesAlert | orderBy:'id' | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+
+                                            <input ng-disabled="isView" type="text" class="form-control" name="time"
+                                                ng-model="alert.time" required />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+
+                                            <ui-select ng-model="alert.timeType" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in typesTime | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+
+                                            <ui-select ng-model="alert.preference" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in perferencesAlert | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+
+                                            <ui-select ng-model="alert.status" theme="bootstrap" ng-disabled="isView">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in statusAlert | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1" ng-if="tracking.alerts.length > 1 && !isView">
+                                        <div class="pull-right">
+
+                                            <div class="form-group">
+                                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                                    uib-tooltip="Eliminar" ng-click="removeAlert($index)"><i class='fa fa-trash-o'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

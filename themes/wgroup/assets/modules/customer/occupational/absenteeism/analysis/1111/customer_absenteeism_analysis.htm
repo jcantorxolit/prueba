@@ -1,0 +1,319 @@
+<div ng-controller="customerAbsenteeismAnalysisResolution1111Ctrl">
+
+    <div class="row margin-bottom-15">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">MATRIZ DE INDICADORES</span></h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-6">
+
+                            <a class="btn btn-wide btn-success" href="#" ng-click="onConsolidate()"><i class="glyphicon glyphicon-plus"></i>
+                                Consolidar información</a>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <a class="btn btn-wide btn-danger" href="#" ng-click="onCreateTarget()"><i class="glyphicon glyphicon-cog"></i>
+                                    Configurar metas indicadores</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceIndicators" dt-options="dtOptionsIndicators"
+                                        dt-columns="dtColumnsIndicators" id="dataTableIndicators" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">FILTROS</span></h4>
+                </div>
+
+                <div class="panel-body">
+
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                <label class="control-label">Clasificación</label>
+
+                                <ui-select name="classification" ng-required="true" ng-disabled="isView" ng-model="indicator.classification"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in classifications | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="Form.classification.$dirty && Form.classification.$invalid">La
+                                    clasificación es requerida</span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                                <label class="control-label">Periodo</label>
+
+                                <ui-select name="period" ng-required="true" ng-disabled="isView" ng-model="indicator.period"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in periods | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="error text-small block" ng-if="Form.period.$dirty && Form.period.$invalid">El
+                                    periodo es requerido</span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{'has-error':Form.workCenter.$dirty && Form.workCenter.$invalid}">
+                                <label class="control-label">Centro de trabajo</label>
+
+                                <ui-select name="workCenter" ng-required="true" ng-disabled="isView" ng-model="indicator.workCenter"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in workplaces | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="error text-small block" ng-if="Form.workCenter.$dirty && Form.workCenter.$invalid">El
+                                    centro de trabajo es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-bottom-15">
+        <div class="col-md-12">
+            <div class="pull-right">
+
+                <button type="button" class="btn btn-primary" ng-if="!isView" ng-click="onFilter()">
+                    Filtrar
+                </button>
+
+                <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn btn-primary btn-o btn-wide" ng-click="cancelEdition()">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="isLoaded">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">NÚMERO DE EVENTOS</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center margin-bottom-15">
+                                <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options" chart-data="chart.eventNumber.data"
+                                    height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceEventNumberCallback" dt-options="dtOptionsEventNumber"
+                                        dt-columns="dtColumnsEventNumber" id="dataTableAnalysisEventNumber" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="isLoaded">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">DÍAS DE INCAPACIDAD</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center margin-bottom-15">
+                                <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options" chart-data="chart.disabilityDays.data"
+                                    height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceDisabilityDaysCallback" dt-options="dtOptionsDisabilityDays"
+                                        dt-columns="dtColumnsDisabilityDays" id="dataTableAnalysisDisabilityDays" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="isLoaded">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">ÍNDICE DE FRECUENCIA (IF)</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center margin-bottom-15">
+                                <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options" chart-data="chart.IF.data"
+                                    height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceIFCallback" dt-options="dtOptionsIF"
+                                        dt-columns="dtColumnsIF" id="dataTableAnalysisIF" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="isLoaded">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">ÍNDICE DE SEVERIDAD (IS)</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center margin-bottom-15">
+                                <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options" chart-data="chart.IS.data"
+                                    height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceISCallback" dt-options="dtOptionsIS"
+                                        dt-columns="dtColumnsIS" id="dataTableAnalysisIS" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="isLoaded">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">ÍNDICE DE LESIONES INCAPACITANTES (ILI)</span>
+            </h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center margin-bottom-15">
+                                <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options" chart-data="chart.ILI.data"
+                                    height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceILICallback" dt-options="dtOptionsILI"
+                                        dt-columns="dtColumnsILI" id="dataTableAnalysisILI" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.startDateTracking.$dirty && Form.startDateTracking.$invalid}">
+                                    <label class="control-label">Fecha<span
+                                            class="symbol required"></span></label>
+                                    <input class="form-control" kendo-date-picker
+                                           k-options="datePickerConfig"
+                                           k-min="maxDate"
+                                           k-ng-model="tracking.startDate"
+                                           style="width: 100%;"/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.startDateTracking.$dirty && Form.startDateTracking.$invalid">La fecha es requerida</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.statusTracking.$dirty && Form.statusTracking.$invalid}">
+                                    <label class="control-label">Estado<span
+                                            class="symbol required"></span></label>
+                                    <ui-select name="statusTracking" ng-required="true" ng-disabled="isView"
+                                               ng-model="tracking.status" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in statusList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            <small>
+                                                Tipo: <span
+                                                    ng-bind-html="''+item.item | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                <span class="error text-small block"
+                                      ng-if="Form.statusTracking.$dirty && Form.statusTracking.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                    <label class="control-label">Responsable<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="responsible" ng-required="tracking.id == 0" ng-disabled="tracking.id != 0"
+                                               ng-model="tracking.responsible" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in responsibleList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            <small>
+                                                Tipo: <span
+                                                    ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.responsible.$dirty && Form.responsible.$invalid">El responsable es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                                    <label class="control-label">Observación<span
+                                            class="symbol required"></span></label>
+                                               <textarea ng-disabled="isView" name="observation"
+                                                         placeholder="Escribe aquí la observación..."
+                                                         data-ng-model="tracking.observation"
+                                                         class="form-control" required></textarea>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.observation.$dirty && Form.observation.$invalid">La observación es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>

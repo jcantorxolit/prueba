@@ -1,0 +1,78 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">ITEMS SELECCIONADOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                       dt-instance="dtInstanceMinimumStandardQuestionSelectedCallback"
+                                       dt-options="dtOptionsMinimumStandardQuestionSelected"
+                                       id="dtMinimumStandardQuestionSelected"
+                                       dt-columns="dtColumnsMinimumStandardQuestionSelected"
+                                       class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 margin-bottom-15">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">ITEMS DISPONIBLES</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                       dt-instance="dtInstanceMinimumStandardQuestionCallback"
+                                       dt-options="dtOptionsMinimumStandardQuestion"
+                                       id="dtMinimumStandardQuestion"
+                                       dt-columns="dtColumnsMinimumStandardQuestion"
+                                       class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-if="!isView">
+            Guardar
+        </button>
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+    </div>
+</form>

@@ -1,0 +1,33 @@
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': '[[ app.toaster.position ]]', 'close-button':true}"></toaster-container>
+<!-- / toaster directive -->
+<!-- sidebar -->
+<div class="sidebar app-aside" id="sidebar" toggleable parent-active-class="app-slide-off" >
+    <div perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true" class="sidebar-container">
+        <div>
+            {%partial 'commons/sidebar'%}
+        </div>
+    </div>
+</div>
+<!-- / sidebar -->
+<div class="app-content" ng-class="{loading: loading}">
+    <!-- top navbar -->
+    <header  class="navbar navbar-default navbar-static-top">
+        {%partial 'commons/top-navbar'%}
+    </header>
+    <!-- / top navbar -->
+    <!-- main content -->
+    <div class="main-content" >
+        {%partial 'commons/main-content'%}
+    </div>
+    <!-- / main content -->
+</div>
+<!-- footer -->
+<footer>
+    {%partial 'commons/footer'%}
+</footer>
+<!-- / footer -->
+
+<div toggleable class="settings panel panel-default hidden-xs hidden-sm" id="settings" ng-if="isCustomer()">
+    {%partial 'commons/settings'%}
+</div>

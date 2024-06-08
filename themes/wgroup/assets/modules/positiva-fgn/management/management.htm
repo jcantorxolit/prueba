@@ -1,0 +1,14 @@
+
+<div ng-controller="PFManagement" >
+    <div ng-switch="pf_management_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="all" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/management/management_tabs.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="axis" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/management/management_list.htm'">
+            </div>
+        </div>
+    </div>
+</div>

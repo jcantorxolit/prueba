@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerAbsenteeismTabsCtrl">
+
+            <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                <div class="col-md-12">
+                    <div class="panel panel-white" id="pnlloading">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">Cargando...</h4>
+                        </div>
+                        <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <p>
+                                    Estamos procesando la información del diagnóstico.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" select="switchTab('basic')">
+                            <uib-tab-heading>
+                                Registro de Ausentismos
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('basic').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab ng-if="false" select="switchTab('indicator')">
+                            <uib-tab-heading>
+                                Registro de indicadores EG y AL
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='indicator'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('indicator').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('analysis')">
+                            <uib-tab-heading>
+                                Análisis de indicadores
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='analysis'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('analysis').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('administrator')">
+                            <uib-tab-heading>
+                                Pago masivo administradoras
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='administrator'">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('administrator').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

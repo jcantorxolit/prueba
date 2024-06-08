@@ -1,0 +1,40 @@
+<div class="row">
+
+    <div class="col-md-7">
+        <div class="form-group">
+            <label>
+                [[child.criterion]]
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>
+                [[child.numeral]]
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>
+                [[child.rate.text]]
+            </label>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <label ng-switch="child.rate.code">
+
+                <i class="fa fa-ban indicator" ng-style="{color:child.rate.color}" ng-switch-when="nas"></i>
+                <i class="fa fa-minus-circle indicator" ng-style="{color:child.rate.color}" ng-switch-when="nac"></i>
+                <i class="fa fa-circle-o indicator" ng-style="{color:child.rate.color}" ng-switch-when="nc"></i>
+                <i class="fa fa-check-circle-o indicator" ng-style="{color:child.rate.color}" ng-switch-when="cp"></i>
+                <i class="fa fa-question-circle indicator" ng-switch-default></i>
+
+            </label>
+        </div>
+    </div>
+</div>
+<hr/>

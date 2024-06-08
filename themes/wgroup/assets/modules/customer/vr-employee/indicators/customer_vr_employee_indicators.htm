@@ -1,0 +1,232 @@
+<div ng-controller="customerVrEmployeeIndicatorsCtrl">
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-2">
+            <br>
+            <button type="button" ng-click="onConsolidate()" class="btn btn-primary">
+                Consolidar Indicadores
+            </button>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Periodo</label>
+                <ui-select name="selectedYear" ng-model="entity.selectedYear" on-select="onSelectYear()"
+                    theme="bootstrap">
+                    <ui-select-match placeholder="- Seleccionar -">
+                        [[$select.selected.item]]
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in periodList | filter: $select.search track by $index">
+                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>        
+        <!-- <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Rango de fechas</label>
+                <input date-range-picker class="form-control date-picker"
+                    ng-model="entity.selectedRangeDates"
+                    min="dateRangePicker.min"
+                    max="dateRangePicker.max"
+                    clearable ="dateRangePicker.clearable"
+                    options="dateRangePicker.options"
+                       style="width: 100%;"/>
+            </div>
+        </div> -->
+        <!-- <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Experiencias</label>
+                <div class="input-group">
+                    <ui-select name="selectedYear" ng-model="entity.selectedExperience" on-select="onSelectFilterExperience()"
+                        theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in experienceFilterList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                        <button ng-click="onClearFilterExperience()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                </div>
+
+  
+            </div>
+        </div>   -->
+        <div class="col-md-3">
+            <div class="pull-right">
+                <button type="button" ng-click="onExportExcel()"  class="btn btn-success margin-top-20" >
+                    <i class="fa fa-file-excel-o"></i>
+                </button>
+                <button type="button" ng-click="onGenerateReport()" class="btn btn-primary">
+                    Descargar Informe
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <canvas tc-chartjs-doughnut chart-data="chart.genre" chart-options="chart.doughnut.options" class="tc-chart"
+                height="120"></canvas>
+            <b class="fa-3x text-center center-block">[[ chart.genreTotal ]]</b>
+            <h3 class="text-bold text-center padding-top-5"> Número de participantes </h3>
+        </div>
+
+        <div class="col-md-7">
+            <canvas tc-chartjs-bar chart-data="chart.competitorExperience" chart-options="chart.bar.options" class="tc-chart"
+                height="120"></canvas>
+        </div>
+
+    </div>
+
+    <div class="col-md-12 padding-top-20 margin-top-10">
+        <uib-tabset justified="true" class="tabbable">
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    <h4 class="text-bold no-margin text-info"> Indicadores Generales </h4>
+                </uib-tab-heading>
+
+                <div>
+                    <uib-tabset class="tabbable" >
+                        <uib-tab active="activeTabIndex==0" class="parentTab[[$index]]" ng-repeat="tabExperience in experienceList">
+                            <uib-tab-heading >
+                                <b>[[ tabExperience.experience ]]</b>
+                            </uib-tab-heading>
+
+                            <div class="row">
+                                <div class="col-md-4" ng-repeat="scene in tabExperience.scenes">
+                                    <div class="panel panel-white">
+                                        <div class="panel-heading border-light"> <b>[[ scene.scene ]]</b> </div>
+                                        <div class="panel-body">
+                                            <div ng-repeat="question in scene.questions">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <b>[[ question.question ]]</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <uib-progressbar animate="true" value="[[question.values.percentage]]"
+                                                                type="[[ question.values.percentage > 75 ? 'success' : question.values.percentage <= 50 ? 'danger' : 'warning' ]]"></uib-progressbar>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <div class="label">
+                                                                <b class="text-info fa-2x">[[question.values.percentage]]%</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+
+            </uib-tab>
+
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    <h4 class="text-bold no-margin text-info"> Comparativo de Periodos </h4>
+                </uib-tab-heading>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Experiencia</label>
+                            <ui-select name="experience" ng-model="entity.experience" on-select="onSelectExperience()"
+                                theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in experienceOptionsList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Escena</label>
+                            <ui-select name="scene" ng-model="entity.scene" ng-disabled="!entity.experience.value" on-select="onSelectScene()"
+                                theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in sceneOptionsList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <br>
+                        <a href="#" class="btn btn-o btn-default margin-top-5" ng-click="onClearOptions()">
+                            <b>Limpiar</b>
+                        </a>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Periodo</label>
+                            <ui-select name="periodChart" ng-model="entity.periodChart" ng-disabled="!entity.scene.value"  theme="bootstrap" on-select="onSelectPeriod()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices ui-disable-choice="valideSingle(item)" repeat="item in periodList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <br>
+                        <!-- <button type="button"  ng-click="" ng-disabled="!entity.periodChart.value" class="btn btn-success margin-top-5 "> <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> </button> -->
+                    </div>
+
+                </div>
+
+                <div class="row padding-top-20">
+                    <div class="col-md-1" ng-repeat="period in chartLines.period track by $index">
+                        <h3 class="text-bold">
+                            <label for="" class="label label-inverse padding-left-20">
+                                [[ period ]]
+                                <a href="#" class="padding-left-10 vertical-align-bottom" ng-click="removePeriodChart(period)"> <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span> </a>
+                            </label>
+                        </h3>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-md-10" ng-repeat="metric in chartLines.data track by $index" >
+                        <div class="padding-left-5">
+                            <canvas tc-chartjs-line chart-data="metric.chart" chart-options="chart.lines.options" height="60"></canvas>
+                        </div>
+                        <h3 class="text-bold padding-top-10"> Métrica: [[ metric.metric ]] </h3>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+        </uib-tabset>
+    </div>
+
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

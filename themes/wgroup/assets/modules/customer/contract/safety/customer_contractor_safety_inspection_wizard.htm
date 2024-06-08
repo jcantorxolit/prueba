@@ -1,0 +1,117 @@
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <!-- start: WIZARD FORM -->
+
+            <div id="wizard" class="swMain">
+                <!-- start: WIZARD SEPS -->
+                <ul>
+
+                    <li ng-click="form.goTo(Form, 0)">
+                        <a href class="itemwzr" ng-class="{'selected' : currentStep >= 0, 'done' : currentStep > 0}">
+                            <div class="stepNumber">
+                                PG
+                            </div>
+                            <span class="stepDesc text-small"> Parámetros Generales </span>
+                        </a>
+                    </li>
+
+                    <li ng-repeat="list in lists" ng-click="form.goTo(Form, $index + 1)">
+                        <a href class="itemwzr" ng-class="{'selected' : currentStep >= $index + 1, 'done' : parseInt(list.advance) == 100}">
+                            <div class="stepNumber">
+                                [[list.average]] %
+                            </div>
+                            <span class="stepDesc text-small"> [[list.name]] </span>
+                        </a>
+                    </li>
+
+                    <li ng-click="form.goTo(Form, lists.length + 1)">
+                        <a href class="itemwzr" ng-class="{'selected' : currentStep >= lists.length + 1, 'done' : currentStep > lists.length + 1}">
+                            <div class="stepNumber">
+                                OF
+                            </div>
+                            <span class="stepDesc text-small"> Observaciones Finales </span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- end: WIZARD SEPS -->
+
+                <div class="row" ng-show="currentStep > 0">
+                    <div class="col-md-2 col-md-offset-10">
+                        <div class="form-group" ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                            <label class="control-label">Filtrar <span class="text-bold">por periodo</span><span class="symbol required"></span></label>
+                            <ui-select name="period" ng-required="true" ng-disabled="isView || periodList.length == 0"
+                                ng-model="criteria.period" theme="bootstrap" on-select="onSelectPeriod()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in periodList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- start: WIZARD STEP 1 -->
+                <div id="step-0" ng-show="currentStep == 0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div bindonce ng-repeat="field in headerFields">
+
+
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/contract/safety/customer_contractor_safety_inspection_wizard_header_field.htm'">
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-primary" ng-if="!isView" ng-click="onSaveHeaderBatch(headerFields)">
+                                    Guardar Todo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-1" ng-show="currentStep > 0 && currentStep < lists.length + 1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div kendo-grid="grid" k-options="mainGridOptions" k-ng-delay="mainGridOptions">
+                                <div k-detail-template>
+
+                                    <div kendo-grid="gridItem" class="hide-grid-header" k-options="detailGridOptions(dataItem)">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-[[lists.length + 1]]" ng-show="currentStep == lists.length + 1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/contract/safety/customer_contractor_safety_inspection_wizard_observation.htm'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: WIZARD STEP 1 -->
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- start: WIZARD DEMO -->

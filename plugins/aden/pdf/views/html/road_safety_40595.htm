@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/minimum-standard/style.css">
+    <style>
+        /*thead { display: table-header-group; }
+        tfoot { display: table-row-group; }
+        tr { page-break-inside: avoid; }*/
+    </style>
+
+    <style>
+        .pie-chart {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+            width: 95%;
+            margin-bottom: 20px;
+            z-index: 9999;
+            position: absolute;
+            left: 50px;
+        }
+
+        .title-chart {
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body onload="init()">
+
+<div class="wrapper">
+    <h1>PLAN ESTRATÉGICO DE SEGURIDAD VIAL</h1>
+    <br>
+    <br>
+    <h2><strong>FECHA DE GENERACIÓN: </strong>{{header.date}}</h2>
+    <h2><strong>FECHA DE INICIO: </strong>{{header.startDate}}</h2>
+    <h2><strong>FECHA DE ÚLTIMA ACTUALIZACIÓN: </strong>{{header.endDate}}</h2>
+    <br>
+    <h2><strong>EMPRESA: </strong>{{customer.name}}</h2>
+    <h2><strong>NIT: </strong>{{customer.documentNumber}}</h2>
+    <h2><strong>DIRECCIÓN: </strong>{{customer.address}}</h2>
+    <h2><strong>TELÉFONO: </strong>{{customer.phone}}</h2>
+    <h2><strong>MISIONALIDAD: </strong>{{customer.misionallity}}</h2>
+    <h2><strong>TAMAÑO DE LA ORGANIZACIÓN: </strong>{{customer.misionallitySize}}</h2>
+
+    <div class="formulario" style="margin-top: 1.4cm; page-break-inside: avoid">
+        <table  width="100%" >
+            <!--<tr>
+                <td colspan="10">
+                    <div class="intro">Continuación de la resolución 0312 "Por la cual se definen los Estándares Mínimos del
+                        Sistema de Gestión de Seguridad y Salud en el Trabajo para empleadores y contratantes"
+                    </div>
+                </td>
+            </tr>-->
+            <tr class="title_bg">
+                <td colspan="8">
+                    <div class="title">PLAN ESTRATÉGICO DE SEGURIDAD VIAL RESOLUCIÓN 40595</div>
+                </td>
+            </tr>
+            <tr class="title_bg">
+                <td colspan="8">
+                    <div class="title">TABLA DE VALORES Y CALIFICACIÓN</div>
+                </td>
+            </tr>
+            <tr class="title_bg">
+                <td rowspan="2" width="14" class="ciclo">CICLO</td>
+                <td colspan="1" rowspan="2" width="100px" class="estandar">PARÁMETRO - DEFINICIÓN</td>
+                <td rowspan="2" width="200" class="item_estandar">VARIABLE DEL PARÁMETRO</td>
+                <!-- <td rowspan="2" width="17" class="valor">VALOR</td>
+                <td rowspan="2" width="26" class="peso">PESO PORCENTUAL</td> -->
+                <td colspan="3" width="84" class="calificacion">CALIFICACIÓN</td>
+                <!-- <td rowspan="2" width="28" class="calificacion">CALIFICACIÓN</td> -->
+            </tr>
+            <tr class="title_bg">
+                <td class="cumple">CUMPLE</td>
+                <td class="no_cumple">NO CUMPLE</td>
+                <td class="no_aplica">NO APLICA</td>
+            </tr>
+
+            {% set weightPercent = 0 %}
+            {% set totalChild = 0 %}
+
+            {% for c in cycles %}
+
+                {% set printCycle = true %}
+
+                {% for sp in c.standards %}
+
+                    {% set printParent = true %}
+
+                    {% for sc in sp.children %}
+
+                        {% set printChild = true %}
+
+                        {% for item in sc.items %}
+                            <tr>
+                                {% if printCycle %}
+                                <td rowspan="{{ c.items }}" class="ciclo left_title_bg">
+                                    <div class="rotate">{{ c.name }}</div>
+                                    <!-- START CYCLE -->
+                                </td>
+                                {% set printCycle = false %}
+                                {% endif %}
+
+                                {% if printParent %}
+                                <td rowspan="{{ sp.total }}" valign="middle" width="37" class="estandar_title">{{ sp.description }}</td>
+                                <!-- START STANDARD PARENT -->
+                                {% set printParent = false %}
+                                {% endif %}
+
+                                {% if printChild %}
+                                <!-- <td rowspan="{{ sc.items|length }}" class="estandar_title_02">{{ sc.description}}</td> -->
+                                <!-- START STANDARD CHILD -->
+                                {% endif %}
+
+                                <td class="item" style="padding-top: 5px;padding-bottom: 5px;">{{item.numeral}} {{item.description}}</td>
+                                <!-- START STANDARD ITEMS -->
+                                <!-- <td class="center">{{item.value}}</td> -->
+
+                                {% set weightPercent = weightPercent + item.value %}
+
+                                {% if printChild %}
+                                <!-- <td rowspan="{{ sc.items|length }}" class="center">{{ sc.weight }}</td> -->
+                                {% endif %}
+
+                                <td class="center">
+                                    {% if item.rate.code == 'cp' %}
+                                    X
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+                                    {% if item.rate.code == 'nc' %}
+                                    X
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+                                    {% if item.rate.code == 'nac' %}
+                                    X
+                                    {% endif %}
+                                </td>
+
+                                {% if printChild %}
+                                <!-- <td rowspan="{{ sc.items|length }}" class="center">{{ sc.totalAverage }}</td> -->
+                                {% set totalChild = totalChild + sc.totalAverage %}
+                                {% set printChild = false %}
+                                {% endif %}
+                            </tr>
+
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+
+            {% endfor %}
+
+            <!-- <tr>
+                <td colspan="5" class="right title_bg">TOTALES</td>
+                <td class="center title_bg">{{ weightPercent }}</td>
+                <td class="title_bg"></td>
+                <td class="title_bg"></td>
+                <td class="title_bg"></td>
+                <td class="right title_bg">{{ totalChild }}</td>
+            </tr> -->
+        </table>
+
+    </div>
+
+
+    <p class="break"><span></span></p>
+
+
+    <h1>AVANCE DEL PLAN ESTRATÉGICO DE SEGURIDAD VIAL</h1>
+
+    <div id="piechart" class="pie-chart-">
+    </div>
+    <div class="value">{{ chart.total }} %</div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="barchart" class="bar-chart-">
+    </div>
+
+    <p class="break"><span></span></p>
+
+    <h1>PLANES DE MEJORAMIENTO</h1>
+
+
+    {% for p in plans %}
+
+    <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+        <tbody>
+        <tr style="font-weight:bold">
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px;width: 10%">
+                <label>{{ p.numeral }}</label>
+            </td>
+
+            <td style="background: #ececec; border: 1px solid #cecece; text-align:left;font-size: 12px">
+                <label>{{ p.description }}</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 10px;margin-top: 10px">
+
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold;width: 30%">
+                            <label>HALLAZGO:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_description }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>RESPONSABLE:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_responsible }}</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>FECHA DE CIERRE:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_endDate }}</span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px;font-weight:bold">
+                            <label>ESTADO:</label>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ p.improvement_plan_status }}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="text-align:justify;padding:5px">
+
+                <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+
+                    <tbody>
+                    <tr style="font-weight:bold">
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Plan de Acción</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Responsable</label>
+                        </td>
+
+                        <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                            <label>Estado</label>
+                        </td>
+                    </tr>
+                    {% for a in p.actions %}
+                    <tr>
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.activity }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.responsible }}</span>
+                        </td>
+
+                        <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                            <span class="small-text">{{ a.status }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% endfor %}
+
+    {% if plans|length == 0 %}
+
+        <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;margin-bottom: 20px">
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                        <span class="">
+                            <ul>
+                                <li>No registra planes de mejoramiento</li>
+                            </ul>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+         </table>
+
+    {% endif %}
+
+
+</div>
+<input type="hidden" id="pieData" value='{{ chart.data }}' />
+<input type="hidden" id="barChartData" value='{{ barChart.data }}' />
+</body>
+<script src="http://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    function init() {
+        google.load("visualization", "44", {packages:["corechart"]});
+        var interval = setInterval(function() {
+            if ( google.visualization !== undefined &&
+                google.visualization.DataTable !== undefined &&
+                google.visualization.PieChart !== undefined ) {
+                clearInterval(interval);
+                window.status = 'ready';
+                drawCharts();
+                drawResponseBarCharts();
+            }
+        }, 100);
+    }
+
+    function drawCharts() {
+        var hiddenField = document.getElementById('pieData');
+
+        var values = JSON.parse(hiddenField.value);
+
+        var data = google.visualization.arrayToDataTable(values);
+        var options = {
+            //backgroundColor: 'red',
+            //title: 'AVANCE DE AUTOEVALUACIÓN ESTÁNDARES MÍNIMOS',
+            pieSliceText: 'none',
+            legend: {position: 'top', alignment: 'center'},
+            pieHole: 0.4,
+			width: 800,
+            height: 400,
+            chartArea:{width:'100%', height: '90%'}
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+
+    function drawResponseBarCharts() {
+        var hiddenField = document.getElementById('barChartData');
+
+            var values = JSON.parse(hiddenField.value);
+            var data = google.visualization.arrayToDataTable(values);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, //The "descr column"
+            1, //Downlink column
+            {
+                calc: "stringify",
+                sourceColumn: 1, // Create an annotation column with source column "1"
+                type: "string",
+                role: "annotation"
+            },
+            2, // Uplink column
+            {
+                calc: "stringify",
+                sourceColumn: 2, // Create an annotation column with source column "2"
+                type: "string",
+                role: "annotation"
+            },
+            3, // Uplink column
+            {
+                calc: "stringify",
+                sourceColumn: 3, // Create an annotation column with source column "2"
+                type: "string",
+                role: "annotation"
+            }]);
+
+            var options = {
+                //backgroundColor: 'red',
+                title: "Ciclos",
+                legend: {position: 'bottom', alignment: 'center'},
+                width: 800,
+                height: 450,
+                colors: ['#3877b4', '#e7e7e7', '#f59747'],
+                // annotations: {
+                //     alwaysOutside: true,
+                //     textStyle: {
+                //         fontSize: 14,
+                //         color: '#000',
+                //         auraColor: 'none'
+                //     }
+                // }
+               // chartArea:{width:'100%', height: '90%'}
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("barchart"));
+            chart.draw(view, options);
+
+    }
+</script>
+
+</html>

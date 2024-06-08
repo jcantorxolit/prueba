@@ -1,0 +1,199 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">PELIGRO [[ entity.name ]]</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row margin-right-5 margin-left-5">
+                            <div class="col-md-12">
+                                <div class="alert alert-info">
+                                    <strong>Atención!</strong>
+                                    Responda las preguntas de los peligros que tienen relación con las labores
+                                    realizadas en su empresa.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-right-5 margin-left-5" ng-repeat="question in entity.questionMasterList">
+                            <div class="col-md-12">
+                                <p> [[ question.description ]] </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="RateYes_[[question.id]]" ng-disabled="isView"
+                                        name="rate_[[question.id]]" value="S" ng-model="question.rate"
+                                        ng-change="onChangeQuestionMaster(entity)">
+                                    <label class="text-bold" for="RateYes_[[question.id]]">
+                                        Sí
+                                    </label>
+                                </div>
+
+                                <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                    <input type="radio" id="RateNo_[[question.id]]" ng-disabled="isView"
+                                        name="rate_[[question.id]]" value="N" ng-model="question.rate"
+                                        ng-change="onChangeQuestionMaster(entity)">
+                                    <label class="text-bold" for="RateNo_[[question.id]]">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr ng-if="entity.questionMasterList.length > 0">
+
+                        <div class="row margin-right-5 margin-left-5" ng-if="entity.showQuestions"
+                            ng-repeat="question in entity.questionList">
+                            <div class="col-md-12">
+                                <p>
+                                    <!--<i class="fa fa-circle margin-right-5 text-ultra-small" ng-class="{
+                                            'has-success':question.priority == 'Baja', 
+                                            'has-warning':question.priority == 'Media',
+                                            'has-danger':question.priority == 'Alta',
+                                        }">
+                                        </i>-->
+                                    [[ question.description ]]
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="RateYes_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                        ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="S"
+                                        ng-model="question.rate">
+                                    <label class="text-bold" for="RateYes_[[question.id]]">
+                                        Sí
+                                    </label>
+                                </div>
+
+                                <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                    <input type="radio" id="RateNo_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                        ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="N"
+                                        ng-model="question.rate">
+                                    <label class="text-bold" for="RateNo_[[question.id]]">
+                                        No
+                                    </label>
+                                </div>
+
+                                <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                    <input type="radio" id="RateNoApply_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                        ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="NA"
+                                        ng-model="question.rate">
+                                    <label class="text-bold" for="RateNoApply_[[question.id]]">
+                                        No aplica
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr ng-if="entity.questionList.length > 0 && entity.showQuestions">
+
+                        <div class="row padding-top-10" ng-if="entity.showQuestions" ng-repeat="child in entity.child">
+                            <span class="col-md-6 marker-title margin-bottom-10"> [[ child.name ]] </span>
+
+                            <div class="row margin-right-5 margin-left-5"
+                                ng-repeat="question in child.questionMasterList">
+                                <div class="col-md-12">
+                                    <p> [[ question.description ]] </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="radio clip-radio radio-success radio-inline">
+                                        <input type="radio" id="RateYes_[[question.id]]" ng-disabled="isView"
+                                            name="rate_[[question.id]]" value="S" ng-model="question.rate"
+                                            ng-change="onChangeQuestionMaster(child)">
+                                        <label class="text-bold" for="RateYes_[[question.id]]">
+                                            Sí
+                                        </label>
+                                    </div>
+
+                                    <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                        <input type="radio" id="RateNo_[[question.id]]" ng-disabled="isView"
+                                            name="rate_[[question.id]]" value="N" ng-model="question.rate"
+                                            ng-change="onChangeQuestionMaster(child)">
+                                        <label class="text-bold" for="RateNo_[[question.id]]">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr ng-if="child.questionMasterList.length > 0">
+
+                            <div class="row margin-right-5 margin-left-5" ng-if="child.showQuestions"
+                                ng-repeat="question in child.questionList">
+                                <div class="col-md-12">
+                                    <p>
+                                        <!--<i class="fa fa-circle margin-right-5 text-ultra-small" ng-class="{
+                                            'has-success':question.priority == 'Baja', 
+                                            'has-warning':question.priority == 'Media',
+                                            'has-danger':question.priority == 'Alta',
+                                        }">
+                                        </i>-->
+                                        [[ question.description ]]
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="radio clip-radio radio-success radio-inline">
+                                        <input type="radio" id="RateYes_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                            ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="S"
+                                            ng-model="question.rate">
+                                        <label class="text-bold" for="RateYes_[[question.id]]">
+                                            Sí
+                                        </label>
+                                    </div>
+
+                                    <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                        <input type="radio" id="RateNo_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                            ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="N"
+                                            ng-model="question.rate">
+                                        <label class="text-bold" for="RateNo_[[question.id]]">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="radio clip-radio radio-success radio-inline margin-right-20">
+                                        <input type="radio" id="RateNoApply_[[question.id]]" ng-disabled="isView || !question.canEdit"
+                                            ng-change="onChangeQuestion()" name="rate_[[question.id]]" value="NA"
+                                            ng-model="question.rate">
+                                        <label class="text-bold" for="RateNoApply_[[question.id]]">
+                                            No aplica
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr ng-if="child.questionList.length > 0 && child.showQuestions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()" ng-if="(currentHazardIndex < hazardListLength - 1)">
+            Cerrar
+        </button>
+        |
+        <button type="button" class="btn btn-primary btn-o back-step btn-wide" ng-if="currentHazardIndex > 0"
+            ng-disabled="isNavigationButtonsDisabled" ng-click="onPrevious(Form)">
+            <i class="fa fa-arrow-circle-left"></i>
+            Anterior
+        </button>
+
+        <button type="button" class="btn btn-primary btn-o next-step btn-wide"
+            ng-if="(currentHazardIndex < hazardListLength - 1)" ng-click="onNext(Form)"
+            ng-disabled="isNavigationButtonsDisabled">
+            Siguiente <i class="fa fa-arrow-circle-right"></i>
+        </button>
+
+        <button type="button" class="btn btn-primary next-step btn-wide" ng-click="onCancel()"
+            ng-if="(currentHazardIndex == hazardListLength - 1)"
+            ng-disabled="isNavigationButtonsDisabled">
+            Finalizar
+        </button>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+form: @/plugins/tcl/utils/models/currency/fields.yaml
+modelClass: Tcl\Utils\Models\Currency
+defaultRedirect: tcl/utils/currencies

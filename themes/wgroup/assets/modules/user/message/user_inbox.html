@@ -1,0 +1,22 @@
+<div class="message-actions">
+	<ul class="actions no-margin no-padding block">
+		<li class="email-list-toggle">
+			<a ui-sref="app.user.messages"><i class="fa fa-angle-left"></i> All Inboxes </a>
+		</li>
+	</ul>
+</div>
+<div class="message-header">	
+	<div class="message-time">
+		[[message.date | date: "MM/dd/yyyy 'at' h:mma" ]]
+	</div>
+	<div class="message-from">
+		[[message.from]]
+	</div>
+	<div class="message-to">
+		Para: [[ message.to ]]
+	</div>
+</div>
+<div class="message-subject">
+	<span class="spam" ng-if="message.spam">[SPAM] </span> [[message.subject]]
+</div>
+<div class="message-content" ng-bind-html="message.content"></div>

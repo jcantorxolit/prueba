@@ -1,0 +1,70 @@
+<div ng-controller="customerPollEditCtrl">
+
+    <div class="col-md-12">
+
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <div class="col-md-12" perfect-scrollbar wheel-propagation="false"
+                 suppress-scroll-x="true">
+
+
+                <div bindonce ng-repeat="question in customerPoll.poll.questions">
+
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime"> <!-- pay attention to this line -->
+                            <div id="Help" uib-accordion-group is-open="main.openHelp">
+                                <uib-accordion-heading>
+                                    <div class="col-sm-10">
+                                        <h4 class="panel-title text-primary">[[question.title]]</h4>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span>
+                                    <i class="pull-right fa" ng-click="main.openHelp = !main.openHelp"
+                                       ng-class="{'fas fa-minus': main.openHelp, 'fas fa-plus': !main.openHelp}"></i>
+                                </span>
+                                    </div>
+
+                                </uib-accordion-heading>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div data-ng-animate="'wave'" class="fade-in-right-big"
+                                             data-ng-include="app.views.urlRoot + 'modules/customer/poll/customer_poll_question_answer.htm'">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </uib-accordion>
+                    </div>
+
+                    <div ng-if="!main.openHelp" style="margin-top: -20px; border-bottom: 1.5px solid #F58220;"></div>
+
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" ng-if="!isView">
+                            Guardar Todo
+                        </button>
+
+                        <button type="button" class="btn btn-info" ng-click="onSendPoll()"
+                                ng-if="answerCount == customerPoll.poll.questions.length && !isView">
+                            Enviar encuesta
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

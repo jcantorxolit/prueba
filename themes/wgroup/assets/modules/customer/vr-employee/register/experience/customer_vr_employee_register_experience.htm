@@ -1,0 +1,74 @@
+<div ng-controller="customerVrEmployeeRegisterExperienceCtrl" >
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)"> 
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">CONFIGURACIÓN DE LAS EXPERIENCIAS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <uib-accordion ng-repeat="item in experienceList">
+                            <div uib-accordion-group class="panel-default" ng-model="item.isOpen" is-open="item.isOpen" ng-init="item.isOpen = $index == 0">
+                            <uib-accordion-heading>
+                                <b class="text-info">[[ item.experience ]]</b> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': item.isOpen, 'glyphicon-chevron-right': !item.isOpen}"></i>
+                            </uib-accordion-heading>
+                            <table class="table">
+                                <tr class="active">
+                                    <th width="30%">Escena</th>
+                                    <th width="20%">Aplicación</th>
+                                    <th width="50%">Justificación</th>
+                                </tr>
+                                <tr ng-repeat="scene in item.scenes">
+                                    <td> [[ scene.scene ]]</td>
+                                    <td>
+                                        <div ng-class="{'has-error':Form.application.$dirty && Form.application.$invalid && !scene.application}">
+                                            <ui-select name="application" ng-disabled="isView" ng-model="scene.application" ng-required="true" theme="bootstrap" ng-change="updateForm()">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="option in applicationOptions | filter: $select.search track by $index">
+                                                    <div ng-bind-html="option.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.application.$dirty && Form.application.$invalid && !scene.application">
+                                                Selecciona un valor
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="position: relative;" ng-class="{'has-error':Form.justification.$dirty && Form.justification.$invalid && scene.application.value == 'NA' && !scene.justification}">
+                                            <input type="text" ng-model="scene.justification" ng-required="scene.application.value == 'NA'" class="form-control" name="justification"
+                                                ng-disabled="isView || scene.application.value != 'NA'" ng-change="updateForm()">
+        
+                                            <span class="error text-small block" ng-if="Form.justification.$dirty && Form.justification.$invalid && scene.application.value == 'NA' && !scene.justification">La
+                                                justificación es requerida</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <br>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" >
+                                Continuar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>    
+    </form>
+</div>

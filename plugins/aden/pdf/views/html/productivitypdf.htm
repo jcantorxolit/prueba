@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Productividad</title>
+    <link rel="shortcut icon" href="">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css">
+    <link rel="stylesheet" href="{{ themePath }}/assets/report/style.css">
+
+
+    <!--Archivos locales (para trabajar sin conexión a internet)
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-formhelpers.css">    -->
+
+
+
+
+    <!--[if IE]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        #dofa th,
+        td {
+            width: 33%;
+        }
+
+        #cmi1 {
+            width: 46%;
+        }
+
+        #cmi2 {
+            width: 8%;
+        }
+
+        #cmi3 {
+            width: 46%;
+        }
+
+        #objetives1 {
+            width: 35%;
+        }
+
+        #objetives2 {
+            width: 35%;
+        }
+
+        #objetives3 {
+            width: 10%;
+
+        }
+
+        #objetives4 {
+            width: 20%;
+        }
+
+        #activities1 {
+            width: 14%;
+        }
+
+        #activities2 {
+            width: 17%;
+        }
+
+        #activities3 {
+            width: 14%;
+        }
+
+        #activities4 {
+            width: 12%;
+        }
+
+        #activities5 {
+            width: 10%;
+        }
+
+        #activities6 {
+            width: 12%;
+        }
+
+        #activities7 {
+            width: 10%;
+        }
+
+        #activities8 {
+            width: 11%;
+        }
+
+        #indicator1 {
+            width: 35%;
+        }
+
+        #indicator2 {
+            width: 35%;
+        }
+
+        #indicator3 {
+            width: 20%;
+        }
+
+        #indicator4 {
+            width: 10%;
+        }
+
+        #aspect1 {
+            width: 20%;
+        }
+
+        #person {
+            width: 16%;
+        }
+
+        #detail1 {
+            width: 5%;
+        }
+
+        #detail2 {
+            width: 8%;
+        }
+
+        #detail3 {
+            width: 8%;
+        }
+
+        #detail4 {
+            width: 8%;
+        }
+
+        #detail5 {
+            width: 8%;
+        }
+
+        #detail6 {
+            width: 8%;
+        }
+
+        #detail7 {
+            width: 8%;
+        }
+
+        #detail8 {
+            width: 2%;
+        }
+
+        #detail9 {
+            width: 4%;
+        }
+
+        #detail10 {
+            width: 4%;
+        }
+
+        #detail11 {
+            width: 15%;
+        }
+
+        #detail12 {
+            width: 3%;
+        }
+
+        #process1 {
+            width: 20%;
+        }
+
+        #process2 {
+            width: 20%;
+        }
+
+        #process3 {
+            width: 20%;
+        }
+
+        #process4 {
+            width: 15%;
+        }
+
+        #process5 {
+            width: 15%;
+        }
+
+        #process6 {
+            width: 10%;
+        }
+
+        #human1 {
+            width: 14%;
+        }
+
+        #human2 {
+            width: 14%;
+        }
+
+        #human3 {
+            width: 14%;
+        }
+
+        #human4 {
+            width: 14%;
+        }
+
+        #human5 {
+            width: 14%;
+        }
+
+        #human6 {
+            width: 14%;
+        }
+
+        #human7 {
+            width: 14%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="logo"><img src="images/bolivar_header.png" alt=""></div>
+            <h1 class="titulo">
+                Informe de Análisis Estratégico en Productividad
+            </h1>
+        </div>
+        <br>
+        <div class="row">
+
+            <h3>Información General</h3>
+
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <br>
+                            <p><strong>Consecutivo : </strong>{{parent.id}}</p>
+                            <p><strong>Periodo - Fecha inicial : </strong>{{parent.startDate.date}}</p>
+                            <p><strong>Periodo - Fecha final : </strong>{{parent.endDate.date}}</p>
+                            <p><strong>Estado : </strong>{{parent.status.item}}</p>
+                            <p><strong>Razon Social : </strong>{{dataCustomer[0].businessName}}</p>
+                            <p><strong>NIT : </strong>{{dataCustomer[0].documentNumber}}</p>
+                            <p><strong>Resposable del Registro : </strong>{{nameResponsible}}</p>
+                            <br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Incidencia de la Seguridad y Salud en el Trabajo en el direccionamiento estratégico de la empresa</h3>
+
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Identidad IDENTIDAD corporativa de la empresa</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Incidencia de la Seguridad y Salud en el Trabajo en la Misión</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Misión : {{parent.mission}}</td>
+                        <td>{{mission}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Visión : {{parent.vision}}</td>
+                        <td>{{vision}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Valores : {% for value in parent.valueList %}
+                            <p>{{value.description}}</p>
+                            {% endfor %}</td>
+                        <td>{{values}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Objetivos Estratégicos : {% for objetive in parent.objectiveList %}
+                            <p>({{objetive.perspective}}) {{objetive.shortDescription}}</p>
+                            {% endfor %}</td>
+                        <td>{{objectives}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <h3>Análisis de la Seguridad y Salud en el Trabajo en el Cuadro de Mando Integral </h3>
+            <br>
+            {% if parent.hasCmi == true %}
+            La empresa cuenta con un cuadro de mando integral y se encuentran identificados las cuatro perspectivas que
+            lo integran
+            <br>
+            <br>
+            {% for perspective in perspectives %}
+            <p>{{perspective.item}}</p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th><strong>Pregunta</strong></th>
+                        <th><strong>No / Si</strong></th>
+                        <th><strong>Descripción</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="cmi1">{% for question in perspective.questions %}
+                            <p>{{question.question}} </p>
+                            {% endfor %}
+                        </td>
+                        <td id="cmi2">{% for question in perspective.questions %}
+                            {% if question.isActive == true %}
+                            <p>SI</p>
+                            {% endif %}
+                            {% if question.isActive == false %}
+                            <p>NO</p>
+                            {% endif %}
+
+                            {% endfor %}
+                        </td>
+                        <td id="cmi3">{% for question in perspective.questions %}
+                            <p>{{question.description}} </p>
+                            {% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            {% endfor %}
+            {% endif %}
+
+            {% if parent.hasCmi == false %}
+            La empresa <strong>NO</strong> cuenta con un cuadro de mando integral
+            {% endif %}
+            <br>
+            <br>
+
+            <h3>Análisis DOFA</h3>
+            <br>
+            <table border="1" id="dofa" class="table groove">
+                <thead>
+                    <tr>
+                        <th><strong>RESUMEN MATRIZ DOFA</strong></th>
+                        <th><strong>FORTALEZA</strong></th>
+                        <th><strong>DEBILIDADES</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> </td>
+                        <td>{% for strength in strengthList %}
+                            <p>{{strength.item.description}}</p>
+                            {% endfor %}</td>
+                        <td>{% for weakness in weaknessList %}
+                            <p>{{weakness.item.description}}</p>
+                            {% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table border="1" id="dofa" class="table groove">
+                <thead>
+                    <tr>
+                        <th><strong>OPORTUNIDADES</strong></th>
+                        <th><strong>ESTRATEGIA FO</strong></th>
+                        <th><strong>ESTRATEGIA DO</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{% for opportunity in opportunityList %}
+                            <p>{{opportunity.item.description}}</p>
+                            {% endfor %}</td>
+                        <td>{% for strategyFO in strategyListFO %}
+                            <p>{{strategyFO.item.description}}</p>
+                            {% endfor %}</td>
+                        <td>{% for strategyDO in strategyListDO %}
+                            <p>{{strategyDO.item.description}}</p>
+                            {% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table border="1" id="dofa" class="table groove">
+                <thead>
+                    <tr>
+                        <th><strong>AMENAZAS</strong></th>
+                        <th><strong>ESTRATEGIA FA</strong></th>
+                        <th><strong>ESTRATEGIA DA</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{% for threat in threatList %}
+                            <p>{{threat.item.description}}</p>
+                            {% endfor %}</td>
+                        <td>{% for strategyFA in strategyListFA %}
+                            <p>{{strategyFA.item.description}}</p>
+                            {% endfor %}</td>
+                        <td>{% for strategyDA in strategyListDA %}
+                            <p>{{strategyDA.item.description}}</p>
+                            {% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+
+            <h3>Objetivos Estratégico de la Seguridad y Salud en el Trabajo </h3>
+            <p>adadasd</p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th><strong>Perspectiva</strong></th>
+                        <th><strong>Descripción corta</strong></th>
+                        <th><strong>Activo</strong></th>
+                        <th><strong>Fecha</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for objetive in objetives %}
+                    <tr>
+                        <td id="objetives1">
+                            <p>{{objetive.perspective}}</p>
+                        </td>
+                        <td id="objetives2">
+                            <p>{{objetive.shortDescription}}</p>
+                        </td>
+                        <td id="objetives3">
+                            {% if objetive.isDeleted == 1 %}
+                            <p>NO</p>
+                            {% endif %}
+                            {% if objetive.isDeleted == 0 %}
+                            <p>SI</p>
+                            {% endif %} </td>
+                        <td id="objetives4">
+                            <p>{{objetive.updatedAt}}</p>
+                        </td>
+                    </tr>
+                    <p>{{objetive.perspective}}</p>
+                    {% endfor %} </td>
+
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <h3>Seguimiento de Actividades</h3>
+            <br>
+            <table border="1" class="table ">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Perspectiva</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Objetivo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Tipo Estrategia</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Estrategia</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actividad</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Responsable</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha de Ejecución</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Estado</strong></p>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td id="activities1">
+                            <p>{{activity.perspective}}</p>
+                        </td>
+                        <td id="activities2">
+                            <p>{{activity.shortDescription}}</p>
+                        </td>
+                        <td id="activities3">
+                            <p>{{activity.type}}</p>
+                        </td>
+                        <td id="activities4">
+                            <p>{{activity.description}}</p>
+                        </td>
+                        <td id="activities5">
+                            <p>{{activity.name}}</p>
+                        </td>
+                        <td id="activities6">
+                            <p>{{activity.responsible}}</p>
+                        </td>
+                        <td id="activities7">
+                            <p>{{activity.executionDate}}</p>
+                        </td>
+                        <td id="activities8">
+                            <p>{{activity.status}}</p>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+
+            <h3>Gestión de Indicadores</h3>
+            <br>
+            <table border="1" class="table ">
+                <thead>
+                    <tr>
+                        <th>
+                            <p>Objetivo</p>
+                        </th>
+                        <th>
+                            <p>Indicador</p>
+                        </th>
+                        <th>
+                            <p>Ordigen</p>
+                        </th>
+                        <th>
+                            <p>Activo</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for indicator in indicators %}
+                    <tr>
+                        <td id="indicator1">
+                            <p>{{indicator.shortDescription}}</p>
+                        </td>
+                        <td id="indicator2">
+                            <p>{{indicator.name}}</p>
+                        </td>
+                        <td id="indicator3">
+                            <p>{{indicator.origin}}</p>
+                        </td>
+                        <td id="indicator4">
+                            <p>{{indicator.status}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+            <br>
+
+
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <h1 class="titulo">
+                Informe de Análisis Estadístico en Productividad
+            </h1>
+            <br>
+
+            <h3>Información General</h3>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>Fecha y Hora : </strong>{{statistical.parent.startDate.date}}</p>
+                            <p><strong>Categoria : </strong>{{statistical.parent.category.item}}</p>
+                            <p><strong>Elaborado por : </strong>{{statistical.parent.preparedByType.item}}</p>
+                            <p><strong>Estado : </strong>{{statistical.parent.status.item}}</p>
+                            <p><strong>Número de Identificación : </strong>{{statistical.parent.customerEmployee.entity.documentNumber}}</p>
+                            <p><strong>Nombre : </strong>{{statistical.parent.customerEmployee.entity.fullName}}</p>
+                            <p><strong>Cargo : </strong>{{statistical.parent.customerEmployee.job.job.name}}</p>
+                            <p><strong>Centro de Trabajo : </strong>{{statistical.parent.customerEmployee.job.workplaceText}}</p>
+                            <p><strong>Proceso : </strong>{{statistical.parent.process}}</p>
+                            <p><strong>Responsable del proceso : </strong>{{statistical.parent.responsibleProcess}}</p>
+                            <p><strong>El evento pudo afectar o afectó : </strong>{% if
+                                statistical.parent.isAffectsPerson == 1 %} Personas {% endif %}{% if
+                                statistical.parent.isAffectsProcess == 1 %}Procesos{% endif %}{% if
+                                statistical.parent.isAffectsProperty == 1 %}Propiedades{% endif %}</p>
+                            <p><strong>Nivel de riesgo : </strong>{% if statistical.parent.isLevelRiskSerious == 1
+                                %}Grave, podría ocasionar una lesion o enfermedad grave, con una incapacidad temporal o
+                                daño a la propiedad, máquinas y equipos menor al de la clase A {% endif %}{% if
+                                statistical.parent.isLevelRiskSlight == 1 %}Leve, podría ocasionar lesiones menores
+                                incapacitantes, enfermedades leve o daños menores a la propiedad, máquinas y equipos{%
+                                endif %}{% if statistical.parent.isLevelRiskVerySerious == 1 %}Muy Grave, podría
+                                ocasionar la muerte, una incapciadad permanente o pérdidad de alguna parte del cuerpo o
+                                daños cosiderables a la propiedad, máquinas y equipos
+
+                                {% endif %}</p>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <p><strong>DESCRIPCIÓN DE LO OCURRIDO : </strong> </p>
+            <p>{{statistical.parent.description}}</p>
+            <br>
+            <p><strong>ACCIONES INMEDIATAS QUE SE TOMARON</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Acción </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha </strong> </p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por </strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action in actions %}
+                    <tr>
+                        <td>
+                            <p>{{action.description}}</p>
+                        </td>
+                        <td>
+                            <p> {{action.updatedAt}}</p>
+                        </td>
+                        <td>
+                            <p>{{action.updatedBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br>
+
+            <h3>Reporte de Incidentes o ACDM</h3>
+            <br>
+            <h3>Información General</h3>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>Consecutivo : </strong>{{statistical.parent.id}}</p>
+                            <p><strong>Fecha y Hora : </strong>{{statistical.parent.startDate.date}}</p>
+                            <p><strong>Categoria : </strong>{{statistical.parent.category.item}}</p>
+                            <p><strong>Relación : </strong>{{statistical.relation.item}}</p>
+                            <p><strong>Nombre o Razón social : </strong>{{statistical.relationBusinessName}}</p>
+                            <p><strong>Nit : </strong>{{statistical.relationDocumentNumber}}</p>
+                            <p><strong>Sede : </strong>{{statistical.relationHeadquarters}}</p>
+                            <p><strong>País : </strong>{{statistical.relationCountry.name}}</p>
+                            <p><strong>Departamento : </strong>{{statistical.relationState.name}}</p>
+                            <p><strong>Ciudad / Municipio : </strong>{{statistical.relationCity.name}}</p>
+                            <p><strong>Actividad económica : </strong>{{statistical.relationEconomicActivity.code}}</p>
+                            <p><strong>Descripción : </strong>{{statistical.relationEconomicActivity.name}}</p>
+                            <p><strong>Servicio ofrecido : </strong>{{statistical.relationServiceType.item}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <p><strong>INFORMACIÓN PERSONA / ÁREA INVOLUCRADA</strong></p>
+            <p><strong>Centro de trabajo : </strong>{{statistical.workplace.name}}</p>
+            <p><strong>Proceso : </strong>{{statistical.process}}</p>
+            <p><strong>Responsable del proceso : </strong>{{statistical.responsibleProcess}}</p>
+            <p><strong>Jornada en que sucede : </strong>{{statistical.workingDay.item}}</p>
+            <p><strong>Tipo de personal involucrado : </strong>{{statistical.personalType.item}}</p>
+            <br>
+
+            <p><strong>INFORMACIÓN DEL INCIDENTE / ACCIDENTE CON DAÑO MATERIAL</strong></p>
+            <p><strong>Día de la Semana : </strong>{{statistical.eventWeekDay}}</p>
+            <p><strong>Lugar donde ocurrió : </strong>{{statistical.eventLocation.item}}</p>
+            <p><strong>Estaba realizando su labor habitual? : </strong>{{statistical.eventUsualWork.item}}</p>
+            <p><strong>Sitio del incidente o ACDM : </strong>{{statistical.eventPlace.item}}</p>
+            <p><strong>Agente del incidente o ACDM : </strong>{{statistical.eventFactor.item}}</p>
+            <br>
+
+            <p><strong>ASPECTOS AFECTADOS EN EL ACDM</strong></p>
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Origen</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Tipo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Aspecto afectado en el ACDM </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for apect in apects %}
+                    <tr>
+                        <td id="aspect1">
+                            <p>{{apect.origin}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{apect.type}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{apect.description}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{apect.updatedAt}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{apect.createdBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+            <p><strong>DESCRIPCIÓN DEL INCIDENTE O ACCIDENTE CON DAÑO MATERIAL</strong></p>
+            <p>{{statistical.description}}</p>
+            <br>
+
+            <p><strong>SUPERVISOR QUE CORROBORÓ EL REPORTE DEL EVENTO</strong></p>
+            <p><strong>Supervisado por : </strong>{{statistical.supervisorType.item}}</p>
+            <p><strong>Número de Identificación : </strong>{{statistical.customerEmployee.entity.documentNumber}}</p>
+            <p><strong>Nombre : </strong>{{statistical.customerEmployee.entity.fullName}}</p>
+            <p><strong>Cargo : </strong>{{statistical.customerEmployee.job.job.name}}</p>
+            <br>
+
+            <p><strong>CONCEPTO FINAL</strong></p>
+            <p>{{statistical.justification}}</p>
+            <br>
+
+            <h3>Investigación de Incidentes - ACDM</h3>
+            <br>
+            <h3>Información General</h3>
+            <table id="objetives" class="table groove">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>Consecutivo : </strong>{{incident.report.parent.id}}</p>
+                            <p><strong>Fecha y Hora : </strong>{{incident.report.parent.startDate.date}}</p>
+                            <p><strong>Categoria : </strong>{{incident.report.parent.category.item}}</p>
+                            <p><strong>Relación : </strong>{{incident.report.relation.item}}</p>
+                            <p><strong>Nombre o Razón social : </strong>{{incident.report.relationBusinessName}}</p>
+                            <p><strong>Nit : </strong>{{incident.report.relationDocumentNumber}}</p>
+                            <p><strong>Sede : </strong>{{incident.report.relationHeadquarters}}</p>
+                            <p><strong>País : </strong>{{incident.report.relationCountry.name}}</p>
+                            <p><strong>Departamento : </strong>{{incident.report.relationState.name}}</p>
+                            <p><strong>Ciudad / Municipio : </strong>{{incident.report.relationCity.name}}</p>
+                            <p><strong>Actividad económica : </strong>
+                                {{incident.report.relationEconomicActivity.code}}</p>
+                            <p><strong>Descripción : </strong>{{incident.report.relationEconomicActivity.name}}</p>
+                            <p><strong>Fecha de la Investigación : </strong>{{incident.investigationDate.date}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <p><strong>DESCRIPCIÓN DEL INCIDENTE O ACCIDENTE CON DAÑO MATERIAL : </strong></p>
+            <p>{{incident.report.description}}</p>
+            <br>
+
+
+
+            <p><strong>VERSIÓN TRABAJADORES INVOLUCRADOS Y TESTIGOS </strong></p>
+
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Tipo </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Nombre </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Cargo </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Versión </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por </strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in witness %}
+
+                    <tr>
+                        <td id="person">
+                            <p>{{person.type}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.name}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.job}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.story}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.createdAt}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.updatedBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <p><strong>DATOS DE LOS INVESTIGADORES</strong></p>
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Tipo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Nombre</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Número documento</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Cargo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in researcher %}
+
+                    <tr>
+                        <td id="person">
+                            <p>{{person.type}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.name}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.documentNumber}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.job}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.createdAt}}</p>
+                        </td>
+                        <td id="person">
+                            <p>{{person.updatedBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+
+            <br>
+            <p><strong>UBICACIÓN</strong></p>
+            <p><strong>Observaciones : </strong>{{incident.location}}</p>
+            <br>
+            <p><strong>CONDICIONES</strong></p>
+            <p><strong>Observaciones : </strong> {{incident.condition}}</p>
+            <br>
+            <p><strong>DOCUMENTOS</strong></p>
+            <p><strong>Observaciones : </strong>{{incident.document}}</p>
+            <br>
+            <p><strong>CONSTRUCCIÓN ANÁLISIS</strong></p>
+            <p><strong>Observaciones : </strong>{{incident.observation}}</p>
+            <p><strong>Metodología utilizada : </strong>{{incident.methodology}}</p>
+            <br>
+
+            <h3><strong>Determinación de Causas</strong></h3>
+            <br>
+            <p><strong>CAUSAS INMEDIATAS - ACTOS INSEGUROS</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Código</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Descripción</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Observaciones</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for insecureAct in insecureActList %}
+
+                    <tr>
+                        <td>
+                            <p>{{insecureAct.cause.code}}</p>
+                        </td>
+                        <td>
+                            <p>{{insecureAct.cause.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{insecureAct.observation}}</p>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <p><strong>CAUSAS INMEDIATAS - CONDICIONES INSEGUROS</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Código</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Descripción</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Observaciones</strong></p>
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for insecureCondition in insecureConditionList %}
+
+                    <tr>
+                        <td>
+                            <p>{{insecureCondition.cause.code}}</p>
+                        </td>
+                        <td>
+                            <p>{{insecureCondition.cause.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{insecureCondition.observation}}</p>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <p><strong>CAUSAS BÁSICAS - FACTORES DE TRABAJO</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Código</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Descripción</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Observaciones</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for workFactor in workFactorList %}
+
+                    <tr>
+                        <td>
+                            <p>{{workFactor.cause.code}}</p>
+                        </td>
+                        <td>
+                            <p>{{workFactor.cause.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{workFactor.observation}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <p><strong>CAUSAS BÁSICAS - FACTORES PERSONALES</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Código</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Descripción</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Observaciones</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for personalFactor in personalFactorList %}
+                    <tr>
+                        <td>
+                            <p>{{personalFactor.cause.code}}</p>
+                        </td>
+                        <td>
+                            <p>{{personalFactor.cause.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{personalFactor.observation}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <p><strong>CAUSA(S) RAÍZ</strong></p>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Observación</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualziado por</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rootCause in rootCauses %}
+
+                    <tr>
+                        <td>
+                            <p>{{rootCause.observation}}</p>
+                        </td>
+                        <td>
+                            <p>{{rootCause.createdAt}}</p>
+                        </td>
+                        <td>
+                            <p>{{rootCause.updatedBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+
+            <h3><strong>Costos</strong></h3>
+            <br>
+            <h3>Información General</h3>
+            <table id="objetives" class="table groove">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>Fecha y Hora : </strong>{{cost.report.parent.startDate.date}}</p>
+                            <p><strong>Categoria : </strong>{{cost.report.parent.category.item}}</p>
+                            <p><strong>Relación : </strong>{{cost.report.relation.item}}</p>
+                            <p><strong>Nombre o Razón social : </strong>{{cost.report.relationBusinessName}}</p>
+                            <p><strong>Nit : </strong>{{cost.report.relationDocumentNumber}}</p>
+                            <p><strong>Sede : </strong>{{cost.report.relationHeadquarters}}</p>
+                            <p><strong>País : </strong>{{cost.report.relationCountry.name}}</p>
+                            <p><strong>Departamento : </strong>{{cost.report.relationState.name}}</p>
+                            <p><strong>Ciudad / Municipio : </strong>{{cost.report.relationCity.name}}</p>
+                            <p><strong>Actividad económica : </strong>{{cost.report.relationEconomicActivity.code}}</p>
+                            <p><strong>Descripción : </strong>{{cost.report.relationEconomicActivity.name}}</p>
+                            <br>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <p><strong>TIPO DE ACCIDENTE (Accidente de trabajo) </strong> </p>
+            <p><strong>Severidad : </strong>{{cost.severity.item}}</p>
+            <p><strong>Generó pérdida de tiempo? : </strong>{{cost.wasteTime.item}}</p>
+            <p><strong>Días de Incapacidad : </strong>{{cost.disabilityDays}}</p>
+            <p><strong>Días perdidos : </strong>{{cost.lostDays}}</p>
+            <p><strong>¿El accidente con daños en las personas, generó otros daños? : </strong>{% if
+                cost.generateOtherDamage == true %}SI{% endif %}{% if cost.generateOtherDamage == false %}NO{% endif %}</p>
+            <p><strong>Descripción del evento : </strong>{{cost.description}}</p>
+
+            <br>
+
+            <p><strong>INFORMACIÓN ADICIONAL DEL EVENTO</strong></p>
+
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Origen</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Tipo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Aspecto afectados en el ACMD</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por</strong></p>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aspects in aspectsCots.actions %}
+
+                    <tr>
+                        <td id="aspect1">
+                            <p>{{aspects.origin}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{aspects.type}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{aspects.description}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{aspects.updatedAt}}</p>
+                        </td>
+                        <td id="aspect1">
+                            <p>{{aspects.createdBy}}</p>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+
+            <h3>Detalles</h3>
+
+            <table border="1" class="table ">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Título</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Total</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in dataCost %}
+
+                    <tr>
+                        <td>
+                            <p>{{data.numeral}} {{data.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{data.total}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+
+            <h3>Procesos y Matrices</h3>
+            <br>
+            <p><strong>CONFIGURACIÓN DE LA MATRIZ E IMPACTO EN LA PRODUCTIVIDAD</strong></p>
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Centro de Trabajo </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Macroproceso </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Proceso </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Cargo </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actividad </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Clasificación </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Tipo de Peligro </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Descripción </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Factor Crítrico </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>IP-P </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>IP-S&P </strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Prioridad </strong></p>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in matrixDetail %}
+
+                    <tr>
+                        <td id="detail1">
+                            <p>{{detail.workplace}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.macroProcess}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.process}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.job}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.activity}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.classification}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.hazardType}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.description}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.criticalFactor}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.ipp}}</p>
+                        </td>
+                        <td>
+                            <p>{{detail.ipsp}}</p>
+                        </td>
+                        <td id="detail12">
+                            <p>{{detail.priority}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <p><strong>PROCESOS CRITICOS</strong></p>
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Centro de Trabajo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Macroproceso</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Proceso</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Criticidad</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha Ultima Actualización</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por</strong></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for process in matrixProcess %}
+
+                    <tr>
+                        <td id="process1">
+                            <p>{{process.workplace}}</p>
+                        </td>
+                        <td id="process2">
+                            <p>{{process.macroProcess}}</p>
+                        </td>
+                        <td id="process3">
+                            <p>{{process.process}}</p>
+                        </td>
+                        <td id="process4">
+                            <p>{{process.criticality}}</p>
+                        </td>
+                        <td id="process5">
+                            <p>{{process.updatedAt}}</p>
+                        </td>
+                        <td id="process6">
+                            <p>{{process.updatedBy}}</p>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+
+            <h3>Talento Humano</h3>
+            <br>
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <p><strong>Número documento</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Nombre completo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Centro de Trabajo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Cargo</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Rol</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Fecha Creación</strong></p>
+                        </th>
+                        <th>
+                            <p><strong>Actualizado por</strong></p>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for human in humanTalent %}
+                    <tr>
+                        <td id="human1">
+                            <p>{{human.documentNumber}}</p>
+                        </td>
+                        <td id="human2">
+                            <p>{{human.fullName}}</p>
+                        </td>
+                        <td id="human3">
+                            <p>{{human.workPlace}}</p>
+                        </td>
+                        <td id="human4">
+                            <p>{{human.job}}</p>
+                        </td>
+                        <td id="human5">
+                            <p>{{human.role}}</p>
+                        </td>
+                        <td id="human6">
+                            <p>{{human.createdAt}}</p>
+                        </td>
+                        <td id="human7">
+                            <p>{{human.updatedBy}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <br>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

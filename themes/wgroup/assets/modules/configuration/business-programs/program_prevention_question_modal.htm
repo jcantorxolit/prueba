@@ -1,0 +1,139 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">Datos básicos</h4>
+        </label>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Programa
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.program.name"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Categoría
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.category.name"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Artículo
+                </label>
+                <input ng-disabled="true" type="text"
+                       placeholder=""
+                       class="form-control" name="role"
+                       ng-model="question.article"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Descripción
+                </label>
+                <textarea rows="2"
+                        data-ng-model="question.name"
+                        class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="isConfigurationMode">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    Guía
+                </label>
+                <textarea rows="15"
+                          placeholder="Escribe aquí la guía de la pregunta"
+                          data-ng-model="question.guide"
+                          class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white" ng-if="!isConfigurationMode">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">CLASIFICACIÓN POR TAMAÑO DE EMPRESA</span>
+            </h4>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.customerSize.$dirty && Form.customerSize.$invalid}">
+                        <div class="input-group">
+                            <ui-select name="customerSize" ng-disabled="false"
+                                       ng-model="entity.size"
+                                       ng-required="true"
+                                       theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in customerSizeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="onSave()"
+                                        class="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <span class="error text-small block"
+                              ng-if="Form.customerSize.$dirty && Form.customerSize.$invalid">El registro es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%"
+                                   dt-instance="dtInstanceProgramPreventionQuestionClassificationCallback"
+                                   dt-options="dtOptionsProgramPreventionQuestionClassification"
+                                   dt-columns="dtColumnsProgramPreventionQuestionClassification"
+                                   id="dtProgramPreventionQuestionClassification"
+                                   class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+
+    <button class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cancelar
+    </button>
+
+    <button class="btn btn-primary btn-o" ng-click="onSave()" ng-if="isConfigurationMode">
+        Guardar
+    </button>
+
+
+</div>

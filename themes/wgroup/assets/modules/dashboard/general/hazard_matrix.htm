@@ -1,0 +1,73 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="dashboardDiagnosticCustomerGeneralHazardMatrixCtrl">
+        <div class="panel-body ">
+
+
+            <div class="row display-flex flex-justify-end">
+
+                <div class="col-md-2 form-group">
+                    <label class="control-label">Tipo Indicador</label>
+
+                    <ui-select name="typeIndicator" ng-model="entity.typeIndicator" theme="bootstrap"
+                               ng-required="true" on-select="onSelecttypeIndicator()">
+
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+
+                        <ui-select-choices
+                                repeat="typeIndicator in typeIndicators | filter: $select.search track by $index">
+                            <div ng-bind-html="typeIndicator.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <label class="control-label">Centro de trabajo</label>
+
+                    <div class="input-group">
+                        <ui-select name="workPlace" ng-model="entity.workplace" theme="bootstrap"
+                                   ng-required="true" on-select="onSelectworkPlace()">
+
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="workPlace in workplaceList | filter: $select.search track by $index">
+                                <div ng-bind-html="workPlace.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <span class="input-group-btn">
+                            <button ng-click="onClearWorkplace()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div>
+                <div class="text-center">
+                    <div class="text-primary text-extra-extra-large">[[totalHazard]]</div>
+                    <h5>Total Peligros</h5>
+                </div>
+
+                <canvas class="tc-chart" tc-chartjs-bar
+                        chart-options="chart.bar.options"
+                        chart-data="chart.data.roadSafetyChartBar"
+                        chart-legend="barChart2"
+                        height="100">
+                </canvas>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

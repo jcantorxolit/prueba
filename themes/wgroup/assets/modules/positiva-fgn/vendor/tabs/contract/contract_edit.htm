@@ -1,0 +1,116 @@
+<div class="fade-in-right-big">
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="contractEditCtrl" >
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">CONTRATO</span></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.contractNumber.$dirty && Form.contractNumber.$invalid}">
+                                            <label class="control-label">Número de Contrato<span class="symbol required"></span></label>
+                                            <input type="text"  placeholder="Ingrese valor" class="form-control" name="contractNumber"
+                                                ng-model="entity.contractNumber" required />
+                                            <span class="error text-small block"
+                                                ng-if="Form.contractNumber.$dirty && Form.contractNumber.$invalid">El
+                                                valor es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.startDate.$dirty && Form.startDate.$invalid}">
+                                            <label class="control-label">Fecha Inicio <span class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker 
+                                                name="startDate" 
+                                                ng-required="true"
+                                                k-options="datePickerConfig" 
+                                                k-max="maxDate"
+                                                onkeydown="return false;"
+                                                required
+                                                ng-model="entity.startDate"
+                                                style="width: 100%;" />
+                                            <span class="error text-small block" ng-if="Form.startDate.$dirty && Form.startDate.$invalid">
+                                                La fecha es requerida
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" >
+                                            <label class="control-label">Fecha Finalización </label>
+                                            <input class="form-control" kendo-date-picker 
+                                                name="endDate" 
+                                                k-options="datePickerConfig" 
+                                                onkeydown="return false;"
+                                                ng-model="entity.endDate"
+                                                style="width: 100%;" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.contractValue.$dirty && Form.contractValue.$invalid}">
+                                            <label class="control-label">Valor del Contrato<span class="symbol required"></span></label>
+                                            <input type="text"  placeholder="Ingrese valor" class="form-control" name="contractValue"
+                                                ng-model="entity.contractValue" required />
+                                            <span class="error text-small block"
+                                                ng-if="Form.contractValue.$dirty && Form.contractValue.$invalid">El
+                                                valor es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label>
+                                                Estado
+                                            </label>
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch  ng-model="entity.isActive" class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnVendorContract"
+                                        dt-options="dtOptionsPositivaFgnVendorContract" id="dtPositivaFgnVendorContract" dt-columns="dtColumnsPositivaFgnVendorContract"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

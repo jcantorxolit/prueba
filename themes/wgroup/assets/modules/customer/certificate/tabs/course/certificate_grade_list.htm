@@ -1,0 +1,184 @@
+<!-- start: RESPONSIVE TABLE -->
+<div class="bg-white" ng-controller="customerInternalCertificateAdminGradeListCtrl">
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por estado</span>
+                            </h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-model="filter.selectedStatus" theme="bootstrap"
+                                on-select="onSearch($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in status | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearStatus()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por locación</span>
+                            </h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-model="filter.selectedLocation" theme="bootstrap"
+                                on-select="onSearch($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in locations | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearLocation()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por programa</span>
+                            </h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-model="filter.selectedProgram" theme="bootstrap"
+                                on-select="onSearch($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in programs | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearProgram()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por fecha
+                                    inicial</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <input class="form-control" kendo-date-picker k-options="dateConfig"
+                                k-ng-model="filter.startDate" style="width: 100%;" />
+                            <span class="input-group-btn">
+                                <button ng-click="onSearch()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                                <button ng-click="onClearStartDate()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por fecha
+                                    final</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <input class="form-control" kendo-date-picker k-options="dateConfig"
+                                k-ng-model="filter.endDate" style="width: 100%;" />
+                            <span class="input-group-btn">
+                                <button ng-click="onSearch()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                                <button ng-click="onClearEndDate()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por profesional
+                                    asignado</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-model="filter.selectedAgent" theme="bootstrap"
+                                on-select="onSearch()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in agents | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearAgent()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreate()"><i
+                    class="glyphicon glyphicon-plus"></i> Crear curso</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstanceCustomerInternalGradeCallback"
+                    dt-options="dtOptionsCustomerInternalGrade" dt-columns="dtColumnsCustomerInternalGrade"
+                    id="dtCustomerInternalCertificateGrade"
+                    class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: RESPONSIVE TABLE -->

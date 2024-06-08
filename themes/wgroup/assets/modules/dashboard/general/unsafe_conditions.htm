@@ -1,0 +1,111 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="dashboardDiagnosticCustomerUnsafeConditionsCtrl">
+        <div class="panel-body ">
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-primary">CONDICIONES INSEGURAS</h4>
+                </div>
+
+                <div class="panel-body partition-light-grey">
+
+                    <div class="row display-flex flex-justify-end">
+
+                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 form-group">
+                            <label class="control-label">Tipo Indicador</label>
+
+                            <ui-select name="typeIndicator" ng-model="entity.typeIndicator" theme="bootstrap"
+                                       ng-required="true" on-select="onRefresh()">
+
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+
+                                <ui-select-choices
+                                        repeat="typeIndicator in typeIndicators | filter: $select.search track by $index">
+                                    <div ng-bind-html="typeIndicator.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 form-group">
+                            <label class="control-label">Periodo</label>
+
+                            <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                                       ng-required="true" on-select="onRefreshWorkplace()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+
+                                <ui-select-choices
+                                        repeat="period in periods | filter: $select.search track by $index">
+                                    <div ng-bind-html="period.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 form-group">
+                            <label class="control-label">Centro de trabajo</label>
+
+                            <div class="input-group">
+                                <ui-select name="workPlace" ng-model="entity.workplace" theme="bootstrap"
+                                           ng-required="true" on-select="onRefresh()">
+
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+
+                                    <ui-select-choices
+                                            repeat="workPlace in workplaceList | filter: $select.search track by $index">
+                                        <div ng-bind-html="workPlace.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="input-group-btn">
+                                    <button ng-click="onClearWorkplace()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row row margin-top-20 display-flex flex-align-center">
+                        <div class="col-md-3 text-center display-flex flex-justify-center flex-align-center">
+                            <div>
+                                <span class="text-extra-extra-large text-bold">[[amount]]</span><br>
+                                Total de Condiciones Reportadas
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div ng-if="entity.typeIndicator.value == 0">
+                                <div class="col-md-12">
+                                    <canvas class="tc-chart" tc-chartjs-bar
+                                            chart-options="chart.bar.options"
+                                            chart-data="chart.data.customerUnsafeActHazard"
+                                            height="80"></canvas>
+                                </div>
+                            </div>
+
+
+                            <div ng-if="entity.typeIndicator.value == 1">
+                                <div class="col-md-12">
+                                    <canvas class="tc-chart" tc-chartjs-bar
+                                            chart-options="chart.bar.options"
+                                            chart-data="chart.data.customerUnsafeActStatus"
+                                            height="80"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

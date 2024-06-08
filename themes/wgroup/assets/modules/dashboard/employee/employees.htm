@@ -1,0 +1,30 @@
+<div ng-controller="dashboardDiagnosticCustomerEmployeeEmployeesCtrl">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title text-primary">EMPLEADOS</h4>
+    </div>
+    <div class="panel-body partition-light-grey">
+
+        <div class="row display-flex align-center">
+
+            <div class="col-md-8">
+                <canvas class="tc-chart" height="150" tc-chartjs-bar
+                        chart-options="chart.bar.options"
+                        chart-data="chart.data.amountEmployeesChartStackedBar"></canvas>
+            </div>
+
+
+            <div class="col-md-4 display-flex flex-direction-column flex-justify-center flex-align-text text-ultra-extra-large">
+
+                <div class="margin-top-15 margin-bottom-15">[[chart.data.countEmployees]] <span class="text-bold">Principal</span></div>
+                <div class="margin-top-15 margin-bottom-15">[[chart.data.countEmployeesEconomicGroup]] <span class="text-bold">Grupo</span></div>
+                <div class="margin-top-15 margin-bottom-15">[[chart.data.countEmployeesContrators]] <span class="text-bold">Contratistas</span></div>
+                <div class="margin-top-15 margin-bottom-15">[[chart.data.total]] <span class="text-bold">Total</span></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

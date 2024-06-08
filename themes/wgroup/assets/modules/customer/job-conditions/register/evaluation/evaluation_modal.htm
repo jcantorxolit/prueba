@@ -1,0 +1,199 @@
+<div>
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">REGISTRO DE MÉTRICAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <uib-accordion>
+                            <div uib-accordion-group class="panel-default" is-open="true">
+                                <uib-accordion-heading>
+                                    <strong> [[ data.name ]]</strong> <em class="pull-right glyphicon glyphicon-chevron-down"></em>
+                                </uib-accordion-heading>
+
+                                <div ng-repeat="subClassification in entity.questionList" ng-class="{'margin-top-10': $index>0}">
+                                    <div class="well-sm label-default col-md-12 " colspan="2">
+                                        <strong class="text-white">[[ subClassification.name ]]</strong>
+                                    </div>
+
+                                    <div class="col-md-12 margin-top-10 margin-left-10">
+
+                                        <div class="row" ng-repeat="question in subClassification.questions">
+
+                                            <div class="col-md-12 padding-top-5">
+                                                <label for=""> <strong>[[ question.name ]]</strong> </label>
+
+                                                <div class="row">
+
+                                                    <div class="radio clip-radio radio-success radio-inline">
+                                                        <input type="radio" id="[[question.id]][[option.value]]" name="[[question.id]]answer" value="JCA001" ng-model="question.answer" ng-change="onChangeAnswer()" ng-disabled="isView">
+
+                                                        <label class="text-bold text-wrap text-break" for="[[question.id]][[option.value]]">Cumple</label>
+                                                    </div>
+
+                                                    <div class="radio clip-radio radio-success radio-inline">
+                                                        <input type="radio" id="[[question.id]]nocumple" name="[[question.id]]answer" value="JCA002" ng-model="question.answer" ng-change="onChangeAnswer()" ng-disabled="isView">
+
+                                                        <label class="text-bold text-wrap text-break" for="[[question.id]]nocumple">No Cumple</label>
+                                                    </div>
+
+                                                    <div class="radio clip-radio radio-success radio-inline">
+                                                        <input type="radio" id="[[question.id]]noaplica" name="[[question.id]]answer" value="JCA003" ng-model="question.answer" ng-change="onChangeAnswer()" ng-disabled="isView">
+
+                                                        <label class="text-bold text-wrap text-break" for="[[question.id]]noaplica">No aplica</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </uib-accordion>
+                    </div>
+
+
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">IMÁGENES ANEXAS</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div nv-file-drop="" uploader="uploader">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <h5>Seleccionar imágenes</h5>
+
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <div ng-show="uploader.isHTML5">
+                                                            <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+                                                                Zona para descargar archivo
+                                                            </div>
+                                                        </div>
+
+                                                        <span class="btn btn-info btn-o btn-file" ng-disabled="isView">
+                                                            Seleccionar una imagen
+                                                            <input type="file" nv-file-select="" uploader="uploader" multiple ng-disabled="isView"/>
+                                                        </span>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 file-upload" style="margin-bottom: 40px">
+                                                <p>Cantidad anexos (Máximo 5): [[ uploader.queue.length ]]</p>
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50%">Nombre</th>
+                                                                <th ng-show="uploader.isHTML5">Tamaño</th>
+                                                                <th ng-show="uploader.isHTML5">Progreso</th>
+                                                                <th>Estado</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="item in uploader.queue">
+                                                                <td><strong>[[ item.file.name ]]</strong>
+                                                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                                                                </td>
+                                                                <td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2 ]] MB
+                                                                </td>
+                                                                <td ng-show="uploader.isHTML5">
+                                                                    <div class="progress progress-xs margin-bottom-0">
+                                                                        <div class="progress-bar" role="uib-progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span ng-show="item.isSuccess"><em class="glyphicon glyphicon-ok"></em></span>
+                                                                    <span ng-show="item.isCancel"><em class="glyphicon glyphicon-ban-circle"></em></span>
+                                                                    <span ng-show="item.isError"><em class="glyphicon glyphicon-remove"></em></span>
+                                                                </td>
+                                                                <td nowrap>
+                                                                    <button type="button" class="btn btn-danger btn-o btn-xs" ng-disabled="isView" ng-click="item.remove()">
+                                                                        <em class="glyphicon glyphicon-trash"></em> Remover
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        Progreso:
+                                                        <div class="progress progress-xs margin-top-5 margin-bottom-20">
+                                                            <div class="progress-bar" role="uib-progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length || isView">
+                                                        <span class="glyphicon glyphicon-trash"></span> Remover todo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <fieldset>
+                                <legend>Evidencias</legend>
+
+                                <ng-image-gallery images="entity.images" methods="methods" conf="conf" thumbnails="thumbnails" thumb-size="thumbSize" inline="inline" bubbles="bubbles" bubble-size="bubbleSize" img-bubbles="imgBubbles" bg-close="bgClose" piracy="true" on-open="opened();"
+                                    on-close="closed();" on-delete="delete(img, cb)" bg-close="false">
+                                </ng-image-gallery>
+
+                            </fieldset>
+
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary btn-o" ng-click="onUploadEvidences()">
+                                            Guardar Evidencias
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-o" ng-click="onDownload()" ng-disabled="entity.images.length == 0">
+                                            Descargar Evidencias
+                                        </button>
+
+                                        <iframe title="Download Evidence" id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 padding-bottom-20">
+            <div class="pull-right">
+
+                <button type="button" class="btn btn-warning btn-o next-step btn-wide" ng-click="onClose()">Cerrar</button>
+
+                <button type="button" class="btn btn-danger btn-o next-step btn-wide"
+                        ng-click="loadBeforeClassification()"
+                        ng-show="data.index > 0">Anterior</button>
+
+                <button type="submit" class="btn btn-primary back-step btn-wide"
+                        ng-disabled="!nextEnable"> <span>[[ isLast == true ? "Finalizar" : "Siguiente" ]]</span>
+                </button>
+
+            </div>
+        </div>
+
+    </form>
+</div>

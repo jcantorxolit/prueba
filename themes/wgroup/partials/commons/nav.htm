@@ -1,0 +1,718 @@
+<!-- start: MAIN NAVIGATION MENU -->
+<div class="navbar-title">
+    <span translate="Menu">Opciones de Menú</span>
+</div>
+
+<ul class="folders" ng-if="currentUser().wg_type == 'system' && currentUser().wg_term_condition == 1">
+    <li ng-class="{'active open':$state.includes('app.configuration')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-settings"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Configuración"> Configuración </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.term-condition">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Términos y Condiciones">Términos y Condiciones </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.privacy-policy">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Tratamien Datos Personales">Tratamien Datos Personales</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.economic-sector-task">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <span class="title" translate="Actividades por Sector Económico">Actividades por Sector Económico</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.parameters">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Parámetros Generales">Parámetros Generales </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.arl">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="ARL">ARL</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.diagnostic-disability">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Diagnóstico Ausentismo">Diagnóstico Ausentismo</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.project-task-type">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Tipos Tarea Plan de trabajo">Tipos Tarea Proyecto</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.management-system">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Sistema de Gestión">Sistema de Gestión</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.business-programs">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Programas Empresariales">Programas Empresariales</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.program-prevention-document.list">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Configuración guía implementación diagnóstico">Configuración guía implementación diagnóstico</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.minimum-standard">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Estándares Mínimos 1111">Estándares Mínimos 1111</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.minimum-standard-0312">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Estándares Mínimos 0312">Estándares Mínimos 0312</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.road-safety">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Seguridad Vial">Seguridad Vial</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.resource-library">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Biblioteca de Recursos">Biblioteca de Recursos</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.complementary-test">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Medicina del Trabajo - Pruebas Complementarias">Medicina del Trabajo - Pruebas Complementarias</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.prioritization-factor">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Resultados factor de priorización">Resultados factor de priorización</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.help-roles-profiles">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Ayudas Roles y Perfiles">Ayudas Roles y Perfiles</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.signature-certificate-vr">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Configuración Certificado RV">Configuración Certificado RV</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.signature-indicator-vr">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Configuración Indicadores RV">Configuración Indicadores RV</span>
+                        </div>
+                    </div>
+                </a>
+            </li>            
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.configuration.template-manage">
+                    <div class="item-content">
+
+                        <div class="item-inner">
+                            <span class="title" translate="Administrar Plantillas">Administrar Plantillas</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+</ul>
+
+<ul class="main-navigation-menu" ng-if="!$state.includes('app.enrollment') && currentUser().wg_term_condition == 1">
+    <li ui-sref-active="active" ng-if="can('dashboard_open')">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-layers-alt"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Dashboard"> Dashboard  </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.dashboard.list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Dashboard Sylogi">Dashboard Sylogi </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="availableUserTopManagement">
+                <a ui-sref="app.dashboard.top-management">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Dashboard Alta Gerencia">Dashboard Alta Gerencia</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="canShowCommercialDashboard()">
+                <a ui-sref="app.dashboard.commercial">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Dashboard Comercial">Dashboard Comercial</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('clientes_open')">
+        <a ui-sref="app.clientes.list">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-layout-grid2"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Clientes"> Clientes </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="(currentUser().wg_type == 'system' || currentUser().wg_type == 'agent') && can('asesores_open')">
+        <a ui-sref="app.asesores.list">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-user"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Asesores"> Asesores </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ng-class="{'active open':$state.includes('app.projects')}" ng-if="can('planes-trabajo_open')">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-layers-alt"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Plan de Trabajo"> Plan de Trabajo  </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.projects.budget">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Presupuesto">Presupuesto</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.projects.planning">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Plan de trabajo">Plan de trabajo </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.projects.list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Administración"> Administración</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="currentUser().wg_type == 'system'">
+                <a ui-sref="app.projects.billing">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Facturación Masiva"> Facturación Masiva</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="can('projects_attachments')">
+                <a ui-sref="app.projects.attachments">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Anexos"> Anexos</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li ng-class="{'active open':$state.includes('app.internal-projects')}" ng-if="can('planes-trabajo-interno_open')">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-layers-alt"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Plan de trabajo Internos"> Plan de trabajo Internos</span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.internal-projects.planning">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Planeación">Planeación </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.internal-projects.list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Administración"> Administración </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="app.internal-projects.attachment">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-view-list-alt"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Anexos"> Anexos </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('planeador_open')">
+        <a ui-sref="app.planer.calendar">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-calendar"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Planeador"> Planeador </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('reportes_open')">
+        <a ui-sref="app.report.list">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-pie-chart"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Reportes"> Reportes </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="(currentUser().wg_type == 'system' || currentUser().wg_type == 'agent') && can('encuentas_open')">
+        <a ui-sref="app.poll.list">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-pencil-alt"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Encuestas"> Encuestas </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="(currentUser().wg_type == 'system' || currentUser().wg_type == 'agent') && can('cotizaciones_open')">
+        <a ui-sref="app.cotizaciones.list">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-shopping-cart"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Cotizaciones"> Cotizaciones </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="(currentUser().wg_type == 'system' || currentUser().wg_type == 'agent') && can('certificados_open')">
+        <a ui-sref="app.certificate.admin">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-medall"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Certificados"> Certificados </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('certificados_open')">
+        <a ui-sref="app.certificate.report">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-filter"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Consultar Certificados"> Consultar Certificados </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('biblioteca_open')">
+        <a ui-sref="app.resource.library">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-book"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Bibliotecas de Recursos"> Bibliotecas de Recursos </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('certificados_open')">
+        <a ui-sref="app.certificate.validate">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-key"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Validar Certificados"> Validar Certificados </span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="can('positiva_fgn')">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-stack-overflow"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Positiva FGN"> Positiva FGN</span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_consultants')">
+                <a ui-sref="app.positiva-fgn.consultants-list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Configuración de Asesores">Configuración de Asesores </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_campus')">
+                <a ui-sref="app.positiva-fgn.campus-list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Configuración de Sedes">Configuración de Sedes </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_sectionals')">
+                <a ui-sref="app.positiva-fgn.config-sectionals">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Configuración de Seccionales">Configuración de Seccionales </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <!--Profesiones-->
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_professional')">
+                <a ui-sref="app.positiva-fgn.config-professional">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title" translate="Configuración de Profesionales">Configuración de Profesionales </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_vendor')">
+                <a ui-sref="app.positiva-fgn.vendor-list">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Configuración de Proveedores">Configuración de Proveedores</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_activities_gestpos')">
+                <a ui-sref="app.positiva-fgn.gestpos">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Configuración Actividades CREA">Configuración Actividades CREA </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_config_activities_fgn')">
+                <a ui-sref="app.positiva-fgn.fgn">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-settings"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Configuración Actividades FGN">Configuración Actividades FGN </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_asesores_asignar')">
+                <a ui-sref="app.positiva-fgn.consultant-assignment">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-panel"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Asignación de Asesores">Asignación de Asesores </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_management')">
+                <a ui-sref="app.positiva-fgn.fgn-management-axis-programming">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-panel"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Gestión">Gestión </span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="can('positiva_fgn_indicators')">
+                <a ui-sref="app.positiva-fgn.fgn-indicators">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-panel"></i>
+                        </div>
+                        <div class="item-inner" >
+                            <span class="title" translate="Indicadores">Indicadores</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+
+
+
+
+</ul>
+<!-- end: MAIN NAVIGATION MENU -->
+
+
+
+<ul class="folders">
+    <li>
+        <a href="[[tutorial.value]]" target="_blank">
+            <div class="item-content">
+                <div class="item-media">
+                    <span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i> </span>
+                </div>
+                <div class="item-inner">
+                    <span class="title" translate="Tutoriales"> Tutoriales </span>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>

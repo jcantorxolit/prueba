@@ -1,0 +1,42 @@
+<div ng-controller="customerAbsenteeismDisabilityStagingListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">IMPORTACIÓN DE AUSENTISMOS</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive-large-table">
+                                    <table datatable="" parent-width-full
+                                        dt-instance="dtInstanceDiagnosticDisabilityStagingDTCallback"
+                                        dt-options="dtOptionsDiagnosticDisabilityStagingDT"
+                                        dt-columns="dtColumnsDiagnosticDisabilityStagingDT" id="dataDiagnosticDisabilityStagingDT"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row padding-20">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-click="onProcess()">
+                            Procesar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Regresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,93 @@
+﻿<div ui-view="" class="fade-in-right-big">
+    <!-- start: FORM BODY -->
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row" ng-controller="ConfigurationComplementaryTestResultCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                            <label class="control-label">
+                                Prueba Complementaria<span class="symbol required"></span>
+                            </label>
+
+                            <div class="input-group">
+                                <ui-select name="code" ng-model="parameter.code" theme="bootstrap"
+                                           ng-disabled="isView" ng-required="true">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item in complementaryTestList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="refreshComplementaryTest()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-refresh"></span>
+                                    </button>
+                                </span>
+                            </div>
+                              <span class="error text-small block"
+                                    ng-if="Form.code.$dirty && Form.code.$invalid">El registro es requerido</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                            <label class="control-label">Descripción<span
+                                    class="symbol required"></span></label>
+                            <input type="text" placeholder="Ingrese la descripción"
+                                   class="form-control" name="description"
+                                   ng-model="parameter.item" required/>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Adicionar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%"
+                                   dt-instance="dtInstanceComplementaryTestResultCallback"
+                                   dt-options="dtOptionsComplementaryTestResult"
+                                   dt-columns="dtColumnsComplementaryTestResult"
+                                   id="dtComplementaryTestResult"
+                                   class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: FORM BODY -->
+</div>

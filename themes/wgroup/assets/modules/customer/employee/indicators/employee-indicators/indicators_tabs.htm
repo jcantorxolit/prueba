@@ -1,0 +1,14 @@
+<div ng-controller="customerEmployeeIndicatorsEmployeeIndicatorsTabsCtrl">
+
+    <div ng-switch="section" data-ng-animate="'wave'">
+
+        <div ng-switch-when="summary" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/indicators/employee-indicators/summary/summary.htm'"></div>
+        </div>
+
+        <div ng-switch-when="employeeIndicators" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/indicators/employee-indicators/employee_indicators.htm'"></div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,225 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <h4 class="panel-title margin-bottom-15 margin-left-20"><span class="text-bold">[[entity.factor]] / [[entity.subfactor]]</span>
+            </h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 intervention">
+            <div class="list-group margin-left-20 margin-right-20">
+                <a class="list-group-item list-group-item-default text-bold active" href="#">
+                    <div class="row margin-right-30">
+                        <div class="col-md-12">
+                            <i class="margin-right-10 float-left text-grey fa fa-circle"></i>
+                            <p class="no-margin error-full-page">[[ entity.hazard ]]</p>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <div class="col-md-11 padding-left-0">
+                            <span class="text-bold text-large text-label">[[ entity.name ]]</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="text-small" ng-if="!entity.isHistorical"
+                                ng-class="{'has-success': !entity.isClosed}">[[
+                                entity.isClosed ? 'Cerrado' : 'Abierto' ]]</span>
+                            <span class="text-small" ng-if="entity.isHistorical">[[
+                                entity.executionDate | date : "dd/MM/yyyy" ]]</span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                    <label class="control-label text-bold text-large">
+                                        Nombre del plan<span class="symbol required"></span></label>
+                                    <input ng-disabled="isView || entity.isHistorical || entity.isClosed" type="text"
+                                        placeholder="Ingrese el registro" maxlength="120" class="form-control"
+                                        name="name" ng-model="entity.name" required />
+                                    <span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                    <label class="control-label text-bold text-large">
+                                        Descripción<span class="symbol required"></span>
+                                    </label>
+                                    <textarea ng-disabled="isView || entity.isHistorical || entity.isClosed" type="text"
+                                        placeholder="Ingresar la descripción" class="form-control" name="description"
+                                        ng-model="entity.description" required></textarea>
+                                    <span class="error text-small block"
+                                        ng-if="Form.description.$dirty && Form.description.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                    <label class="control-label text-bold text-large">Responsable<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="responsible" ng-required="true"
+                                        ng-disabled="isView || entity.isHistorical || entity.isClosed"
+                                        ng-model="entity.responsible" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in responsibleList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search">
+                                            </div>
+                                            <small>
+                                                Tipo: <span
+                                                    ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.responsible.$dirty && Form.responsible.$invalid">
+                                        El registro es requerido</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.amount.$dirty && Form.amount.$invalid}">
+                                    <label class="control-label text-bold text-large">Presupuesto<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView || entity.isHistorical || entity.isClosed" type="text"
+                                        placeholder="Ingresar valor evento" class="form-control" name="amount"
+                                        ui-money-mask="0" ng-model="entity.amount" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.amount.$dirty && Form.amount.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row  margin-bottom-20">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.executionDate.$dirty && Form.executionDate.$invalid}">
+                                    <label class="control-label text-bold text-large">Fecha de ejecución<span
+                                            class="symbol required"></span></label>
+                                    <input class="form-control" kendo-date-picker placeholder="DD/MM/AAAA"
+                                        name='executionDate' k-on-change="onChangeExecutionDate(kendoEvent)"
+                                        k-options="datePickerConfig" k-ng-model="entity.executionDate"
+                                        ng-disabled="isView || entity.isHistorical || entity.isClosed"
+                                        style="width: 100%;" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.executionDate.$dirty && Form.executionDate.$invalid">
+                                        El registro es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="margin-vertical-20" ng-if="isView || entity.isHistorical || entity.isClosed">
+
+                        <div class="row">
+                            <div class="col-md-12 margin-bottom-5" ng-repeat="item in entity.files">
+                                <a class="btn-link" href="#" ng-click="onDownload(item.id)">
+                                    <i class="glyphicon glyphicon-paperclip"></i>
+                                    [[ item.name ]]
+                                </a>
+                            </div>
+                        </div>
+
+                        <hr class="margin-bottom-10" ng-if="entity.files.length > 0">
+
+                        <div class="row">
+                            <div class="col-md-12 margin-bottom-5" ng-repeat="item in fileUploader.queue">
+                                <span><i class="glyphicon glyphicon-paperclip"></i> [[
+                                    item.file.name ]]
+                                </span>
+                                <button type="button" class="btn btn-danger btn-xs" uib-tooltip="Eliminar"
+                                    tooltip-placement='left' ng-click="item.remove()">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-20" ng-if="!entity.isHistorical && !entity.isClosed && !isView">
+                            <div class="col-md-12">
+                                <span class="btn-link btn-file">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Adjuntar evidencia
+                                    <input type="file" accept=".xlsx,.xls,image/*,.doc,.docx,.pdf" nv-file-select=""
+                                        uploader="fileUploader" multiple />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-if="!entity.isHistorical && !entity.isClosed">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label text-bold text-large">
+                                        Estado del plan
+                                    </label>
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <span
+                                            class="control-label col-md-1 no-padding margin-top-5 text-label">Cerrado</span>
+                                        <switch disabled="isView" ng-model="entity.status" on="Si" off="No"
+                                            class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-15" ng-if="!entity.isHistorical && !entity.isClosed && !isView">
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary btn-block" ng-disabled='Form.$invalid'>
+                                    Guardar
+                                </button>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="pull-right">
+                                    <a class="btn-link link-underline" href="#" ng-if="false"
+                                        ng-click="onRemoveIntervention(intervention)">
+                                        Borrar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="downloadIntervention" style='position:fixed;display:none;top:-1px;left:-1px;' />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+    </div>
+</form>

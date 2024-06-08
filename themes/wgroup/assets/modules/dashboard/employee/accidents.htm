@@ -1,0 +1,152 @@
+<div ng-controller="dashboardDiagnosticCustomerEmployeeAccidentCtrl">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title text-primary">CARACTERIZACIÓN DE LA ACCIDENTALIDAD</h4>
+    </div>
+    <div class="panel-body partition-light-grey">
+
+        <div class="row display-flex flex-justify-end">
+
+            <div class="col-md-2 form-group"
+                 ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                <label class="control-label">Periodo</label>
+
+                <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                           ng-required="true" on-select="onRefresh()">
+                    <ui-select-match placeholder="- Seleccionar -">
+                        [[$select.selected.item]]
+                    </ui-select-match>
+
+                    <ui-select-choices
+                            repeat="period in periods | filter: $select.search track by $index">
+                        <div ng-bind-html="period.item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+
+        </div>
+
+
+        <div class="row margin-bottom-40">
+            <div class="col-md-5">
+
+                <div class="col-md-6 display-flex flex-align-center margin-bottom-20">
+                    <span class="text-extra-extra-large margin-right-20"><i class="fa fa-male"></i></span>
+
+                    <div class="display-flex flex-direction-column flex-justify-center">
+                        <span class="text-extra-extra-large text-bold">[[data.gender.male]]</span>
+                        Accidentes <br> en hombres
+                    </div>
+                </div>
+
+                <div class="col-md-6 display-flex flex-align-center margin-bottom-20">
+                    <span class="text-extra-extra-large margin-right-20"><i class="fa fa-female"></i></span>
+
+                    <div class="display-flex flex-direction-column flex-justify-center">
+                        <span class="text-extra-extra-large text-bold">[[data.gender.female]]</span>
+                        Accidentes <br> en mujeres
+                    </div>
+                </div>
+
+                <div class="col-md-6 display-flex flex-align-center margin-bottom-20" ng-repeat="item in data.workingDay">
+                    <span class="text-extra-extra-large margin-right-20"><i class="fa [[item.icon]]"></i></span>
+
+                    <div class="display-flex flex-direction-column flex-justify-center">
+                        <span class="text-extra-extra-large text-bold">[[item.count]]</span>
+                        [[item.item]]
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <h5>Accidentes por días semanales</h5>
+                <div class="row display-flex flex-justify-stretch flex-align-center">
+
+                    <span class="text-extra-extra-large margin-right-10"><i class="fa fa-calendar-o"></i></span>
+
+                    <div class="display-flex flex-direction-column margin-left-10 margin-right-10"
+                         ng-repeat="day in days">
+                        <span class="text-bold text-large">[[day.count]]</span> [[day.day]]
+                    </div>
+                </div>
+
+                <div class="row">
+                    <canvas class="tc-chart" tc-chartjs-pie
+                            chart-data="chart.data.deathCause"
+                            chart-options="chart.doughnut.options"
+                            height="80">
+                    </canvas>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="row padding-10 bg-dashboard text-dark">
+                    <h4 class="text-bold">INVESTIGACIONES AT</h4>
+
+                    <div class="row display-flex flex-justify-center flex-align-center padding-20">
+                        <span class="text-size-48 margin-right-30"><i class="fa fa-search"></i></span>
+                        <span class="text-extra-extra-large margin-right-30 text-bold">[[data.totalInvestigationAt]]</span>
+                        <span>Total de <br> investigaciones</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row padding-20">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="row text-center text-bold">
+                    <h4>SEGUIMIENTO CASOS MÉDICOS</h4>
+                </div>
+
+                <div class="row display-flex flex-justify-around text-center">
+                    <div><span class="text-ultra-large text-bold">[[data.totalCasesWithOrigen]]</span> <br> Casos con
+                        <br> calificación de origen
+                    </div>
+                    <div><span class="text-ultra-large text-bold">[[data.totalCasesWithRestrictions]]</span> <br> Casos
+                        con restricciones <br> y recomendaciones
+                    </div>
+                    <div><span class="text-ultra-large text-bold">[[data.totalMissedGrade]]</span> <br> Calificación
+                        <br> de perdida
+                    </div>
+                </div>
+
+                <!-- <div class="row display-flex flex-justify-center text-center">
+
+                </div> -->
+            </div>
+        </div>
+
+
+        <div class="panel-body margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">AGENTES DEL ACCIDENTE</h4>
+            </div>
+            <div class="panel-body partition-light-grey">
+                <div class="row">
+                    <canvas class="tc-chart" height="80" tc-chartjs-bar
+                            chart-options="chart.bar.options"
+                            chart-data="chart.data.chartBarFactor"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-primary">PARTES DEL CUERPO AFECTADAS</h4>
+            </div>
+            <div class="panel-body partition-light-grey">
+                <div class="row margin-left-20">
+                    <canvas class="tc-chart" height="80" tc-chartjs-bar
+                            chart-options="chart.bar.options"
+                            chart-data="chart.data.chartBarBody"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

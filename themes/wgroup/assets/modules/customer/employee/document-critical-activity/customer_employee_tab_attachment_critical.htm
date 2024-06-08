@@ -1,0 +1,90 @@
+<!-- start: RESPONSIVE TABLE -->
+<div ng-controller="customerEmployeeDocumentCriticalListCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">DOCUMENTOS ACTIVIDADES CRÍTICAS</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <strong>Atención!</strong>
+                        A continuación se listarán los tipos de documentos relacionados de las actividades que son requeridos y aún estan pendientes por ingresar
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-wide btn-primary" href="#" ng-click="reloadData()"><i class="glyphicon glyphicon-refresh"></i>
+                        Refrescar</a>
+                </div>
+
+                <div class="col-md-6">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" 
+                            dt-instance="dtInstanceDocumentCriticalCallback" 
+                            dt-options="dtOptionsDocumentCritical" 
+                            dt-columns="dtColumnsDocumentCritical"
+                            id="dtDocumentCritical" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">DOCUMENTOS REQUERIDOS</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <strong>Atención!</strong>
+                        A continuación se listarán los tipos de documentos que son requeridos y aún estan pendientes por ingresar
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-wide btn-primary" href="#" ng-click="reloadRequiredData()"><i class="glyphicon glyphicon-refresh"></i>
+                        Refrescar</a>
+                </div>
+
+                <div class="col-md-6">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" 
+                            dt-instance="dtInstanceDocumentRequiredCallback" 
+                            dt-options="dtOptionsDocumentRequired" 
+                            dt-columns="dtColumnsDocumentRequired"
+                            id="dtDocumentRequired" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- end: RESPONSIVE TABLE -->

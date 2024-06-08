@@ -1,0 +1,42 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="positivaFgnIndicatorComplianceAxisCtrl">
+        <div class="col-md-12">
+            <button type="button" ng-click="onFilter()" class="btn btn-blue">
+                <em class="fa fa-filter"></em> <strong>Filtros</strong>
+            </button>
+            <div class="float-right">
+                <button type="button" ng-click="onExportExcel()" class="btn btn-success">
+                    <em class="fa fa-file-excel-o"></em>
+                    <strong>Exportar a Excel</strong>
+                </button>
+                <button type="button" ng-click="onConsolidate()" class="btn btn-warning">
+                    Consolidar Indicadores
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-12 padding-top-20 margin-top-10">
+            <uib-tabset justified="true" class="tabbable">
+                <uib-tab index="0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" dt-instance="dtInstanceIndicatorsComplianceAxisCallback" dt-options="dtOptionsIndicatorsComplianceAxis" id="dtInstanceIndicatorsComplianceAxis" dt-columns="dtColumnsIndicatorsComplianceAxis" class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+
+        <div class="row padding-bottom-20">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

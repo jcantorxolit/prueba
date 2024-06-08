@@ -1,0 +1,174 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración de [[ 'views.MATRIX-PROCESS-LIST' | translate ]]</h4>
+            </label>
+        </div>
+
+        <fieldset>
+            <legend translate="grid.matrix.ACTIVITY">Actividad:</legend>
+
+            <div class="row">
+                <textarea ng-disabled="true" placeholder="Escribe aquí el registro..." data-ng-model="activity.name"
+                    class="form-control"></textarea>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Procesos:</legend>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group" ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                        <label class="control-label">[[matrixTabLabel1]]<span class="symbol required"></span></label>
+
+                        <div class="input-group">
+                            <ui-select name="workplace" ng-required="true" ng-disabled="isView" ng-model="process.workplace"
+                                theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in workplaces | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="refreshWorkPlace()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>
+                            </span>
+                        </div>
+
+                        <span class="error text-small block" ng-if="Form.workplace.$dirty && Form.workplace.$invalid">El
+                            registro es requerido</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group" ng-class="{'has-error':Form.macro.$dirty && Form.macro.$invalid}">
+                        <label class="control-label">[[matrixTabLabel2]]<span class="symbol required"></span></label>
+
+                        <div class="input-group">
+                            <ui-select name="macro" ng-required="true" ng-disabled="isView || macros.length == 0"
+                                ng-model="process.macro" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in macros | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="refreshMacro()" class="btn btn-default" ng-disabled="isView || macros.length == 0">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>
+                            </span>
+                        </div>
+                        
+                        <span class="error text-small block" ng-if="Form.macro.$dirty && Form.macro.$invalid">El
+                                registro es requerido</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group" ng-class="{'has-error':Form.process.$dirty && Form.process.$invalid}">
+                        <label class="control-label">[[matrixTabLabel3]]<span class="symbol required"></span></label>
+                        <div class="input-group">
+                            <ui-select name="process" ng-required="true" ng-disabled="isView || processes.length == 0"
+                                ng-model="process.process" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in processes | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="input-group-btn">
+                                <button type="button" ng-click="refreshProcess()" class="btn btn-default" ng-disabled="isView || processes.length == 0">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <span class="error text-small block" ng-if="Form.process.$dirty && Form.process.$invalid">El
+                                registro es requerido</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+
+                    <div class="form-group">
+                        <label>
+                            Rutinaria
+                        </label>
+
+                        <div class="checkbox" style="margin-top: 0px !important;">
+                            <switch disabled="isView" ng-model="process.isRoutine" class="green"></switch>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+        <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">PROCESOS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" 
+                                    dt-instance="dtInstanceConfigActivityProcess"
+                                    dt-options="dtOptionsConfigActivityProcess"
+                                    dt-columns="dtColumnsConfigActivityProcess"
+                                    id="dtConfigActivityProcess"
+                                    class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title">
+            <span class="text-bold">CONFIGURACIÓN DE TAREAS Y ACTIVIDADES CREA</span>
+        </h4>
+    </div>
+
+    <div class="panel-body ">
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">SELECCIÓN DE TAREA PRINCIPAL</span></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-9" >
+                            <div class="form-group">
+                                <label class="control-label"> Buscar</label>
+                                <input type="text" placeholder="Ingrese valor"
+                                    class="form-control" name="name" ng-model="entity.name" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <br>
+                                <div class="pull-right margin-right-5">
+                                    <button type="button" class="btn btn-primary" ng-click="onSearch()" >
+                                        Buscar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+                                        Limpiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <div class="form-inline">
+                            <label class="margin-right-5">
+                                <b>Ver Dependientes</b>
+                            </label>
+                            <div class="radio" style="margin-top: 10px !important;">
+                                <switch ng-change="onViewDependents()" ng-model="entity.showDependents" class="green"></switch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnCampus"
+                            dt-options="dtOptionsPositivaFgnCampus" id="dtPositivaFgnCampus" dt-columns="dtColumnsPositivaFgnCampus"
+                            class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-12">
+                    <br>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCloseModal()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

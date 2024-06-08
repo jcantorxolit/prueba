@@ -1,0 +1,125 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración del Peligro</h4>
+            </label>
+        </div>
+
+        <fieldset>
+            <legend translate="grid.matrix.ACTIVITY"> Actividad:</legend>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">                        
+                        <textarea ng-disabled="true" placeholder="Actividad" ng-model="relation.activityList[0].name"
+                            class="form-control" ></textarea> 
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">PELIGROS DISPONIBLES</span></h4>
+                        <div class="panel-tools">
+                            <button type="button" class="btn btn-success btn-sm" ng-click="onBatch()" ng-if="relation.activityList.length > 0">
+                                Adicionar Todos los Peligros
+                            </button>
+                        </div>                        
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%" dt-instance="dtInstanceCustomerConfigJobActivityHazardAvailableCallback"
+                                            dt-options="dtOptionsCustomerConfigJobActivityHazardAvailable" dt-columns="dtColumnsCustomerConfigJobActivityHazardAvailable"
+                                            id="dtCustomerConfigJobActivityHazardAvailable" class="table table-bordered table-hover">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <fieldset>
+            <legend>Relación:</legend>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label translate="grid.matrix.WORK-PLACE">Centro de Trabajo</label>
+                        <input type="text" ng-disabled="true" placeholder="Centro de Trabajo" data-ng-model="relation.workplace.name"
+                            class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label translate="grid.matrix.MACROPROCESS">Macroproceso</label>
+                        <input type="text" ng-disabled="true" placeholder="Macroproceso" data-ng-model="relation.macroprocess.name"
+                            class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label translate="grid.matrix.PROCESS">Proceso</label>
+                        <input type="text" ng-disabled="true" placeholder="Proceso" data-ng-model="relation.process.name"
+                            class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Cargo</label>
+                        <input type="text" ng-disabled="true" placeholder="Cargo" data-ng-model="relation.job.name"
+                            class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">PELIGROS RELACIONADOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%" dt-instance="dtInstanceCustomerConfigJobActivityHazardRelationCallback"
+                                            dt-options="dtOptionsCustomerConfigJobActivityHazardRelation" dt-columns="dtColumnsCustomerConfigJobActivityHazardRelation"
+                                            id="dtCustomerConfigJobActivityHazardRelation" class="table table-bordered table-hover">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+    </div>
+</form>

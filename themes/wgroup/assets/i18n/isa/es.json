@@ -1,0 +1,84 @@
+{
+  "sidebar": {
+    "nav": {
+      "dashboard": {
+        "MAIN": "Dashboard"
+      }
+    }
+  },
+  "footer": {
+    "copyright": {
+      "MAIN": "Copyright",
+      "MESSAGE": "Todos los derechos reservados"
+    }
+  },
+  "views": {
+    "COUNTRY": "País",
+    "STATE": "Departamento",
+    "CITY": "Ciudad",
+    "CONTRACTING": "Contratante",
+    "ARL": "ARL",
+    "CONTACT-INFO": "Información de la Empresa",
+    "EMPLOYEES": "Empleados",
+    "EXPEDITION-DATE": "Fecha de Expedición",
+    "EPS": "EPS",
+    "PROFESSIONAL-ARL": "Profesional ARL",
+    "PROFESSIONALS-ARL": "PROFESIONALES ARL",
+    "RISK-MATRIX-MODAL-DESCRIPTION": "Observación",
+    "RISK-MATRIX-TAB-TITLE": "MPVRDC",
+    "EXPRESS-MATRIX-TAB-TITLE": "Matriz Express 50",
+    "EXPRESS-MATRIX-NAME": "Matriz Express 50",
+    "MATRIX-WORKPLACE": "Grupo Ocupacional o Instalación",
+    "MATRIX-WORKPLACE-LIST": "Grupos Ocupacionales o Instalaciones",
+    "MATRIX-MACROPROCESS": "Subestación",
+    "MATRIX-MACROPROCESS-LIST": "Subestaciones",
+    "MATRIX-PROCESS": "Ubicación, Sitio o Área",
+    "MATRIX-PROCESS-LIST": "Ubicaciones, Sitios o Áreas",
+    "MATRIX-ACTIVITY": "Labor / Tarea",
+    "MATRIX-ACTIVITY-LIST": "Labores / Tareas",
+    "MATRIX-ACTIVITY-AVAILABLE": "LABORES / TAREAS DISPONIBLES",
+    "MATRIX-HAZARD-TAB-TITLE": "Peligros (Cargo - Labor/Tarea)",
+    "EXPRESS-MATRIX-WORKPLACE": "Nombre de grupo ocupacional o instalación",
+    "EXPRESS-MATRIX-WORKPLACE-FILTER": "Seleccione el nombre de grupo ocupacional o instalación",
+    "EMPLOYEE-WORKPLACE": "Centro de trabajo - Lugar de prestación de servicio",
+    "SPECIAL-MATRIX-TAB-TITLE": "Matriz Especial",
+    "SPECIAL-MATRIX-NAME": "Matriz Especial",
+    "SPECIAL-MATRIX-OFFICE": "Nombre de la sede",
+    "SPECIAL-MATRIX-OFFICE-FILTER": "Seleccione la sede",
+    "modals": {
+      "EMPLOYEE-LIST-TITLE": "Empleados",
+      "ECONOMIC-ACTIVITY-LIST-TITLE": "Actividades Económicas"
+    },
+    "WORK-MEDECINE-SVE-TAB": "SVE a Implementar",
+    "WORK-MEDECINE-COMPLEMENTARY-TEST-TITLE": "SISTEMA DE VIGILANCIA EPIDEMIOLÓGICA",
+    "WORK-MEDECINE-COMPLEMENTARY-TEST-FIELD": "Tipo SVE"
+  },
+  "grid": {
+    "matrix": {
+      "WORK-PLACE": "Grupo Ocupacional o Instalación",
+      "MACROPROCESS": "Subestación",
+      "PROCESS": "Ubicación, Sitio o Área",
+      "ACTIVITY": "Labor/Tarea",
+      "CONTROL-METHOD-SOURCE": "Eliminación / Sustitución",
+      "CONTROL-METHOD-MEDIUM": "Control de Ingeniería",
+      "CONTROL-METHOD-PERSON": "Equipos de Protección Personal",
+      "CONTROL-METHOD-ADMINISTRATIVE": "Señalización / Control Administrativo"
+    },
+    "employee": {
+      "WORK-PLACE": "Centro de Trabajo - Lugar de Prestación de Servicio"
+    }
+  },
+  "message": {
+    "matrix": {
+      "WARNING-SELECT-ACTIVITY": "Por favor seleccione al menos una labor/tarea"
+    }
+  },
+  "setting": {
+      "TITLE": "RECUERDE EJECUTAR LO SIGUIENTE",
+      "STEP-1": "Configure No. de trabajadores y clase de riesgo que encuentra en el módulo Información del cliente, opción \"datos básicos\".",
+      "STEP-2": "Una vez tenga configurado No. trabajadores y riesgo, puede iniciar su autoevaluación. Ingrese al módulo Sistema de gestión, en la pestaña \"estándares mínimos 0312\" puede hacer su autoevaluación inicial. Recuerde que  le servirá para generar certificados de cumplimiento del Sistema de gestión.",
+      "STEP-3": "Escoja la matriz de peligros que se encuentra en \"configurar parámetros\"",
+      "STEP-4": "Escoja los usuarios a los que se les debe notificar las incapacidades superiores a 90 y 180 días; además se les notificará el vencimiento de los documentos soporte de los trabajadores. Esta configuración la podrá generar en el módulo información del cliente, opción \"configurar parámetros\".",
+      "CONTACT": "Si necesita asesoría puede contactarse al siguiente correo:"
+  }
+}

@@ -1,0 +1,127 @@
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Actividades Sector Económico">Actividades Sector Económico</h1>
+                <span class="mainDescription">Desde aquí podrá administrar las actividades relacionadas a cada sector
+                    económico.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+
+        <div ng-controller="economicSectorTask">
+            <form name="Form" id="Form" novalidate ng-submit="form.submit(Form)">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.economicSector.$dirty && Form.economicSector.$invalid}">
+                            <label class="control-label">Filtrar por Sector Económico<span
+                                    class="symbol"></span></label>
+                            <ui-select name="economicSector" ng-required="false" ng-disabled="isView"
+                                on-select="onSelectEconomicSector()" ng-model="entity.economicSector" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in economicSectorList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block"
+                                ng-if="Form.economicSector.$dirty && Form.economicSector.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">LISTA DE ACTIVDADES</span></h4>
+                                <div class="panel-tools">
+                                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left'
+                                        uib-tooltip="Adicionar" ng-if="entity.economicSector != null"
+                                        ng-click="onAddTask(Form)">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label class="control-label">Actividad</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Activo
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row" ng-repeat="task in entity.taskList">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input ng-disabled="isView" type="text" placeholder="Ingresa la actividad"
+                                                id="task_[[$index]]" name="task_[[$index]]" class="form-control" name="value" ng-model="task.name"
+                                                required />
+
+                                            <span class="error text-small block"
+                                                ng-if="Form.task_[[$index]].$dirty && Form.task_[[$index]].$invalid">
+                                                El registro es requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="task.isActive" on="Si" off="No"
+                                                    class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1" ng-if="entity.taskList.length > 0">
+                                        <div class="pull-right">
+                                            <div class="form-group">
+                                                <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left'
+                                                    uib-tooltip="Adicionar" ng-if="$index == entity.taskList.length - 1"
+                                                    ng-click="onAddTask(Form)">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                                                    uib-tooltip="Eliminar" ng-click="onRemoveTask($index)">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

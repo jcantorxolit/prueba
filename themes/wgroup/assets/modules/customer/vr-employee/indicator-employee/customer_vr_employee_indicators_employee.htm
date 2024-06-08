@@ -1,0 +1,123 @@
+<div ng-controller="customerVrEmployeeIndicatorsEmployeeCtrl">
+
+    <div class="customer-vr-employee-indicators-export-pdf">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        Número de documento
+                    </label>
+                    <div class="input-group">
+                        <input ng-disabled="true" type="text" ng-pattern="pattern"
+                               placeholder="Ingrese el número de documento" class="form-control" name="document"
+                               ng-model="entity.employee.documentNumber"/>
+                        <span class="input-group-btn">
+                        <button type="button" ng-click="onSearchEmployee()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Nombre(s)</label>
+                    <input ng-disabled="true" type="text" placeholder="Nombres" class="form-control"
+                           name="firstName" ng-model="entity.employee.firstName"/>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Apellidos</label>
+                    <input ng-disabled="true" type="text" placeholder="Apellidos" class="form-control"
+                           name="lastName" ng-model="entity.employee.lastName"/>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="control-label">Periodo</label>
+                    <ui-select name="selectedYear" ng-model="entity.selectedYear"
+                               on-select="onSelectMonth()" theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in periodList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 pull-right">
+                <a class="pull-right" href="#" ng-click="onExportPdf()">
+                    <em class="far fa-file-pdf text-size-36 has-danger"></em>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="">
+
+            <div class="row margin-bottom-30">
+                <div class="col-sm-12 ">
+
+                    <div class="col-md-12 text-center margin-top-10 margin-bottom-30"
+                         ng-repeat="indicator in chart.data.experienceByEmployee">
+
+                        <h4 class="over-title margin-bottom-15"><span class="text-bold">[[indicator.experience]]</span>
+                        </h4>
+
+                        <canvas class="tc-chart" tc-chartjs-line
+                                chart-options="chart.line.options"
+                                chart-data="indicator.chart" height="50">
+                        </canvas>
+
+                        <div class="row">
+                            <button class="btn btn-primary pull-right"
+                                    ng-click="onOpenGridByExperience(indicator.experienceCode)">Ver datos
+                            </button>
+
+                            <div uib-collapse="openedGrids.[[indicator.experienceCode]]">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%" class="table table-bordered table-hover"
+                                               id="dtCustomerVrExperienceByEmployeeIndicator-[[indicator.experienceCode]]"
+                                               dt-columns="dtColumnsCustomerVrExperienceByEmployeeIndicator"
+                                               dt-instance="dtInstanceCustomerVrExperienceByEmployeeIndicatorCallback"
+                                               dt-options="dtOptionsCustomerVrExperienceByEmployeeIndicator"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" id="dtVrEmployeeIE" width="100%"
+                               dt-instance="dtInstanceVrEmployeeIECallback"
+                               dt-options="dtOptionsVrEmployeeIE"
+                               dt-columns="dtColumnsVrEmployeeIE"
+                               class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

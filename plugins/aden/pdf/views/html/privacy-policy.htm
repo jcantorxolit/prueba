@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style type="text/css">
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+            -webkit-print-color-adjust:exact;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .center {
+            position: relative;
+            margin: auto;
+            width: 612px;
+            margin-top: 40px;
+        }
+
+        .container {
+            position: relative;
+            padding: 5px;
+            width: 100%;
+
+            border-top: 10px solid #1E4D8D;
+            border-bottom: 10px solid #1E4D8D;
+            background-color: #fff;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .dots {
+            position: relative;
+            padding: 5px;
+            height: 100%;
+            border: 5px solid transparent;
+            -webkit-border-image: url(../images/border.png) 24 round; /* Safari 3.1-5 */
+            -o-border-image: url(../images/border.png) 24 round; /* Opera 11-12.1 */
+            border-image: url(../images/border.png) 24 round;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .line {
+            position: relative;
+            height: 100%;
+            text-align: center;
+            padding-top: 30px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font: normal bold 35px Arial,sans-serif;
+            color: #1E4D8D;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font: normal normal 44px Arial,sans-serif;
+            margin-bottom: 15px;
+            color: #1E4D8D;
+        }
+        h2 span {
+            font: normal normal 19px Arial,sans-serif;
+            display: block;
+        }
+
+        p {
+            position: relative;
+            font: normal normal 14px Arial,sans-serif;
+            color: #878786;
+            width: 500px;
+            margin: auto;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .left_signature {
+            float: left;
+            text-align: center;
+            width: 33%;
+            padding-left: 40px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .right_signature {
+            float: right;
+            text-align: center;
+            width: 33%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .sello {
+            float: left;
+            width: 33%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .left_signature li, .right_signature p {
+            font: normal normal 10px Arial,sans-serif;
+            color: #1E4D8D;
+            width: auto;
+        }
+
+        .left_signature img, .right_signature img {
+            border-bottom: 2px solid #1E4D8D;
+        }
+
+
+        @media print {
+
+            @page
+            {
+                margin: 0mm;  /* this affects the margin in the printer settings */
+
+            }
+
+            .center {
+                width: 100%;
+                margin-top: 0;
+            }
+
+            .container {
+                width: 21.59cm;
+                border-top: 0.26cm solid #1E4D8D;
+                border-bottom: 0.26cm solid #1E4D8D;
+                padding: 0;
+            }
+
+
+
+            .line {
+                padding-top: 0cm;
+            }
+
+            .logo {
+                width: 5cm;
+                margin-bottom: 0cm;
+            }
+
+            h1 {
+                margin-bottom: 0cm;
+            }
+
+            .sello img {
+                width: 3cm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="center">
+    <div class="container">
+        <div class="line">
+            <!-- <img class="logo" src="http://sylogisoftware.com/beta/themes/wgroup/assets/images/logo_alta.png" width="140" alt=""> -->
+
+            <h3>{{title}}</h3><br><br><br>
+            <p>
+               {{data}}
+            </p>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

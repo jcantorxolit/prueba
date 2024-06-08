@@ -1,0 +1,13 @@
+<div ng-controller="customerMatrixConfigWizardTabAspectCtrl" >
+    <div ng-switch="aspect_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/matrix/config/aspect/customer_matrix_config_wizard_tab_environmental_aspect_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/matrix/config/aspect/customer_matrix_config_wizard_tab_environmental_aspect_edit.htm'">
+            </div>
+        </div>
+    </div>
+</div>

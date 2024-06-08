@@ -1,0 +1,36 @@
+<div ng-controller="configurationProgramPreventionQuestionListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">PREGUNTAS</span></h4>
+
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm"
+                           tooltip-placement='top' uib-tooltip="Refrescar"
+                           ng-click="reloadData()"><i class="fa fa-refresh"></i></a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstanceProgramPreventionQuestion" dt-options="dtOptionsProgramPreventionQuestion"
+                                           dt-columns="dtColumnsProgramPreventionQuestion"
+                                           id="dtProgramPreventionQuestion"
+                                           class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

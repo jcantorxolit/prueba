@@ -1,0 +1,146 @@
+<div class="tab1" ng-controller="customerContactCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white tab4">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">CONTACTOS PRINCIPALES</span>
+                </h4>
+
+                <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' uib-tooltip="Adicionar" ng-if="!isView" ng-click="addMainContact()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label class="control-label">Tipo Contacto
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Primer Apellido
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Segundo Apellido</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="" ng-class='{"col-md-3": customer.maincontacts.length > 1, "col-md-4" : customer.maincontacts.length <= 1 }'>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Nombre
+                                    <span class="symbol required"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" ng-if="customer.maincontacts.length > 1 && canEdit">
+                        <div class="pull-right">
+                            <div class="form-group">
+                                <div class="form-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row" ng-repeat="contact in customer.maincontacts">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <ui-select ng-disabled="!canEdit" ng-model="contact.role" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in customer.contactTypes | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control" name="firtname" ng-model="contact.firstname"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control" name="lastname" ng-model="contact.lastname"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor" class="form-control" name="value" ng-model="contact.value"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="pull-right">
+                            <div class="form-group">
+
+                                <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='top' ng-if="canEdit" uib-tooltip="Agregar Información" ng-click="addInfoContact($index, contact)">
+                                    <i class='fa fa-pencil-square-o'></i>
+                                </a>
+
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top' ng-if="customer.maincontacts.length > 1 && canEdit"
+                                    uib-tooltip="Eliminar" ng-if="canEdit && customer.maincontacts.length > 1" ng-click="removeMainContact($index)">
+                                    <i class='fa fa-trash-o'></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: -100px" class="row" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()" ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,156 @@
+
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN BÁSICA</span></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>
+                                    Estado
+                                </label>
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch ng-model="entity.isActive" class="green"></switch>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="{'has-error':Form.regional.$dirty && Form.regional.$invalid}">
+                                <label class="control-label">Regional<span
+                                        class="symbol required"></span></label>
+                                <ui-select name="regional" ng-required="true" on-select="filterSectional()" ng-model="entity.regional" theme="bootstrap">
+                                    <ui-select-match placeholder="- Opción -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in regionalList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="Form.regional.$dirty && Form.regional.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Nit Seccional</label>
+                                <input type="text" class="form-control" ng-model="entity.sectional.nit" ng-disabled="true" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':Form.sectional.$dirty && Form.sectional.$invalid}">
+                                <label class="control-label">Seccional<span
+                                        class="symbol required"></span></label>
+                                <ui-select name="sectional" ng-required="true" ng-model="entity.sectional"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Opción -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in sectionalList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="Form.sectional.$dirty && Form.sectional.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group" ng-class="{'has-error':Form.campus.$dirty && Form.campus.$invalid}">
+                                <label class="control-label">Sede <span
+                                    class="symbol required"></span></label>
+                                <input type="text" class="form-control" name="campus" ng-model="entity.campus" ng-required="true" />
+                                <span class="error text-small block" ng-if="Form.campus.$dirty && Form.campus.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':Form.department.$dirty && Form.department.$invalid}">
+                                <label class="control-label">Departamento<span
+                                        class="symbol required"></span></label>
+                                <ui-select name="department" ng-required="true" ng-model="entity.department" on-select="changeDepartment($item, true)"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Opción -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in departmentList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="Form.department.$dirty && Form.department.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':Form.city.$dirty && Form.city.$invalid}">
+                                <label class="control-label">Ciudad<span
+                                        class="symbol required"></span></label>
+                                <ui-select name="city" ng-required="true" ng-model="entity.city"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Opción -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in cityList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="Form.city.$dirty && Form.city.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':Form.address.$dirty && Form.address.$invalid}">
+                                <label class="control-label">Dirección <span
+                                    class="symbol required"></span></label>
+                                <input type="text" class="form-control" name="address" ng-model="entity.address" ng-required="true" />
+                                <span class="error text-small block" ng-if="Form.address.$dirty && Form.address.$invalid">
+                                    El valor es requerido.
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

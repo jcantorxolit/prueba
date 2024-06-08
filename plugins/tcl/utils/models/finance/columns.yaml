@@ -1,0 +1,26 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: tcl.utils::lang.finances.name
+        searchable: yes
+
+    code:
+        label: tcl.utils::lang.finances.code
+        searchable: yes
+
+    url:
+        label: tcl.utils::lang.finances.url
+        searchable: yes
+        
+    is_default:
+        label: tcl.utils::lang.finances.is_default
+        type: switch
+
+    is_enabled:
+        label: tcl.utils::lang.finances.is_enabled
+        type: switch
+        invisible: true
+    

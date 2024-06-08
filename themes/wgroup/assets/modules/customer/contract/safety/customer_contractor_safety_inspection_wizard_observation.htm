@@ -1,0 +1,142 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="form-group" ng-class="{'has-error':Form.list.$dirty && Form.list.$invalid}">
+                            <label class="control-label">Lista<span class="symbol required"></span></label>
+
+                            <ui-select name="list" ng-required="true" ng-disabled="isView" ng-model="entity.customerSafetyInspectionList"
+                                theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in lists | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="error text-small block" ng-if="Form.agent.$dirty && Form.agent.$invalid">La
+                                lista es requerido</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                            <label class="control-label">
+                                Observación
+                            </label>
+                            <textarea class="form-control" name="observation" ng-model="entity.observation" required></textarea>
+                            <span class="error text-small block" ng-if="Form.observation.$dirty && Form.observation.$invalid">La
+                                observación es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row margin-bottom-15">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                Adicionar
+            </button>
+            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">OBSERVACIONES</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" 
+                                dt-instance="dtInstanceCustomerContractSafetyInspectionObservationCallback"
+                                dt-options="dtOptionsCustomerContractSafetyInspectionObservation" 
+                                dt-columns="dtColumnsCustomerContractSafetyInspectionObservation"
+                                id="dtCustomerContractSafetyInspectionObservation" class="table table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">RESULTADOS DE INSPECIÓN DEL PROCESO</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Filtrar por <strong>Lista</strong></label>
+                            <ui-select name="filterList" ng-model="criteria.list"
+                                theme="bootstrap" on-select="onSelectList()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in lists | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" 
+                                dt-instance="dtInstanceCustomerContractSafetyInspectionDangerousnessCallback" 
+                                dt-options="dtOptionsCustomerContractSafetyInspectionDangerousness"
+                                dt-columns="dtColumnsCustomerContractSafetyInspectionDangerousness"
+                                id="dtCustomerContractSafetyInspectionDangerousness" class="table table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" 
+                                dt-instance="dtInstanceCustomerContractSafetyInspectionActionsCallback" 
+                                dt-options="dtOptionsCustomerContractSafetyInspectionActions"
+                                dt-columns="dtColumnsCustomerContractSafetyInspectionActions"
+                                id="dtCustomerContractSafetyInspectionActions" class="table table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Stacked Bar Chart with Groups</title>
+    <script src="../../../dist/Chart.bundle.js"></script>
+    <script src="../../utils.js"></script>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="width: 75%">
+        <canvas id="canvas"></canvas>
+    </div>
+    <button id="randomizeData">Randomize Data</button>
+    <script>
+        var barChartData = {
+            labels: ["Principal", "Grupo", "Contratista"],
+            datasets: [{
+                label: 'Activos',
+                backgroundColor: window.chartColors.red,
+                stack: 'status',
+                data: [
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50
+                ]
+            }, {
+                label: 'Inactivos',
+                backgroundColor: window.chartColors.blue,
+                stack: 'status',
+                data: [
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50
+                ]
+            }, {
+                label: 'Autorizados',
+                backgroundColor: window.chartColors.green,
+                stack: 'authorized',
+                data: [
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50
+                ]
+            }, {
+                label: 'No Autorizados',
+                backgroundColor: window.chartColors.orange,
+                stack: 'authorized',
+                data: [
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50,
+                    Math.abs(randomScalingFactor()) * + 50
+                ]
+            }]
+
+        };
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    title:{
+                        display:true,
+                        text:"Chart.js Bar Chart - Stacked"
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    }
+                }
+            });
+        };
+
+        document.getElementById('randomizeData').addEventListener('click', function() {
+            barChartData.datasets.forEach(function(dataset, i) {
+                dataset.data = dataset.data.map(function() {
+                    return randomScalingFactor();
+                });
+            });
+            window.myBar.update();
+        });
+    </script>
+</body>
+
+</html>

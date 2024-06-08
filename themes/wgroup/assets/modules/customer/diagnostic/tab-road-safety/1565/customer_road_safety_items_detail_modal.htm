@@ -1,0 +1,445 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.parent.$dirty && Form.parent.$invalid}">
+                                    <label class="control-label">Parámetro<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="parent" ng-required="true" ng-disabled="isView"
+                                               ng-model="roadSafety.roadSafetyParent" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in parentList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                            <small>
+                                                Ciclo: <span
+                                                    ng-bind-html="''+item.cycle.name | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.parent.$dirty && Form.parent.$invalid">El padre es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.roadSafety.$dirty && Form.roadSafety.$invalid}">
+                                    <label class="control-label">Variable<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="roadSafety" ng-required="true" ng-disabled="isView"
+                                               ng-model="roadSafety.roadSafety" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.description]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in roadSafetyList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.roadSafety.$dirty && Form.roadSafety.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.numeral.$dirty && Form.numeral.$invalid}">
+                                    <label class="control-label">Numeral<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Numeral"
+                                           class="form-control" name="numeral"
+                                           ng-model="roadSafety.numeral" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.numeral.$dirty && Form.numeral.$invalid">El numeral es requerido</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-2">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.value.$dirty && Form.value.$invalid}">
+                                    <label class="control-label">Valor<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Numeral"
+                                           class="form-control" name="value"
+                                           ng-model="roadSafety.value" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.value.$dirty && Form.value.$invalid">El valor es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="isView" ng-model="roadSafety.isActive" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-md-8">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                    <label class="control-label">Descripción<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                           class="form-control" name="description"
+                                           ng-model="roadSafety.description" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                                </div>
+                            </div>-->
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.criterion.$dirty && Form.criterion.$invalid}">
+                                    <label class="control-label">Criterio<span
+                                            class="symbol required"></span></label>
+                                               <textarea ng-disabled="isView" name="criterion"
+                                                         placeholder="Escribe aquí el criterio..."
+                                                         data-ng-model="roadSafety.criterion"
+                                                         class="form-control" required></textarea>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.criterion.$dirty && Form.criterion.$invalid">El criterio es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="false">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">MARCO LEGAL</span>
+                        </h4>
+
+                        <div class="panel-tools">
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-11">
+
+                                <label class="control-label">
+                                    Descripción
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row"
+                             ng-repeat="item in roadSafety.legalFrameworkList">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.descriptionLegalFramework.$dirty && Form.descriptionLegalFramework.$invalid}">
+                                   <textarea ng-disabled="isView" name="descriptionLegalFramework"
+                                             placeholder=""
+                                             data-ng-model="item.description"
+                                             class="form-control"></textarea>
+                                <span class="error text-small block"
+                                      ng-if="Form.descriptionLegalFramework.$dirty && Form.descriptionLegalFramework.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="false">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">SISTEMA DE GESTIÓN</span>
+                        </h4>
+
+                        <div class="panel-tools">
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <label class="control-label">
+                                    Descripción
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <label class="control-label">
+                                    Artículo
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <label class="control-label">
+                                    Calificación
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row"
+                             ng-repeat="item in config.questionList">
+                            <div class="col-md-8">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.descriptionQuestion.$dirty && Form.descriptionQuestion.$invalid}">
+                                   <textarea ng-disabled="isView" name="descriptionQuestion"
+                                             placeholder=""
+                                             data-ng-model="item.description"
+                                             class="form-control"></textarea>
+                                <span class="error text-small block"
+                                      ng-if="Form.descriptionQuestion.$dirty && Form.descriptionQuestion.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input ng-disabled="isView" type="text"
+                                       placeholder=""
+                                       class="form-control" name="articleQuestion"
+                                       ng-model="item.article"/>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input ng-disabled="isView" type="text"
+                                       placeholder=""
+                                       class="form-control" name="rateQuestion"
+                                       ng-model="item.rate"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" ng-if="false">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">MODO DE VERIFICACIÓN</span>
+                        </h4>
+
+                        <div class="panel-tools">
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-11">
+
+                                <label class="control-label">
+                                    Descripción
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row"
+                             ng-repeat="item in config.verificationList">
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.descriptionVerificationMode.$dirty && Form.descriptionVerificationMode.$invalid}">
+                                   <textarea ng-disabled="isView" name="descriptionVerificationMode"
+                                             placeholder=""
+                                             data-ng-model="item.description"
+                                             class="form-control"></textarea>
+                                <span class="error text-small block"
+                                      ng-if="Form.descriptionVerificationMode.$dirty && Form.descriptionVerificationMode.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-1"
+                                 ng-if="config.verificationList.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <div class="checkbox" style="margin-top: 0px !important;">
+                                            <switch ng-model="item.isActive" class="green"></switch>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.apply.$invalid}">
+                    <label class="control-label">Aplica<span
+                            class=""></span></label>
+
+                    <div class="input-group">
+                        <ui-select ng-model="config.apply" theme="bootstrap" name="apply"
+                                   on-select="onSelectApply($item, $model, item)">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="rate in optionList | filter: $select.search track by $index">
+                                <div ng-bind-html="rate.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="clearApply()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.evidence.$invalid}">
+                    <label class="control-label">Evidencias de su existencia<span
+                            class=""></span></label>
+
+                    <div class="input-group">
+                        <ui-select ng-model="config.evidence" theme="bootstrap" name="evidence"
+                                   on-select="onSelectEvidence($item, $model, item)">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="rate in optionList | filter: $select.search track by $index">
+                                <div ng-bind-html="rate.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="clearEvidence()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.requirement.$invalid}">
+                    <label class="control-label">Responde a los requerimientos<span
+                            class=""></span></label>
+
+                    <div class="input-group">
+                        <ui-select ng-model="config.requirement" theme="bootstrap" name="requirement"
+                                   on-select="onSelectRequirement($item, $model, item)">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="rate in optionList | filter: $select.search track by $index">
+                                <div ng-bind-html="rate.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="clearRequirement()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.rate.$invalid}">
+                    <ui-select ng-model="config.rate" theme="bootstrap" name="rate" ui-select-required
+                               ng-disabled="true"
+                               on-select="changeRate($item, $model, item)">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.text]]
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="rate in rateList | filter: $select.search track by $index">
+                            <div ng-bind-html="rate.text | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="col-md-1" id="containerWizard">
+                <div class="form-group">
+                    <label ng-switch="config.rate.code">
+
+                        <i class="fa fa-ban indicator" ng-style="{color:config.rate.color}" ng-switch-when="nas"></i>
+                        <i class="fa fa-minus-circle indicator" ng-style="{color:config.rate.color}" ng-switch-when="nac"></i>
+                        <i class="fa fa-circle-o indicator" ng-style="{color:config.rate.color}" ng-switch-when="nc"></i>
+                        <i class="fa fa-check-circle-o indicator" ng-style="{color:config.rate.color}" ng-switch-when="cp"></i>
+                        <i class="fa fa-question-circle indicator" ng-switch-default></i>
+
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.criterion.$dirty && Form.criterion.$invalid}">
+                    <label class="control-label">Comentario<span
+                            class="symbol required"></span></label>
+                                               <textarea name="criterion"
+                                                         placeholder="Escribe aquí el comentario..."
+                                                         data-ng-model="config.comment"
+                                                         class="form-control" required></textarea>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.criterion.$dirty && Form.criterion.$invalid">El comentario es requerido</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>

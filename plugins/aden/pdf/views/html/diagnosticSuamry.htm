@@ -1,0 +1,309 @@
+<html lang="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style type="text/css">
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+            -webkit-print-color-adjust: exact;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        blockquote, q {
+            quotes: none;
+        }
+
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .center {
+            position: relative;
+            margin: auto;
+            width: 790px;
+            margin-top: 40px;
+        }
+
+        .container {
+            position: relative;
+            padding: 5px;
+            width: 790px;
+            height: 670px;
+            border: 10px solid #1E4D8D;
+            background-color: #FFFCF0 !important;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .dots {
+            position: relative;
+            padding: 5px;
+            height: 615px;
+            border: 5px solid transparent;
+            -webkit-border-image: url(http://www.soft-waygroup.com/beta/uploads/template/images/border.png) 24 round; /* Safari 3.1-5 */
+            -o-border-image: url(http://www.soft-waygroup.com/beta/uploads/template/images/border.png) 24 round; /* Opera 11-12.1 */
+            border-image: url(http://www.soft-waygroup.com/beta/uploads/template/images/border.png) 24 round;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .line {
+            position: relative;
+            height: 615px;
+            border: 2px solid #1E4D8D;
+            text-align: center;
+            padding-top: 30px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font: normal bold 35px Arial, sans-serif;
+            color: #1E4D8D;
+            margin-bottom: 15px;
+            font-size: 30px;
+        }
+
+        h2 {
+            font: normal normal 44px Arial, sans-serif;
+            margin-bottom: 15px;
+            font-size: 30px;
+            color: #1E4D8D;
+        }
+
+        h2 span {
+            font: normal normal 19px Arial, sans-serif;
+            display: block;
+        }
+
+        p {
+            position: relative;
+            font: normal normal 14px Arial, sans-serif;
+            color: #878786;
+            width: 500px;
+            margin: auto;
+            margin-bottom: 15px;
+        }
+
+        .left_signature {
+            text-align: center;
+            padding-left: 40px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .right_signature {
+            text-align: center;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .sello {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .left_signature li, .right_signature p {
+            font: normal normal 10px Arial, sans-serif;
+            color: #1E4D8D;
+            width: auto;
+        }
+
+        .left_signature img, .right_signature img {
+            border-bottom: 2px solid #1E4D8D;
+        }
+
+        @media print {
+
+            @page {
+                size: landscape;   /* auto is the initial value */
+                margin: 0mm;  /* this affects the margin in the printer settings */
+            }
+
+            .center {
+                width: auto;
+            }
+
+            .container {
+                width: 27.94cm;
+                height: 20.14cm;
+                border: 0.26cm solid #1E4D8D;
+            }
+
+            .dots {
+                border: 1pt dotted #878786;
+            }
+
+            .line {
+                padding-top: 1cm;
+            }
+
+            .logo {
+                width: 5cm;
+                margin-bottom: 1cm;
+            }
+
+            h1 {
+                margin-bottom: 0.5cm;
+            }
+
+            .sello img {
+                width: 3cm;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="table-responsive">
+    <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper form-inline no-footer">
+        <table datatable="" dt-options="dtOptionsDiagnosticSummary" dt-columns="dtColumnsDiagnosticSummary"
+               class="table table-bordered table-hover ng-isolate-scope no-footer dataTable"
+               style="display: table; width: 1519px;" id="DataTables_Table_2" role="grid">
+            <thead>
+            <tr role="row">
+                <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 172px;" aria-label="Código: Activar para ordenar la columna de manera ascendente">
+                    Código
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 358px;" aria-label="Programa: Activar para ordenar la columna de manera ascendente">
+                    Programa
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 174px;" aria-label="Preguntas: Activar para ordenar la columna de manera ascendente">
+                    Preguntas
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 174px;" aria-label="Respuestas: Activar para ordenar la columna de manera ascendente">
+                    Respuestas
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 172px;" aria-label="Avance (%): Activar para ordenar la columna de manera ascendente">
+                    Avance (%)
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1"
+                    style="width: 174px;"
+                    aria-label="Promedio Total (%): Activar para ordenar la columna de manera ascendente">Promedio Total
+                    (%)
+                </th>
+                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 175px;" aria-label="Estado">Estado
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" class="odd">
+                <td class="ng-scope">POL</td>
+                <td class="ng-scope">POLITICA</td>
+                <td class="ng-scope">14</td>
+                <td class="ng-scope">14</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">76.79</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            <tr role="row" class="even">
+                <td class="ng-scope">ORG</td>
+                <td class="ng-scope">LA ORGANIZACIÓN</td>
+                <td class="ng-scope">33</td>
+                <td class="ng-scope">33</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">87.12</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            <tr role="row" class="odd">
+                <td class="ng-scope">PLA</td>
+                <td class="ng-scope">PLANIFICACIÓN</td>
+                <td class="ng-scope">69</td>
+                <td class="ng-scope">69</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">97.83</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            <tr role="row" class="even">
+                <td class="ng-scope">EVA</td>
+                <td class="ng-scope">EVALUACIÓN</td>
+                <td class="ng-scope">36</td>
+                <td class="ng-scope">36</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">87.50</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            <tr role="row" class="odd">
+                <td class="ng-scope">ARA</td>
+                <td class="ng-scope">AUDITORÍA Y REVISÓN POR LA ALTA DIRECCIÓN</td>
+                <td class="ng-scope">48</td>
+                <td class="ng-scope">48</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">93.75</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            <tr role="row" class="even">
+                <td class="ng-scope">ACM</td>
+                <td class="ng-scope">ACCIONES DE MEJORA</td>
+                <td class="ng-scope">12</td>
+                <td class="ng-scope">12</td>
+                <td class="ng-scope">100.00</td>
+                <td class="ng-scope">81.25</td>
+                <td class="ng-scope"><span class="label label-info">Completado</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3 class="dt-loading" style="display: none;">Loading...</h3>
+</div>
+
+</body>
+</html>

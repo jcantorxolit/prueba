@@ -1,0 +1,49 @@
+<div ng-controller="dashboardDiagnosticCustomerEmployeeVirtualRealityCtrl">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title text-primary">REALIDAD VIRTUAL</h4>
+    </div>
+    <div class="panel-body partition-light-grey">
+
+        <div class="row display-flex flex-justify-end">
+
+            <div class="col-md-2 form-group"
+                 ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                <label class="control-label">Periodo</label>
+
+                <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                           ng-required="true" on-select="onRefresh()">
+                    <ui-select-match placeholder="- Seleccionar -">
+                        [[$select.selected.item]]
+                    </ui-select-match>
+
+                    <ui-select-choices
+                            repeat="period in periods | filter: $select.search track by $index">
+                        <div ng-bind-html="period.item | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <canvas tc-chartjs-doughnut chart-data="chart.data.genre" chart-options="chart.doughnut.options" class="tc-chart"
+                        height="120"></canvas>
+                <b class="fa-3x text-center center-block">[[ chart.data.genreTotal ]]</b>
+                <h3 class="text-bold text-center padding-top-5"> Número de participantes </h3>
+            </div>
+
+            <div class="col-md-7">
+                <canvas class="tc-chart" tc-chartjs-bar
+                        chart-data="chart.data.competitorExperience"
+                        chart-options="chart.bar.options"
+                        height="120"></canvas>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

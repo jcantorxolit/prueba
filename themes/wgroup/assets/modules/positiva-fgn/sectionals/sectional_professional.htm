@@ -1,0 +1,120 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title">
+            <span class="text-bold">PROFESIONALES ASOCIADOS A LA SECCIONAL</span>
+        </h4>
+    </div>
+
+    <div class="panel-body ">
+        <form name="FormProfessional" id="form1" novalidate ng-submit="formProfessional.submit(FormProfessional)">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN PROFESIONAL</span></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Estado:</label>
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch ng-model="entity.isActive" class="green"></switch>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.documentType.$dirty && FormProfessional.documentType.$invalid}">
+                                <label class="control-label">Tipo identificación<span class="symbol required"></span></label>
+                                <ui-select name="documentType" ng-required="true" ng-model="entity.documentType" theme="bootstrap" ng-disabled="true">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in documentTypeList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block" ng-if="FormProfessional.documentType.$dirty && FormProfessional.documentType.$invalid">
+                                    El tipo de identificación es requerido
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.documentNumber.$dirty && FormProfessional.documentNumber.$invalid}">
+                                <label class="control-label"> Número Identificación<span class="symbol required"></span></label>
+                                <input type="text" placeholder="Ingrese valor" class="form-control" name="documentNumber" ng-model="entity.documentNumber" required disabled />
+                                <span class="error text-small block" ng-if="FormProfessional.documentNumber.$dirty && FormProfessional.documentNumber.$invalid">
+                                    El número de identificación es requerido
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-default margin-top-20" ng-click="onSelectProfessional()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.fullName.$dirty && FormProfessional.fullName.$invalid}">
+                                <label class="control-label">Nombre(s)<span class="symbol required"></span></label>
+                                <input type="text" placeholder="Ingrese el nombre(s)" class="form-control" name="fullName" ng-model="entity.fullName" required disabled />
+                                <span class="error text-small block" ng-if="FormProfessional.fullName.$dirty && FormProfessional.fullName.$invalid">El nombre(s) es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.job.$dirty && FormProfessional.job.$invalid}">
+                                <label class="control-label">Cargo<span class="symbol required"></span></label>
+                                <input type="text" placeholder="Ingrese el valor" class="form-control" name="job" ng-model="entity.job" required disabled />
+                                <span class="error text-small block" ng-if="FormProfessional.job.$dirty && FormProfessional.job.$invalid">El valor es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.telephone.$dirty && FormProfessional.telephone.$invalid}">
+                                <label class="control-label">Teléfono</label>
+                                <input type="text" placeholder="Ingrese el valor" class="form-control" name="telephone" ng-model="entity.telephone" />
+                                <span class="error text-small block" ng-if="FormProfessional.telephone.$dirty && FormProfessional.telephone.$invalid">El valor es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group" ng-class="{'has-error':FormProfessional.email.$dirty && FormProfessional.email.$invalid}">
+                                <label class="control-label">Email</label>
+                                <input type="email" placeholder="Ingrese el valor" class="form-control" name="email" ng-model="entity.email" />
+                                <span class="error text-small block" ng-if="FormProfessional.telephone.$dirty && FormProfessional.telephone.$invalid">El valor es requerido</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">
+                                            Guardar
+                                        </button>
+                                <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                            Cancelar
+                                        </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">LISTADO PROFESIONALES ENLAZADOS</span></h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" id="dtProfessionalSectional" dt-instance="dtIstanceProfessionalSectional" dt-options="dtOptionsProfessionalSectional" dt-columns="dtColumnsProfessionalSectional" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

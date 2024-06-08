@@ -1,0 +1,121 @@
+<form name="Form" id="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración Tipo de Documento</h4>
+            </label>
+        </div>
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <div class="panel-tools">
+                    <a href='#' class="btn btn-primary btn-o btn-sm" tooltip-placement='left' uib-tooltip="Adicionar"
+                        ng-if="canEdit" ng-click="onAddEmployeeDocumentType()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label">Tipo</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Obligatorio
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">
+                                Activo
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" ng-repeat="item in customer.employeeDocumentsTypeList">
+
+
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input ng-disabled="!canEdit" type="text" placeholder="Ingresa el valor"
+                                class="form-control" name="value" ng-model="item.value" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <div class="form-group">
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <span class="switch ng-valid" ng-click="item.isActive=!item.isActive"
+                                    ng-class="{ checked:item.isActive }" ng-model="item.isActive">
+                                    <small></small>
+                                    <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isActive"
+                                        style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+
+                        </div>
+
+                
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <div class="form-group">
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <span class="switch ng-valid" ng-click="item.isVisible=!item.isVisible"
+                                    ng-class="{ checked:item.isVisible }" ng-model="item.isVisible">
+                                    <small></small>
+                                    <input ng-disabled="!canEdit" type="checkbox" ng-model="item.isVisible"
+                                        style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-1" ng-if="customer.employeeDocumentsType.length > 0  && canEdit">
+                        <div class="pull-right">
+
+                            <div class="form-group">
+                                <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='left'
+                                    uib-tooltip="Eliminar" ng-click="onRemoveEmployeeDocumentType($index)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-info">
+                        Aceptar
+                    </button>
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

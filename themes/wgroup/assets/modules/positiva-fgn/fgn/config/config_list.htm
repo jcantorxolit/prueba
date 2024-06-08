@@ -1,0 +1,54 @@
+
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="CONFIGURACIÓN DE ACTIVIDADES">CONFIGURACIÓN DE ACTIVIDADES</h1>
+                <span class="mainDescription">En esta ventana podrás crear, listar y configurar los periodos de las actividades.</span>
+            </div>
+            <!-- <div ncy-breadcrumb></div> -->
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configListCtrl">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">PERIODOS</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row" ng-if="can('positiva_fgn_periods_create_edit')">
+                                <div class="col-md-6">
+                                    <a class="btn btn-wide btn-green" href="#" ng-click="onCreate(0)" ><i class="glyphicon glyphicon-plus"></i> Nuevo
+                                    </a>
+        
+                                    <!-- <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()" ng-if="canEditRoot || isCustomerUser()">
+                                        <i class="glyphicon glyphicon-upload"></i> Importar</a> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstancePositivaFgn"
+                                                dt-options="dtOptionsPositivaFgn" id="dtPositivaFgn" dt-columns="dtColumnsPositivaFgn"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

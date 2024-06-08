@@ -1,0 +1,15 @@
+<div ng-controller="customerEmployeeOccupationalExaminationCtrl" >
+    <div ng-switch="employee_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/health/customer_employee_occupational_examination_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/health/customer_employee_occupational_examination_edit.htm'">
+            </div>
+
+        </div>
+    </div>
+</div>

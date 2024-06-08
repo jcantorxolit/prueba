@@ -1,0 +1,170 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-6">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.id.$dirty && Form.id.$invalid}">
+                    <label class="control-label">
+                        Plan
+                    </label>
+                    <input ng-disabled="true" type="text"
+                           placeholder="Ingrese la razón social"
+                           class="form-control" name="businessName"
+                           ng-model="current.resource.plan.name"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.id.$dirty && Form.id.$invalid">La consecutivo es requerido</span>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.sisalud.$dirty && Form.sisalud.$invalid}">
+                    <label class="control-label">
+                        Tipo Recurso
+
+                    <span class="help-inline"> <i class="ti-info-alt text-primary"
+                                                  uib-tooltip="Ejemplo tooltip de ayuda para los campos"
+                                                  tooltip-placement="top"></i></span>
+                    </label>
+                    <input ng-disabled="true" type="text"
+                           placeholder="Ingrese el código"
+                           class="form-control" name="sisalud"
+                           ng-model="current.type"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.sisalud.$dirty && Form.sisalud.$invalid">La siniestro SISALUD es requerido</span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-6">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.id.$dirty && Form.id.$invalid}">
+                    <label class="control-label">
+                        Cantidad utilizada
+                    </label>
+                    <input ng-disabled="true" type="text"
+                           placeholder="Ingrese la razón social"
+                           class="form-control" name="businessName"
+                           ng-model="current.quantity"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.id.$dirty && Form.id.$invalid">La consecutivo es requerido</span>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.sisalud.$dirty && Form.sisalud.$invalid}">
+                    <label class="control-label">
+                        Cantidad pendiente
+
+                    <span class="help-inline"> <i class="ti-info-alt text-primary"
+                                                  uib-tooltip="Ejemplo tooltip de ayuda para los campos"
+                                                  tooltip-placement="top"></i></span>
+                    </label>
+                    <input ng-disabled="true" type="text"
+                           placeholder="Ingrese el código"
+                           class="form-control" name="sisalud"
+                           ng-model="pending"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.sisalud.$dirty && Form.sisalud.$invalid">La siniestro SISALUD es requerido</span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--START COMMENT-->
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL BÁSICA</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.comment.$dirty && Form.comment.$invalid}">
+                                    <label class="control-label">
+                                        Cantidad Adicional Máxima Permitida <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="true" type="text"
+                                           placeholder="Ingrese el código"
+                                           class="form-control" name="sisalud"
+                                           ng-model="maxValue"/>
+                                     <span class="error text-small block"
+                                           ng-if="Form.comment.$dirty && Form.comment.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.comment.$dirty && Form.comment.$invalid}">
+                                    <label class="control-label">
+                                        Cantidad Adicional <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView" type="text" ng-if="type == 'U'"
+                                           placeholder="Ingrese la cantidad"
+                                           class="form-control" name="sisalud"
+                                           touchspin data-min="1" data-max="maxValue" data-stepinterval="1"
+                                           ng-model="resource.users"/>
+
+                                    <input ng-disabled="isView" type="text" ng-if="type == 'C'"
+                                           placeholder="Ingrese la cantidad"
+                                           class="form-control" name="sisalud"
+                                           touchspin data-min="1" data-max="maxValue" data-stepinterval="1"
+                                           ng-model="resource.contractors"/>
+
+                                    <input ng-disabled="isView" type="text" ng-if="type == 'H'"
+                                           placeholder="Ingrese la cantidad"
+                                           class="form-control" name="sisalud"
+                                           touchspin data-min="1" data-max="maxValue" data-stepinterval="1"
+                                           ng-model="resource.disk"/>
+
+                                    <input ng-disabled="isView" type="text" ng-if="type == 'E'"
+                                           placeholder="Ingrese la cantidad"
+                                           class="form-control" name="sisalud"
+                                           touchspin data-min="1" data-max="maxValue" data-stepinterval="1"
+                                           ng-model="resource.employees"/>
+
+                                     <span class="error text-small block"
+                                           ng-if="Form.comment.$dirty && Form.comment.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--END COMMENT-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCloseModal()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+    </div>
+</form>

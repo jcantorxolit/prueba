@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerCovidTabsCtrl">
+
+            <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                <div class="col-md-12">
+                    <div class="panel panel-white" id="pnlloading">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">Cargando...</h4>
+                        </div>
+                        <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <p>
+                                    Estamos procesando la información del diagnóstico.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" select="switchTab('basic')">
+                            <uib-tab-heading>
+                                Registro
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('basic').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('indicatorTabs')" ng-if="can('cliente_covid_indicators')">
+                            <uib-tab-heading>
+                                Análisis de indicadores
+                            </uib-tab-heading>
+                            <div ng-if="loadedIndicator">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('indicatorTabs').url">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                        
+                    </uib-tabset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

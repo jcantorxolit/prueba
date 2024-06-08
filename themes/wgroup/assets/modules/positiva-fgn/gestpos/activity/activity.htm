@@ -1,0 +1,12 @@
+<div ng-controller="activityCtrl" >
+    <div ng-switch="activity_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/gestpos/activity/activity_list.htm'">
+            </div>
+        </div>
+        <div ng-switch-when="edit" class="fade-in-right-big" >
+            <div data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/gestpos/activity/activity_edit.htm'">
+            </div>
+        </div> 
+    </div>
+</div>

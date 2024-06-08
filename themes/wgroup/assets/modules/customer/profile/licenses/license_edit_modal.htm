@@ -1,0 +1,203 @@
+<div class="fade-in-right-big">
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row">
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">LICENCIAS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.license.$dirty && Form.license.$invalid}">
+                                            <label class="control-label">Licencia<span
+                                                    class="symbol required"></span></label>
+
+                                            <ui-select name="license" ng-model="entity.license" theme="bootstrap"
+                                                       ng-required="true" ng-disabled="entity.id"
+                                                       on-select="onSelectLicense()"
+                                                       popover-title="Información"
+                                                       popover-is-open="textProfile != null"
+                                                       uib-popover-html="textProfile"
+                                                       popover-trigger="'outsideClick'">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices
+                                                        repeat="license in licenseList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="license.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.license.$dirty && Form.license.$invalid">El tipo de licencia es requerido</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.startDate.$dirty && Form.startDate.$invalid}">
+                                            <label class="control-label">Fecha Inicio<span
+                                                    class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker
+                                                   k-options="datePickerConfig"
+                                                   name="startDate"
+                                                   ng-model="entity.startDate"
+                                                   ng-disabled="isView"
+                                                   onkeydown="return false;" style="width: 100%;" ng-required="true"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.startDate.$dirty && Form.startDate.$invalid">La fecha es requerida</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.endDate.$dirty && Form.endDate.$invalid}">
+                                            <label class="control-label">Fecha Fin<span class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker
+                                                   k-options="datePickerConfig"
+                                                   name="endDate"
+                                                   ng-model="entity.endDate"
+                                                   ng-disabled="isView"
+                                                   onkeydown="return false;" style="width: 100%;" ng-required="true"/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.endDate.$dirty && Form.endDate.$invalid">La fecha es requerida</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.value.$dirty && Form.value.$invalid}">
+                                            <label class="control-label"> Valor
+                                                <span class="symbol required"></span>
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                   name="value" placeholder="Valor"
+                                                   ng-model="entity.value" ng-disabled="isView" required/>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.value.$dirty && Form.value.$invalid">El valor es requerido</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.state.$dirty && Form.state.$invalid}">
+                                            <label class="control-label"> Estado
+                                                <span class="symbol required"></span>
+                                            </label>
+
+                                            <ui-select name="state" ng-model="entity.state" theme="bootstrap"
+                                                       ng-required="true" on-select="onSelectState()"
+                                                       ng-disabled="isView">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+
+                                                <ui-select-choices
+                                                        repeat="state in stateList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="state.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.state.$dirty && Form.state.$invalid">El campo es requerido</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-md-6" ng-class="{'has-error':Form.agentId.$dirty && Form.agentId.$invalid}">
+                                        <label class="control-label">Comercial Asignado
+                                            <span class="symbol required"></span>
+                                        </label>
+                                    
+                                        <ui-select name="agentId" ng-model="entity.agentId" theme="bootstrap"
+                                                   ng-required="true" ng-disabled="isView">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                    
+                                            <ui-select-choices
+                                                    repeat="agentId in agentList | filter: $select.search track by $index">
+                                                <div ng-bind-html="agentId.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    
+                                        <span class="error text-small block"
+                                              ng-if="Form.agentId.$dirty && Form.agentId.$invalid">El campo es requerido</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" ng-if="entity.id && !isView">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Motivo Actualización
+                                                <span class="symbol required"></span>
+                                            </label>
+                                            <textarea class="form-control" placeholder="Escribe aquí el motivo..."
+                                                      data-ng-model="entity.reason"
+                                                      ng-disabled="isview"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-o" ng-disabled="isView">
+                                    Guardar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="row" ng-show="entity.id > 0">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table datatable="" class="table table-bordered table-hover" width="100%"
+                           id="dtCustomerInfoLicenseLogs"
+                           dt-instance="dtInstanceCustomerInfoLicenseLogs"
+                           dt-options="dtOptionsCustomerInfoLicenseLogs"
+                           dt-columns="dtColumnsCustomerInfoLicenseLogs">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,25 @@
+
+<div ng-controller="customerVrEmployeeCtrl" >
+    <div ng-switch="vr_employee_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/customer_vr_employee_register_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/customer_vr_employee_register_edit.htm'">
+            </div>
+        </div>
+
+
+        <div ng-switch-when="staging" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/customer_vr_employee_register_staging_list.htm'">
+            </div>
+        </div>        
+
+        <div ng-switch-when="metrics" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/experience-metrics/customer_vr_employee_register_experience_metrics_tabs.htm'">
+            </div>
+        </div>
+    </div>
+</div>

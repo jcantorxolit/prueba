@@ -1,0 +1,43 @@
+<div class="panel panel-white">
+    <div class="panel-heading border-light">
+        <h4 class="panel-title"><span class="text-bold">REPORTE</span></h4>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-sm-8">
+
+                <div class="partition-light-grey padding-15 text-center margin-bottom-20">
+                    <h4 class="no-margin"><span class="text-bold">Ciclos</span></h4>
+                    <span class="text-light"></span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center margin-bottom-15">
+                            <canvas class="tc-chart" tc-chartjs-bar chart-options="chart.bar.options" chart-data="chart.programs.data"
+                                height="80"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="partition-light-grey padding-15 text-center margin-bottom-20">
+                    <h4 class="no-margin">Avance de <span class="text-bold">AUTOEVALUACIÓN ESTÁNDARES MÍNIMOS</span></h4>
+                    <span class="text-light"></span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center margin-bottom-15 rate">
+                            <canvas class="tc-chart" tc-chartjs-doughnut chart-options="chart.doughnut.options"
+                                chart-data="chart.progress.data" height="150">
+                            </canvas>
+                            <span class="value">[[ chart.progress.total]]%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

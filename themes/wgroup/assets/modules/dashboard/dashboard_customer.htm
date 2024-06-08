@@ -1,0 +1,169 @@
+<div class="export-pdf-contractor" ng-controller="dashboardDiagnosticCustomerCtrl">
+
+    <div class="container-fluid container-fullw bg-white" ng-if="isAdmin || isCustomer || isAgent">
+
+        <div class="row">
+            <div class="col-sm-6 cover-container">
+                <div class="form-group">
+                    <label>
+                        <h5 class="over-title margin-bottom-15">Filtrar
+                            <span class="text-bold">por empresa principal o contratante</span>
+                        </h5>
+                    </label>
+
+                    <ui-select ng-disabled="customerList.length == 0" ng-model="filter.customer"
+                               theme="bootstrap" on-select="onSelectCustomer()">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in customerList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>
+                        <h5 class="over-title margin-bottom-15">Filtrar
+                            <span class="text-bold">por empresa del grupo económico o contratista</span>
+                        </h5>
+                    </label>
+
+                    <ui-select ng-if="isCustomer && mainCustomerId != filter.customer.value" ng-disabled="contractorList.length == 0" ng-model="filter.contractor"
+                        theme="bootstrap" on-select="onSelectContractor()">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in contractorList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                        </ui-select-choices>
+                    </ui-select>
+
+                    <div class="input-group" ng-if="!isCustomer  || (isCustomer && mainCustomerId == filter.customer.value)">
+                        <ui-select ng-disabled="contractorList.length == 0" ng-model="filter.contractor"
+                                   theme="bootstrap" on-select="onSelectContractor()">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in contractorList | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button ng-click="onClearContractor()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row margin-top-20">
+            <div class="col-md-12">
+                <uib-tabset justified="true" class="tabbable" active="activeTab">
+                    <uib-tab index="1" select="switchTab(1)">
+                        <uib-tab-heading>
+                            <h4 class="text-bold no-margin text-info"> <b>General</b> </h4>
+                        </uib-tab-heading>
+
+                        <div>
+                            <div class="panel-body margin-top-20" ng-if="filter.customer">
+                                <div class="panel-body partition-light-grey">
+                                    <h4 class="text-center">INFORMACIÓN DEL CLIENTE</h4>
+
+
+                                    <div class="row margin-bottom-20">
+
+                                        <div class="col-md-6 border-right">
+
+                                            <div class="display-flex flex-justify-end flex-align-end">
+                                                <div class="margin-left-20 margin-right-20">
+                                                    <span class="text-extra-extra-large text-bold text-primary"><i class="fa fa-building-o"></i> [[customerInformation.economigGroup.count || 0]]</span><br>
+                                                    Grupo Empresas
+                                                </div>
+
+                                                <div class="margin-left-20 margin-right-20 text-bold text-center">
+                                                    <span class="text-large">[[customerInformation.economigGroup.actives || 0]]</span> <br> Activos
+                                                </div>
+
+                                                <div class="margin-left-20 margin-right-20 text-bold text-center">
+                                                    <span class="text-large">[[customerInformation.economigGroup.inactives || 0]]</span> <br> Inactivos
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="display-flex flex-align-end">
+                                                <div class="margin-left-20 margin-right-20">
+                                                    <span class="text-extra-extra-large text-bold text-primary"><i class="fa fa-building-o"></i> [[customerInformation.contrators.count || 0]]</span><br>
+                                                    Contratistas
+                                                </div>
+
+                                                <div class="margin-left-20 margin-right-20 text-bold text-center">
+                                                    <span class="text-large">[[customerInformation.contrators.actives || 0]]</span> <br> Activos
+                                                </div>
+
+                                                <div class="margin-left-20 margin-right-20 text-bold text-center">
+                                                    <span class="text-large">[[customerInformation.contrators.inactives || 0]]</span> <br> Inactivos
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="row text-center" ng-if="!isCustomer || (isCustomer && mainCustomerId == filter.customer.value)">
+                                        <a ng-click="onShowDetailCustomerInfo()">Ver detalle</a>
+                                    </div>
+
+                                    <div uib-collapse="isOpenGridDetailCustomerInformation">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table datatable="" width="100%" class="table table-bordered table-hover"
+                                                       id="dtCustomerRelationshipGrid"
+                                                       dt-columns="dtColumnsCustomerRelationshipGrid"
+                                                       dt-instance="dtInstanceCustomerRelationshipGridCallback"
+                                                       dt-options="dtOptionsCustomerRelationshipGrid"></table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div data-ng-animate="'wave'" ng-if="activeTab==1" class="fade-in-right-big"
+                                 data-ng-include="app.views.urlRoot + 'modules/dashboard/dashboard_customer_general.htm'">
+                            </div>
+
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab index="2" select="switchTab(2)">
+                        <uib-tab-heading>
+                            <h4 class="text-bold no-margin text-info"> <b>Empleados</b> </h4>
+                        </uib-tab-heading>
+
+                        <div>
+                            <div data-ng-animate="'wave'" ng-if="activeTab==2" class="fade-in-right-big"
+                                 data-ng-include="app.views.urlRoot + 'modules/dashboard/dashboard_customer_employees.htm'">
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                </uib-tabset>
+            </div>
+        </div>
+
+    </div>
+
+</div>

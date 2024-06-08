@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">MEDIDAS DE INTERVENCIÓN</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                        <label class="control-label">Tipo de Medida<span
+                                                class="symbol required"></span></label>
+                                        <ui-select ng-disabled="isView" ng-model="measure.type"
+                                                   name="type"
+                                                   theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="item in measureTypeList | orderBy:'id' | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group"
+                                         ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                        <label class="control-label">Medida de prevención<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="isView" type="text"
+                                               placeholder="Ingrese la medida preventiva"
+                                               class="form-control" name="description"
+                                               ng-model="measure.description"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La medida preventiva es requerida</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" ng-if="!isView" class="btn btn-primary" ng-click="onAddMeasure()">
+                                    Guardar
+                                </button>
+                                <button type="button" class="btn btn-primary btn-o" ng-click="cancelMeasure()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">MEDIDAS INGRESADAS</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="pull-right">
+                                        <a class="btn btn-wide btn-success btn-o" href="#" ng-click="reloadMeasureData()"><i
+                                                class="glyphicon glyphicon-refresh"></i> Refrescar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+
+                                            <table datatable="" width="100%" dt-instance="dtInstanceOccupationalInvestigationMeasureCallback" dt-options="dtOptionsOccupationalInvestigationMeasure"
+                                                   id="dtOccupationalInvestigationMeasure"
+                                                   dt-columns="dtColumnsOccupationalInvestigationMeasure"
+                                                   class="table table-bordered table-hover"></table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+

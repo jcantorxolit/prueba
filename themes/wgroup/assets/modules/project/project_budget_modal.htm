@@ -1,0 +1,178 @@
+<div class="modal-body">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.item.$dirty && Form.item.$invalid}">
+                                    <label>
+                                        Rubro
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="" class="form-control"
+                                        name="item" ng-model="budget.item" />
+                                    <span class="error text-small block"
+                                        ng-if="Form.item.$dirty && Form.item.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                    <label class="control-label">Clasificación<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="classification" ng-required="true" ng-disabled="isView"
+                                        ng-model="budget.classification" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in types | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block"
+                                        ng-if="Form.classification.$dirty && Form.classification.$invalid">El registro
+                                        es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        Descripción
+                                    </label>
+                                    <textarea rows="6" placeholder="Escribe aquí la descripción"
+                                        data-ng-model="budget.description" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                        Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-o">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row" ng-if="budget.id > 0">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">PERIODOS</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group" ng-class="{'has-error':Form.year.$dirty && Form.year.$invalid}">
+                                <label class="control-label">Año<span class="symbol required"></span></label>
+
+                                <ui-select name="year" ng-required="false" ng-disabled="isView || detail.id > 0" ng-model="detail.year"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in years | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="error text-small block" ng-if="Form.year.$dirty && Form.year.$invalid">El
+                                    registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group" ng-class="{'has-error':Form.month.$dirty && Form.month.$invalid}">
+                                <label class="control-label">Mes<span class="symbol required"></span></label>
+
+                                <ui-select name="month" ng-required="false" ng-disabled="isView || detail.id > 0" ng-model="detail.month"
+                                    theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in months | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="error text-small block" ng-if="Form.month.$dirty && Form.month.$invalid">El
+                                    registro es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Valor presupuesto</label>
+                                <input type="text" placeholder="Presupuesto" ng-disabled="isView" class="form-control"
+                                    name="amountPaid" value="0" name="demo1" ng-model="detail.amount" touchspin
+                                    data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                    data-maxboostedstep="100000000000" data-prefix="$">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success" ng-click="onAddDetail()">
+                                    Adicionar
+                                </button>
+                                <button type="button" class="btn btn-success btn-o" ng-click="onClearDetail()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceBudgetDetailCallback"
+                                        dt-options="dtOptionsBudgetDetail" 
+                                        dt-columns="dtColumnsBudgetDetail"
+                                        id="dtBudgetDetail" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>

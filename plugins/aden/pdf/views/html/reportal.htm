@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Formulario</title>
+    <link rel="shortcut icon" href="">
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css">
+        <link rel="stylesheet" href="{{ themePath }}/assets/report/style.css">
+
+
+<!--Archivos locales (para trabajar sin conexión a internet)
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-formhelpers.css">    -->
+
+
+
+
+    <!--[if IE]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div class="logo"><img src="{{arl_url}}" alt=""></div>
+        <h1 class="titulo">
+            Informe de Accidente de Trabajo del empleador o contratante
+        </h1>
+    </div>
+    <form action="" class="form-horizontal">
+        <div class="row form-group">
+            <div class="numero_formulario right">
+                <label for="">No</label>
+                <div class="placeholder"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="eps">
+                <label for="">EPS a la que está afiliado</label>
+                <div class="placeholder">{{eps}}</div>
+            </div>
+            <div class="codigo_eps">
+                <label for="">Código EPS</label>
+                <div class="placeholder">{{eps_code}}</div>
+            </div>
+            <div class="arl">
+                <label for="">ARL a la que está afiliado</label>
+                <div class="placeholder">{{arl}}</div>
+            </div>
+            <div class="codigo_eps">
+                <label for="">Código ARL</label>
+                <div class="placeholder">{{arl_code}}</div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+
+            <div class="afp">
+                <label for="">AFP a la que está afiliado Seguro Social (Indicar nombre si no es el Seguro Social)</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Sí</span>
+                    <div class="{{ is_afp == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>No</span>
+                    <div class="{{ is_afp == 0 ? 'radio_active' : 'radio_inactive' }}"></div>
+
+                </div>
+                <div class="inline_input">
+                    <span for="">Cuál</span>
+                    <div class="placeholder">{{afp}}</div>
+                </div>
+            </div>
+            <div class="codigo_afp">
+                <label for="">Código AFP o Seguro Social</label>
+                <div class="placeholder">{{afp_code}}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="titulo_01 panel panel-default">
+                <div class="panel-heading">I. Identificación General (EMPLEADOR CONTRATANTE O COOPERATIVA)</div>
+                <div class="panel-body">Sede Principal</div>
+            </div>
+
+            <div class="form-group">
+                <div class="vinculador_laboral">
+                    <label for="">Tipo de vinculador laboral</label>
+                    <br>
+                    <div class="inline_input">
+                        <span>Empleador</span>
+                        <div class="{{ employment_relationship == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                        <span>Contratante</span>
+                        <div class="{{ employment_relationship == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                        <span>Cooperativa de trabajo asociado</span>
+                        <div class="{{ employment_relationship == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="actividad_economica">
+                <label for="">Nombre de la actividad económica</label>
+                <div class="placeholder">{{economic_activity_customer|slice(0, 33)}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{economic_activity_customer_code}}</div>
+            </div>
+
+
+            <div class="razon_social">
+                <label for="">Nombre o razón social</label>
+                <div class="placeholder">{{customer_business_name}}</div>
+            </div>
+
+            <div class="tipo_identificacion">
+                <label for="">Tipo de identificación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>NI</span>
+                    <div class="{{ customer_document_type == 'n' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CC</span>
+                    <div class="{{ customer_document_type == 'c' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CE</span>
+                    <div class="{{ customer_document_type == 'CE' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>NU</span>
+                    <div class="{{ customer_document_type == 'NU' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>PA</span>
+                    <div class="{{ customer_document_type == 'p' ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="numero_identificacion">
+                <label for="">Número de identificación</label>
+                <div class="placeholder">{{customer_document_number}}</div>
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+            <div class="direccion">
+                <label for="">Dirección</label>
+                <div class="placeholder">{{customer_address}}</div>
+
+            </div>
+            <div class="correo_electronico">
+                <label for="">Correo Electrónico</label>
+                <div class="placeholder">{{customer_email}}</div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="telefono">
+                <label for="">Teléfono</label>
+                <div class="placeholder">{{customer_telephone}}</div>
+
+            </div>
+            <div class="fax">
+                <label for="">Fax</label>
+                <div class="placeholder">{{customer_fax}}</div>
+            </div>
+            <div class="departamento">
+                <label for="">Departamento</label>
+                <div class="placeholder">{{customer_state}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{customer_state_code}}</div>
+            </div>
+            <div class="municipio">
+                <label for="">Municipio</label>
+                <div class="placeholder">{{customer_city}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{customer_city_code}}</div>
+            </div>
+            <div class="zona">
+                <label for="">Zona</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>U</span>
+                    <div class="{{ customer_zone == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>R</span>
+                    <div class="{{ customer_zone == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-titulo_01 panel panel-default">
+            <div class="panel-body">Centro de trabajo donde labora el trabajador</div>
+        </div>
+
+        <div class="form-group">
+            <div class="datos_trabajo">
+                <label for="">¿Son los datos del centro de trabajo los mismos de la sede principal?</label>
+                <div class="inline_input">
+                    <span>Sí</span>
+                    <div class="{{ is_customer_branch_same == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>No</span>
+                    <div class="{{ is_customer_branch_same == 0 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+                <span>Solo en caso negativo diligenciar las siguientes casillas sobre centro de trabajo: </span>
+
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="nombre_actividad">
+                <label for="">Nombre de la actividad económica</label>
+                <div class="placeholder">{{economic_activity_branch}}</div>
+
+            </div>
+            <div class="codigo_actividad">
+                <label for="">Código de la actividad económica</label>
+                <div class="placeholder">{{economic_activity_branch_code}}</div>
+
+            </div>
+            <div class="telefono">
+                <label for="">Teléfono</label>
+                <div class="placeholder">{{customer_branch_telephone}}</div>
+
+            </div>
+            <div class="fax">
+                <label for="">Fax</label>
+                <div class="placeholder">{{customer_branch_fax}}</div>
+
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="direccion_02">
+                <label for="">Dirección</label>
+                <div class="placeholder">{{customer_branch_address}}</div>
+
+            </div>
+            <div class="departamento_02">
+                <label for="">Departamento</label>
+                <div class="placeholder">{{customer_branch_state}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{customer_branch_state_code}}</div>
+            </div>
+            <div class="municipio_02">
+                <label for="">Municipio</label>
+                <div class="placeholder">{{customer_branch_city}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{customer_branch_city_code}}</div>
+            </div>
+            <div class="zona">
+                <label for="">Zona</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>U</span>
+                    <div class="{{ customer_branch_zone == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>R</span>
+                    <div class="{{ customer_branch_zone == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row panel panel-default">
+            <div class="panel-heading">
+                II. Información de la persona que se accidentó
+            </div>
+        </div>
+
+
+        <div class="row form-group">
+            <div class="tipo_vinculacion">
+                <label for="">Tipo de vinculación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Planta</span>
+                    <div class="{{ type_linkage == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Misión</span>
+                    <div class="{{ type_linkage == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Cooperado</span>
+                    <div class="{{ type_linkage == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Estudiante o Aprendiz</span>
+                    <div class="{{ type_linkage == 4 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Independiente</span>
+                    <div class="{{ type_linkage == 5 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{type_linkage_code}}</div>
+
+            </div>
+            <div class="apellido">
+                <label for="">Apellidos</label>
+                <div class="placeholder">{{first_lastname}}</div>
+
+            </div>
+           <!-- <div class="apellido">
+                <label for="">Segundo Apellido</label>
+                <div class="placeholder">{{second_lastname}}</div>
+            </div> -->
+
+        </div>
+
+        <div class="row form-group">
+
+
+            <div class="nombre">
+                <label for="">Nombre</label>
+                <div class="placeholder">{{first_name}}</div>
+
+            </div>
+            <!--<div class="nombre">
+                <label for="">Segundo Nombre</label>
+                <div class="placeholder">{{second_name}}</div>
+
+            </div>-->
+            <div class="tipo_identificacion_02">
+                <label for="">Tipo de identificación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>NI</span>
+                    <div class="{{ document_type == 'NI' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CC</span>
+                    <div class="{{ document_type == 'CC' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CE</span>
+                    <div class="{{ document_type == 'CE' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>NU</span>
+                    <div class="{{ document_type == 'NU' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>TI</span>
+                    <div class="{{ document_type == 'TI' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>PA</span>
+                    <div class="{{ document_type in ['PA','PP'] ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="numero_identificacion">
+                <label for="">No de Identificación</label>
+                <div class="placeholder">{{document_number}}</div>
+            </div>
+
+        </div>
+
+        <div class="row form-group">
+            <div class="fecha_nacimiento">
+                <label for="">Fecha de nacimiento</label>
+                <div class="placeholder">{{birth_day}} - {{birth_month}} - {{birth_year}}</div>
+            </div>
+            <div class="genero">
+                <label for="">Género</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>M</span>
+                    <div class="{{ gender == 'M' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>F</span>
+                    <div class="{{ gender == 'F' ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+            <div class="direccion">
+                <label for="">Dirección</label>
+                <div class="placeholder">{{address}}</div>
+
+            </div>
+            <div class="telefono">
+                <label for="">Teléfono</label>
+                <div class="placeholder">{{telephone}}</div>
+
+            </div>
+            <div class="fax">
+                <label for="">Fax</label>
+                <div class="placeholder">{{fax}}</div>
+            </div>
+
+        </div>
+
+        <div class="row form-group">
+
+
+            <div class="departamento_02">
+                <label for="">Departamento</label>
+                <div class="placeholder">{{employee_state}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{employee_state_code}}</div>
+
+            </div>
+            <div class="municipio_02">
+                <label for="">Municipio</label>
+                <div class="placeholder">{{employee_city}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código</label>
+                <div class="placeholder">{{employee_city_code}}</div>
+
+            </div>
+            <div class="zona">
+                <label for="">Zona</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>U</span>
+                    <div class="{{ zone == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>R</span>
+                    <div class="{{ zone == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="cargo">
+                <label for="">Cargo</label>
+                <div class="placeholder">{{ job|slice(0, 10) }}</div>
+
+            </div>
+
+            <div class="ocupacion">
+                <label for="">Ocupación Habitual</label>
+                <div class="placeholder">{{employee_occupation}}</div>
+
+            </div>
+
+            <div class="codigo_ocupacion">
+                <label for="">Código de ocupación</label>
+                <div class="placeholder">{{employee_occupation_code}}</div>
+
+            </div>
+
+
+        </div>
+
+        <div class="row form-group">
+
+
+            <div class="tiempo_ocupacion">
+                <label for="">Tiempo de ocupación habitual</label>
+                <br>
+                <span class="explicacion">(Al momento del accidente)</span>
+                <div class="dia-mes align-right">
+                    <span>Día(s)</span>
+                </div>
+                <div class="dia-mes">
+                    <div class="placeholder">{{occupation_time_day}}</div>
+                </div>
+                <div class="dia-mes align-right">
+                    <span>Mes(es)</span>
+                </div>
+                <div class="dia-mes">
+                    <div class="placeholder">{{occupation_time_month}}</div>
+                </div>
+
+            </div>
+            <div class="fecha_ingreso">
+                <label for="">Fecha ingreso a la empresa
+                </label>
+                <div class="placeholder">{{start_day}} - {{start_month}} - {{start_year}}</div>
+            </div>
+            <div class="salario">
+                <label for="">Salario u Honorarios (Mensual)</label>
+                <div class="placeholder">{{salary}}</div>
+            </div>
+            <div class="jornada">
+                <label for="">Jornada de trabajo habitual</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Diurna</span>
+                    <div class="{{ working_day == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Nocturna</span>
+                    <div class="{{ working_day == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Mixto</span>
+                    <div class="{{ working_day == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Turnos</span>
+                    <div class="{{ working_day == 4 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="row panel panel-default">
+            <div class="panel-heading">
+                III.Información sobre el accidente
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="fecha_accidente">
+                <label for="">Fecha del accidente</label>
+                <div class="placeholder">{{accident_day}} - {{accident_month}} - {{accident_year}}</div>
+            </div>
+
+            <div class="hora_accidente">
+                <label for="">Hora del accidente (0-23 horas)</label>
+                <div class="placeholder">{{accident_hour}} : {{accident_minute}}</div>
+            </div>
+
+            <div class="dia_semana">
+                <label for="">Día de la semana en el que ocurrió el accidente</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Lunes</span>
+                    <div class="{{ accident_week_day == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Martes</span>
+                    <div class="{{ accident_week_day == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Miércoles</span>
+                    <div class="{{ accident_week_day == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Jueves</span>
+                    <div class="{{ accident_week_day == 4 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Viernes</span>
+                    <div class="{{ accident_week_day == 5 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Sábado</span>
+                    <div class="{{ accident_week_day == 6 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Domingo</span>
+                    <div class="{{ accident_week_day == 7 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+
+
+            <div class="jornada_accidente">
+                <label for="">Jornada en que sucedió</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Normal</span>
+                    <div class="{{ accident_working_day == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>Extra</span>
+                    <div class="{{ accident_working_day == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+
+
+            <div class="labor_habitual">
+                <label for="">¿Estaba realizando su labor habitual? (Diligenciar solo en caso negativo)</label><br>
+
+                <span>Sí</span>
+                <div class="{{ accident_regular_work == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                <span>No</span>
+                <div class="{{ accident_regular_work == 0 ? 'radio_active' : 'radio_inactive' }}"></div>
+                <span>¿Cuál?</span>
+                <div class="placeholder">{{report_regular_task}}</div>
+
+            </div>
+
+            <div class="codigo">
+                <label style="height: 21px;" for="">Código
+                </label>
+
+                <div class="placeholder">{{report_regular_task_code}}</div>
+            </div>
+
+            <div class="tiempo_laborado">
+                <label for="">Tiempo laborado <br> (previo al accidente)
+                </label>
+
+                <div class="placeholder">{{accident_work_time}}</div>
+            </div>
+
+            <div class="tipo_accidente">
+                <label for="">Tipo de accidente</label>
+
+                <div class="radio_group">
+                    <span>(1) Violencia</span>
+                    <div class="{{ accident_type == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>(2) Tránsito</span>
+                    <div class="{{ accident_type == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>(3) Deportivo</span>
+                    <div class="{{ accident_type == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <br>
+                    <span>(4) Recreativo o Cultural</span>
+                    <div class="{{ accident_type == 4 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>(5) Propios del trabajo</span>
+                    <div class="{{ accident_type == 5 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="causa">
+                <label for="">¿Causó la muerte del trabajador?</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>Sí</span>
+                    <div class="{{ accident_death_cause == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>No</span>
+                    <div class="{{ accident_death_cause == 0 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+
+            <div class="departamento_accidente">
+                <label for="">Departamento del accidente</label>
+                <div class="placeholder">{{accident_state}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código
+                </label>
+                <div class="placeholder">{{accident_state_code}}</div>
+
+            </div>
+            <div class="municipio_accidente">
+                <label for="">Municipio del accidente</label>
+                <div class="placeholder">{{accident_city}}</div>
+
+            </div>
+            <div class="codigo">
+                <label for="">Código
+                </label>
+                <div class="placeholder">{{accident_city_code}}</div>
+
+            </div>
+            <div class="zona_accidente">
+                <label for="">Zona donde ocurrió
+                    <br> el accidente
+                    <br>
+                </label>
+                <br>
+                <div class="inline_input">
+
+                    <span>U</span>
+                    <div class="{{ accident_zone == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>R</span>
+                    <div class="{{ accident_zone == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+
+            <div class="lugar_accidente">
+                <label for="">Lugar donde ocurrió el accidente</label>
+                <br>
+
+                <span>Dentro de la empresa</span>
+                <div class="{{ accident_location == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                <span>Fuera de la empresa</span>
+                <div class="{{ accident_location == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <label for="">Indique cuál sitio</label>
+                <div class="inline_input">
+
+                    <div class="col-sm-12">
+                        <span>(1) Almacenes o depósitos</span>
+                        <div class="{{ accident_place == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                        <span>(2) Áreas de producción</span>
+                        <div class="{{ accident_place == 2 ? 'radio_active' : 'radio_inactive' }}"></div>
+
+                        <span>(3) Áreas recreativas o deportivas</span>
+                        <div class="{{ accident_place == 3 ? 'radio_active' : 'radio_inactive' }}"></div>
+                        <span>(4) Corredores o pasillos</span>
+                        <div class="{{ accident_place == 4 ? 'radio_active' : 'radio_inactive' }}"></div>
+
+                        <span>(5) Escaleras</span>
+                        <div class="{{ accident_place == 5 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    </div>
+                    <div class="col-sm-12">
+                        <span>(6) Parqueaderos o áreas de circulación vehicular</span>
+                        <div class="{{ accident_place == 6 ? 'radio_active' : 'radio_inactive' }}"></div>
+
+                        <span>(7) Oficinas</span>
+                        <div class="{{ accident_place == 7 ? 'radio_active' : 'radio_inactive' }}"></div>
+                        <span>(8) Otras áreas comunes</span>
+                        <div class="{{ accident_place == 8 ? 'radio_active' : 'radio_inactive' }}"></div>
+
+                        <span>(9) Otro</span>
+                        <div class="{{ accident_place == 9 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="title">Tipo de lesión (Marque con una x cuál(es))</span>
+        </div>
+
+        <div class="tipo_lesion row form-group checkbox">
+            <div class="col_1">
+                <ul class="checkbox_ul">
+                    <li><div class="{{ lesion_10 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(10) Fractura</li>
+                    <li><div class="{{ lesion_20 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(20) Luxación</li>
+                    <li><div class="{{ lesion_25 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(25) Torcedura, esguince, desgarro muscular, hernia o laceración de músculo o tendón sin herida</li>
+                </ul>
+            </div>
+
+            <div class="col_2">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ lesion_30 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(30) Conmoción o trauma interno</li>
+                    <li><div class="{{ lesion_40 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(40) Amputación o enucleación (exclusión o pérdida del ojo)</li>
+                    <li><div class="{{ lesion_41 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(41) Herida</li>
+                    <li><div class="{{ lesion_50 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(50) Trauma superficial (incluye rasguño, punción o pinchazo y lesión en ojo por cuerpo extraño)</li>
+                </ul>
+
+            </div>
+
+            <div class="col_3">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ lesion_55 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(55) Golpe o contusión o aplastamiento</li>
+                    <li><div class="{{ lesion_60 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(60) Quemaduras</li>
+                    <li><div class="{{ lesion_70 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(70) Envenenamiento o intoxicación aguda o ligera</li>
+                    <li><div class="{{ lesion_80 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(80) Efectos del tiempo, el clima u otros relacionados con el ambiente</li>
+                    <li><div class="{{ lesion_81 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(81) Asfixia</li>
+                </ul>
+
+            </div>
+
+            <div class="col_4">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ lesion_82 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(82) Efecto de la electricidad</li>
+                    <li><div class="{{ lesion_83 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(83) Efecto nocivo de la radiación</li>
+                    <li><div class="{{ lesion_90 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(90) Lesiones múltiples</li>
+                    <li><div class="{{ lesion_99 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(99) Otro (especifique)</li>
+                </ul>
+                {{accident_lesion_description}}
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="title">Parte del cuerpo aparentemente afectada</span>
+        </div>
+
+        <div class="parte_cuerpo row form-group checkbox">
+            <div class="col-1">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ body_1 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(1) Cabeza</li>
+                    <li><div class="{{ body_1_12 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(1.12) Ojo</li>
+                </ul>
+
+            </div>
+
+            <div class="col-2">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ body_2 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(2) Cuello</li>
+                    <li><div class="{{ body_3 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3) tronco (Incluye espalda, columna vertebral, médula espinal, pelvis)</li>
+                </ul>
+            </div>
+
+            <div class="col-3">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ body_3_32 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3.32) Tórax</li>
+                    <li><div class="{{ body_3_33 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3.33) Abdómen</li>
+                    <li><div class="{{ body_4 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(4) Miembros superiores</li>
+                </ul>
+
+            </div>
+
+            <div class="col-4">
+
+                <ul class="checkbox_ul">
+                    <li><div class="{{ body_4_46 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(4.46) Manos</li>
+                    <li><div class="{{ body_5 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(5) Miembros inferiores</li>
+                    <li><div class="{{ body_5_56 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(5.56) Pies</li>
+                </ul>
+
+            </div>
+
+            <div class="col-5">
+                <ul class="checkbox_ul">
+                    <li><div class="{{ body_6 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(6) Ubicaciones múltiples</li>
+                    <li><div class="{{ body_7 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(7) Lesiones generales u otras</li>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="row form-group checkbox">
+
+            <div class="agente">
+                <span class="title">Agente del accidente (con qué se lesionó el trabajador)</span>
+                <br>
+                <div class="col-1">
+
+                    <ul class="checkbox_ul">
+                        <li><div class="{{ factor_1 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(1) Máquinas y/o equipos</li>
+                        <li><div class="{{ factor_2 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(2) Medios de transporte</li>
+                        <li><div class="{{ factor_3 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3) Aparatos</li>
+                        <li><div class="{{ factor_3_36 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3.36) Herramientas, implementos o utencilios</li>
+                        <li><div class="{{ factor_44 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(4.44) Radiaciones</li>
+                    </ul>
+
+                </div>
+
+                <div class="col-2">
+
+                    <ul class="checkbox_ul">
+                        <li><div class="{{ factor_5 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(5) Ambiente de trabajo (Incluye superficies de tránsito y de trabajo, muebles, tejados, en el exterior, interior o subterráneos)</li>
+                        <li><div class="{{ factor_6 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(6) Otros agentes no clasificados</li>
+                        <li><div class="{{ factor_6_61 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(6.61) Animales (Vivos o productos animales)</li>
+                        <li><div class="{{ factor_99 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>Agentes no clasificados</li>
+
+                    </ul>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="mecanismo">
+                <span class="title">Mecanismo o forma del accidente</span>
+                <br>
+                <div class="col-1">
+
+                    <ul class="checkbox_ul">
+                        <li><div class="{{ mechanism_1 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(1) Caída de personas</li>
+                        <li><div class="{{ mechanism_2 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(2) Caída de objetos</li>
+                        <li><div class="{{ mechanism_3 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(3) Pisadas, choques o golpes</li>
+                        <li><div class="{{ mechanism_4 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(4) Atrapamientos</li>
+                        <li><div class="{{ mechanism_5 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(5) Sobreesfuerzo, esfuerzo exesivo o falso movimiento</li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-2">
+
+                    <ul class="checkbox_ul">
+                        <li><div class="{{ mechanism_6 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(6) Exposición o contacto con temperatura extrema</li>
+                        <li><div class="{{ mechanism_7 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(7) Exposición o contacto con la electricidad</li>
+                        <li><div class="{{ mechanism_8 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(8) Exposición o contacto con sustancias nocivas o radiaciones o salpicaduras</li>
+                        <li><div class="{{ mechanism_9 == 1 ? 'checkbox_active' : 'checkbox_inactive' }}"></div>(9) Otro (especifique)</li>
+                    </ul>
+                    {{accident_mechanism_description}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row panel panel-default">
+            <div class="panel-heading">
+                IV. Descripción del accidente
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="descripcion_accidente col-sm-12">
+                <label for="">
+                    Describa detalladamente dentro de la información del accidente, qué lo originó o causó y los demás aspectos relacionados con el accidente.
+                    <br>
+                    <br>
+                </label>
+                <textarea style="height: auto;" class="form-control descripcion" rows=8 id="comment">{{accident_description}}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="titulo_personas panel panel-default">
+                <div class="panel-body">
+                    Personas que presenciaron el accidente
+                </div>
+            </div>
+
+            <div class="testigos">
+                <div class="inline-input">
+                    <label for="">¿Hubo personas que presenciaron el accidente? </label>
+
+                    <span>Sí</span>
+                    <div class="{{ is_accident_witness == 1 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>No</span>
+                    <div class="{{ is_accident_witness == 0 ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>(En caso afirmativo diligenciar la siguiente información)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="nombre">
+                <label for="">Nombre completo</label>
+                <div class="placeholder">{{witness_name_1}}</div>
+
+            </div>
+
+            <div class="tipo_identificacion_02">
+                <label for="">Tipo de identificación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>NI</span>
+                    <div class="{{ witness_document_type_1 == 'n' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CC</span>
+                    <div class="{{ witness_document_type_1 == 'c' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CE</span>
+                    <div class="{{ witness_document_type_1 == 'CE' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>NU</span>
+                    <div class="{{ witness_document_type_1 == 'NU' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>TI</span>
+                    <div class="{{ witness_document_type_1 == 'TI' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>PA</span>
+                    <div class="{{ witness_document_type_1 == 'p' ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="numero_identificacion">
+                <label for="">No de identificación</label>
+                <div class="placeholder">{{witness_document_number_1}}</div>
+            </div>
+            <div class="cargo">
+                <label for="">Cargo</label>
+                <div class="placeholder">{{witness_job_1}}</div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="nombre">
+                <label for="">Nombre completo</label>
+                <div class="placeholder">{{witness_name_2}}</div>
+
+            </div>
+
+            <div class="tipo_identificacion_02">
+                <label for="">Tipo de identificación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>NI</span>
+                    <div class="{{ witness_document_type_2 == 'n' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CC</span>
+                    <div class="{{ witness_document_type_2 == 'c' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CE</span>
+                    <div class="{{ witness_document_type_2 == 'CE' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>NU</span>
+                    <div class="{{ witness_document_type_2 == 'NU' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>TI</span>
+                    <div class="{{ witness_document_type_2 == 'TI' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>PA</span>
+                    <div class="{{ witness_document_type_2 == 'p' ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="numero_identificacion">
+                <label for="">No de identificación</label>
+                <div class="placeholder">{{witness_document_number_2}}</div>
+            </div>
+            <div class="cargo">
+                <label for="">Cargo</label>
+                <div class="placeholder">{{witness_job_2}}</div>
+            </div>
+        </div>
+
+        <div class="row panel panel-default">
+            <div class="panel-body">
+                Persona responsable del informe (Representante o delegado)
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="nombre">
+                <label for="">Nombre completo</label>
+                <div class="placeholder">{{report_responsible_name}}</div>
+
+            </div>
+
+            <div class="tipo_identificacion_02">
+                <label for="">Tipo de identificación</label>
+                <br>
+                <div class="inline_input">
+
+                    <span>NI</span>
+                    <div class="{{ report_responsible_document_type == 'n' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CC</span>
+                    <div class="{{ report_responsible_document_type == 'c' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>CE</span>
+                    <div class="{{ report_responsible_document_type == 'CE' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>NU</span>
+                    <div class="{{ report_responsible_document_type == 'NU' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>TI</span>
+                    <div class="{{ report_responsible_document_type == 'TI' ? 'radio_active' : 'radio_inactive' }}"></div>
+                    <span>PA</span>
+                    <div class="{{ report_responsible_document_type == 'p' ? 'radio_active' : 'radio_inactive' }}"></div>
+                </div>
+            </div>
+            <div class="numero_identificacion">
+                <label for="">No de identificación</label>
+                <div class="placeholder">{{report_responsible_document_number}}</div>
+            </div>
+            <div class="cargo">
+                <label for="">Cargo</label>
+                <div class="placeholder">{{report_responsible_job}}</div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="fecha_diligenciamiento">
+                <label for="">Fecha de diligenciamiento del informe del accidente</label>
+                <div class="placeholder">{{report_day}}-{{report_month}}-{{report_year}}</div>
+            </div>
+
+            <div class="firma">
+                <label for="">Firma</label>
+
+            </div>
+        </div>
+
+
+
+
+    </form>
+</div>
+
+</body>
+
+</html>

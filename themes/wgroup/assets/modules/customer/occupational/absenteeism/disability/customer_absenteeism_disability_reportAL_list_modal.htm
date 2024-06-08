@@ -1,0 +1,48 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Reportes AT Disponibles</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstanceReportAL" dt-options="dtOptionsReportAL"
+                               id="dtReportAL"
+                               dt-columns="dtColumnsReportAL"
+                               class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Reportes AT relacionados</h4>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstanceReportALRelation" dt-options="dtOptionsReportALRelation"
+                               id="dtReportALRelation"
+                               dt-columns="dtColumnsReportALRelation"
+                               class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCloseModal()">
+            Cancelar
+        </button>
+    </div>
+</form>

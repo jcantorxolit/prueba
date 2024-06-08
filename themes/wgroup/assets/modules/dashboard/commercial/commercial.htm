@@ -1,0 +1,130 @@
+<div class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="mainTitle text-center">Dashboard Comercial</h1>
+            </div>
+        </div>
+    </section>
+
+    <div ng-controller="CommercialDashboardCtrl">
+
+        <div class="container-fluid container-fullw bg-white">
+
+            <div class="row margin-right-15">
+                <button type="button" ng-click="onConsolidate()" class="btn btn-warning pull-right">Consolidar</button>
+            </div>
+
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-bold">Histórico de licencias por año</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-line
+                                chart-options="chart.line.options"
+                                chart-data="chart.data.amountLicensesByYearsHistorical"
+                                height="50"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body margin-top-20">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title text-bold">Cantidad de licencias por tipo y año</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <canvas class="tc-chart" tc-chartjs-line
+                                chart-options="chart.line.options"
+                                chart-data="chart.data.amountLicensesByTypeAndYearsHistorical"
+                                height="50"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row margin-top-110">
+                <h2 class="panel-title text-primary text-large text-bold">Total de licencias actuales</h2>
+
+                <div class="panel-heading col-md-6">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title text-primary">Cantidad de licencias activas por tipo</h4>
+                    </div>
+                    <div class="panel-body">
+                        <canvas class="tc-chart" tc-chartjs-pie height="100"
+                                chart-options="chart.pie.options"
+                                chart-data="chart.data.amountActiveLicensesByType"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel-body col-md-6">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title text-primary">Cantidad de licencias activas, inactivas y finalizadas</h4>
+                    </div>
+                    <div class="panel-body">
+                        <canvas class="tc-chart" tc-chartjs-pie height="100"
+                                chart-options="chart.pie.options"
+                                chart-data="chart.data.amountActiveLicensesByState"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="row margin-top-110">
+                <div class="panel-body partition-light-grey margin-top-20">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title text-bold">Licencias próximas a vencer</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Tipo de licencia</label>
+                                <div class="input-group">
+
+                                    <ui-select ng-model="filter.licenseType" theme="bootstrap"
+                                               name="performanceLevel"
+                                               on-select="onChangeLicenseTypeFilter($item, $model)">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in licenseList | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                  <button ng-click="onClearLicenseTypeFilter()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                  </button>
+                              </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" class="table table-bordered table-hover"
+                                           id="dtCommercialDashboard"
+                                           dt-instance="dtInstanceCommercialDashboard"
+                                           dt-options="dtOptionsCommercialDashboard"
+                                           dt-columns="dtColumnsCommercialDashboard"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

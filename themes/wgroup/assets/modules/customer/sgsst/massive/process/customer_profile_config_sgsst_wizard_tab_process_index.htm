@@ -1,0 +1,15 @@
+
+<div ng-controller="customerConfigWizardProcessCtrl" >
+    <div ng-switch="view_component" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/process/customer_profile_config_sgsst_wizard_tab_process_import.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="staging" class="fade-in-right-big">
+            staging
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/process/customer_profile_config_sgsst_wizard_tab_process_staging_list.htm'">
+            </div>
+        </div>
+    </div>
+</div>

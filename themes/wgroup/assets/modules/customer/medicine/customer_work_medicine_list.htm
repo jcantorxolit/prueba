@@ -1,0 +1,30 @@
+<div ng-controller="customerWorkMedicineListCtrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onEdit(0)" ng-if="can('seguimiento_create')">
+                <em class="glyphicon glyphicon-plus"></em> Crear exámen
+            </a>
+            <button type="button" class="btn btn-info" ng-click="onUpload()">
+                <em class="glyphicon glyphicon-upload"></em> Importar
+            </button>
+        </div>
+
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" id="dtWorkMedicine" width="100%" dt-instance="dtInstanceWorkMedicineCallback" dt-options="dtOptionsWorkMedicine" dt-columns="dtColumnsWorkMedicine" class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe title="Download Document" id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

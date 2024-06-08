@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Seguros Bolivar</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ themePath }}/assets/investigation/css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+          rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style TYPE="text/css">
+        <!--
+        -->
+        .page-break {
+            page-break-before: always
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        body {
+            font-size: 13px;
+        }
+
+        .page {
+
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .first-page-header {
+            line-height: 1;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 30%;
+        }
+
+        .first-page-body {
+            line-height: 1;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 50%;
+        }
+
+        .first-page-footer {
+            line-height: 1;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 60%;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Bolivar -->
+
+<div class="page">
+
+    <div class="first-page-header">
+        <h5><strong>INVESTIGACIÓN Y ANÁLISIS ACCIDENTE {{accidentType|upper}}</strong></h5>
+        <h5><strong>{{employeeFirstName}} {{employeeLastName}}</strong></h5>
+        <h5><strong>{{employeeDocumentType}} {{employeeDocumentNumber}}</strong></h5>
+    </div>
+
+    <div class="first-page-body">
+        <h5><strong>{{customerBusinessName}}</strong></h5>
+        <h5><strong>{{customerPrincipalSate}} - {{customerPrincipalCity}}</strong></h5>
+    </div>
+
+    <div class="first-page-footer">
+        <h5><strong>BOGOTÁ - CUNDINAMARCA</strong></h5>
+        <h5><strong>{{letterElaborationDate}}</strong></h5>
+    </div>
+    <br class="page-break">
+</div>
+
+<section id="about" class="bolivar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <div class="panel panel-primary" style="margin-top:20px; border: none;">
+                    <!-- <div class="panel-heading">
+                         <h3 class="panel-title">Reporte de Accidente o Incidente</h3>
+                     </div>-->
+                    <div class="panel-body">
+                        <form>
+
+                            <div class="col-sm-12 fw">1. RECOPILACIÓN DE INFORMACIÓN DEL ACCIDENTE</div>
+                            <br>
+
+                            <div class="col-sm-12 fw">1.1 IDENTIFICACIÓN DE LA EMPRESA</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ customerObservation }}</p><br>
+
+                            <div class="col-sm-12 fw">SEDE PRINCIPAL</div><br>
+
+                            <table class="" style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                                <thead>
+                                <tr style="font-weight:bold">
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:30%; text-align:center;font-size: 12px">
+                                        <label>ITEM</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>DATOS</label>
+                                    </td>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Razón social</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBusinessName}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Nit</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerDocumentNumber}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Actividad Económica</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalEconomicActivityName}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Código Actividad Económica</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalEconomicActivityCode}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Clase de Riesgo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalRiskClass}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Dirección</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalAddress}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Teléfono</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalTel}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Correo Electrónico</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalEmail}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Departamento</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalSate}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Municipio</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalCity}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Zona</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerPrincipalZone}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Encargado de seguridad y salud en el trabajo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerResponsibleHealth}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+
+                            <div class="col-md-12">
+                                <!--<hr style="page-break-after: always;">-->
+                            </div>
+
+
+                            <div class="col-sm-12 fw">CENTRO DE TRABAJO DONDE LABORA EL TRABAJADOR</div>
+                            <br>
+
+                            <table class="" style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                                <thead>
+                                <tr style="font-weight:bold">
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:30%; text-align:center;font-size: 12px">
+                                        <label>ITEM</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>DATOS</label>
+                                    </td>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Actividad Económica</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchEconomicActivityName}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Código Actividad Económica</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchEconomicActivityCode}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Clase de Riesgo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchRiskClass}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Dirección</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchAddress}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Teléfono</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchTel}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Correo Electrónico</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchEmail}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Departamento</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchState}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Municipio</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchCity}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Zona</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{customerBranchZone}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br>
+
+                            <div class="col-md-12">
+                                <!--<hr style="page-break-after: always;">-->
+                            </div>
+
+
+                            <div class="col-sm-12 fw">1.2. INFORMACIÓN DE LA PERSONA QUE SE ACCIDENTO</div>
+                            <br>
+
+                            <table class="" style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                                <tbody>
+                                <tr style="font-weight:bold">
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:30%; text-align:center;font-size: 12px">
+                                        <label>ITEM</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>DATOS</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tipo de vinculación</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeLinkType}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Apellidos y nombre completos</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeLastName}} {{employeeFirstName}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Número de identificación</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeDocumentNumber}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Fecha de nacimiento</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{birth_day}} de {{birth_month_name}} de {{birth_year}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Sexo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeGender}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Dirección</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeAddress}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Teléfono</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeTelephone}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Departamento</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeState}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Municipio</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeCity}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Zona</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeZone}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Ocupación Habitual</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeHabitualOccupation}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tareas propias del cargo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeJobTask}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tiempo de ocupación habitual al momento del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeHabitualOccupationTime}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Fecha de ingreso a la empresa</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{start_day}} de {{start_month_name}} de {{start_year}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tiempo de experiencia</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeDuration}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Labor que estaba desarrollando en el momento del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeRegularWork}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Es trabajador en misión</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeIsMissionWorker}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Nombre de la empresa usuaria</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeMissionCompanyName}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Salario u Honorarios</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">$ {{employeeMissionSalary|number_format(2)}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Jornada de trabajo habitual</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeMissionWorkingDay}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">EPS a la que se encuentra afiliado</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeEps}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">AFP a la que se encuentra afiliado</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeAfp}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">ARL a la que se encuentra afiliado</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{employeeArl}}</span>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <br>
+
+                            <div class="col-md-12">
+                                <!--<hr style="page-break-after: always;">-->
+                            </div>
+
+
+                            <div class="col-sm-12 fw">1.3. INFORMACIÓN SOBRE EL ACCIDENTE</div>
+                            <br>
+
+                            <table class="" style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                                <tbody>
+                                <tr style="font-weight:bold">
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:30%; text-align:center;font-size: 12px">
+                                        <label>ITEM</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>DATOS</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Fecha del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accident_day}} de {{accident_month_name}} de {{accident_year}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Hora del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentDateOf|date("H:i", "America/Bogota")}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Día del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accident_day_name}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Jornada en que sucede</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentWorkingDay}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Estaba realizando su labor habitual</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentIsRegularWork}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Total tiempo laborado previo al accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ accidentWorkTimeHour }} Horas, {{ accidentWorkTimeMinute }} minutos</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tipo de accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentCategory}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Causó la muerte al trabajador</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentIsDeathCause}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Departamento</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentState}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Municipio</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentCity}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Zona</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentZone}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Lugar donde ocurrió el accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentPlace}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Tipo de lesión</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentInjuryType}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Parte del cuerpo afectada</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentBodyPart}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Agente del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentAgent}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Mecanismos o formas del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accidentMechanism}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Fecha del reporte del accidente</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{accident_report_day}} de {{accident_report_month_name}} de {{accident_report_year}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Realizado por</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ accidentReportMadeBy }}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Cargo</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ accidentReportJob }}</span>
+                                    </td>
+                                </tr>
+
+                                <!--<tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">Se realizó investigación por parte de la empresa</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text"></span>
+                                    </td>
+                                </tr>-->
+
+                                </tbody>
+                            </table>
+
+                            <br>
+
+                            <div class="col-md-12">
+                                <!--<hr style="page-break-after: always;">-->
+                            </div>
+
+
+                            <div class="col-sm-12 fw">1.4. DESCRIPCIÓN DEL EVENTO POR PARTE DEL INVESTIGADOR</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ eventObservation }}</p>
+
+
+                            <div class="col-sm-12 fw">1.5 DESCRIPCIÓN DE HALLAZGOS</div>
+                            <br>
+
+                            <div class="col-sm-12 fw">1.5.1 UBICACIÓN</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ eventLocation }}</p>
+
+
+                            <div class="col-sm-12 fw">1.5.2 VERSIONES</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ eventVersion }}</p>
+
+                            <div class="col-sm-12 fw">1.5.3 CONDICIÓN</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ eventCondition }}</p>
+
+                            <div class="col-sm-12 fw">1.5.4 DOCUMENTOS</div>
+                            <br>
+
+                            <p style="margin-bottom: 20px">{{ eventDocument }}</p>
+
+
+                            <div class="col-sm-12 fw">2. ANÁLISIS DE CAUSAS</div>
+                            <br>
+
+                            <div class="col-sm-12 fw">2.1. METODOLOGÍA DE ANÁLISIS</div>
+                            <br>
+
+                            {% if causes|length > 0 %}
+                            <table class="col-sm-12"
+                                   style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+                                <tr>
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:33%; text-align:center;font-size: 12px">
+                                        <label>FACTOR</label>
+                                    </td>
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:33%; text-align:center;font-size: 12px">
+                                        <label>CAUSA</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:33%; text-align:center;font-size: 12px">
+                                        <label>ORDEN</label>
+                                    </td>
+                                </tr>
+                                {% for c in causes %}
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        <span class="small-text">{{ c.type }}</span>
+                                    </td>
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        <span class="small-text">{{ c.cause }}</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        <span class="small-text">{{ c.sort }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+
+                            {% else %}
+                            <div class="col-sm-12">
+                                <strong> <span>No se identifican causas por parte del trabajador.</span>
+                                </strong>
+                            </div>
+                            {% endif %}
+
+                            <br>
+                            <div class="col-sm-12 fw">2.2. DETERMINACIÓN DE CAUSAS</div>
+                            <br>
+                            <label class="col-sm-12 fw" style="padding-left: 0;">Causas Inmediatas - Actos inseguros</label>
+
+                            {% if acts|length > 0 %}
+                            {% for m in acts %}
+                            <div >
+                                {% if m.code != '0000' %}
+                                <p>
+                                    <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                                </p>
+
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% else %}
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div >
+                                <strong> <span>No se identifican actos inseguros por parte del trabajador.</span>
+                                </strong>
+                            </div>
+                            {% endif %}
+
+                            <div class="col-md-12" style="    padding: 0;">
+                                <hr>
+                                <br><br>
+                            </div>
+
+                            <label class="col-sm-12 fw" style="padding-left: 0;">Causas Inmediatas - Condiciones
+                                inseguras</label>
+
+                            {% if conditions|length > 0 %}
+                            {% for m in conditions %}
+                            <div >
+                                {% if m.code != '0000' %}
+                                <p>
+                                    <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                                </p>
+
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% else %}
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div >
+                                <strong> <span>No se identifican condiciones inseguros por parte del trabajador.</span>
+                                </strong>
+                            </div>
+                            {% endif %}
+
+
+                            <div class="col-md-12" style="    padding: 0;">
+                                <hr>
+                                <br><br>
+                            </div>
+
+
+                            <label class="col-sm-12 fw" style="padding-left: 0;">Causas Básicas - Factores de
+                                Trabajo</label>
+
+                            {% if works|length > 0 %}
+                            {% for m in works %}
+                            <div >
+                                {% if m.code != '0000' %}
+                                <p>
+                                    <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                                </p>
+
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% else %}
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div >
+                                <strong> <span>No se evidencian factores de trabajo.</span>
+                                </strong>
+                            </div>
+                            {% endif %}
+
+
+                            <div class="col-md-12" style="    padding: 0;">
+                                <hr>
+                                <br><br>
+                            </div>
+
+                            <label class="col-sm-12 fw" style="padding-left: 0;">Causas Básicas - Factores
+                                Personales</label>
+
+                            {% if personals|length > 0 %}
+                            {% for m in personals %}
+                            <div>
+                                {% if m.code != '0000' %}
+                                <p>
+                                    <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                                </p>
+
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% else %}
+                                <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                    <span class="" style="">{{ m.observation }}</span>
+                                </p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div >
+                                <strong> <span>No se evidencian factores personales.</span>
+                                </strong>
+                            </div>
+                            {% endif %}
+
+                            <br>
+                            <div class="col-sm-12 fw">3. MEDIDAS DE PREVENCIÓN, SEGUIMIENTO Y CONTROL EXISTENTES EN LA EMPRESA</div>
+                            <br>
+                            <p style="margin-bottom: 20px">{{causeObservation}}</p>
+
+
+                            <div class="col-sm-12 fw">4. MEDIDAS PROPUESTAS</div><br>
+
+                            <p>
+                                Nota: El Representante legal debe definir al interior de la organización la asignación de
+                                responsabilidades en la ejecución de las medidas propuestas de acuerdo con las competencias
+                                requeridas para su desarrollo.
+                            </p>
+
+                            <table class="col-sm-12"
+                                   style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                                <tbody>
+                                <tr style="font-weight:bold">
+                                    <td style="background: #ececec; border: 1px solid #cecece;width:20px; text-align:center;font-size: 12px">
+                                        <label>F</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece;;width:20px; text-align:center;font-size: 12px">
+                                        <label>M</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece;;width:20px; text-align:center;font-size: 12px">
+                                        <label>T</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>Medida</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>Responsable</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;width:10%;font-size: 12px">
+                                        <label>Fecha Verificación</label>
+                                    </td>
+                                </tr>
+                                {% for m in measures %}
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        {% if m.type == 1 %}
+                                        <span class="small-text">X</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        {% if m.typeEnvironment == 1 %}
+                                        <span class="small-text">X</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:center">
+                                        {% if m.typeWorker == 1 %}
+                                        <span class="small-text">X</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                                        <span class="small-text">{{ m.description }}</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                                        <span class="small-text">{{ m.responsible }}</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;padding:5px;">
+                                        <span class="small-text">{{m.checkDate|date("d/m/Y", "America/Bogota")}}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <br>
+
+                            <div class="col-sm-12 fw">5. DATOS DE LA INVESTIGACIÓN</div><br>
+
+                            <div>
+                                <p>
+                                    Lugar: {{place}}<br>
+                                    Dirección: {{address}}<br>
+                                    Fecha: <span class="">{{register_day}} de {{register_month_name}} de {{register_year}}</span><br>
+                                    Hora: <span class="">{{registerDate|date("H:i")}}</span><br>
+                            </div>
+
+                            <div>
+                                <p>{{realizedBy}}</p>
+                            </div>
+                            <br>
+
+                            <div class="col-lg-6" style="margin-top:15px; padding: 0;">
+                                <p>
+                                    _________________________________________<br>
+                                    <span>{{ letterSignedBy }}</span> <br>
+                                    <span>{{ letterJobSignedBy }} </span><br>
+                                    <span>ARL de Seguros Bolívar </span><br>
+                                </p>
+                            </div>
+
+                            <br>
+
+                            <label class="col-sm-12 fw">6. ANEXOS</label>
+
+                            <table class="tabla" style="width: 98%; margin: 15px;">
+                                <tr>
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>TIPO</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                        <label>DESCRIPCIÓN</label>
+                                    </td>
+
+                                    <td style="background: #ececec; border: 1px solid #cecece; text-align:center;width:10%;font-size: 12px">
+                                        <label>FOLIOS/ARCHIVOS</label>
+                                    </td>
+                                </tr>
+                                {% for d in documents %}
+                                <tr>
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ d.type }}</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:justify;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ d.description }}</span>
+                                    </td>
+
+                                    <td style="border: 1px solid #cecece;text-align:left;padding-left: 5px;padding-right: 5px">
+                                        <span class="small-text">{{ d.folio }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+    <!-- /.container -->
+</section>
+
+<footer>
+
+</footer>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script>
+
+    //#to-top button appears after scrolling
+    var fixed = false;
+    $(document).scroll(function () {
+        if ($(this).scrollTop() > 250) {
+            if (!fixed) {
+                fixed = true;
+                // $('#to-top').css({position:'fixed', display:'block'});
+                $('#to-top').show("slow", function () {
+                    $('#to-top').css({
+                        position: 'fixed',
+                        display: 'block'
+                    });
+                });
+            }
+        } else {
+            if (fixed) {
+                fixed = false;
+                $('#to-top').hide("slow", function () {
+                    $('#to-top').css({
+                        display: 'none'
+                    });
+                });
+            }
+        }
+    });
+
+
+</script>
+
+</body>
+
+</html>

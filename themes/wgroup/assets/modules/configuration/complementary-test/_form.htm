@@ -1,0 +1,64 @@
+﻿<div ui-view="" class="fade-in-right-big">
+    <!-- start: FORM BODY -->
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row" ng-controller="ConfigurationComplementaryTestFormCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <fieldset>
+                    <legend>Información Básica:</legend>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                <label class="control-label">Descripción<span
+                                        class="symbol required"></span></label>
+                                <input type="text" placeholder="Ingrese la descripción"
+                                       class="form-control" name="description"
+                                       ng-model="parameter.item" required/>
+
+                            <span class="error text-small block"
+                                  ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-info" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%"
+                                   dt-instance="dtInstanceComplementaryTestCallback"
+                                   dt-options="dtOptionsComplementaryTest"
+                                   dt-columns="dtColumnsComplementaryTest"
+                                   id="dtComplementaryTest"
+                                   class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: FORM BODY -->
+</div>

@@ -1,0 +1,325 @@
+<html lang="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;700&display=swap');
+
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+            -webkit-print-color-adjust: exact;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .center {
+            position: relative;
+            margin: auto;
+            width: 100%;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 98%;
+            background: #fff url({{ themePath }}/assets/pdf/images/cert_bg.jpg) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .left {
+            width: 335px;
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            margin-left: 40%;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 0 0 0 35px;
+            text-align: center;
+            /*border: 1px blue solid;*/
+            width: 520px;
+            height: 290px;
+        }
+
+        .logo-center {
+            height: 100%;
+            width: 100%;
+            /*border: 1px yellowgreen solid;*/
+
+            padding-top: 50px;
+
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-center img {
+
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+
+        .info {
+            text-align: center;
+            padding: 120px 0 0 40px;
+            margin-left: 50px;
+            margin-right: 50px;
+            height: 90%;
+        }
+
+
+        .title {
+            padding-top: 100px;
+            margin-bottom: 10px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 44px;
+            font-weight: bold;
+            color: #ff7500;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 28px;
+            color: #fff;
+            text-transform: uppercase;
+            background: #ff7500;
+            border-radius: 20px;
+            padding: 7px 60px;
+            width: auto;
+            display: inline-block;
+        }
+
+        .name, .document {
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .name {
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+            text-align: center;
+            width: 80%;
+            margin: 25px auto 20px;
+            font-weight: bold;
+            color: #262425;
+            font-size: 32px;
+        }
+
+        .document {
+            margin-bottom: 10px;
+            color: #262425;
+            font-size: 22px;
+        }
+
+        .course_text {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 18px;
+            color: #262425;
+            margin: 35px auto 25px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .course_list {
+            margin-bottom: 25px;
+        }
+
+        .course_list li {
+            color: #ff7500;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 18px;
+            color: #262425;
+            margin-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .signature {
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            max-height: 100px;
+        }
+
+        .issuer_name {
+            color: #262425;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .rol {
+            color: #262425;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 18px;
+        }
+
+
+        @media print {
+
+            @page
+            {
+                size: landscape;   /* auto is the initial value */
+                margin: 0mm;  /* this affects the margin in the printer settings */
+                padding: 0mm;
+            }
+
+            .center {
+                width: auto;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                width: 27.94cm;
+                height: 21.59cm;
+                background-size: 100%;
+            }
+
+            .left {
+                width: 13cm;
+            }
+
+            .logo {
+                margin-top: 2.5cm;
+            }
+
+            .logo img {
+                max-width: 10cm;
+            }
+
+            .info {
+                padding-left: 0.5cm;
+            }
+
+            .subtitle {
+                margin-bottom: 0.5cm;
+            }
+
+            .document {
+                margin-bottom: 0.5cm;
+            }
+
+            .course_text {
+                font-size: 13pt;
+                margin-bottom: 0.7cm;
+            }
+
+            .course_list {
+                margin-bottom: 0.8cm;
+            }
+
+            .course_list li {
+                font-size: 12pt;
+            }
+
+            .signatire {
+                margin-top: 1cm;
+                max-height: 3cm;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="center">
+    <div class="container">
+        <div class="left">
+            <div class="logo" >
+                <div class="logo-center">
+                    <img src="{{logo}}" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="info">
+                <p class="title">WAYGROUP CERTIFICA</p>
+                <p class="subtitle">LA ASISTENCIA DE</p>
+
+                <p class="name">{{ participant }}</p>
+                <p class="document">Identiﬁcado con {{documentType}} {{ identification }}</p>
+
+                <p class="course_text">Quien participó en la formación con uso de Realidad Virtual Inmersiva Háptica en</p>
+
+                <ul class="course_list">
+                    {% for experience in experiences %}
+                        <li>{{experience}}</li>
+                    {% endfor %}
+                </ul>
+
+                <p class="date">Realizado el día {{ date }}</p>
+
+                {% if signature %}
+                    <img src="{{signature}}" alt="" class="signature">
+                {% endif %}
+
+                {% if fullName %}
+                    <p class="issuer_name">{{ fullName }}</p>
+                {% endif %}
+
+                {% if job %}
+                    <p class="rol">{{ job }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<div class="tab1">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="well">
+            <h4>[[report.name]]</h4>
+            <small>[[report.description]]</small>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/common/custom_filters.htm'">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-info" ng-if="!isView">
+                        Generar
+                    </button>              
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()" ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

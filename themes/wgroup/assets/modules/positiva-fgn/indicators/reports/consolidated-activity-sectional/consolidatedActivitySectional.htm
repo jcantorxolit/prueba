@@ -1,0 +1,133 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="positivaFgnIndicatorsActivitySectionaCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <button type="button" ng-click="onConsolidate()" class="btn btn-primary">
+                        Consolidar Indicadores
+                    </button>
+                </div>
+            </div>
+        </div>
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <!-- Division -->
+            <div class="col-md-12 padding-top-20 margin-top-10">
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Tipo de indicador: </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="radio clip-radio radio-success radio-inline" ng-repeat="item in tipIndicatorList">
+                                    <input type="radio" id="indicator[[item.name]]" name="tipIndicator"
+                                           value="[[item.value]]"
+                                           ng-model="entity.indicator"
+                                           ng-checked="$first">
+                                    <label class="text-bold text-wrap text-break" for="indicator[[item.name]]">
+                                        [[item.name]]
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estrategy -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Eje </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="form-group">
+                            <a class="btn-link" ng-click="allAxis()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearAxis()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group form-inline" ng-repeat="axi in axis">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="axi[[axi.value]]" ng-model="axi.isActive">
+                                    <label for="axi[[axi.value]]" class="text-wrap text-break">
+                                        [[axi.item]]
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Grupo </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="form-group">
+                            <a class="btn-link" ng-click="allGroups()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearGroups()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-inline" ng-repeat="group in groupList">
+                                    <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                        <input type="checkbox" id="group[[group.value]]" ng-model="group.isActive" ng-change="onChangeGroupFilter()">
+                                        <label for="group[[group.value]]" class="text-wrap text-break">
+                                    [[group.item]]
+                                </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Axis -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Período </strong></h4>
+                    <hr>
+                    <div class="row content-indicators">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="radio clip-radio radio-success radio-inline" ng-repeat="year in yearList">
+                                    <input type="radio" id="year[[year.period]]" name="year" value="[[year.period]]" ng-model="year.isActive">
+
+                                    <label class="text-bold text-wrap text-break" for="year[[year.period]]">[[year.period]]</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a class="btn-link" ng-click="onAllMonths()" href="#"> <span class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearMonths()" href="#"> <span class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group form-inline" ng-repeat="month in monthList">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="month[[month.value]]" ng-model="month.isActive" ng-required="true" ng-change="onCheckMonth(month)">
+                                    <label for="month[[month.value]]" class="text-wrap text-break">[[month.item]]</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Export to excel  -->
+            <div class="row padding-bottom-20">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" ng-click="onExportExcel()" class="btn btn-success">
+                        <em class="fa fa-file-excel-o"></em> <strong>Exportar a Excel</strong>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                        Regresar
+                    </button>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>

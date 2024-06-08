@@ -1,0 +1,145 @@
+<div >
+    <div class="panel panel-default">
+
+        <div class="panel-heading border-light">
+            <h4 class="panel-title">
+                <span class="text-bold">PROFESIONALES ASOCIADOS A LA SEDE</span>
+            </h4>
+        </div>
+
+        <div class="panel-body ">
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN PROFESIONAL</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        Estado
+                                    </label>
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch  ng-model="entity.isActive" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                    <label class="control-label">Tipo identificación<span
+                                            class="symbol required"></span></label>
+        
+                                    <ui-select name="documentType" ng-required="true"  ng-model="entity.documentType" theme="bootstrap" >
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in documentTypeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.documentType.$dirty && Form.documentType.$invalid">
+                                        El tipo de identificación es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" >
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                    <label class="control-label"> Número Identificación<span
+                                            class="symbol required"></span></label>
+                                    <input type="text" placeholder="Ingrese valor"
+                                        class="form-control" name="documentNumber" ng-model="entity.documentNumber"
+                                        required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.documentNumber.$dirty && Form.documentNumber.$invalid">
+                                        El número de identificación es requerido
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.fullName.$dirty && Form.fullName.$invalid}">
+                                    <label class="control-label">Nombre(s)<span class="symbol required"></span></label>
+                                    <input type="text"  placeholder="Ingrese el nombre(s)" class="form-control" name="fullName"
+                                        ng-model="entity.fullName" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.fullName.$dirty && Form.fullName.$invalid">El
+                                        nombre(s) es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.job.$dirty && Form.job.$invalid}">
+                                    <label class="control-label">Cargo<span class="symbol required"></span></label>
+                                    <input type="text"  placeholder="Ingrese el valor" class="form-control" name="job"
+                                        ng-model="entity.job" required />
+                                    <span class="error text-small block"
+                                        ng-if="Form.job.$dirty && Form.job.$invalid">El valor es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Teléfono</label>
+                                    <input type="text"  placeholder="Ingrese el valor" class="form-control" name="telephone"
+                                        ng-model="entity.telephone"  />
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input type="email"  placeholder="Ingrese el valor" class="form-control" name="email"
+                                        ng-model="entity.email"  />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" >
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCloseModal()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+            </form>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnCampus"
+                            dt-options="dtOptionsPositivaFgnCampus" id="dtPositivaFgnCampus" dt-columns="dtColumnsPositivaFgnCampus"
+                            class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

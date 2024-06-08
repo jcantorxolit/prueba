@@ -1,0 +1,121 @@
+<div class="row">
+        
+    <div class="col-md-11">
+        <div class="form-group" ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+            <label class="control-label">Tarea <span class="symbol required"></span></label>
+            <input type="text"  placeholder="Valor" class="form-control" name="name"
+                ng-model="entity.name" required />
+            <span class="error text-small block"  ng-if="Form.name.$dirty && Form.name.$invalid">El
+                valor es requerido</span>
+        </div>
+    </div>
+    
+    <div class="col-md-1">
+        <div class="form-group">
+            <label>
+                Estado
+            </label>
+            <switch style="margin-left: -7px;" ng-model="entity.isActive" class="green"></switch>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>
+                Asociar Código
+            </label>
+            <div class="checkbox" style="margin-top: 0px !important;">
+                <switch  ng-model="entity.addCode" class="green" ng-change="clearCode()"></switch>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group" ng-class="{'has-error':Form.sector.$dirty && Form.sector.$invalid}">
+            <label class="control-label">Sector <span class="symbol required"></span></label>
+            <ui-select name="sector" ng-required="entity.addCode" ng-model="entity.sector" ng-disabled="!entity.addCode"
+                theme="bootstrap">
+                <ui-select-match placeholder="- Opción -">
+                    [[$select.selected.item]]
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="item in sectorList | filter: $select.search track by $index">
+                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <span class="error text-small block" ng-if="Form.sector.$dirty && Form.sector.$invalid">
+                El valor es requerido.
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group" ng-class="{'has-error':Form.program.$dirty && Form.program.$invalid}">
+            <label class="control-label">Programa <span class="symbol required"></span></label>
+            <ui-select name="program" ng-required="entity.addCode" ng-model="entity.program" ng-disabled="!entity.addCode"
+                theme="bootstrap">
+                <ui-select-match placeholder="- Opción -">
+                    [[$select.selected.item]]
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="item in programList | filter: $select.search track by $index">
+                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <span class="error text-small block" ng-if="Form.program.$dirty && Form.program.$invalid">
+                El valor es requerido.
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group" ng-class="{'has-error':Form.plan.$dirty && Form.plan.$invalid}">
+            <label class="control-label">Plan <span class="symbol required"></span></label>
+            <ui-select name="plan" ng-required="entity.addCode" ng-model="entity.plan" ng-disabled="!entity.addCode"
+                theme="bootstrap">
+                <ui-select-match placeholder="- Opción -">
+                    [[$select.selected.item]]
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="item in planList | filter: $select.search track by $index">
+                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <span class="error text-small block" ng-if="Form.plan.$dirty && Form.plan.$invalid">
+                El valor es requerido.
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group" ng-class="{'has-error':Form.actionLine.$dirty && Form.actionLine.$invalid}">
+            <label class="control-label">Línea Acción <span class="symbol required"></span></label>
+            <ui-select name="actionLine" ng-required="entity.addCode" ng-model="entity.actionLine" ng-disabled="!entity.addCode"
+                theme="bootstrap">
+                <ui-select-match placeholder="- Opción -">
+                    [[$select.selected.item]]
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="item in actionLineList | filter: $select.search track by $index">
+                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <span class="error text-small block" ng-if="Form.actionLine.$dirty && Form.actionLine.$invalid">
+                El valor es requerido.
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group" >
+            <label class="control-label">Consecutivo </label>
+            <input type="text" placeholder="Consecutivo" class="form-control" name="consecutive" ng-disabled="!entity.addCode"
+                ng-model="entity.consecutive"  />
+        </div>
+    </div>
+
+</div> <!-- END ROW -->

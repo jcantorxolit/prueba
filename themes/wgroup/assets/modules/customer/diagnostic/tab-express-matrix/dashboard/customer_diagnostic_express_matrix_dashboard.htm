@@ -1,0 +1,19 @@
+<div ng-controller="customerDiagnosticExpressMatrixDashboardCtrl" >
+    <div ng-switch="view_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="hazard" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/dashboard/hazard/customer_diagnostic_express_matrix_dashboard_hazard.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="intervention" class="fade-in-right-big" >
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/dashboard/intervention/customer_diagnostic_express_matrix_dashboard_intervention.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="summary" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/diagnostic/tab-express-matrix/dashboard/summary/customer_diagnostic_express_matrix_dashboard_summary.htm'">
+            </div>
+        </div>        
+ 
+    </div>
+</div>

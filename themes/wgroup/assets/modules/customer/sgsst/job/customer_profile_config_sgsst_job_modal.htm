@@ -1,0 +1,131 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">Configuración de Actividades</h4>
+            </label>
+        </div>
+
+        <fieldset>
+            <legend>Informació Básica:</legend>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                        <label class="control-label">Centro de Trabajo<span
+                                class=""></span></label>
+
+                        <input ng-disabled="true" type="text"
+                               placeholder=""
+                               class="form-control" name="name"
+                               ng-model="job.workplace.name"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.macro.$dirty && Form.macro.$invalid}">
+                        <label class="control-label">Macroproceso<span
+                                class=""></span></label>
+
+                        <input ng-disabled="true" type="text"
+                               placeholder=""
+                               class="form-control" name="name"
+                               ng-model="job.macro.name" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.process.$dirty && Form.process.$invalid}">
+                        <label class="control-label">Proceso<span
+                                class=""></span></label>
+                        <input ng-disabled="true" type="text"
+                               placeholder=""
+                               class="form-control" name="name"
+                               ng-model="job.process.name" required/>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Actividad:</legend>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="input-group">
+                        <ui-select name="activity" ng-required="true" ng-disabled="isView || activities.length == 0"
+                                   ng-model="activity.activity" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in activities | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+
+                                <span class="input-group-btn">
+                                            <button type="button" ng-click="refreshActivities()"
+                                                    class="btn btn-default">
+                                                <span class="glyphicon glyphicon-refresh"></span>
+                                            </button>
+                                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">ACTIVIDADES</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+
+                                <table datatable="" width="100%" dt-instance="dtInstanceConfigJobDataActivityProcess" dt-options="dtOptionsConfigJobDataActivityProcess"
+                                       id="dtConfigJobDataActivityProcess"
+                                       dt-columns="dtColumnsConfigJobDataActivityProcess"
+                                       class="table table-bordered table-hover"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

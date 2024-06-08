@@ -1,0 +1,7 @@
+{% if not user %}
+    {%partial 'login/signin'%}
+{% else %}
+
+    {%partial 'update/update'%}
+
+{% endif %}

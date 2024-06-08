@@ -1,0 +1,45 @@
+<div class="panel panel-white" ng-controller="CustomerInfoLicenseListCtrl">
+    <div class="panel-heading border-light">
+        <h4 class="panel-title text-bold">LICENCIAS</h4>
+
+        <div class="panel-tools" ng-show="currentLicense.state == null || currentLicense.state == 'Finalizada' ">
+            <a class="btn btn-wide btn-light-azure" ng-click="onCreate()">
+                <i class="glyphicon glyphicon-plus"></i> Nueva Licencia
+            </a>
+        </div>
+
+    </div>
+
+    <div class="panel-body">
+
+        <div class="text-large text-bold">
+            <div class="form-inline">
+                <label>Licencia Actual: </label>
+                <span class="text-bold">[[currentLicense.license || "Sin licencia"]]</span>
+            </div>
+            <div class="form-inline">
+                <label>Periodo: </label>
+                <span>[[currentLicense.startDate]] - [[currentLicense.endDate]]</span>
+            </div>
+            <div class="form-inline">
+                <label>Estado: </label>
+                <span>[[currentLicense.state]]</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table datatable="" class="table table-bordered table-hover" width="100%"
+                           id="dtCustomerProfileLicenseList"
+                           dt-instance="dtInstanceCustomerProfileLicenseList"
+                           dt-options="dtOptionsCustomerProfileLicenseList"
+                           dt-columns="dtColumnsCustomerProfileLicenseList"></table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

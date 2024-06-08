@@ -1,0 +1,171 @@
+<div class="fade-in-right-big">
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="customerJobConditionsEvaluationEditCtrl">
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.date.$dirty && Form.date.$invalid}">
+                                            <label class="control-label">Fecha<span class="symbol required"></span></label>
+                                            <input class="form-control" kendo-date-picker k-options="datePickerConfig" name="date" ng-model="entity.date" onkeydown="return false;" style="width: 100%;" ng-disabled="entity.id" ng-required="true" />
+                                            <span class="error text-small block" ng-if="Form.date.$dirty && Form.date.$invalid">La fecha es requerida</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.workModel.$dirty && Form.workModel.$invalid}">
+                                            <label class="control-label">Modelo de trabajo<span class="symbol required"></span></label>
+                                            <ui-select ng-disabled="entity.id" ng-model="entity.workModel" theme="bootstrap" name="workModel" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in workModelList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.workModel.$dirty && Form.workModel.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.location.$dirty && Form.location.$invalid}">
+                                            <label class="control-label">Lugar de trabajo<span class="symbol required"></span></label>
+                                            <ui-select ng-disabled="entity.id" ng-model="entity.location" theme="bootstrap" name="location" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in locationList | orderBy:'id' | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.location.$dirty && Form.location.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.occupation.$dirty && Form.occupation.$invalid}">
+                                            <label class="control-label">Cargo<span class="symbol required"></span></label>
+                                            <ui-select ng-disabled="isView || entity.state == 0" ng-model="entity.occupation" theme="bootstrap" name="occupation" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.name]]
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="item in occupationList | orderBy:'id' | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.occupation.$dirty && Form.occupation.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                                            <label class="control-label">Puesto de trabajo<span class="symbol required"></span></label>
+                                            <div class="input-group">
+                                                <input type="text" name="workplace" class="form-control" style="width: 100%"
+                                                       kendo-auto-complete
+                                                       k-data-value-field="'id'"
+                                                       k-data-text-field="'name'"
+                                                       k-min-length="1"
+                                                       k-enforce-min-length="true"
+                                                       k-data-source="workplaceList"
+                                                       ng-model="entity.workplace"
+                                                       ng-disabled="isView || entity.state == 0"
+                                                       ng-required="true"/>
+
+                                                <span class="error text-small block" ng-if="Form.workplace.$dirty && Form.workplace.$invalid">El registro es requerido</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label class="control-label">Abierta</label>
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch class="green" on="Si" off="No" ng-model="entity.state" ng-disabled="isView"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row padding-bottom-20" ng-if="!isView">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-primary btn-o" ng-if="!entity.id" ng-click="form.reset()">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-white" ng-show="entity.id">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">AUTOEVALUACIÓN </span></h4>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="list-group">
+                                            <a class="list-group-item list-group-item-default text-bold" href="#"
+                                               ng-repeat="classification in classificationList"
+                                               ng-click="onAnswerQuestions(classification)"
+                                               ng-init="classification.index = $index"
+                                               ng-class="{'disabled': classification.answered == 'pending' && !$first }">
+
+                                                <i class="fa fa-circle margin-right-10"
+                                                    ng-class="{'has-success': classification.answered == 'complete' || ($first && classification.answered == 'pending') ,
+                                                               'has-warning': classification.answered == 'inProcess' }">
+                                                </i>
+                                                <h5 class="inline-block padding-top-10">[[ classification.name ]]</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="col-md-10 text-center">
+                                            <ui-knob value="[[ statsEvaluation.percent ]]" options="options"></ui-knob>
+                                        </div>
+
+                                        <div class="col-md-10 text-center">
+                                            <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                                                Ha completado [[ statsEvaluation.countAnswers ]] de [[ statsEvaluation.countQuestions ]] métricas.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-primary" ng-click="onBack()">Regresar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

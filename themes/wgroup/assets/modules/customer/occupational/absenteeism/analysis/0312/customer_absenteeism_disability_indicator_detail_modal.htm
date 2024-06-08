@@ -1,0 +1,149 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                    <label class="control-label">Clasificación<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese las clasificación"
+                                           class="form-control" name="classification"
+                                           ng-model="indicator.classification" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.classification.$dirty && Form.classification.$invalid">La clasificación es requerida</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                                    <label class="control-label">Periodo<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese el periodo"
+                                           class="form-control" name="period"
+                                           ng-model="indicator.period" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.period.$dirty && Form.period.$invalid">El periodo es requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.workCenter.$dirty && Form.workCenter.$invalid}">
+                                    <label class="control-label">Centro de trabajo<span
+                                            class="symbol required"></span></label>
+
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese el centro de trabajo"
+                                           class="form-control" name="workCenter"
+                                           ng-model="indicator.workCenter" required/>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.workCenter.$dirty && Form.workCenter.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.eventNumber.$dirty && Form.eventNumber.$invalid}">
+                                    <label class="control-label">
+                                        Eventos <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese las horas hombre"
+                                           class="form-control" name="eventNumber"
+                                           ng-model="indicator.eventNumber" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.eventNumber.$dirty && Form.eventNumber.$invalid">El registro es requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.disabilityDays.$dirty && Form.disabilityDays.$invalid}">
+                                    <label class="control-label">
+                                        Días Incapacitantes <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la población"
+                                           class="form-control" name="disabilityDays"
+                                           ng-model="indicator.disabilityDays" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.disabilityDays.$dirty && Form.disabilityDays.$invalid">El registro es requerida</span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.chargedDays.$dirty && Form.chargedDays.$invalid}">
+                                    <label class="control-label">
+                                        Días Cargados <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isDisableChargedDays" type="text" placeholder="Ingrese los número de eventos"
+                                           class="form-control" name="chargedDays"
+                                           ng-model="indicator.chargedDays" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.chargedDays.$dirty && Form.chargedDays.$invalid">El registro requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.eventMortalNumber.$dirty && Form.eventMortalNumber.$invalid}">
+                                    <label class="control-label">
+                                        Número de Mortales <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="isDisableEventMortalNumber" type="text" placeholder="Ingrese la población"
+                                           class="form-control" name="eventMortalNumber"
+                                           ng-model="indicator.eventMortalNumber" required/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.eventMortalNumber.$dirty && Form.eventMortalNumber.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+        <button type="submit" class="btn btn-primary" ng-if="!isView">
+            Guardar
+        </button>        
+    </div>
+</form>

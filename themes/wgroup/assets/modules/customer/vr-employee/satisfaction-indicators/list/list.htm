@@ -1,0 +1,74 @@
+<div ng-controller="CustomerVrEmployeeSatisfactionIndicatorListCtrl">
+
+    <div class="row">
+        
+        <div class="col-md-6 panel-body partition-light-grey margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-bold">Participantes vs Encuestas</h4>
+            </div>
+            <div class="panel-body">
+                <canvas class="tc-chart" tc-chartjs-line
+                        chart-options="chart.line.options"
+                        chart-data="chart.data.registeredVsParticipants"
+                        height="150"></canvas>
+            </div>
+        </div>
+        
+        
+        <div class="col-md-6 panel-body partition-light-grey margin-top-20">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title text-bold">Histórico de Satisfacción</h4>
+            </div>
+            <div class="panel-body">
+                <canvas class="tc-chart" height="150" tc-chartjs-bar
+                        chart-options="chart.bar.options"
+                        chart-data="chart.data.amountBySatisfaction"></canvas>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="row margin-top-30">
+        <div class="panel-body">
+
+            <div class="panel-heading border-light">
+                <h3 class="panel-title text-bold">Histórico de encuestas</h3>
+
+                <div class="panel-tools form-inline">
+                        <div class="form-group">
+                            <ui-select ng-model="entity.year" theme="bootstrap" ng-change="onChangeYear()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.year]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in yearList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.year | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()">
+                            <em class="glyphicon glyphicon-upload margin-right-5"></em>Importar</a>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" class="table table-bordered table-hover"
+                                   id="dtCustomerVRSatisfactionList"
+                                   dt-instance="dtInstanceCustomerVRSatisfactionList"
+                                   dt-options="dtOptionsCustomerVRSatisfactionList"
+                                   dt-columns="dtColumnsCustomerVRSatisfactionList"
+                            ></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'></iframe>
+</div>

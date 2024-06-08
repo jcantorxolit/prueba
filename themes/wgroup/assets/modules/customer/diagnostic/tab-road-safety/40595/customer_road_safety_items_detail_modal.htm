@@ -1,0 +1,181 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                    <label class="control-label">Parámetro - Definición<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                           class="form-control" name="description"
+                                           ng-model="entity.cycle.description" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">El ciclo es requerida</span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-1">
+                                <div class="form-group">
+                                    <label>
+                                        Activo
+                                    </label>
+
+                                    <div class="checkbox" style="margin-top: 0px !important;">
+                                        <switch disabled="isView" ng-model="entity.isActive" class="green"></switch>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.numeral.$dirty && Form.numeral.$invalid}">
+                                    <label class="control-label">Numeral<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Numeral"
+                                           class="form-control" name="numeral"
+                                           ng-model="entity.numeral" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.numeral.$dirty && Form.numeral.$invalid">El numeral es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                    <label class="control-label">Variable<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                           class="form-control" name="description"
+                                           ng-model="entity.description" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-2">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.value.$dirty && Form.value.$invalid}">
+                                    <label class="control-label">Valor<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Valor"
+                                           class="form-control" name="value"
+                                           ng-model="entity.value" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.value.$dirty && Form.value.$invalid">El valor es requerido</span>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">MODO DE VERIFICACIÓN</span>
+                        </h4>
+
+                        <div class="panel-tools">
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-11">
+
+                                <label class="control-label">
+                                    Descripción
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row"
+                             ng-repeat="item in entity.verificationModeList">
+                            <div class="col-md-11">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.descriptionVerificationMode.$dirty && Form.descriptionVerificationMode.$invalid}">
+                                   <textarea ng-disabled="isView" name="descriptionVerificationMode"
+                                             placeholder=""
+                                             data-ng-model="item.description"
+                                             class="form-control"></textarea>
+                                <span class="error text-small block"
+                                      ng-if="Form.descriptionVerificationMode.$dirty && Form.descriptionVerificationMode.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-1"
+                                 ng-if="entity.verificationModeList.length > 0">
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <div class="checkbox" style="margin-top: 0px !important;">
+                                            <switch ng-model="item.isActive" class="green" ng-change="onVerificationChange()"
+                                            disabled="entity.rate != null"></switch>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{ 'has-error' : form.ddlrate.$invalid}">
+                    <label class="control-label">Calificación Automática<span
+                            class="symbol required"></span></label>
+                    <input ng-disabled="isView" type="text"
+                           placeholder=""
+                           class="form-control" name="rateItem"
+                           ng-model="entity.realRate.text"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error':Form.comment.$dirty && Form.comment.$invalid}">
+                    <label class="control-label">Comentario<span
+                            class="symbol required"></span></label>
+                                               <textarea name="comment" rows="6"
+                                                         placeholder="Escribe aquí el comentario..."
+                                                         data-ng-model="entity.comment"
+                                                         ng-disabled="!isVisible"
+                                                         class="form-control" required></textarea>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.comment.$dirty && Form.comment.$invalid">El comentario es requerido</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="isVisible">
+            Guardar
+        </button>
+    </div>
+</form>

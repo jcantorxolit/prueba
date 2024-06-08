@@ -1,0 +1,36 @@
+<!-- Text -->
+<?php if ($this->previewMode): ?>
+    <span class="form-control"><?= $field->value ? e($field->value) : '&nbsp;' ?></span>
+<?php else: ?>
+    <div
+        id="<?= $this->getId() ?>"
+        data-control="multicurrency"
+        data-default-currency="<?= $defaultCurrency->code ?>"
+        data-placeholder-field="#<?= $field->getId('placeholderField') ?>"
+        class="field-multicurrency field-multicurrency-text dropdown">
+
+        <input
+            type="text"
+            name="<?= $field->getName() ?>"
+            id="<?= $field->getId('placeholderField') ?>"
+            value="<?= e($field->value) ?>"
+            placeholder="<?= e(trans($field->placeholder)) ?>"
+            class="form-control"
+            autocomplete="off"
+            maxlength="255"
+            <?= $field->getAttributes() ?>
+        />
+
+        <button
+            class="btn btn-default"
+            data-toggle="dropdown"
+            data-active-currency
+            type="button">
+        </button>
+
+        <?= $this->makeParentPartial('currency_values') ?>
+
+        <?= $this->makeParentPartial('currency_selector') ?>
+
+    </div>
+<?php endif ?>

@@ -1,0 +1,995 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Planes de Trabajo Internos">Planes de Trabajo Internos</h1>
+            <span class="mainDescription">Desde aquí podrá administrar los planes de trabajo internos de la empresa.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: PROJECT -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+            <div ng-controller="internalProjectPlanningCtrl">
+                <!-- start: USER uib-tabset -->
+
+                <uib-tabset class="tabbable">
+                    <!-- start: TAB OVERVIEW -->
+                    <uib-tab heading="Dashboard">
+
+                        <div class="container-fluid container-fullw bg-white" ng-if="isAgent || isCustomer">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">como</span></h5>
+                                                </label>
+
+
+                                                <ui-select ng-disabled="isview" ng-model="filter.selectedType"
+                                                           theme="bootstrap"
+                                                           on-select="changeType($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in types | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por año</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedYear"
+                                                               theme="bootstrap"
+                                                               on-select="changeYear($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in years | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearYear()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por mes</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedMonth"
+                                                               theme="bootstrap"
+                                                               on-select="changeMonth($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in months | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearMonth()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid container-fullw bg-white" ng-if="isAdmin">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">como</span></h5>
+                                                </label>
+
+
+                                                <ui-select ng-disabled="isview" ng-model="filter.selectedType"
+                                                           theme="bootstrap"
+                                                           on-select="changeType($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in types | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por año</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedYear"
+                                                               theme="bootstrap"
+                                                               on-select="changeYear($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in years | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearYear()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por mes</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedMonth"
+                                                               theme="bootstrap"
+                                                               on-select="changeMonth($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in months | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearMonth()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por usuario</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedAgent"
+                                                               theme="bootstrap"
+                                                               on-select="changeAgent($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.fullName]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in agentsFilter | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                       	<span class="input-group-btn">
+                                                        <button ng-click="clearAgent()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-5 margin-top-5">
+
+
+                            <button type="button" class="btn btn-success" ng-click="addProject()" ng-if="isAdmin || isAgent" ng-disabled="!canCreateProject">
+                                Crear
+                            </button>
+
+                            <button type="button" class="btn btn-info" ng-click="addTask(currentTask)" ng-if="isAdmin || isAgent" ng-disabled="!canCreateTask">
+                                Nueva tarea
+                            </button>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="background-color: #E6E8E8;padding-top: 10px">
+                                <div kendo-gantt k-options="ganttOptions"></div>
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <!-- start: EDIT EVENT TEMPLATE -->
+                                <script type="text/ng-template" id="app_planning_internal_project.html">
+
+                                    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Información del Plan de Trabajo</h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Cliente</label>
+                                                        <input ng-disabled="true" type="text"
+                                                               placeholder="Nombre del Cliente"
+                                                               class="form-control" name="name"
+                                                               ng-model="project.customer.item" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>ARL</label>
+                                                        <input ng-disabled="true" type="text"
+                                                               placeholder="Nombre de la ARL"
+                                                               class="form-control" name="name"
+                                                               ng-model="project.customer.arl" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                                        <label class="control-label">Nombre<span
+                                                                class="symbol required"></span></label>
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Ingrese el nombre del Plan de Trabajo"
+                                                               class="form-control" name="name"
+                                                               ng-model="project.name" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.name.$dirty && Form.name.$invalid">El nombre del Plan de Trabajo es requerido</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                                        <label class="control-label">
+                                                            Tipo<span
+                                                                class="symbol required"></span>
+                                                        </label>
+                                                        <ui-select name="type" ng-required="true" ng-disabled="isview" ng-model="project.type"
+                                                                   theme="bootstrap">
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.value]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in projectTypes | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.value | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es requerido</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Descripción
+                                                        </label>
+                                                <textarea ng-disabled="isview"
+                                                          placeholder="Escribe aquí la descripción del Plan de Trabajo..."
+                                                          data-ng-model="project.description"
+                                                          class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número factura</label>
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Ingrese el número de la factura"
+                                                               class="form-control" name="invoiceNumber"
+                                                               ng-model="project.invoiceNumber"/>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.hours.$dirty && Form.hours.$invalid}">
+                                                        <label class="control-label">
+                                                            Horas estimadas <span
+                                                                class="symbol required"></span>
+                                                        </label>
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="hours"
+                                                               touchspin="" data-verticalbuttons="true"
+                                                               data-max="1000000000"
+                                                               data-verticalupclass="ti-angle-up"
+                                                               data-verticaldownclass="ti-angle-down"
+                                                               ng-model="project.estimatedHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.hours.$dirty && Form.hours.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fecha de entrega</label>
+                                                        <input class="form-control" kendo-date-time-picker
+                                                               k-options="datePickerConfig"
+
+                                                               k-ng-model="project.deliveryDate"
+                                                               style="width: 100%;"/>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Repetir mensualmente
+                                                        </label>
+
+                                                        <div class="checkbox">
+
+                                                <span class="switch ng-valid" ng-if="!isview"
+                                                      ng-click="project.isRecurrent =! project.isRecurrent"
+                                                      ng-class="{ checked:project.isRecurrent }"
+                                                      ng-model="project.isRecurrent">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="project.isRecurrent" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isview"
+                                                      ng-class="{ checked:project.isRecurrent }"
+                                                      ng-model="project.isRecurrent">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="project.isRecurrent" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Facturado
+                                                        </label>
+
+                                                        <div class="checkbox">
+
+                                                <span class="switch ng-valid" ng-if="!isview"
+                                                      ng-click="project.isBilled =! project.isBilled"
+                                                      ng-class="{ checked:project.isBilled }"
+                                                      ng-model="project.isBilled">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="project.isBilled" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isview"
+                                                      ng-class="{ checked:project.isBilled }"
+                                                      ng-model="project.isBilled">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="project.isBilled" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Análisis y selección de
+                                                        profesionales</h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Especialidad
+                                                        </label>
+                                                        <ui-select ng-disabled="isview" ng-model="project.defaultSkill"
+                                                                   theme="bootstrap"
+                                                                   on-select="changeSkill($item, $model)">
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.value]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in skills | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.value | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-5">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Asesor</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Disponibilidad</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Horas asignadas</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="pull-right">
+                                                        <div class="form-group">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row" ng-repeat="agent in agents">
+
+                                                <div class="col-md-5">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">[[agent.name]]</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">[[agent.notAssignedHours]]</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.assigment.$dirty && Form.employeesdir.$invalid}">
+
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="employeesdir"
+                                                               touchspin="" data-verticalbuttons="true"
+                                                               data-max="1000000000"
+                                                               data-verticalupclass="ti-angle-up"
+                                                               data-verticaldownclass="ti-angle-down"
+                                                               ng-model="agent.scheduledHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.employeesdir.$dirty && Form.employeesdir.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="pull-right">
+                                                        <div class="form-group">
+
+                                                            <a class="btn btn-success " href="#"
+                                                               ng-click="addAgent($index)"
+                                                               ng-disabled="isNewManagement"><i
+                                                                    class="glyphicon glyphicon-plus"></i></a>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Recursos del Plan de Trabajo</h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-5">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Asesor</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Disponibilidad</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Horas asignadas</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="pull-right">
+                                                        <div class="form-group">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row" ng-repeat="agentProject in project.agents">
+
+                                                <div class="col-md-5">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">[[agentProject.name]]</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">[[agentProject.notAssignedHours]]</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.assigment.$dirty && Form.employeesdir.$invalid}">
+
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="employeesdir"
+                                                               touchspin="" data-verticalbuttons="true"
+                                                               data-max="1000000000"
+                                                               data-verticalupclass="ti-angle-up"
+                                                               data-verticaldownclass="ti-angle-down"
+                                                               ng-model="agentProject.scheduledHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.employeesdir.$dirty && Form.employeesdir.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="pull-right">
+                                                        <div class="form-group">
+
+                                                            <a class="btn btn-danger " href="#"
+                                                               ng-click="removeAgentProject($index)"
+                                                               ng-disabled="isNewManagement"
+                                                               ng-if="can('diagnostico_create')"><i
+                                                                    class="glyphicon glyphicon-trash"></i></a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-danger btn-o" ng-click="onCancel()">
+                                                Cancelar
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-o">
+                                                Guardar
+                                            </button>
+                                        </div>
+                                    </form>
+
+
+                                </script>
+                                <!-- end: EDIT EVENT TEMPLATE -->
+
+                            </div>
+
+
+                            <div class="col-md-12">
+
+                                <!-- start: EDIT EVENT TEMPLATE -->
+                                <script type="text/ng-template" id="app_planning_internal_project_task.html">
+                                    <form name="Form" novalidate ng-submit="form.submit(Form)">
+
+                                        <div class="modal-body" id="contentwrp">
+                                            <div class="form-group">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Información Tarea </h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h5 class="over-title margin-bottom-15">
+                                                        <span class="text-bold">Plan de Trabajo: [[projectTask.name]]</span>
+                                                    </h5>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="pull-right">
+                                                        <h4 class="panel-title">
+                                                            <span class="text-bold">[[projectTask.customerName]]</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row Accordion-paneHeader">
+                                                <div class="col-md-12">
+                                                    <p>
+                                                        [[projectTask.description]]
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <hr/>
+
+                                            <div class="row" ng-if="isAdmin || isAgent">
+                                                <div class="col-md-6">
+                                                    <div class="form-group" ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                                        <label class="control-label">
+                                                            Resposable<span
+                                                                class="symbol required"></span>
+                                                        </label>
+                                                        <ui-select name="responsible" ng-required="true" ng-disabled="isview" ng-model="projectTask.responsible"
+                                                                   theme="bootstrap"
+                                                                   on-select="changeResponsible($item, $model)">>
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.name]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in projectTaskResponsible | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <span class="error text-small block" ng-if="Form.responsible.$dirty && Form.responsible.$invalid">El responsable es requerido</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.hours.$dirty && Form.hours.$invalid}">
+                                                        <label class="control-label">
+                                                            Horas Programadas <span class="symbol required"></span>
+                                                        </label>
+                                                        <input ng-disabled="true" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="duration"
+
+                                                               ng-model="projectTask.responsible.scheduledHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.hours.$dirty && Form.hours.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.hours.$dirty && Form.hours.$invalid}">
+                                                        <label class="control-label">
+                                                            Horas Disponibles <span class="symbol required"></span>
+                                                        </label>
+                                                        <input ng-disabled="true" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="duration"
+
+                                                               ng-model="projectTask.responsible.notAssignedHours" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.hours.$dirty && Form.hours.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                                        <label class="control-label">Tarea / Actividad<span
+                                                                class="symbol required"></span></label>
+                                                        <input ng-disabled="isview" type="text"
+                                                               placeholder="Ingrese el titulo de la tarea o actividad"
+                                                               class="form-control" name="name"
+                                                               ng-model="projectTask.task" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.name.$dirty && Form.name.$invalid">El nombre del Plan de Trabajo es requerido</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                                        <label class="control-label">
+                                                            Tipo tarea<span
+                                                                class="symbol required"></span>
+                                                        </label>
+                                                        <ui-select name="type" ng-required="true" ng-disabled="isview"
+                                                                   ng-model="projectTask.type"
+                                                                   theme="bootstrap">
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.value]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in taskTypes | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.value | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es requerido</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Descripción
+                                                        </label>
+                                                <textarea ng-disabled="isview"
+                                                          placeholder="Escribe aquí la descripción de la tarea..."
+                                                          data-ng-model="projectTask.observation"
+                                                          class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Inicio</label>
+                                                        <input class="form-control" kendo-date-time-picker
+                                                               k-options="datePickerConfig"
+
+                                                               k-ng-model="projectTask.startDateTime"
+                                                               style="width: 100%;"/>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fin</label>
+                                                        <input class="form-control" kendo-date-time-picker
+                                                               k-options="datePickerConfig"
+
+                                                               k-ng-model="projectTask.endDateTime"
+                                                               style="width: 100%;"/>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.hours.$dirty && Form.hours.$invalid}">
+                                                        <label class="control-label">
+                                                            Duración (Horas) <span class="symbol required"></span>
+                                                        </label>
+                                                        <input ng-disabled="true" type="text"
+                                                               placeholder="Horas estimadas"
+                                                               class="form-control" name="duration"
+
+                                                               ng-model="projectTask.duration" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.hours.$dirty && Form.hours.$invalid">La cantidad de horas estimadas es requerida</span>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="form-group" ng-if="reschedule">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Seguimiento Tarea</h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row" ng-if="reschedule">
+                                                <div class="col-md-12">
+
+                                                    <div class="form-group">
+                                                        <label class="control-label">Acción</label>
+                                                        <input ng-disabled="true" type="text"
+                                                               class="form-control" name="name"
+                                                               ng-model="projectTask.tracking.action" required/>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row" ng-if="reschedule">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Motivo
+                                                        </label>
+                                                <textarea
+                                                        placeholder="Escribe aquí el motivo..."
+                                                        data-ng-model="projectTask.tracking.description"
+                                                        class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                                                            Cancelar
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary btn-o">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h4 class="panel-title text-primary">Actividades</h4>
+                                                </label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive" id="dtActivity" style="margin-left: 2px">
+                                                        <table datatable="" width="100%" dt-instance="dtInstanceTask" dt-options="dtOptionsTask"
+                                                               dt-columns="dtColumnsTask"
+                                                               class="table table-bordered table-hover"></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="modal-footer">
+
+                                        </div>
+
+                                    </form>
+                                </script>
+                                <!-- end: EDIT EVENT TEMPLATE -->
+
+                            </div>
+
+                        </div>
+                    </uib-tab>
+                    <!-- end: TAB OVERVIEW -->
+                    <!-- start: TAB PROJECTS -->
+                    <!-- end: TAB PROJECTS -->
+                </uib-tabset>
+                <!-- end: USER uib-tabset -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: PROJECT -->

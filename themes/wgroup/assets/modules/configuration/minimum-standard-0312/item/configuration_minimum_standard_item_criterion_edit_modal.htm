@@ -1,0 +1,250 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+	<div class="modal-body">
+		<div class="panel panel-white">
+			<div class="panel-heading border-light">
+				<h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+			</div>
+
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-12">
+
+						<div class="form-group" ng-class="{'has-error':Form.parent.$dirty && Form.parent.$invalid}">
+							<label class="control-label">Estándar (Padre)<span class=""></span></label>
+
+							<ui-select name="parent" ng-required="false" ng-disabled="true"
+								on-select="onSelectParent()" ng-model="criterion.item.minimumStandardParent"
+								theme="bootstrap">
+								<ui-select-match placeholder="- Seleccionar -">
+									[[$select.selected.description]]
+								</ui-select-match>
+								<ui-select-choices repeat="item in parentList | filter: $select.search track by $index">
+									<div ng-bind-html="item.description | highlight: $select.search"></div>
+									<small>
+										Ciclo: <span ng-bind-html="''+item.cycle | highlight: $select.search"></span>
+									</small>
+								</ui-select-choices>
+							</ui-select>
+							<span class="error text-small block" ng-if="Form.parent.$dirty && Form.parent.$invalid">El
+								registro es
+								requerido</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-11">
+
+						<div class="form-group" ng-class="{'has-error':Form.standard.$dirty && Form.standard.$invalid}">
+							<label class="control-label">Sub - Estándar (Hijo)<span
+									class=""></span></label>
+
+							<ui-select name="standard" ng-required="false" ng-disabled="true"
+								ng-model="criterion.item.minimumStandard" theme="bootstrap">
+								<ui-select-match placeholder="- Seleccionar -">
+									[[$select.selected.description]]
+								</ui-select-match>
+								<ui-select-choices
+									repeat="item in standardList | filter: $select.search track by $index">
+									<div ng-bind-html="item.description | highlight: $select.search"></div>
+								</ui-select-choices>
+							</ui-select>
+							<span class="error text-small block"
+								ng-if="Form.standard.$dirty && Form.standard.$invalid">El registro es
+								requerido</span>
+						</div>
+					</div>
+
+					<div class="col-md-1">
+						<div class="form-group">
+							<label>
+								Activo
+							</label>
+
+							<div class="checkbox" style="margin-top: 0px !important;">
+								<switch disabled="true" ng-model="criterion.item.isActive" class="green"></switch>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-2">
+						<div class="form-group" ng-class="{'has-error':Form.numeral.$dirty && Form.numeral.$invalid}">
+							<label class="control-label">Numeral<span class=""></span></label>
+							<input ng-disabled="true" type="text" placeholder="Numeral" class="form-control"
+								name="numeral" ng-model="criterion.item.numeral" />
+							<span class="error text-small block" ng-if="Form.numeral.$dirty && Form.numeral.$invalid">El
+								registro es
+								requerido</span>
+						</div>
+					</div>
+
+					<div class="col-md-8">
+						<div class="form-group"
+							ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+							<label class="control-label">Descripción<span class=""></span></label>
+							<input ng-disabled="true" type="text" placeholder="Ingrese la descripción"
+								class="form-control" name="description" ng-model="criterion.item.description" />
+							<span class="error text-small block"
+								ng-if="Form.description.$dirty && Form.description.$invalid">El registro es
+								requerido</span>
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group" ng-class="{'has-error':Form.value.$dirty && Form.value.$invalid}">
+							<label class="control-label">Valor<span class=""></span></label>
+							<input ng-disabled="true" type="text" placeholder="Valor" class="form-control"
+								name="value" ng-model="criterion.item.value" required />
+							<span class="error text-small block" ng-if="Form.value.$dirty && Form.value.$invalid">El
+								registro es requerido</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="form-group" ng-class="{'has-error':Form.item.$dirty && Form.item.$invalid}">
+							<label class="control-label">Item<span class=""></span></label>
+							<input ng-disabled="true" type="text" placeholder="Ingrese la descripción"
+								class="form-control" name="item" ng-model="criterion.item.item" />
+							<span class="error text-small block" ng-if="Form.item.$dirty && Form.item.$invalid">El
+								registro es requerido</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group" ng-class="{'has-error':Form.size.$dirty && Form.size.$invalid}">
+							<label class="control-label">
+								<span class="">Tamaño empresa</span>
+							</label>
+							<ui-select name="size" theme="bootstrap" ng-required="false" ng-disabled="true"
+								ng-model="criterion.size">
+								<ui-select-match placeholder="- Seleccionar -">
+									[[$select.selected.item]]
+								</ui-select-match>
+								<ui-select-choices repeat="item in sizeList | filter: $select.search track by $index">
+									<div ng-bind-html="item.item | highlight: $select.search"></div>
+								</ui-select-choices>
+							</ui-select>
+							<span class="error text-small block" ng-if="Form.size.$dirty && Form.size.$invalid">
+								El registro es requerido
+							</span>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group"
+							ng-class="{'has-error':Form.riskLevel.$dirty && Form.riskLevel.$invalid}">
+							<label class="control-label">
+								<span class="">Clase de riesgo</span>
+							</label>
+							<ui-select name="riskLevel" theme="bootstrap" ng-required="false" ng-disabled="true"
+								ng-model="criterion.riskLevel">
+								<ui-select-match placeholder="- Seleccionar -">
+									[[$select.selected.item]]
+								</ui-select-match>
+								<ui-select-choices
+									repeat="item in riskLevelList | filter: $select.search track by $index">
+									<div ng-bind-html="item.item | highlight: $select.search"></div>
+								</ui-select-choices>
+							</ui-select>
+							<span class="error text-small block"
+								ng-if="Form.riskLevel.$dirty && Form.riskLevel.$invalid">
+								El registro es requerido
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group"
+							ng-class="{'has-error':Form.criterion.$dirty && Form.criterion.$invalid}">
+							<label class="control-label">
+								<span class="">Criterio</span>
+							</label>
+							<textarea ng-disabled="true" type="text" placeholder="Ingresar Criterio "
+								class="form-control" name="criterion" rows="2" ng-model="criterion.description"
+								required></textarea>
+							<span class="error text-small block"
+								ng-if="Form.criterion.$dirty && Form.criterion.$invalid">
+								El registro es requerido
+							</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="panel panel-white">
+				<div class="panel-heading border-light">
+					<h4 class="panel-title"><span class="text-bold">MODO DE VERIFICACIÓN</span></h4>
+				</div>
+	
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group"
+								ng-class="{'has-error':Form.verification.$dirty && Form.verification.$invalid}">
+								<label class="control-label">
+									<span class="symbol required">Descripción</span>
+								</label>
+								<textarea ng-disabled="isView" type="text" placeholder="Ingresar Modo de Verificación "
+									class="form-control" name="verification" rows="2" ng-model="entity.description"
+									required></textarea>
+								<span class="error text-small block"
+									ng-if="Form.verification.$dirty && Form.verification.$invalid">
+									El registro es requerido
+								</span>
+							</div>
+						</div>
+					</div>
+	
+					<div class="row margin-bottom-15">
+						<div class="col-md-12">
+							<div class="pull-right">
+								<button type="submit" class="btn btn-primary" ng-if="!isView">
+									Adicionar
+								</button>
+	
+								<button type="button" class="btn btn-primary btn-o" ng-click="onClear()">
+									Cancelar
+								</button>
+							</div>
+						</div>
+					</div>
+	
+					<div class="row">
+						<div class="col-md-12">
+							<div>
+								<div class="table-responsive">
+									<table datatable="" width="100%" 
+										dt-instance="dtInstanceMinimumStandardItemCriterionDetail0312Callback" 
+										dt-options="dtOptionsMinimumStandardItemCriterionDetail0312" 
+										dt-columns="dtColumnsMinimumStandardItemCriterionDetail0312"
+										id="dtMinimumStandardItemCriterionDetail0312" 
+									   class="table table-bordered table-hover">
+								   </table>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+				</div>
+			</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+			Salir
+		</button>
+	</div>
+</form>

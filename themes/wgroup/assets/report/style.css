@@ -1,0 +1,768 @@
+
+
+.col-lg-1,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-md-1,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-sm-1,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-xs-1,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9 {
+    padding: 0 3px;
+}
+
+* {
+    margin-bottom: 2px;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+	line-height: 1;
+    -webkit-print-color-adjust:exact;
+    font-size: 9px;
+}
+
+.row {
+    margin: 0;
+    margin-bottom: 0px !important;
+}
+
+.container {
+    width: 8.5in;
+    padding: 0 0.4in;
+    padding-top: 20px;
+/*    border: 1px solid #ccc;*/
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    float: left;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.placeholder {
+    height: 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.numero_formulario {
+    width: 2in;
+    margin-bottom: 0.1in;
+}
+
+label {
+    margin-bottom: -4px;
+}
+
+input[type=radio] {
+    font-size: 9px;
+    margin-top: 0;
+}
+
+.titulo {
+    float: left;
+    width: 3in;
+    border-bottom: none;
+    margin-left: 0.7in;
+    margin-bottom: -30px;
+    font-size: 14px;
+}
+
+.eps {
+    width: 2.7in;
+    float: left;
+}
+
+.codigo_eps {
+    width: 1.2in;
+    float: left;
+}
+
+.codigo {
+    width: 0.5in;
+    float: left;
+}
+
+.arl {
+    width: 2.4in;
+    float: left;
+}
+
+.afp {
+    float: left;
+    width: 5.5in;
+}
+
+.afp input[type=text] {
+    width: 4in;
+}
+
+.codigo_afp {
+    float: left;
+    width: 2in;
+}
+
+.titulo_01 {
+    float: left;
+    width: 4.3in;
+    margin-right: 0.1in;
+}
+
+.vinculador_laboral {
+    float: left;
+    width: 3.2in;
+}
+
+.actividad_economica {
+    float: left;
+    width: 2.1in;
+}
+
+.razon_social {
+    float: left;
+    width: 2in;
+}
+
+.tipo_identificacion {
+    float: left;
+    width: 1.6in;
+}
+
+
+.numero_identificacion {
+    float: left;
+    width: 1.4in;
+}
+
+.direccion {
+    float: left;
+    width: 3.7in;
+}
+
+.correo_electronico {
+    float: left;
+    width: 3.7in;
+}
+
+.telefono, .fax {
+    float: left;
+    width: 1in;
+}
+
+.departamento {
+    float: left;
+    width: 1.9in;
+}
+
+.municipio {
+    float: left;
+    width: 1.9in;
+}
+
+.zona {
+    float: left;
+    width: 0 5in;
+}
+
+.sub-titulo_01 {
+    float: left;
+    width: 3.1in;
+    margin-right: 0.1in;
+}
+
+.datos_trabajo {
+    float: left;
+    width: 4.4in;
+}
+
+.datos_trabajo span {
+    font-size: 9px;
+}
+
+.nombre_actividad {
+    float: left;
+    width: 3.4in;
+}
+
+.codigo_actividad {
+    float: left;    
+    width: 2in;
+}
+
+.direccion_02 {
+    float: left;
+    width: 2.8in;
+}
+
+.departamento_02 {
+    float: left;
+    width: 1.5in;
+}
+
+.municipio_02 {
+    float: left;
+    width: 1.5in;
+}
+
+.tipo_vinculacion {
+    float: left;
+    width: 3.7in;
+}
+
+.apellido, .nombre {
+    float: left;
+    width: 3.4in;
+}
+
+.tipo_identificacion_02 {
+    float: left;
+    width: 2in;
+}
+
+.fecha_nacimiento {
+    float: left;
+    width: 1.2in;
+}
+
+.form-group {
+    margin: 0 !important;
+    margin-bottom: 5px;
+    padding-bottom: 1px;
+    padding-top: 0 !important;
+/*    border-bottom: 1px solid #ccc;*/
+}
+
+.genero {
+    float: left;
+    width: 0.6in;
+}
+
+.cargo {
+    float: left;
+    width: 0.7in;
+}
+
+.ocupacion {
+    float: left;
+    width: 1.2in;
+}
+
+.codigo_ocupacion {
+    float: left;
+    width: 1.2in;
+}
+
+.fecha_ingreso {
+    float: left;
+    width: 1.6in;
+}
+
+.tiempo_ocupacion {
+    float: left;
+    width: 2.2in;
+}
+
+.tiempo_ocupacion label {
+    display: inline-block;
+}
+.tiempo_ocupacion span {
+    font-size: 10px;
+}
+.tiempo_ocupacion span.explicacion {
+    float: left;
+    font-size: 9px;
+    width: 0.6in;
+}
+
+
+.dia-mes {
+    float: left;
+    width: 0.4in;
+}
+
+.salario{
+    float: left;
+    width: 1.8in;
+}
+
+.jornada {
+    float: left;
+    width: 2in;
+}
+
+.fecha_accidente {
+    float: left;
+    width: 1.2in;
+}
+
+.hora_accidente {
+    float: left;
+    width: 1.5in;
+}
+
+.hora_accidente label {
+    font-size: 9px;
+}
+
+.dia_semana {
+    float: left;
+    width: 3.8in;
+}
+
+.jornada_accidente {
+    float: left;
+    width: 1in;
+}
+
+.labor_habitual {
+    float: left;
+    width: 2.9in;
+}
+
+.labor_habitual label {
+    font-size: 9px;
+    margin-bottom: 0;
+}
+
+.labor_habitual span {
+    font-size: 10px;
+}
+
+.labor_habitual input[type=text]  {
+    width: 1.8in !important;
+    display: inline-block;
+}
+
+.labor_habitual .placeholder {
+    display: inline-block;
+    width: 1.8in;
+}
+
+.tiempo_laborado {
+    float: left;
+    width: 1.2in;
+}
+
+.tiempo_laborado label {
+    font-size: 9px;
+}
+
+.tipo_accidente {
+    float: left;
+    width: 3in;
+}
+
+.tipo_accidente label {
+    float: left;
+    width: 0.5in;
+}
+
+.tipo_accidente .radio_group {
+    float: left;
+    width: 2.5in;
+}
+
+.tipo_accidente .radio_group span {
+    font-size: 10px;
+}
+
+.causa {
+    float: left;
+    width: 1.6in;
+}
+
+.causa label {
+    font-size: 9px;
+}
+
+.departamento_accidente {
+    float: left;
+    width: 1.4in;
+}
+
+.departamento_accidente label {
+    font-size: 9px;
+}
+
+.municipio_accidente {
+    float: left;
+    width: 1.2in;
+}
+
+.municipio_accidente label {
+    font-size: 9px;
+}
+
+.zona_accidente {
+    float: left;
+    width: 1in;
+        padding-left: 0.1in;
+}
+
+.zona_accidente label {
+    font-size: 9px;
+}
+
+.lugar_accidente {
+    float: left;
+    width: 1.3in;
+}
+
+.lugar_accidente label, .lugar_accidente span {
+    font-size: 8px;
+}
+
+.tipo_lesion label {
+    font-size: 9px;
+}
+
+.tipo_lesion .col_1 {
+    float: left;
+    width: 1.6in;
+}
+
+.tipo_lesion .col_2 {
+    float: left;
+    width: 2.2in;
+}
+
+.tipo_lesion .col_3{
+    float: left;
+    width: 2.4in;
+}
+
+.tipo_lesion .col_4 {
+    float: left;
+    width: 1.4in;
+}
+
+.parte_cuerpo label {
+    font-size: 9px;
+}
+
+.parte_cuerpo .col-1 {
+    float: left;
+    width: 1in;
+}
+
+.parte_cuerpo .col-2 {
+    float: left;
+    width: 2.6in;
+}
+.parte_cuerpo .col-3 {
+    float: left;
+    width: 1.3in;
+}
+.parte_cuerpo .col-4 {
+    float: left;
+    width: 1.2in;
+}
+
+.parte_cuerpo .col-5 {
+    float: left;
+    width: 1.5in;
+}
+
+.agente {
+    float: left;
+    width: 3.8in;
+}
+
+.agente label {
+    font-size: 9px;
+}
+
+.agente .col-1, .agente .col-2 {
+    float: left;
+    width: 1.9in;
+}
+
+.mecanismo {
+    float: left;
+    width: 3.7in;
+    padding-left: 0.1in;
+}
+
+.mecanismo label {
+    font-size: 9px;
+}
+
+.mecanismo .col-1, .mecanismo .col-2 {
+    float: left;
+    width: 1.8in;
+}
+
+.descripcion_accidente label {
+    font-size: 10px;
+    margin-bottom: 0;
+}
+
+.titulo_personas {
+    float: left;
+    width: 2.7in;
+}
+
+.testigos {
+    float: left;
+    width: 4.6in;
+    padding-left: 0.1in;
+}
+
+.testigos label, .testigos span {
+    font-size: 9px;
+}
+
+.fecha_diligenciamiento {
+    float: left;
+    width: 3in;
+}
+
+.firma {
+    float: left;
+    width: 4.5in;
+    padding-left: 0.3in;
+}
+
+.form-control {
+    border: none;
+    box-shadow: none;
+    height: 15px;
+    padding: 0;
+    font-size: 10px;
+}
+
+label {
+/*    text-transform: uppercase;*/
+    font-size: 10px;
+}
+
+.inline_input,
+.inline_input input,
+.inline_input span {
+    display: inline;
+    font-size: 9px;
+    vertical-align: middle;
+}
+
+.inline_input {
+    margin: 0 4px;
+}
+
+
+.inline_input .placeholder {
+    width: 4in;
+    display: inline-block;
+}
+
+
+
+.align-right {
+    text-align: right;
+}
+
+.radio {
+    padding: 0 !important;
+}
+
+.radio_inactive {
+    display: inline-block;
+    background: url("https://sylogi.net/themes/wgroup/assets/images/radio.png") no-repeat;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+
+.radio_active {
+    display: inline-block;
+    background: url("https://sylogi.net/themes/wgroup/assets/images/radio.png") no-repeat;
+    background-position: -10px 0;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+
+.checkbox_inactive {
+    display: inline-block;
+    background: url("https://sylogi.net/themes/wgroup/assets/images/checkbox.png") no-repeat;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.checkbox_active {
+    display: inline-block;
+    background: url("https://sylogi.net/themes/wgroup/assets/images/checkbox.png") no-repeat;
+    background-position: -10px 0;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.checkbox_ul {
+    padding: 0;
+}
+
+.checkbox_ul li {
+    list-style: none;
+}
+
+.inline-radio span {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.inline-radio label {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.inline-radio input[type=radio] {
+    margin: 0;
+    position: relative;
+}
+
+.inline-radio input[type=text] {
+    width: 320px;
+    display: inline-block;
+}
+
+.radio-margin span {
+    margin-left: 15px;
+    display: inline-block;
+}
+
+input[type=checkbox] {
+    margin-right: 10px;
+}
+
+span.title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 9px;
+}
+
+.checkbox {
+    vertical-align: middle;
+}
+
+.checkbox label {
+    font-weight: normal;
+    display: block;
+    vertical-align: middle;
+    margin-bottom: -1px;
+}
+
+.checkbox input[type=checkbox] {
+    vertical-align: top;
+    margin-top: 0;
+}
+.panel {
+    margin-bottom: 0;
+}
+.panel-heading {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 9px;
+    text-align: left;
+    padding: 2px 5px;
+}
+
+
+.panel-body {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 9px;
+    background: #f2f2f2;
+    padding: 2px 5px;
+}
+
+.panel-content {
+    padding: 5px;
+    font-weight: bold;
+}
+
+textarea.descripcion {
+    width: 100%;
+    height: 0.2in;
+    margin-bottom: 0.1in;
+    resize: none;
+}
+
+.right {
+    float: right;
+}
+
+@media print {
+@page {
+    margin: 0;
+}
+    .container {
+        width: 8.5in;
+    }
+  
+}
+
+
+
+
+
+
+
+
+
+

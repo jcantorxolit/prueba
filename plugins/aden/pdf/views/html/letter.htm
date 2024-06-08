@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Formulario Seguros Bolivar</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ themePath }}/assets/investigation/css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+          rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style TYPE="text/css">
+        <!--
+        .breakhere {
+            page-break-before: always
+        }
+
+        -->
+        p {
+            text-align: justify;
+        }
+
+        body {
+            font-size: 13px;
+        }
+
+        div.page
+        {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Bolivar -->
+<section id="about" class="bolivar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" style="margin-bottom: 20px">
+                    <!--<div class="col-lg-6" style="text-align: left;">
+                        <img src="http://sylogisoftware.com/beta/themes/wgroup/assets/investigation/img/logo.png" width="190" alt="">
+                    </div>-->
+                    <div class="col-lg-6" style="text-align: right;">
+
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <!--<label>Número de Consecutivo:  </label>-->
+
+                                <span class="" style="color: #4c4c4c;">DNPRL - {{ letterDnprl }}</span>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row carta">
+                    <div class="col-lg-12">
+                        <p><span>{{ letterCity }}</span>, <span>{{ letterElaborationDate }}</span></p>
+
+                        <p>{{ letterTreatment }}<br>
+                            <strong><span>{{ toWhom }}</span></strong> <br>
+                            <strong><span>{{ toWhomJob }}</span></strong><br>
+                            <strong><span>{{ customerBusinessName }}</strong></span><br>
+                            <span>{{ letterShippingAddress }}</span><br>
+                            <span>{{ letterShippingPhone }}</span><br>
+                            <span>{{ letterShippingCity }}</span>
+                        </p>
+                        <br>
+
+                        <p>REF: Recomendaciones de prevención por el accidente del(a) trabajador(a) <strong><span> {{ employeeFirstName }} {{ employeeLastName }}</span></strong>,
+                            identificado(a)
+                            con C.C. <strong><span>{{ employeeDocumentNumber }}</span></strong>
+                        </p>
+                        <br>
+
+                        <p>Respetado(a) doctor(a) <span>{{ toWhom }}</span>:</p>
+                        <br>
+
+                        <p>Reciba un cordial saludo de su Administradora de Riesgos Laborales ARL de Seguros
+                            Bolívar.</p>
+
+                        <p>En desarrollo de nuestro Programa de Acciones Efectivas contra la Accidentalidad, ARL de
+                            Seguros Bolívar realizó la investigación del accidente presentado al (a la) trabajador(a)
+                            <strong><span>{{ employeeFirstName }} {{ employeeLastName }}</span></strong>, identificado(a)
+                            con C.C. <strong><span>{{ employeeDocumentNumber }}</span></strong>, ocurrido el <span>{{ accident_day }} de {{ accident_month_name }} de {{ accident_year }}</span>,
+                            al cual presentamos las conclusiones para la implementación de las siguientes acciones: </p>
+                        <br>
+                        <label class="col-sm-12 fw" style="padding-left: 0;">CARACTERIZACIÓN DEL ACCIDENTE</label>
+                        <br>
+                        <table class="table table-striped">
+                            <tr>
+                                <th colspan="" rowspan="" headers="" scope="">Categoria</th>
+                                <th colspan="" rowspan="" headers="" scope="">Descripcion</th>
+                            </tr>
+
+                            <tr>
+                                <td>Naturaleza de la lesión</td>
+                                <td>{{ accidentInjuryType }}</td>
+                            </tr>
+                            <tr>
+                                <td>Parte del cuerpo afectada</td>
+                                <td>{{ accidentBodyPart }}</td>
+                            </tr>
+                            <tr>
+                                <td>Agente de la lesión</td>
+                                <td>{{ accidentAgent }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mecanismo o forma del accidente</td>
+                                <td>{{ accidentMechanism }}</td>
+                            </tr>
+
+
+                        </table>
+
+                        <p>Después de la investigación realizada, se establecieron las posibles causas básicas e
+                            inmediatas y se plantean las siguientes recomendaciones para llevar a cabo en la
+                            empresa. </p>
+
+                        <p> </p>
+                        <label class="col-sm-12 fw" style="padding-left: 0;"> DETERMINACIÓN DE CAUSAS</label>
+                        <p> </p>
+
+                        <label class="col-sm-12 fw" style="padding-left: 0;">Causas Inmediatas - Actos inseguros</label>
+
+                        {% if acts|length > 0 %}
+                        {% for m in acts %}
+                        <div>
+                            {% if m.code != '0000' %}
+                            <p>
+                                <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                            </p>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% else %}
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div>
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-12" style="    padding: 0;">
+                            <hr>
+                            <br><br>
+                        </div>
+
+                        <label class="col-sm-12 fw" style="padding-left: 0;">Causas Inmediatas - Condiciones
+                            inseguras</label>
+
+                        {% if conditions|length > 0 %}
+                        {% for m in conditions %}
+                        <div>
+                            {% if m.code != '0000' %}
+                            <p>
+                                <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                            </p>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% else %}
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div>
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="col-md-12" style="    padding: 0;">
+                            <hr>
+                            <br><br>
+                        </div>
+
+
+                        <label class="col-sm-12 fw" style="padding-left: 0;">Causas Básicas - Factores de
+                            Trabajo</label>
+
+                        {% if works|length > 0 %}
+                        {% for m in works %}
+                        <div>
+                            {% if m.code != '0000' %}
+                            <p>
+                                <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                            </p>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% else %}
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div>
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="col-md-12" style="    padding: 0;">
+                            <hr>
+                            <br><br>
+                        </div>
+
+                        <label class="col-sm-12 fw" style="padding-left: 0;">Causas Básicas - Factores
+                            Personales</label>
+
+                        {% if personals|length > 0 %}
+                        {% for m in personals %}
+                        <div>
+                            {% if m.code != '0000' %}
+                            <p>
+                                <strong> <span class="">{{ m.code }}</span> </strong> {{ m.description }}
+                            </p>
+
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% else %}
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                            <p style="margin: 0 0 10px;border-top: 1px solid #efefef;">
+                                <span class="" style="">{{ m.observation }}</span>
+                            </p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div>
+                            <strong> <span class="small-text" style="color:red">No se identifican actos inseguros por parte del trabajador.</span>
+                            </strong>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="col-md-12" style="    padding: 0;">
+                            <hr>
+                            <br><br>
+                        </div>
+
+                        <label class="col-sm-12 fw" style="padding-left: 0;"> MEDIDAS PROPUESTAS PARA
+                            INTERVENIR LAS CAUSAS DEL ACCIDENTE</label>
+
+                        <p>
+                            Nota: El Representante legal debe definir al interior de la organización la asignación de
+                            responsabilidades en la ejecución de las medidas propuestas de acuerdo con las competencias
+                            requeridas para su desarrollo.
+                        </p>
+                        <table style="width: 100%;border-collapse: collapse;border: 1px solid #cecece;">
+
+                            <tbody>
+                            <tr style="font-weight:bold">
+                                <td style="background: #ececec; border: 1px solid #cecece;width:20px; text-align:center;font-size: 12px">
+                                    <label>F</label>
+                                </td>
+
+                                <td style="background: #ececec; border: 1px solid #cecece;;width:20px; text-align:center;font-size: 12px">
+                                    <label>M</label>
+                                </td>
+
+                                <td style="background: #ececec; border: 1px solid #cecece;;width:20px; text-align:center;font-size: 12px">
+                                    <label>T</label>
+                                </td>
+
+                                <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                    <label>Medida</label>
+                                </td>
+
+                                <td style="background: #ececec; border: 1px solid #cecece; text-align:center;font-size: 12px">
+                                    <label>Responsable</label>
+                                </td>
+
+                                <td style="background: #ececec; border: 1px solid #cecece; text-align:center;width:10%;font-size: 12px">
+                                    <label>Fecha Verificación</label>
+                                </td>
+                            </tr>
+                            {% for m in measures %}
+                            <tr>
+                                <td style="border: 1px solid #cecece;text-align:center">
+                                    {% if m.type == 1 %}
+                                    <span class="small-text">X</span>
+                                    {% endif %}
+                                </td>
+
+                                <td style="border: 1px solid #cecece;text-align:center">
+                                    {% if m.typeEnvironment == 1 %}
+                                    <span class="small-text">X</span>
+                                    {% endif %}
+                                </td>
+
+                                <td style="border: 1px solid #cecece;text-align:center">
+                                    {% if m.typeWorker == 1 %}
+                                    <span class="small-text">X</span>
+                                    {% endif %}
+                                </td>
+
+                                <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                                    <span class="small-text">{{ m.description }}</span>
+                                </td>
+
+                                <td style="border: 1px solid #cecece;text-align:justify;padding:5px">
+                                    <span class="small-text">{{ m.responsible }}</span>
+                                </td>
+
+                                <td style="border: 1px solid #cecece;padding:5px;">
+                                    <span class="small-text">{{m.checkDate|date("d/m/Y", "America/Bogota")}}</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+                        <div class="col-lg-12" style="margin-top:15px; padding: 0;">
+                            <em>F: Fuente, M: Medio, T: Trabajador</em> <br><br>
+
+                            <p>
+                                Con el ánimo de favorecer las condiciones de trabajo y salud de los trabajadores y, por
+                                ende, mejorar la productividad empresarial, esperamos que las recomendaciones emitidas
+                                sean desarrolladas, para evitar que se presenten casos similares. Vencidas las fechas de
+                                cumplimiento propuestas estaremos realizando un seguimiento específico a las mismas,
+                                para hacer el reporte respectivo al Ministerio de Trabajo, cumpliendo con la
+                                normatividad vigente.
+                            </p>
+
+                            <p>
+                                Las presentes recomendaciones son de carácter general para la Empresa y sus trabajadores
+                                y en ningún caso constituyen un concepto de definición de origen y de cobertura frente
+                                al evento reportado.
+                            </p>
+                            <br>
+
+                            <p>Cordialmente,</p>
+                            <br>
+
+                            <div class="col-lg-6" style="margin-top:15px; padding: 0;">
+                                <p><span>{{ letterSignedBy }}</span> <br>
+                                    <span>{{ letterJobSignedBy }} </span><br>
+                                    <span>ARL de Seguros Bolívar </span><br>
+                                </p>
+                            </div>
+
+                            <p><span>Copia:	Imagine {{ letterImagine }}</span></p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<footer>
+
+</footer>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

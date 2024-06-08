@@ -1,0 +1,26 @@
+<div ng-controller="customerDiagnosticListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-success" href="#" ng-click="onCreate()" ng-if="canCreate"
+               ng-if="can('diagnostico_create')"><i
+                    class="glyphicon glyphicon-plus"></i> Crear diagnóstico</a>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" width="100%"
+                           dt-instance="dtInstanceDiagnosticCallback"
+                           dt-options="dtOptionsDiagnostic"
+                           dt-columns="dtColumnsDiagnostic"
+                           id="dtCustomerDiagnostic"
+                           class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

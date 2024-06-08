@@ -1,0 +1,183 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title">
+            <span class="text-bold">REGISTROS</span>
+        </h4>
+    </div>
+
+    <div class="panel-body ">
+
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <div class="panel panel-white">
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group" >
+                                <label class="control-label">Código</label>
+                                <input type="text" class="form-control" name="code" ng-model="entity.code" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group" >
+                                <label class="control-label">Nombre</label>
+                                <input type="text" class="form-control" name="name" ng-model="entity.name" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" >
+                                <label class="control-label">Tipo</label>
+                                <input type="text" class="form-control" name="type" ng-model="entity.type" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" >
+                                <label class="control-label">Programado</label>
+                                <input type="text" class="form-control" name="programmed" ng-model="entity.programmed" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" >
+                                <label class="control-label">Horas Programadas</label>
+                                <input type="text" class="form-control" name="hourProgrammed" ng-model="entity.hourProgrammed" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="{'has-error':Form.date.$dirty && Form.date.$invalid}">
+                                <label class="control-label">Fecha <span class="symbol required"></span></label>
+                                <input class="form-control" kendo-date-picker
+                                       name="date"
+                                       ng-required="true"
+                                       k-options="datePickerConfig"
+                                       k-rebind="datePickerConfig"
+                                       ng-model="entity.date"
+                                       onkeydown="return false;"
+                                       style="width: 100%;" />
+                                <span class="error text-small block" ng-if="Form.date.$dirty && Form.date.$invalid">La fecha es requerida</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.activityState.$dirty && Form.activityState.$invalid}">
+                                <label class="control-label">Estado: <span class="symbol required"></span></label>
+                                <ui-select name="activityState" ng-required="true"
+                                           ng-model="entity.activityState" ng-change="cambio()" theme="bootstrap" >
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in activityStateList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="error text-small block" ng-if="Form.activityState.$dirty && Form.activityState.$invalid">El valor es requerido.</span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group" >
+                                        <label class="control-label">Ejecutado</label>
+                                        <input type="text" class="form-control" name="executed" ng-model="entity.executed" ng-required="true" />
+                                    </div>
+                                </div>
+        
+        
+                                <div class="col-md-6">
+                                    <div class="form-group" >
+                                        <label class="control-label">Horas Ejecutadas</label>
+                                        <input type="text" class="form-control" name="hourExecuted" ng-model="entity.hourExecuted" ng-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 form-group" ng-class="{'has-error':Form.satisfactionIndicator45.$dirty && Form.satisfactionIndicator45.$invalid}">
+                            <label class="control-label">N° de servidores con calificación 4 y 5</label>
+                            <input type="text" class="form-control" name="satisfactionIndicator45" ng-model="entity.satisfactionIndicator45" />
+                        </div>
+
+                        <div class="col-md-6 form-group" ng-class="{'has-error':Form.satisfactionIndicator123.$dirty && Form.satisfactionIndicator123.$invalid}">
+                            <label class="control-label">N° de servidores con calificación 1, 2 y 3</label>
+                            <input type="text" class="form-control" name="satisfactionIndicator123" ng-model="entity.satisfactionIndicator123" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group" ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                            <label class="control-label">Observación <span class="symbol required"></span></label>
+                            <textarea rows="4" class="form-control" ng-required="true" name="observation" ng-model="entity.observation"> </textarea>
+                            <span class="error text-small block" ng-if="Form.observation.$dirty && Form.observation.$invalid">El valor es requerido.</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="pull-right margin-right-5">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="form.reset()">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" datatable="" width="100%"
+                           id="dtIndicatorLogsModal"
+                           dt-instance="dtInstanceIndicatorLogsComplianceModal"
+                           dt-options="dtOptionsIndicatorLogsComplianceModal"
+                           dt-columns="dtColumnsIndicatorLogsModal"></table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-12">
+                <br>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onClose()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

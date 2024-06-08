@@ -1,0 +1,456 @@
+<div class="row" ng-controller="customerHealthDamageAdministrativeProcessEditCtrl">
+    <div class="col-md-12">
+        <div>
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL EMPLEADO</span>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                            <label class="control-label">
+                                                Tipo de identificación<span class="symbol required"></span>
+                                            </label>
+                                            <ui-select name="documentType" ng-required="true" ng-disabled="true"
+                                                       ng-model="administrative.employee.entity.documentType"
+                                                       theme="bootstrap"
+                                                       on-select="changeCountry($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El tipo de identificación es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                            <label class="control-label">
+                                                Número de Identificación
+                                                <span class="symbol required"></span>
+                                            </label>
+
+                                            <div class="input-group">
+                                                <ui-select name="customer" ng-disabled="true"
+                                                           ng-model="administrative.employee"
+                                                           ng-required="true"
+                                                           theme="bootstrap"
+                                                           on-select="changeCustomer($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.entity.documentNumber]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in employees | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.entity.documentNumber | highlight: $select.search"></div>
+                                                        <small>
+                                                            Nombre: <span
+                                                                ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                        </small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" ng-click="onAddDisabilityEmployeeList()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                    <button type="button" ng-click="onAddEmployee()"
+                                                            class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.customer.$dirty && Form.customer.$invalid">La número de identificación es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                            <label class="control-label">Género<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="gender"
+                                                   ng-model="administrative.employee.entity.gender.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.gender.$dirty && Form.gender.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.expeditionPlace.$dirty && Form.expeditionPlace.$invalid}">
+                                            <label class="control-label">
+                                                Edad<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el lugar de expedición"
+                                                   class="form-control" name="expeditionPlace"
+                                                   ng-model="administrative.employee.entity.age" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.expeditionPlace.$dirty && Form.expeditionPlace.$invalid">El lugar de expedición es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <label>
+                                                Activo
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="true"
+                                                        ng-model="administrative.employee.isActive"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                            <label class="control-label">
+                                                Nombre(s)<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el nombre(s)"
+                                                   class="form-control" name="firstName"
+                                                   ng-model="administrative.employee.entity.firstName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El nombre(s) es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                            <label class="control-label">
+                                                Apellidos<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese los apellidos"
+                                                   class="form-control" name="lastName"
+                                                   ng-model="administrative.employee.entity.lastName" required/>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los apellidos son requeridos</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.eps.$dirty && Form.eps.$invalid}">
+                                            <label class="control-label"><span translate="views.EPS">EPS</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="eps"
+                                                   ng-model="administrative.employee.entity.eps.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.eps.$dirty && Form.eps.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.afp.$dirty && Form.afp.$invalid}">
+                                            <label class="control-label">AFP<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="administrative.employee.entity.afp.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.afp.$dirty && Form.afp.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.arl.$dirty && Form.arl.$invalid}">
+                                            <label class="control-label"><span translate="views.ARL">ARL</span><span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text" placeholder=""
+                                                   class="form-control" name="afp"
+                                                   ng-model="administrative.employee.entity.arl.item"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.arl.$dirty && Form.arl.$invalid">E género es requerido</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.arlSinister.$dirty && Form.arlSinister.$invalid}">
+                                            <label class="control-label"><span translate="views.ARL">ARL</span> del Siniestro<span
+                                                    class="symbol required"></span></label>
+
+                                            <ui-select name="arlSinister" ng-model="administrative.arl"
+                                                       theme="bootstrap"
+                                                       ng-disabled="isView" ng-required="true">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in arl | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                            <span class="error text-small block"
+                                                  ng-if="Form.arlSinister.$dirty && Form.arlSinister.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">PROCESO ADMINISTRATIVO</span>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Reubicado
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="administrative.isRelocated"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.observationRelocated.$dirty && Form.observationRelocated.$invalid}">
+                                            <label class="control-label">
+                                                Observación<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese la observación"
+                                                   class="form-control" name="observationRelocated"
+                                                   ng-model="administrative.observationRelocated"
+                                                   ng-required="administrative.isRelocated"/>
+                                           <span class="error text-small block"
+                                                 ng-if="Form.observationRelocated.$dirty && Form.observationRelocated.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Estabilidad laboral reforzada
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="administrative.isEnhancedStability"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.observationEnhancedStability.$dirty && Form.observationEnhancedStability.$invalid}">
+                                            <label class="control-label">
+                                                Observación<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese la observación"
+                                                   class="form-control" name="observationEnhancedStability"
+                                                   ng-model="administrative.observationEnhancedStability"
+                                                   ng-required="administrative.isEnhancedStability"/>
+                                           <span class="error text-small block"
+                                                 ng-if="Form.observationEnhancedStability.$dirty && Form.observationEnhancedStability.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Pago de incapacidad
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="administrative.isDisabilityPayment"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.observationDisabilityPayment.$dirty && Form.observationDisabilityPayment.$invalid}">
+                                            <label class="control-label">
+                                                Observación<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese la observación"
+                                                   class="form-control" name="observationDisabilityPayment"
+                                                   ng-model="administrative.observationDisabilityPayment"
+                                                   ng-required="administrative.isDisabilityPayment"/>
+                                           <span class="error text-small block"
+                                                 ng-if="Form.observationDisabilityPayment.$dirty && Form.observationDisabilityPayment.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Tutela
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="administrative.isTutelage"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.resultTutelage.$dirty && Form.resultTutelage.$invalid}">
+                                            <label class="control-label">
+                                                Resultado<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese el resultado"
+                                                   class="form-control" name="resultTutelage"
+                                                   ng-model="administrative.resultTutelage"
+                                                   ng-required="administrative.resultTutelage"/>
+                                           <span class="error text-small block"
+                                                 ng-if="Form.resultTutelage.$dirty && Form.resultTutelage.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>
+                                                Demanda, Queja
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <switch disabled="isView" ng-model="administrative.isComplain"
+                                                        class="green"></switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.resultComplain.$dirty && Form.resultComplain.$invalid}">
+                                            <label class="control-label">
+                                                Resultado<span class="symbol required"></span>
+                                            </label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese el resultado"
+                                                   class="form-control" name="resultComplain"
+                                                   ng-model="administrative.resultComplain"
+                                                   ng-required="administrative.isComplain"/>
+                                           <span class="error text-small block"
+                                                 ng-if="Form.resultComplain.$dirty && Form.resultComplain.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>
+                                                Que dice el cliente (Trabajadores en Misión)
+                                            </label>
+
+                                               <textarea ng-disabled="isView"
+                                                         placeholder="Escribe aquí la descripción..."
+                                                         data-ng-model="administrative.whatCustomerSay"
+                                                         class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>
+                                                Que espera el cliente
+                                            </label>
+
+                                                <textarea ng-disabled="isView"
+                                                          placeholder="Escribe aquí la descripción..."
+                                                          data-ng-model="administrative.whatCustomerExpect"
+                                                          class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>
+                                                Concepto Médico Laboral
+                                            </label>
+
+                                                <textarea ng-disabled="isView"
+                                                          placeholder="Escribe aquí la descripción..."
+                                                          data-ng-model="administrative.medicalOccupationalConcept"
+                                                          class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-15">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

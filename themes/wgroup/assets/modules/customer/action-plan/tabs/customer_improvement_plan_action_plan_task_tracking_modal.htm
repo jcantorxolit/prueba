@@ -1,0 +1,58 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.action.$dirty && Form.action.$invalid}">
+                                    <label class="control-label">Acción<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese la actividad"
+                                           class="form-control" name="action"
+                                           ng-model="task.tracking.action"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.action.$dirty && Form.action.$invalid">La acción es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.observation.$dirty && Form.observation.$invalid}">
+                                    <label class="control-label">Motivo<span
+                                            class="symbol required"></span></label>
+                                               <textarea ng-disabled="isView" name="observation"
+                                                         placeholder="Escribe aquí la observación..."
+                                                         data-ng-model="task.tracking.observation"
+                                                         class="form-control" required></textarea>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.observation.$dirty && Form.observation.$invalid">El motivo es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>

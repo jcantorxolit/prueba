@@ -1,0 +1,159 @@
+<div class="panel-body ">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE LA TAREA</span></h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Código</label>
+                            <input type="text" class="form-control" ng-model="taskInfo.code" disabled/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Tipo</label>
+                            <input type="text" class="form-control" ng-model="taskInfo.type" disabled/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Meta</label>
+                            <input type="text" class="form-control" ng-model="entity.goalCoverage" disabled/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Tarea</label>
+                            <input type="text" class="form-control" ng-model="taskInfo.name" disabled/>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE LA POBLACIÓN</span></h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row" ng-if="action=='execution'">
+
+
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error':Form.date.$dirty && Form.date.$invalid}">
+                                    <label class="control-label">Fecha <span class="symbol required"></span></label>
+                                    <input class="form-control" kendo-date-picker name="date" ng-required="true" k-options="datePickerConfig" k-rebind="datePickerConfig" ng-model="entity.date" onkeydown="return false;" style="width: 100%;" />
+                                    <span class="error text-small block" ng-if="Form.date.$dirty && Form.date.$invalid">La fecha es requerida</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-group" ng-class="{'has-error':Form.activityState.$dirty && Form.activityState.$invalid}">
+                                    <label class="control-label">Estado: <span class="symbol required"></span></label>
+                                    <ui-select name="activityState" ng-required="true" ng-model="entity.activityState" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in activityStateList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block" ng-if="Form.activityState.$dirty && Form.activityState.$invalid">El valor es requerido.</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Población</th>
+                                    <th scope="col">Convocados</th>
+                                    <th scope="col" ng-if="action=='execution'">Total</th>
+                                    <th ng-if="action=='execution'" scope="col">Asistentes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="item in entity.coverages">
+                                    <th scope="row">[[ item.item ]]</th>
+                                    <td>
+                                        <input ng-if="action=='programming'" type="text" ng-change="calculeInfoCoveragePoblation()" name="call" ng-model="item.call">
+                                        <span ng-if="action=='execution'"> [[ item.call ]] </span>
+                                    </td>
+                                    <td ng-if="action=='execution'">
+                                        <span> [[ item.allAssistant ]] </span>
+                                    </td>
+                                    <td ng-if="action=='execution'">
+                                        <div class="form-group" ng-class="{'has-error':Form.assistants[[$index]].$dirty && Form.assistants[[$index]].$invalid && !item.assistants}">
+                                            <input type="text" name="assistants[[$index]]" ng-model="item.assistants" ng-required="entity.activityState.value == 'AS001' || entity.activityState.value == 'AS002' ">
+
+                                            <span class="error text-small block" ng-if="Form.assistants[[$index]].$dirty && Form.assistants[[$index]].$invalid && !item.assistants">
+                                                El valor es requerido.
+                                            </span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row padding-bottom-30 padding-right-10" ng-if="action=='execution'">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="form.reset()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row" ng-if="action == 'execution'">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" datatable="" width="100%" id="dtIndicatorPopulation" dt-instance="dtInstanceIndicatorPopulationCallback" dt-options="dtOptionsIndicatorPopulation" dt-columns="dtColumnsIndicatorPopulation"></table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row ">
+            <div class="col-md-12">
+                <br>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onClose();form.reset()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

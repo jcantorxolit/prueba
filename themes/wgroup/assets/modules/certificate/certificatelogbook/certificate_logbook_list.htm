@@ -1,0 +1,218 @@
+<!-- start: RESPONSIVE TABLE -->
+<div class="container-fluid container-fullw bg-white" ng-controller="certificateLogBookListCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Datos Básicos:</legend>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.company.$dirty && Form.company.$invalid}">
+                        <label class="control-label">Empresa <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el nombre de la empresa"
+                               class="form-control" name="name"
+                               ng-model="attachment.company" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.company.$dirty && Form.company.$invalid">La empresa es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.location.$dirty && Form.location.$invalid}">
+                        <label class="control-label">Lugar <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el lugar"
+                               class="form-control" name="name"
+                               ng-model="attachment.location" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.location.$dirty && Form.location.$invalid">El lugar es requerido</span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                        <label class="control-label">Descripción<span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isview" type="text" placeholder="Descrición"
+                               class="form-control" name="description"
+                               ng-model="attachment.description"/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.eventDate.$dirty && Form.eventDate.$invalid}">
+                        <label class="control-label">
+                            Fecha
+                            <span class="symbol"></span>
+                        </label>
+                        <span class="input-icon">
+                            <input type="text" class="form-control underline"
+                                   ng-click="startOpen = !startOpen"
+                                   datepicker-popup="fullDate"
+                                   ng-model="attachment.eventDate" is-open="startOpen"
+                                   ng-init="startOpen = false" close-text="Close"/>
+                                <i class="ti-calendar"></i>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.capacity.$dirty && Form.capacity.$invalid}">
+                        <label class="control-label">
+                            Horas Trabajas
+                            <span class="symbol"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Horas trabajadas"
+                               class="form-control" name="capacity" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="attachment.hourWorked"/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.capacity.$dirty && Form.capacity.$invalid">Laa horas son requeridas</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.duration.$dirty && Form.duration.$invalid}">
+                        <label class="control-label">
+                            Máxima Altura Trabajada
+                            <span class="symbol"></span>
+                        </label>
+                        <input type="text"
+                               placeholder="Máxima altura"
+                               class="form-control" name="duration" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="attachment.maxHeightWorked"/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.duration.$dirty && Form.duration.$invalid">La altura es requerida</span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <p>
+                        Cantidad anexos: [[ uploader.queue.length ]]
+                    </p>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th width="50%">Nombre</th>
+                                <th ng-show="uploader.isHTML5">Tamaño</th>
+                                <th ng-show="uploader.isHTML5">Progreso</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in uploader.queue">
+                                <td><strong>[[ item.file.name ]]</strong></td>
+                                <td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2
+                                    ]] MB
+                                </td>
+                                <td ng-show="uploader.isHTML5">
+                                    <div class="progress progress-xs margin-bottom-0">
+                                        <div class="progress-bar" role="uib-progressbar"
+                                             ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center"><span ng-show="item.isSuccess"><i
+                                        class="glyphicon glyphicon-ok"></i></span><span
+                                        ng-show="item.isCancel"><i
+                                        class="glyphicon glyphicon-ban-circle"></i></span><span
+                                        ng-show="item.isError"><i
+                                        class="glyphicon glyphicon-remove"></i></span></td>
+                                <td nowrap>
+
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remover
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+
+                                <span class="btn btn-primary btn-o btn-file"> Seleccionar anexo
+									<input type="file" nv-file-select="" uploader="uploader"
+                                           ng-disabled="uploader.getNotUploadedItems().length > 0"/>
+								</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right margin-bottom-15">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstanceCertificate" dt-options="dtOptionsCertificate"
+                       dt-columns="dtColumnsCertificate" id="dtCertificate"
+                       class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+</div>
+<!-- end: RESPONSIVE TABLE -->

@@ -1,0 +1,154 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">CONFIGURACIÓN DE TAREA</span></h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-inline">
+                                <div class="radio" style="margin-top: 0px !important;">
+                                    <switch ng-model="main" ng-change="onChangeType('main',true)"  class="green"></switch>
+                                </div>
+                                <label class="vertical-align-middle">
+                                    Principal
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-inline">
+                                <div class="radio" style="margin-top: 0px !important;">
+                                    <switch ng-model="subtask" ng-change="onChangeType('subtask',true)"  class="green"></switch>
+                                </div>
+                                <label class="vertical-align-middle">
+                                    Subtarea
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-inline">
+                                <div class="radio" style="margin-top: 0px !important;">
+                                    <switch ng-model="dependenTask" ng-change="onChangeType('dependenTask',true)"  class="green"></switch>
+                                </div>
+                                <label class="vertical-align-middle">
+                                    Relacionar Tarea Dependiente
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE LA TAREA PRINCIPAL</span></h4>
+                                </div>
+                                <div class="panel-body">
+                                    
+                                    <div ng-if="entity.type != 'dependenTask'">
+                                        <div data-ng-animate="'wave'" ng-if="!isManual" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/gestpos/task/form.htm'">
+                                        </div>
+                                    </div> <!-- END IF -->
+
+                                    <div ng-if="entity.type == 'dependenTask'">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group" ng-class="{'has-error':Form.mainTask.$dirty && Form.mainTask.$invalid}">
+                                                    <label class="control-label">Tarea <span class="symbol required"></span></label>
+                                                    <ui-select name="mainTask" ng-required="entity.addCode" ng-model="entity.mainTask"
+                                                        theme="bootstrap">
+                                                        <ui-select-match placeholder="- Opción -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item in mainTaskList | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error text-small block" ng-if="Form.mainTask.$dirty && Form.mainTask.$invalid">
+                                                        El valor es requerido.
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div> <!-- END ROW -->
+                                    </div> <!-- END IF -->
+    
+                                </div>
+                            </div> <!-- END PANEL -->
+
+                            <div ng-if="entity.type == 'dependenTask'">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE LA TAREA DEPENDIENTE</span></h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row" ng-if="!isManual">
+                                            <div class="col-md-11">
+                                                <div class="form-group" ng-class="{'has-error':Form.subTask.$dirty && Form.subTask.$invalid}">
+                                                    <label class="control-label">Tarea <span class="symbol required"></span></label>
+                                                    <ui-select name="subTask" ng-required="entity.addCode" ng-model="entity.subTask"
+                                                        theme="bootstrap">
+                                                        <ui-select-match placeholder="- Opción -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item in subTaskList | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error text-small block" ng-if="Form.subTask.$dirty && Form.subTask.$invalid">
+                                                        El valor es requerido.
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <a href='#' class="btn btn-primary btn-o btn-sm margin-top-5"  tooltip-placement='top'
+                                                        uib-tooltip="Adicionar" ng-click="setManual()"><i class="fa fa-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </div> <!-- END ROW -->
+
+                                        <div data-ng-animate="'wave'" ng-if="isManual" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/positiva-fgn/gestpos/task/form.htm'">
+                                        </div>
+
+                                    </div>
+                                </div> <!-- END PANEL -->
+                            </div> <!-- END IF -->
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row padding-bottom-20">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar
+                                </button>
+                                <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                                    Regresar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</form>

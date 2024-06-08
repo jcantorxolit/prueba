@@ -1,0 +1,523 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+
+            <!--START EMPLOYEE INFORMATION-->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL EMPLEADO</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-sm-3">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                        <label class="control-label">
+                                            Número Identificación
+                                            <span class="symbol required"></span>
+                                        </label>
+
+                                        <div class="input-group">
+                                            <ui-select name="documentNumber" ng-disabled="true"
+                                                ng-model="investigation.employee" ng-required="currentStep == 2"
+                                                theme="bootstrap" on-select="changeCustomer($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.entity.documentNumber]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in employees | filter: $select.search track by $index">
+                                                    <div
+                                                        ng-bind-html="item.entity.documentNumber | highlight: $select.search">
+                                                    </div>
+                                                    <small>
+                                                        Nombre: <span
+                                                            ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                    </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="input-group-btn">
+                                                <button type="button" ng-click="onAddEmployeeList()"
+                                                    class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+
+
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.customer.$dirty && Form.customer.$invalid">La número de
+                                            identificación es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                        <label class="control-label">
+                                            Tipo de identificación<span class="symbol required"></span>
+                                        </label>
+                                        <ui-select name="documentType" ng-required="currentStep == 2" ng-disabled="true"
+                                            ng-model="investigation.employee.entity.documentType" theme="bootstrap"
+                                            on-select="changeCountry($item, $model)">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El tipo de
+                                            identificación es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                        <label class="control-label">Nombre<span class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="Ingrese el nombre(s)"
+                                            class="form-control" name="firstName"
+                                            ng-model="investigation.employee.entity.firstName"
+                                            ng-required="currentStep == 2" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El nombre(s) es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                        <label class="control-label">Apellidos<span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="Ingrese los apellidos"
+                                            class="form-control" name="lastName"
+                                            ng-model="investigation.employee.entity.lastName"
+                                            ng-required="currentStep == 2" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los apellidos son
+                                            requeridos</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.birthDate.$dirty && Form.birthDate.$invalid}">
+                                        <label class="control-label">
+                                            Fecha de Nacimiento <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" kendo-date-picker name="birthdate"
+                                            k-options="dateConfig" k-ng-model="investigation.employee.entity.birthDate"
+                                            ng-required="currentStep == 2" ng-disabled="true" style="width: 100%;" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.birthDate.$dirty && Form.birthDate.$invalid">La fecha de
+                                            nacimiento es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid}">
+                                        <label class="control-label">
+                                            Género<span class="symbol required"></span>
+                                        </label>
+
+                                        <ui-select name="gender" ng-model="investigation.employee.entity.gender"
+                                            theme="bootstrap" ng-disabled="true" ng-required="currentStep == 2">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in gender | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.gender.$dirty && Form.gender.$invalid">El género es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.typeLinkage.$dirty && Form.typeLinkage.$invalid}">
+                                        <label class="control-label">Tipo de vinculación<span
+                                                class="symbol required"></span></label>
+
+                                        <ui-select name="typeLinkage" ng-required="currentStep == 2"
+                                            ng-disabled="isView" ng-model="investigation.employeeLinkType"
+                                            theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in employeeLinkTypeList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.typeLinkage.$dirty && Form.typeLinkage.$invalid">El tipo de
+                                            vinculación es requerido</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeStartDate.$dirty && Form.employeeStartDate.$invalid}">
+                                        <label class="control-label">
+                                            Fecha de Ingreso a la empresa <span class="symbol required"></span>
+                                        </label>
+                                        <input class="form-control" kendo-date-picker name="employeeStartDate"
+                                            k-options="dateConfig" k-ng-model="investigation.employeeStartDate"
+                                            ng-required="currentStep == 2" style="width: 100%;" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeStartDate.$dirty && Form.employeeStartDate.$invalid">La
+                                            fecha de ingreso es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.country.$dirty && Form.country.$invalid}">
+                                        <label>
+                                            País<span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="country" id="country" on-select="onSelectEmployeeCountry()"
+                                            ng-model="investigation.employee.entity.country" theme="bootstrap"
+                                            ng-required="currentStep == 2" ng-disabled="employeeHasCountry"
+                                            allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in countryList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.country.$dirty && Form.country.$invalid">El país es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.state.$dirty && Form.state.$invalid}">
+                                        <label>
+                                            <span translate="views.STATE">Departamento</span><span
+                                                class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="state" ng-model="investigation.employee.entity.state"
+                                            theme="bootstrap" on-select="onSelectEmployeeState()"
+                                            ng-disabled="employeeHasState" ng-required="false">
+                                            <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in employeeStateList | filter: $select.search">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.state.$dirty && Form.state.$invalid">El registro es
+                                            requerido</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.city.$dirty && Form.city.$invalid}">
+                                        <label>
+                                            <span translate="views.CITY">Ciudad</span><span
+                                                class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="city" id="ddlTown"
+                                            ng-model="investigation.employee.entity.town" theme="bootstrap"
+                                            ng-disabled="employeeHasCity" ng-required="false" allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                                [[$select.selected.name]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in employeeCityList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.city.$dirty && Form.city.$invalid">El registro es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.zone.$dirty && Form.zone.$invalid}">
+                                        <label>
+                                            Zona<span class="symbol required"></span></label>
+                                        </label>
+                                        <ui-select name="zone" id="zone" ng-model="investigation.employeeZone"
+                                            theme="bootstrap" ng-disabled="isView" ng-required="currentStep == 2"
+                                            ng-disabled="zone.length == 0" allow-clear='true'>
+                                            <ui-select-match placeholder="- Seleccionar -" class="txtselected">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in employeeZoneList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <span class="error text-small block"
+                                            ng-if="Form.zone.$dirty && Form.zone.$invalid">La zona es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.epsCode.$dirty && Form.epsCode.$invalid}">
+                                        <label class="control-label">Código<span class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="epsCode" ng-model="investigation.employee.entity.eps.code" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.epsCode.$dirty && Form.epsCode.$invalid">El registro es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.eps.$dirty && Form.eps.$invalid}">
+                                        <label class="control-label"><span translate="views.EPS">EPS</span><span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="eps" ng-model="investigation.employee.entity.eps.item" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.eps.$dirty && Form.eps.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.afpCode.$dirty && Form.afpCode.$invalid}">
+                                        <label class="control-label">Código<span class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="afpCode" ng-model="investigation.employee.entity.afp.code" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.afpCode.$dirty && Form.afpCode.$invalid">La AFP es
+                                            requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.afp.$dirty && Form.afp.$invalid}">
+                                        <label class="control-label">AFP<span class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="afp" ng-model="investigation.employee.entity.afp.item" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.afp.$dirty && Form.afp.$invalid">La AFP es requerida</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.arlCode.$dirty && Form.arlCode.$invalid}">
+                                        <label class="control-label">Código<span class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="arlCode" ng-model="investigation.employee.entity.arl.code" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.arlCode.$dirty && Form.arlCode.$invalid">El registro es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.arl.$dirty && Form.arl.$invalid}">
+                                        <label class="control-label"><span translate="views.ARL">ARL</span><span
+                                                class="symbol required"></span></label>
+                                        <input ng-disabled="true" type="text" placeholder="" class="form-control"
+                                            name="arl" ng-model="investigation.employee.entity.arl.item" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.arl.$dirty && Form.arl.$invalid">El registro es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--START EMPLOYEE INFORMATION-->
+
+            <!--START CONTACT INFORMATION-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE CONTACTO</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" ng-repeat="contact in investigation.employee.entity.details">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <ui-select ng-disabled="true" ng-model="contact.type" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in extrainfo | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input ng-disabled="true" type="text" placeholder="Ingresa el valor"
+                                            class="form-control" name="value" ng-model="contact.value" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--START CONTACT INFORMATION-->
+
+            <!--START JOB INFORMATION-->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">INFORMACIÓN LABORAL</span>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeHabitualOccupationCode.$dirty && Form.employeeHabitualOccupationCode.$invalid}">
+                                        <label class="control-label">
+                                            Código ocupación habitual<span class=""></span>
+                                        </label>
+                                        <input ng-disabled="isView" placeholder="Escribe aquí la infomación..."
+                                            name="employeeHabitualOccupation"
+                                            data-ng-model="investigation.employeeHabitualOccupationCode"
+                                            class="form-control" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeHabitualOccupationCode.$dirty && Form.employeeHabitualOccupationCode.$invalid">El
+                                            registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeHabitualOccupation.$dirty && Form.employeeHabitualOccupation.$invalid}">
+                                        <label class="control-label">
+                                            Ocupación habitual<span class="symbol required"></span>
+                                        </label>
+                                        <input ng-disabled="isView" placeholder="Escribe aquí la infomación..."
+                                            name="employeeHabitualOccupation"
+                                            data-ng-model="investigation.employeeHabitualOccupation"
+                                            class="form-control" ng-required="currentStep == 2" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeHabitualOccupation.$dirty && Form.employeeHabitualOccupation.$invalid">El
+                                            registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeHabitualOccupationTime.$dirty && Form.employeeHabitualOccupationTime.$invalid}">
+                                        <label class="control-label">
+                                            Tiempo de ocupación habitual al momento del accidente<span
+                                                class="symbol required"></span>
+                                        </label>
+                                        <input ng-disabled="isView" placeholder="Escribe aquí la infomación..."
+                                            name="employeeHabitualOccupationTime"
+                                            data-ng-model="investigation.employeeHabitualOccupationTime"
+                                            class="form-control" ng-required="currentStep == 2" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeHabitualOccupationTime.$dirty && Form.employeeHabitualOccupationTime.$invalid">El
+                                            registro es requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeDuration.$dirty && Form.employeeDuration.$invalid}">
+                                        <label class="control-label">
+                                            Tiempo de experiencia<span class="symbol required"></span>
+                                        </label>
+                                        <input ng-disabled="isView" type="text" placeholder="Ingrese el tiempo"
+                                            class="form-control" name="employeeDuration"
+                                            ng-model="investigation.employeeDuration" ng-required="currentStep == 2" />
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeDuration.$dirty && Form.employeeDuration.$invalid">El
+                                            registro es requerido</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.employeeJobTask.$dirty && Form.employeeJobTask.$invalid}">
+                                        <label class="control-label">
+                                            Funciones asignadas<span class="symbol required"></span>
+                                        </label>
+                                        <textarea ng-disabled="isView" placeholder="Escribe aquí la infomación..."
+                                            name="employeeJobTask" data-ng-model="investigation.employeeJobTask"
+                                            class="form-control" ng-required="currentStep == 2"></textarea>
+                                        <span class="error text-small block"
+                                            ng-if="Form.employeeJobTask.$dirty && Form.employeeJobTask.$invalid">El
+                                            registro es requerido</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END JOB INFORMATION-->
+
+        </div>
+    </div>
+</div>

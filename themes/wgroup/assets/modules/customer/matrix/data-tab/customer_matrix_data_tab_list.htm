@@ -1,0 +1,122 @@
+<div ng-controller="customerMatrixDataTabListCtrl">
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        NIVEL  DE IMPACTO AMBIENTAL (NIA)
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><span class="label label-info"> BAJO  (9  -  18)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-warning"> MEDIO  (19  -  28)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-danger"> ALTO  (29  -  38)</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        VALORACIÓN DE LA SIGNIFICANCIA
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><span class="label label-info"> BAJO  (13  -  26)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-warning"> MEDIO  (27  -  39)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-danger"> ALTO  (> 40)</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        CONDICIONES DE EMERGENCIA (EMERG NIA)
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><span class="label label-info"> BAJO  (9  -  18)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-warning"> MEDIO  (19  -  28)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-danger"> ALTO  (29  -  38)</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">GESTIÓN MATRIZ - MAIA</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-6">
+                            <a class="btn btn-wide btn-success" href="#" ng-click="onCreate()"><i
+                                    class="glyphicon glyphicon-plus"></i> Adicionar</a>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                                    Regresar a la lista de matrices
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="export-pdf">
+                        <div style="position: relative; overflow: auto;;" parent-width-full>
+                            <table datatable="" width="100%" dt-instance="dtInstanceMatrixDataCallback" dt-options="dtOptionsMatrixData"
+                                   dt-columns="dtColumnsMatrixData" id="dtMatrixData"
+                                   class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+  
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+
+</div>

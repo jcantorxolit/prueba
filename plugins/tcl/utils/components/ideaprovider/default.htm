@@ -1,0 +1,11 @@
+{% if providers_count > 0  %}
+<ul id='menuproviders' class="{{ primaryClasses }}">
+    {% for provider in providers %}
+    <li class=" {{ listItemClasses }} {%if provider.is_default %} active {%endif%} " data-id='{{ provider.id }}' >
+        <a href="admin/market/provider/{{ provider.id }}">
+            {{ provider.name }} 
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

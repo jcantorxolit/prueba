@@ -1,0 +1,265 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Planeación de Proyectos">Planeación de Proyectos</h1>
+            <span class="mainDescription">Desde aquí podrá planificar los proyectos del grupo económico.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: PROJECT -->
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="projectPlanningCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+
+                <!-- start: USER uib-tabset -->
+
+                <uib-tabset class="tabbable">
+                    <!-- start: TAB OVERVIEW -->
+                    <uib-tab heading="Dashboard">
+
+                        <div class="bg-white" ng-if="isCustomer">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            año</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedYear"
+                                                        theme="bootstrap" on-select="changeYear($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearYear()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            mes</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedMonth"
+                                                        theme="bootstrap" on-select="changeMonth($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in months | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearMonth()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white" ng-if="isAgent || isAdmin">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            tipo</span></h5>
+                                                </label>
+
+
+                                                <ui-select ng-disabled="isview" ng-model="filter.selectedType" theme="bootstrap"
+                                                    on-select="changeType($item, $model)">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="item in types | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            [[ filter.selectedType.value === "GE" ? "grupo económico" :
+                                                            "cliente" ]]</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedCustomer"
+                                                        theme="bootstrap" on-select="changeCustomer($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.businessName]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in filterCustomers | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.businessName | highlight: $select.search"></div>
+
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearCustomer()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            año</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedYear"
+                                                        theme="bootstrap" on-select="changeYear($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearYear()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            mes</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedMonth"
+                                                        theme="bootstrap" on-select="changeMonth($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in months | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearMonth()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2" ng-if="false">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por
+                                                            asesor</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedAgent"
+                                                        theme="bootstrap" on-select="changeAgent($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.name]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item in agentsFilter | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="clearAgent()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-bottom-5 margin-top-5">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success" ng-click="addProject()" ng-if="isAdmin || isAgent"
+                                    ng-disabled="!canCreateProject">
+                                    Nuevo proyecto
+                                </button>
+
+                                <button type="button" class="btn btn-info" ng-click="addTask(currentTask)" ng-if="isAdmin || isAgent"
+                                    ng-disabled="!canCreateTask">
+                                    Nueva tarea
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="padding-10">
+                                <div kendo-gantt="grantt" parent-width ng-if="canShowGrantt" k-options="ganttOptions" k-ng-delay="ganttOptions">
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-tab>
+                    <!-- end: TAB OVERVIEW -->
+                    <!-- start: TAB PROJECTS -->
+                    <!-- end: TAB PROJECTS -->
+                </uib-tabset>
+                <!-- end: USER uib-tabset -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: PROJECT -->

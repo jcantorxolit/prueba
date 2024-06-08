@@ -1,0 +1,40 @@
+title = "mantenimiento"
+url = "/maintenance"
+description = "Pagina que se muestra en modo mantenimiento"
+hidden = "0"
+robot_index = "index"
+robot_follow = "follow"
+child_of = "mey_no_parent"
+hide_crumb = "0"
+remove_crumb_trail = "0"
+crumb_disabled = "0"
+==
+<html ng-app="wgApp">
+<head>
+    <title>Sitio en mantenimiento</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Sylogi">
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+</head>
+<body ng-controller="mantenainceCtrl">
+
+<div id="message">
+    <h3> Sitio en mantenimiento</h3>
+    <p>Nos encontramos realizando tareas de actualización y mantenimiento a la plataforma, en breve estaremos en linea
+        de nuevo.</p>
+</div>
+
+<script src="{{'assets/vendor/angular/angular.min.js'|theme}}"></script>
+<script src="{{'assets/vendor/angular/angular-ui-router.min.js'|theme}}"></script>
+
+<!-- Mantenaince Scripts -->
+<script src="{{'assets/js/components/mantenaince/app.js'|theme}}"></script>
+<script src="{{'assets/js/components/mantenaince/main.js'|theme}}"></script>
+<script src="{{'assets/js/components/mantenaince/controllers/mantenainceCtrl.js'|theme}}"></script>
+</body>
+</html>

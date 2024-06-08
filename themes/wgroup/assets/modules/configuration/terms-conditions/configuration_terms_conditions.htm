@@ -1,0 +1,77 @@
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Términos y condiciones">Términos y condiciones</h1>
+                <span class="mainDescription">Desde aquí podrá administrar la información de los términos y condiciones del sistema.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationTermConditionCtrl">
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                            <label class="control-label">Título<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="isview" type="text"
+                                                   placeholder="Ingrese la descripción"
+                                                   class="form-control" name="description"
+                                                   ng-model="parameter.item" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">El título es requerido</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                                            <label class="control-label">Términos y condiciones<span
+                                                    class="symbol required"></span></label>
+                                            <textarea ng-disabled="isView" rows="15"
+                                                   placeholder="Escribe aquí los términos y condiciones"
+                                                   class="form-control" name="code"
+                                                   ng-model="parameter.value" required>
+                                            </textarea>
+                                            <span class="error text-small block"
+                                                  ng-if="Form.code.$dirty && Form.code.$invalid">El registro es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

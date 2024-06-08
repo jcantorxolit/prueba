@@ -1,0 +1,129 @@
+<div class="fade-in-right-big">
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="coverageEditCtrl" >
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">COBERTURA</span></h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.regional.$dirty && Form.regional.$invalid}">
+                                            <label class="control-label">Regional <span class="symbol required"></span></label>
+                                            <ui-select name="regional" ng-required="true" 
+                                                on-select="filterSectional()" ng-model="entity.regional"
+                                                theme="bootstrap">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in regionalList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.regional.$dirty && Form.regional.$invalid">
+                                                Valor requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.sectional.$dirty && Form.sectional.$invalid}">
+                                            <label class="control-label">Seccional <span class="symbol required"></span></label>
+                                            <ui-select name="sectional" ng-required="true" ng-model="entity.sectional"
+                                                theme="bootstrap">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.item]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in sectionalList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.sectional.$dirty && Form.sectional.$invalid">
+                                                Valor requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.department.$dirty && Form.department.$invalid}">
+                                            <label class="control-label">Departamento <span class="symbol required"></span></label>
+                                            <ui-select name="department" ng-required="true" ng-model="entity.department" on-select="changeDepartment($item, true)"
+                                                theme="bootstrap">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.name]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in departmentList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.department.$dirty && Form.department.$invalid">
+                                                Valor requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="{'has-error':Form.town.$dirty && Form.town.$invalid}">
+                                            <label class="control-label">Municipio <span class="symbol required"></span></label>
+                                            <ui-select name="town" ng-required="true" ng-model="entity.town"
+                                                theme="bootstrap">
+                                                <ui-select-match placeholder="- Opción -">
+                                                    [[$select.selected.name]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item in townList | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error text-small block" ng-if="Form.town.$dirty && Form.town.$invalid">
+                                                Valor requerido
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row padding-bottom-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table datatable="" width="100%" dt-instance="dtInstancePositivaFgnVendorCoverage"
+                                        dt-options="dtOptionsPositivaFgnVendorCoverage" id="dtPositivaFgnVendorCoverage" dt-columns="dtColumnsPositivaFgnVendorCoverage"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

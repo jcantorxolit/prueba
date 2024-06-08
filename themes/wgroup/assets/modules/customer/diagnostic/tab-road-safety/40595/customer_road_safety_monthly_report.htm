@@ -1,0 +1,170 @@
+<div ng-controller="customerRoadSafetyMonthlyReport40595Ctrl">
+
+    <!--<div class="row">
+        <div class="col-sm-9">
+
+        </div>
+        <div class="col-sm-3">
+
+            <div class="form-group">
+                <label>
+                    <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por año</span></h5>
+                </label>
+
+                <div class="input-group">
+                    <ui-select ng-disabled="isView" ng-model="filter.selectedYear" theme="bootstrap" on-select="onSelectYear()">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                        <button ng-click="onClearYear()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="canShowDatatable">
+        <div class="col-md-12">
+            <h5 class="over-title margin-bottom-15 border-bottom">Resumen <span class="text-bold">Ciclos</span></h5>
+
+            <div class="pull-right">
+                <button type="button" class="btn btn-danger btn-o" ng-click="onSummaryByProgramExportPdf()"
+                    ng-if="can('clientes_cancel')">
+                    Exportar PDF
+                </button>
+
+                <button type="button" class="btn btn-success btn-o" ng-click="onSummaryByProgramExportExcel()"
+                    ng-if="can('clientes_cancel')">
+                    Exportar Excel
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-12 export-pdf-program-em-40595">
+
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstanceMinimumStandardSummaryProgram40595Callback"
+                    dt-options="dtOptionsMinimumStandardSummaryProgram40595"
+                    dt-columns="dtColumnsMinimumStandardSummaryProgram40595" class="table table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="export-pdf-program-em-40595">
+        <div class="row" ng-if="canShowDatatable">
+
+            <div class="row">
+                <div class="col-sm-9">
+
+                </div>
+                <div class="col-sm-3">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por año</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-disabled="isView" ng-model="filter.selectedYear" theme="bootstrap" on-select="onSelectYear()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearYear()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 margin-bottom-20">
+                <h5 class="over-title margin-bottom-15 border-bottom">Resumen <span class="text-bold">Ciclos</span></h5>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-danger btn-o" ng-click="onSummaryByProgramExportPdf()"
+                        ng-if="can('clientes_cancel')">
+                        Exportar PDF
+                    </button>
+
+                    <button type="button" class="btn btn-success btn-o" ng-click="onSummaryByProgramExportExcel()"
+                        ng-if="can('clientes_cancel')">
+                        Exportar Excel
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <div kendo-grid="grid" k-options="mainGridOptions" k-ng-delay="mainGridOptions">
+                        <div style="margin-left: 15%; margin-bottom: 10px; margin-top: 10px;" k-detail-template>
+
+                            <div kendo-grid="gridItem" class="hide-grid-header" k-options="detailGridOptions(dataItem)">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">REPORTE MENSUAL</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="text-center margin-bottom-15">
+                            <h5 class="over-title margin-bottom-15">Evolución <span class="text-bold">porcentual
+                                    avance por ciclo</span>
+                            </h5>
+                            <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options"
+                                chart-data="chart.average.data" height="200">
+                            </canvas>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="text-center margin-bottom-15">
+                            <h5 class="over-title margin-bottom-15">Evolución <span class="text-bold">porcentual
+                                    total</span>
+                            </h5>
+                            <canvas class="tc-chart" tc-chartjs-line chart-options="chart.line.options"
+                                chart-data="chart.total.data" height="200">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" ng-click="onContinue()">
+                    Continuar
+                </button>
+                <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+</div>

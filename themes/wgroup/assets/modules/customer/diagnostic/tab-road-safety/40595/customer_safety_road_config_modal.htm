@@ -1,0 +1,105 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">MISIONALIDAD</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    La misionalidad de las organizaciones para efectos del PESV, se define en función de la exposición del riesgo
+                                    en seguridad vial y la prestación o no del servicio de transporte, por lo que en esta metodología se establecen
+                                    dos misionalidades diferentes.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="radio clip-radio radio-primary radio-inline">
+                                    <input type="radio" id="m1" name="inline" value="M1" ng-model="entity.misionallity"
+                                        ng-change='onChangeMisionallity(true)'>
+                                    <label for="m1">
+                                        Misionalidad 1
+                                    </label>
+                                </div>
+
+                                <div class="radio clip-radio radio-primary radio-inline margin-right-20">
+                                    <input type="radio" id="m2" name="inline" value="M2" ng-model="entity.misionallity"
+                                        ng-change='onChangeMisionallity(true)'>
+                                    <label for="m2">
+                                        Misionalidad 2
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="alert alert-info">
+                                    <strong>Misionalidad 1:</strong>
+                                    Organizaciones cuya misionalidad es la prestación del servicio de transporte terrestre automotor.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="alert alert-info">
+                                    <strong>Misionalidad 2:</strong>
+                                    Organizaciones cuya actividad es diferente a la prestación del servicio de transporte.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.parent.$dirty && Form.parent.$invalid}">
+                                    <label class="control-label">Tamaño de la Organización<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="parent" ng-required="true" ng-disabled="isView"
+                                               ng-model="entity.size" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in companySizeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.parent.$dirty && Form.parent.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onContinue()" ng-if="entity && entity.id > 0">
+            Continuar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o">
+            Guardar
+        </button>
+    </div>
+</form>

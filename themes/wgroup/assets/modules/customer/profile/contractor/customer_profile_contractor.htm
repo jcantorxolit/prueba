@@ -1,0 +1,130 @@
+<div class="tab1" ng-controller="customerContractorCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">DATOS BÁSICOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.customer.$dirty && Form.customer.$invalid}">
+                            <label class="control-label">
+                                Cliente / Razón social
+                            </label>
+                            <ui-select ng-disabled="isView || !can('cliente_contratista_manage')" ng-model="contractor.customer" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.businessName]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in customers | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.businessName | highlight: $select.search"></div>
+                                    <small>
+                                        Nro Documento: <span
+                                            ng-bind-html="''+item.documentNumber | highlight: $select.search"></span>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">
+                                Tipo de Contratista
+                            </label>
+                            <ui-select ng-disabled="isView || !can('cliente_contratista_manage')" ng-model="contractor.type" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.value]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in contractorTypeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.value | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label">Contrato</label>
+                            <input type="text" placeholder="Nro contrato" ng-disabled="isView || !can('cliente_contratista_manage')" class="form-control" name="contract" id="contract" name="demo1"
+                                ng-model="contractor.contract">
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <div class="form-group">
+                            <label>
+                                Activo
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <span class="switch ng-valid" ng-click="contractor.isActive=!contractor.isActive" ng-class="{ checked:contractor.isActive }"
+                                    ng-model="contractor.isActive">
+                                    <small></small>
+                                    <input ng-disabled="isView || !can('cliente_contratista_manage')" type="checkbox" ng-model="contractor.isActive" style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView && can('cliente_contratista_manage')">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clearContractor()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">CONTRATISTAS</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceContractorCallback" 
+                                        dt-options="dtOptionsContractor" 
+                                        dt-columns="dtColumnsContractor"
+                                        id="dtCustomerProfileContractor" 
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

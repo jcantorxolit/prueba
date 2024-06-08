@@ -1,0 +1,22 @@
+<div class="row" ng-controller="customerVrEmployeeRegisterExperienceMetricsTabsCtrl">
+    <div class="col-md-12">
+        <uib-tabset class="tabbable" active="activeTab">
+            <uib-tab index="1" select="switchTab('1')">
+                <uib-tab-heading>
+                    Registro
+                </uib-tab-heading>
+                <div data-ng-animate="'wave'" ng-if="loadedOther.indexOf('1') > -1" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/experience-metrics/register/customer_vr_employee_register_experience_metrics_register.htm'">
+                </div>
+            </uib-tab>
+
+            <uib-tab index="2"  select="switchTab('2')">
+                <uib-tab-heading>
+                    Resumen
+                </uib-tab-heading>
+                <div data-ng-animate="'wave'" ng-if="loadedOther.indexOf('2') > -1" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/vr-employee/register/experience-metrics/summary/customer_vr_employee_register_experience_metrics_summary.htm'">
+                </div>
+            </uib-tab>
+
+        </uib-tabset>
+    </div>
+</div>

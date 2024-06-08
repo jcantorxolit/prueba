@@ -1,0 +1,29 @@
+
+<div ng-controller="customerOccupationalReportALCtrl" >
+    <div ng-switch="tracking_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report/customer_occupational_report_al_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report/customer_occupational_report_al_edit.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="attachment" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/tracking/customer_tracking_attachment.htm'">
+            </div>
+        </div>
+                
+        <div ng-switch-when="analysis" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report/customer_occupational_report_al_analysis.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="preview" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report/customer_occupational_report_al_preview.htm'">
+            </div>
+        </div>
+    </div>
+</div>

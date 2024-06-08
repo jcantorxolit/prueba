@@ -1,0 +1,164 @@
+<div ng-controller="customerConfigWizardEditCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <!-- start: WIZARD FORM -->
+
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div id="wizard" class="swMain">
+                    <!-- start: WIZARD SEPS -->
+                    <ul>
+
+                        <li ng-click="form.goTo(Form, 0)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 0, 'done' : currentStep > 0}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small text-uppercase" translate="grid.matrix.WORK-PLACE"></span>
+                            </a>
+                        </li>
+
+                        <li ng-click="form.goTo(Form, 1)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 1, 'done' : currentStep > 1}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small text-uppercase" translate="grid.matrix.MACROPROCESS"></span>
+                            </a>
+                        </li>
+
+                        <li ng-click="form.goTo(Form, 2)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 2, 'done' : currentStep > 2}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small text-uppercase" translate="grid.matrix.PROCESS"></span>
+                            </a>
+                        </li>
+
+                        <li ng-click="form.goTo(Form, 3)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 3, 'done' : currentStep > 3}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small"> CARGOS </span>
+                            </a>
+                        </li>
+
+                        <li ng-click="form.goTo(Form, 4)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 4, 'done' : currentStep > 4}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small text-uppercase" translate="grid.matrix.ACTIVITY"></span>
+                            </a>
+                        </li>
+
+                        <li ng-click="form.goTo(Form, 5)">
+                            <a href class="itemwzr"
+                               ng-class="{'selected' : currentStep >= 5, 'done' : currentStep > 5}">
+                                <div class="stepNumber">
+                                    0 %
+                                </div>
+                                <span class="stepDesc text-small text-uppercase">CARGOS - [[ 'grid.matrix.ACTIVITY' | translate ]]</span>
+                            </a>
+                        </li>                        
+
+                    </ul>
+                    <!-- end: WIZARD SEPS -->
+                    <!-- start: WIZARD STEP 1 -->
+                    <div id="step-0" ng-show="currentStep == 0">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>I. <span class="text-uppercase" translate="grid.matrix.WORK-PLACE"></span> </h3>
+                            </div>
+                        </div>
+
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/workcenter/customer_profile_config_sgsst_wizard_tab_work_center_import.htm'">
+                        </div>
+
+                    </div>
+
+                    <div id="step-1" ng-show="currentStep == 1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>II. <span class="text-uppercase" translate="grid.matrix.MACROPROCESS"></span></h3>
+                            </div>
+
+                        </div>
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/macroprocess/customer_profile_config_sgsst_wizard_tab_macro_processes_index.htm'">
+                        </div>
+                    </div>
+
+                    <div id="step-2" ng-show="currentStep == 2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>III. <span class="text-uppercase" translate="grid.matrix.PROCESS"></span></h3>
+                            </div>
+                        </div>
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/process/customer_profile_config_sgsst_wizard_tab_process_index.htm'">
+                        </div>
+                    </div>
+
+                    <div id="step-3" ng-show="currentStep == 3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>IV. CARGOS</h3>
+
+                            </div>
+                        </div>
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/job/customer_profile_config_sgsst_wizard_tab_job_import.htm'">
+                        </div>
+                    </div>
+
+                    <div id="step-4" ng-show="currentStep == 4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>V. <span class="text-uppercase" translate="grid.matrix.ACTIVITY"></span></h3>
+
+                            </div>
+                        </div>
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/activity/customer_profile_config_sgsst_wizard_tab_activity_index.htm'">
+                        </div>
+                    </div>
+
+                    <div id="step-5" ng-show="currentStep == 5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>VI. <span class="text-uppercase">CARGOS - [[ 'grid.matrix.ACTIVITY' | translate ]]</span></h3>
+
+                            </div>
+                        </div>
+                        <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/sgsst/massive/jobactivity/customer_profile_config_sgsst_wizard_tab_job_activity_index.htm'">
+                        </div>
+                    </div>                    
+                    <!-- end: WIZARD STEP 1 -->
+                </div>
+
+                <div class="row margin-bottom-20">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Volver al resumen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <!-- end: WIZARD FORM -->
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,154 @@
+<div class="tab1" ng-controller="reportCalculatedCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Definición básica campos calculados:</legend>
+            <div class=" row">
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                        <label class="control-label">Nombre <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isview" type="text"
+                               placeholder="Ingrese el nombre del campo"
+                               class="form-control" name="name"
+                               ng-model="calculatedField.name" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.title.$dirty && Form.title.$invalid}">
+                        <label class="control-label">Título <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isview" type="text"
+                               placeholder="Ingrese el tipo del campo"
+                               class="form-control" name="name"
+                               ng-model="calculatedField.title" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.name.$dirty && Form.title.$invalid">El título es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Campos del reporte:</legend>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <ui-select name="collection" ng-disabled="isview" ng-model="calculatedField.field"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.name]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in report.fields | filter: $select.search track by $index">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-o btn-wide pull-right" ng-click="onAddField()">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label>
+                            Expresión (Fórmula)
+                        </label>
+
+                            <textarea ng-disabled="isview"
+                                      placeholder="Escribe aquí la expresión del campo calculado"
+                                      data-ng-model="calculatedField.expression"
+                                      class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Activo
+                        </label>
+
+                        <div class="checkbox">
+                                                <span class="switch ng-valid"
+                                                      ng-click="calculatedField.isActive=!calculatedField.isActive"
+                                                      ng-class="{ checked:report.isActive }"
+                                                      ng-model="calculatedField.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="calculatedField.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isview"
+                                                      ng-class="{ checked:calculatedField.isActive }"
+                                                      ng-model="calculatedField.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isview" type="checkbox"
+                                                           ng-model="calculatedField.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary btn-o btn-wide pull-right" ng-click="onCancel()">
+                            Regresar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="clear()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <fieldset>
+        <legend>Campos calculados:</legend>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" dt-instance="dtInstanceCalculatedCallback" dt-options="dtOptionsCalculated" id="dtOptionsCalculated"
+                               dt-columns="dtColumnsCalculated"
+                               class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+</div>

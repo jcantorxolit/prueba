@@ -1,0 +1,195 @@
+<div class="tab1" xmlns="http://www.w3.org/1999/html">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Información básica:</legend>
+            <div class=" row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                        <label class="control-label">Nombre <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese el nombre de la encuesta / campaña"
+                               class="form-control" name="name"
+                               ng-model="poll.name" required/>
+                        <span class="error text-small block"
+                              ng-if="Form.name.$dirty && Form.name.$invalid">El nombre es requerido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label>
+                            Descripción
+                        </label>
+
+                        <textarea ng-disabled="isView"
+                                  placeholder="Escribe aquí la descripción de la encuesta"
+                                  data-ng-model="poll.description"
+                                  class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Activo
+                        </label>
+
+                        <div class="checkbox">
+                                                <span class="switch ng-valid" ng-if="!isView"
+                                                      ng-click="poll.isActive=!poll.isActive"
+                                                      ng-class="{ checked:poll.isActive }"
+                                                      ng-model="poll.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="poll.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                            <span class="switch ng-valid disabledchk" ng-if="isView"
+                                  ng-class="{ checked:poll.isActive }"
+                                  ng-model="poll.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="poll.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>
+                            Fecha inicio
+                        </label>
+
+                        <div class='input-group date' id='start' ng-if="!isView">
+                            <input class="form-control" kendo-date-picker k-options="dateConfig" k-ng-model="poll.startDateTime" format  = "yyyy/MM/dd" style="width: 100%;" required/>
+
+                        </div>
+
+                        <input type="text" class="form-control" ng-if="isView"
+                               data-ng-model="poll.startDateTime" disabled="true"/>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>
+                            Fecha fin
+                        </label>
+
+                        <div class='input-group date' id='end' ng-if="!isView">
+                            <input class="form-control" kendo-date-picker k-options="dateConfig" k-ng-model="poll.endDateTime" style="width: 100%;" required/>
+
+                        </div>
+
+                        <input type="text" class="form-control" ng-if="isView"
+                               data-ng-model="poll.endDateTime" disabled="true"/>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>
+
+                    <!--<button type="button" ng-click="ejemplo()" class="btn btn-primary" ng-if="!isView">
+                        Guardar
+                    </button>-->
+
+                    <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()"
+                            ng-if="can('clientes_cancel')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <fieldset>
+        <legend>Resultado:</legend>
+
+        <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }"
+             ng-show="!loading">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-info btn-o" ng-click="onExport()"
+                            ng-if="can('clientes_cancel')">
+                        Exportar Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+
+                        <table datatable="" width="100%" dt-instance="dtInstance" dt-options="dtPollResultOptions"
+                               id="dtPollResultOptions"
+                               dt-columns="dtPollResultColumns"
+                               class="table table-bordered table-hover"></table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;'/>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Gráficas:</legend>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="over-title margin-bottom-15">Avance de <span class="text-bold">Encuesta</span></h5>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="text-center margin-bottom-15">
+                            <canvas class="tc-chart" tc-chartjs-doughnut chart-options="options_sg"
+                                    chart-data="data_sg"
+                                    chart-legend="legendAdvance" height="250">
+
+                            </canvas>
+                            <span class="infocenterchart">[[totalAvg]]%</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="margin-top-20">
+
+                        <div tc-chartjs-legend chart-legend="legendAdvance"></div>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+</div>

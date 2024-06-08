@@ -1,0 +1,33 @@
+<!-- Textarea -->
+<?php if ($this->previewMode): ?>
+    <div class="form-control"><?= nl2br(e($field->value)) ?></div>
+<?php else: ?>
+    <div
+        id="<?= $this->getId() ?>"
+        data-control="multicurrency"
+        data-default-currency="<?= $defaultCurrency->code ?>"
+        data-placeholder-field="#<?= $field->getId('placeholderField') ?>"
+        class="field-multicurrency field-multicurrency-textarea dropdown">
+
+        <textarea
+            name="<?= $field->getName() ?>"
+            id="<?= $field->getId('placeholderField') ?>"
+            value="<?= e($field->value) ?>"
+            placeholder="<?= e(trans($field->placeholder)) ?>"
+            class="form-control field-textarea size-<?= $field->size ?>"
+            autocomplete="off"
+            <?= $field->getAttributes() ?>></textarea>
+
+        <button
+            class="btn btn-default"
+            data-toggle="dropdown"
+            data-active-currency
+            type="button">
+        </button>
+
+        <?= $this->makeParentPartial('currency_values') ?>
+
+        <?= $this->makeParentPartial('currency_selector') ?>
+
+    </div>
+<?php endif ?>

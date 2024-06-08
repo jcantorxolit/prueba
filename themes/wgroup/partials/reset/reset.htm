@@ -1,0 +1,44 @@
+<!-- start: RESET -->
+<div class="row">
+    <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+
+        <!-- start: RESET BOX -->
+        <div class="box-login">
+            <form class="form-login" data-request="{{ __SELF__ }}::onResetPassword"
+                  data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'">
+
+                <fieldset>
+                    <legend>
+                        {{'Restablecer la contrase&#241;a'|_}}
+                    </legend>
+                    <p>
+                        {{'Por favor ingrese el c&#243;digo de activaci&#243;n.'|_}}
+                    </p>
+                    <div class="form-group">
+						<span class="input-icon">
+							<input type="text" class="form-control" id="resetCode" name="code" placeholder="Código de activacion" value="{{ __SELF__.code }}">
+							<i class="fa fa-key"></i> </span>
+                    </div>
+                    <div class="form-group form-actions">
+							<span class="input-icon">
+								<input type="password" class="form-control password" name="password" id="resetPassword" placeholder="Nueva contrase&#241;a">
+							<i class="fa fa-lock"></i>
+							</span>
+                    </div>
+                    <div class="form-actions">
+                        <div class="checkbox clip-check check-primary">
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">
+                            {{'Restrablecer'|_}} <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+            <!-- start: COPYRIGHT -->
+
+            <!-- end: COPYRIGHT -->
+        </div>
+        <!-- end: RESET BOX -->
+    </div>
+</div>
+<!-- end: RESET -->

@@ -1,0 +1,362 @@
+<div class="tab1" ng-controller="customerArlCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">DATOS BÁSICOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Año</label>
+                            <input ng-disabled="!canEdit" type="text" placeholder="Año aporte" class="form-control" name="year" touchspin="" data-verticalbuttons="true"
+                                data-max="9999" data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down" ng-model="contribution.year"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error':Form.production.$dirty && Form.production.$invalid}">
+                            <label class="control-label">Mes</label>
+                            <ui-select ng-disabled="!canEdit" ng-model="contribution.month" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in months | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Aporte</label>
+                            <input ng-disabled="!canEdit" type="text" placeholder="Valor aporte" class="form-control" name="employeesdir" id="input"
+                                value="0" name="demo1" ng-model="contribution.input" ng-change="onChangeInput()" touchspin data-min="-10000000000000"
+                                data-max="10000000000000" data-stepinterval="50" data-maxboostedstep="10000000000000" data-prefix="$">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">% Comisión ARL</label>
+                            <input ng-disabled="!canEdit" type="number" placeholder="Porcentaje" class="form-control"
+                                   name="percentReinvestmentARL" min="0" max="100" ng-model="contribution.percentReinvestmentARL" ng-change="onChangeReinvestmentARL()"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Comisión ARL</label>
+                            <input type="text" class="form-control" name="reinvestmentARL" ng-value="contribution.reinvestmentARL | number:2" ng-disabled="true"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">% Reinversión WG</label>
+                            <input ng-disabled="!canEdit" type="number" placeholder="Porcentaje Reinversión WG" class="form-control"
+                                   name="percentReinvestmentWG" min="0" max="100" ng-model="contribution.percentReinvestmentWG" ng-change="onChangeReinvestmentWG()"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Reinversión WG</label>
+                            <input type="text" class="form-control" name="reinvestmentWG" ng-value="contribution.reinvestmentWG | number:2" ng-disabled="true"/>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clearContribution()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">APORTES
+                            <span translate="views.ARL">ARL</span>
+                        </span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row display-flex flex-justify-end">
+
+                        <div class="form-group margin-right-15">
+                            <label>Filtrar por año</label>
+                            <ui-select ng-model="filteredYear" theme="bootstrap" on-select="onChangeFilteredYear($model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.year]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in filterYears | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.year | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="margin-right-15 margin-top-20">
+                            <button type="button" class="btn btn-primary" ng-click="onRefresh()">Refrescar</button>
+                        </div>
+
+                        <div class="margin-right-15 margin-top-20">
+                            <button type="button" class="btn btn-o btn-primary" ng-click="onGenerateReport()">Descargar Informe</button>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceContributionCallback"
+                                    dt-options="dtOptionsContribution"
+                                    dt-columns="dtColumnsContribution"
+                                    id="dtCustomerContribution"
+                                    class="table table-bordered table-hover"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">BALANCE GENERAL</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                       dt-instance="dtInstanceBalance"
+                                       dt-options="dtOptionsBalance"
+                                       dt-columns="dtColumnsBalance"
+                                       id="dtCustomerBalance"
+                                       class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="over-title margin-bottom-15">Ejecución por año</h5>
+                        <div class="text-center margin-bottom-15">
+                            <canvas class="tc-chart" tc-chartjs-line
+                                    chart-options="chart.line.options"
+                                    chart-data="chart.data.contributationsVsExecutionsByMonth"
+                                    height="100"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5 class="over-title margin-bottom-15">Comportamiento de la ejecución</h5>
+                        <canvas class="tc-chart" tc-chartjs-doughnut
+                                chart-options="chart.doughnut.options"
+                                chart-data="chart.data.contributationsVsExecutions"
+                                height="200">
+                        </canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+                <!-- <div class="container-fluid container-fullw bg-white">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h5 class="over-title margin-bottom-15">Reporte
+                    <span class="text-bold">Aportes</span>
+                </h5>
+
+                <div class="row">
+                    <div>
+                        <div class="col-sm-9">
+                            <canvas class="tc-chart" tc-chartjs-line chart-options="options" chart-data="data_rpt" chart-legend="lineChart1"></canvas>
+                        </div>
+                        <div class="col-sm-3">
+
+                            <div class="form-group">
+                                <label>
+                                    Filtrar por año
+                                </label>
+                                <ui-select ng-disabled="isView" ng-model="currentYear" theme="bootstrap" on-select="changeReportYear($item, $model)">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+                            <p class="margin-top-20">
+                                <div tc-chartjs-legend chart-legend="lineChart1"></div>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <form name="FormService" id="formService" novalidate ng-submit="formService.submit(FormService)">
+
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <span class="text-bold">SERVICIOS ADICIONALES / VALOR AGREGADO SIN COSTO</span>
+                        </h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group" ng-class="{'has-error':FormService.production.$dirty && FormService.production.$invalid}">
+                                    <label class="control-label">Servicio</label>
+                                    <ui-select ng-disabled="!canEdit" ng-model="entity.service" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in services | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Costo</label>
+                                    <input ng-disabled="!canEdit" type="text" placeholder="Valor aporte" class="form-control" name="cost" id="cost"
+                                        value="0" ng-model="entity.cost" ng-change="onChangeCost()" touchspin data-min="-10000000000000"
+                                        data-max="10000000000000" data-stepinterval="50" data-maxboostedstep="10000000000000" data-prefix="$">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="canEdit">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onClearService()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">SERVICIOS ADICIONALES
+                        </span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row display-flex flex-justify-end">
+
+                        <div class="form-group margin-right-15">
+                            <label>Filtrar por año</label>
+                            <ui-select ng-model="filteredServiceYear" theme="bootstrap" on-select="onChangeFilteredServiceYear($model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.year]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in filterServiceYears | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.year | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceServiceCostCallback"
+                                    dt-options="dtOptionsServiceCost"
+                                    dt-columns="dtColumnsServiceCost"
+                                    id="dtCustomerServiceCost"
+                                    class="table table-bordered table-hover"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+</div>

@@ -1,0 +1,116 @@
+<div ng-controller="customerCovidTemperatureListCtrl">
+
+
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">INFORMACIÓN DE REGISTRO DIARIO</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group"
+                            ng-class="{'has-error':FormTemp.registrationDate.$dirty && FormTemp.registrationDate.$invalid}">
+                            <label class="control-label">Hora
+                                <span class="symbol required"></span>
+                            </label>
+                            <input class="form-control" kendo-time-picker k-options="dateTimePickerConfig"
+                                k-ng-model="entity.registrationDate" ng-required="true"
+                                ng-disabled="isView || entity.origin !='MANUAL'" style="width: 100%;" />
+                            <span class="error text-small block"
+                                ng-if="FormTemp.registrationDate.$dirty && FormTemp.registrationDate.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':FormTemp.temperature.$dirty && FormTemp.temperature.$invalid}">
+                            <label class="control-label">Temperatura <span class="symbol required"></span></label>
+                            <input type="text"  name="temperature" class="form-control" 
+                                placeholder="##.#" ng-pattern="/^[0-9]+(\.[0-9]{1})?$/"
+                                ng-model="entity.temperature" ng-required="true" 
+                                ng-disabled="isView || entity.origin !='MANUAL'" />
+                            <span class="error text-small block" ng-if="FormTemp.temperature.$dirty && FormTemp.temperature.$invalid">
+                                Ingresa un valor válido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':FormTemp.pulse.$dirty && FormTemp.pulse.$invalid}">
+                            <label class="control-label">Pulso <span class="symbol required"></span></label>
+                            <input ng-disabled="isView || entity.origin !='MANUAL'" type="text" ng-pattern="/^[0-9]+(\.[0-9]{1})?$/"
+                                placeholder="Ingrese el registro" maxlength="50" class="form-control" name="pulse"
+                                ng-model="entity.pulse" ng-required="true"/>
+                                <span class="error text-small block" ng-if="FormTemp.pulse.$dirty && FormTemp.pulse.$invalid">
+                                    Ingresa un valor válido
+                                </span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':FormTemp.oximetria.$dirty && FormTemp.oximetria.$invalid}">
+                            <label class="control-label">Oximetría <span class="symbol required"></span></label>
+                            <input ng-disabled="isView || entity.origin !='MANUAL'" type="text" ng-pattern="/^[0-9]+(\.[0-9]{1})?$/"
+                                placeholder="Ingrese el registro" maxlength="50" class="form-control" name="oximetria"
+                                ng-model="entity.oximetria" ng-required="true"/>
+                                <span class="error text-small block" ng-if="FormTemp.oximetria.$dirty && FormTemp.oximetria.$invalid">
+                                    Ingresa un valor válido
+                                </span>
+                        </div>
+                    </div>
+                </div>   
+                
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group" >
+                            <label class="control-label">Dirección</label>
+                            <input ng-disabled="true" type="text"  class="form-control" name="address"
+                                ng-model="entity.address"/>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group" >
+                            <label class="control-label">Observación</label>
+                            <input ng-disabled="isView" type="text"
+                                placeholder="Ingrese el registro" maxlength="50" class="form-control" name="address"
+                                ng-model="entity.observation"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-success" ng-click="onSave()" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-success btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%"
+                                    dt-instance="dtInstanceCustomerCovidTemperatureCallback"
+                                    dt-options="dtOptionsCustomerCovidTemperature"
+                                    dt-columns="dtColumnsCustomerCovidTemperature" 
+                                    id="dtCustomerCovidTemperature"
+                                    class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</div>

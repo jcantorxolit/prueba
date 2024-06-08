@@ -1,0 +1,327 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Facturación Proyectos">Facturación Proyectos</h1>
+            <span class="mainDescription">Desde aquí podrá facturar masivamente los proyectos.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: PROJECT -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+            <div ng-controller="projectBillingCtrl">
+                <!-- start: USER uib-tabset -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="margin-bottom-30" ng-if="isAdmin">
+                            <button class="btn btn-info btn-o btn-wide" ng-click="onProjectAdmin()">
+                                <i class="ti-layers-alt"></i> Administracion
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <uib-tabset class="tabbable">
+                    <!-- start: TAB OVERVIEW -->
+                    <uib-tab heading="Facturación">
+
+                        <div class="container-fluid container-fullw bg-white" ng-if="isAdmin">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por año</span></h5>
+                                                </label>
+
+
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedYear"
+                                                               theme="bootstrap"
+                                                               on-select="changeYear($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in years | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                <!--<div class="input-group">
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearYear()" class="btn btn-default" ng-if="false">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por mes</span></h5>
+                                                </label>
+
+
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedMonth"
+                                                               theme="bootstrap"
+                                                               on-select="changeMonth($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in months | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                <!--<div class="input-group">
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearMonth()" class="btn btn-default"  ng-if="false">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                        </span>
+                                                </div>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por asesor</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedAgent"
+                                                               theme="bootstrap"
+                                                               on-select="changeAgent($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.name]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in agentsFilter | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                       	<span class="input-group-btn">
+                                                        <button ng-click="clearAgent()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por ARL</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedARL"
+                                                               theme="bootstrap"
+                                                               on-select="changeARL($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in arls | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearARL()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por Orden Servicio</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                           placeholder="Ingrese la orden de servicio"
+                                                           class="form-control" name="os"
+                                                           ng-model="filter.selectedOS"/>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="searchOS()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                        <button ng-click="clearOS()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                            class="text-bold">por cliente</span></h5>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <ui-select ng-disabled="isview" ng-model="filter.selectedCustomer"
+                                                               theme="bootstrap"
+                                                               on-select="changeCustomer($item, $model)">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                                repeat="item in customers | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    	<span class="input-group-btn">
+                                                        <button ng-click="clearCustomer()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="background-color: #E6E8E8;padding-top: 10px">
+
+                                <div class="col-sm-12" ng-repeat="project in projects">
+                                    <div class="panel panel-white no-radius">
+                                        <div class="panel-heading border-bottom">
+                                            <h5 class=""><span
+                                                    class="text-bold">[[project.customerName]]</span></h5>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <span class="text-light">[[project.name]]</span>
+                                                            <p class="text-small">
+                                                                [[project.description]]
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="col-md-1">
+                                                            <span class="text-light">O. de Servicio</span>
+                                                            <p class="text-small">
+                                                                [[project.serviceOrder]]
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="col-xs-1 text-center no-padding">
+                                                            <div class="border-right border-dark">
+                                                                <span class="text-light">Horas asignadas</span>
+                                                                <span class="text-bold block text-extra-large">[[project.assignedHours]]</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-1 text-center no-padding">
+                                                            <div class="border-right border-dark">
+                                                                <span class="text-light">Horas programadas</span>
+                                                                <span class="text-bold block text-extra-large">[[project.scheduledHours]]</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-1 text-center no-padding">
+                                                            <span class="text-light">Horas ejecutadas</span>
+                                                            <span class="text-bold block text-extra-large">[[project.runningHours]]</span>
+                                                        </div>
+                                                        <div class="col-xs-1 text-center no-padding">
+                                                            <span class="text-light">Facturado</span>
+                                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                                <switch ng-model="project.isBilled" class="green"></switch>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-2 text-left">
+                                                            <span class="text-light">Número Factura</span>
+                                                            <input type="text"
+                                                                   placeholder="Ingrese el número de la factura"
+                                                                   class="form-control" name="invoiceNumber"
+                                                                   ng-model="project.invoiceNumber"/>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12" ng-if="projects.length == 0">
+                                    <div class="panel panel-white no-radius">
+                                        <div class="panel-heading border-bottom">
+                                            <h5 class=""><span
+                                                    class="text-bold">Proyectos</span></h5>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <span class="text-light">No hay proyectos para facturar</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-15">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" ng-disabled="projects.length == 0" class="btn btn-primary" ng-click="onSaveBilling()">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-tab>
+                    <!-- end: TAB OVERVIEW -->
+                    <!-- start: TAB PROJECTS -->
+                    <!-- end: TAB PROJECTS -->
+                </uib-tabset>
+                <!-- end: USER uib-tabset -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: PROJECT -->

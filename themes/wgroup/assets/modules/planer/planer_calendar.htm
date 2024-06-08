@@ -1,0 +1,316 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle" translate="Planeador">Planeador</h1>
+            <span class="mainDescription">Desde aquí podrá administrar los eventos.</span>
+        </div>
+        <!--<div ncy-breadcrumb></div>-->
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: CALENDAR -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'CalendarCtrl' -  localtion: assets/js/controllers/planerCalendarCtrl.js /// -->
+            <div ng-controller="planerCalendarCtrl" id="demo">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="margin-bottom-30">
+                            <button class="btn btn-primary btn-o btn-wide" ng-click="addEvent()" >
+                                <i class="ti-plus"></i> Nuevo evento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-xs-3">
+                        <div class="">
+                            <label for="job">
+                                <span class="fa fa-circle text-azure-blue"></span> Actividad de cliente
+                            </label>
+                        </div>
+                        <div class="">
+
+                            <label for="off-site-work">
+                                <span class="fa fa-circle text-green"></span> Cierre de plan de acción
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="">
+
+                            <label for="cancelled">
+                                <span class="fa fa-circle text-yellow"></span> Actividad de consultoría
+                            </label>
+                        </div>
+                        <div class="">
+
+                            <label for="to-do">
+                                <span class="fa fa-circle text-orange"></span> Actividad de seguimimiento
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center margin-bottom-20 margin-top-20">[[ calendarTitle ]] </h2>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" mwl-date-modifier date="calendarDate" decrement="calendarView">
+                                <i class="ti-angle-left"></i>
+                            </button>
+                            <button class="btn btn-primary"mwl-date-modifier date="calendarDate" increment="calendarView">
+                                <i class="ti-angle-right"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-primary btn-o" mwl-date-modifier date="calendarDate" set-to-today>
+                            Hoy
+                        </button>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                            <div class="btn-group">
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'year'">
+                                    Año
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'month'">
+                                    Mes
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'week'">
+                                    Semana
+                                </label>
+                                <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'day'">
+                                    Día
+                                </label>
+                            </div>
+                        </div>
+                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                            <div class="btn-group" dropdown>
+                                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'year'" href="">
+                                            Year
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'month'" href="">
+                                            Month
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'week'" href="">
+                                            Week
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-model="calendarView" uib-btn-radio="'day'" href="">
+                                            Day
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <mwl-calendar events="events"
+                    view="calendarView"
+                    view-date="calendarDate"
+                    current-day="calendarDay"
+                    view-title="calendarTitle"
+                    on-event-click="eventClicked(calendarEvent)"
+                    cell-is-open="false">
+                </mwl-calendar>
+
+
+                <!-- start: EDIT EVENT TEMPLATE -->
+                <script type="text/ng-template" id="calendarEvent.html">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>
+                                <h4 class="panel-title text-primary">Actividad</h4>
+                            </label>
+                            <input type="text" placeholder="Ingresar título actividad"
+                                   class="form-control underline text-large" ng-disabled="isview"
+                                   ng-model="event.title">
+                        </div>
+
+                        <div class="form-group" if="isCustomer">
+                            <label>
+                                <h4 class="panel-title text-primary">Resposable</h4>
+                            </label>
+                            <input type="text" placeholder="Ingresar responsable"
+                                   class="form-control underline text-large" ng-disabled="isview"
+                                   ng-model="event.responsible">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Inicio
+                            </label>
+					        <span class="input-icon">
+					            <input type="text" class="form-control underline" ng-click="startOpen = !startOpen"
+                                       datepicker-popup="fullDate" ng-model="event.starts_at" is-open="startOpen"
+                                       ng-init="startOpen = false" close-text="Close"/>
+					                <i class="ti-calendar"></i>
+                            </span>
+                            <timepicker ng-model="event.starts_at" show-meridian="true"
+                                        ng-show="!event.allDay"></timepicker>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Fin
+                            </label>
+					        <span class="input-icon">
+					            <input type="text" class="form-control underline" ng-click="endOpen = !endOpen"
+                                       datepicker-popup="fullDate" ng-model="event.ends_at" is-open="endOpen"
+                                       ng-init="endOpen = false" min-date="event.starts_at" close-text="Close"/>
+					            <i class="ti-calendar"></i>
+                            </span>
+                            <timepicker ng-model="event.ends_at" show-meridian="true"
+                                        ng-show="!event.allDay"></timepicker>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Categoría
+                            </label>
+
+
+                            <div class="row">
+
+
+                                <div class="col-xs-6">
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="job" name="optionsCategory" value="job"
+                                               ng-disabled="isview"
+                                               ng-model="event.type">
+                                        <label for="job">
+                                            <span class="fa fa-circle text-azure-blue"></span> Actividad de cliente
+                                        </label>
+                                    </div>
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="off-site-work" name="optionsCategory"
+                                               ng-disabled="isview"
+                                               value="off-site-work" ng-model="event.type">
+                                        <label for="off-site-work">
+                                            <span class="fa fa-circle text-green"></span> Cierre de plan de acción
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="cancelled" name="optionsCategory" value="cancelled"
+                                               ng-disabled="isview"
+                                               ng-model="event.type">
+                                        <label for="cancelled">
+                                            <span class="fa fa-circle text-yellow"></span> Actividad de consultoría
+                                        </label>
+                                    </div>
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="to-do" name="optionsCategory" value="to-do"
+                                               ng-disabled="isview"
+                                               ng-model="event.type">
+                                        <label for="to-do">
+                                            <span class="fa fa-circle text-orange"></span> Actividad de seguimimiento
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-dark-red btn-o" ng-click="cancelTask(event)" ng-if="IsEdited">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-success btn-o" ng-click="completeTask(event)"
+                                ng-if="event.type == 'cancelled' || event.type == 'off-site-work'">
+                            Completar
+                        </button>
+                    </div>
+                </script>
+
+                <script type="text/ng-template" id="calendarEventCustomer.html">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>
+                                <h4 class="panel-title text-primary">Actividad</h4>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Asesor
+                            </label>
+                            <ui-select ng-model="event.agent" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in agents | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Tipo evento
+                            </label>
+                            <ui-select ng-model="event.type" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in typesTraking | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="form-group">
+                            <input placeholder="Ingresar título actividad"
+                                   class="form-control underline text-large"
+                                   ng-model="event.observation">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Inicio
+                            </label>
+					        <span class="input-icon">
+					            <input type="text" class="form-control underline" ng-click="startOpen = !startOpen"
+                                       datepicker-popup="fullDate" ng-model="event.event_date" is-open="startOpen"
+                                       ng-init="startOpen = false" close-text="Close"/>
+					                <i class="ti-calendar"></i>
+                            </span>
+                            <timepicker ng-model="event.event_date" show-meridian="true"
+                                        ng-show="!event.allDay"></timepicker>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-dark-red btn-o" ng-click="cancel()">
+                            Cancelar
+                        </button>
+                         <button class="btn btn-success btn-o" ng-click="addCustomerEvent()">
+                            Guardar
+                        </button>
+                    </div>
+                </script>
+                <!-- end: EDIT EVENT TEMPLATE -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: CALENDAR -->

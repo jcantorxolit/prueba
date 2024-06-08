@@ -1,0 +1,46 @@
+<div ng-controller="customerConfigWizardActivityStagingListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">                    
+                    <h4 class="panel-title"><span class="text-bold text-uppercase">IMPORTACIÓN</span></h4>
+                    <div class="panel-tools">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="onProcess()">
+                                Procesar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive-large-table">
+                                    <table datatable="" parent-width-full
+                                        dt-instance="dtInstanceCustomerConfigWizardActivityStagingDTCallback"
+                                        dt-options="dtOptionsCustomerConfigWizardActivityStagingDT"
+                                        dt-columns="dtColumnsCustomerConfigWizardActivityStagingDT"
+                                        id="dataCustomerConfigWizardActivityStagingDT"
+                                        class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row padding-20">
+                <div class="col-md-12">
+  
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

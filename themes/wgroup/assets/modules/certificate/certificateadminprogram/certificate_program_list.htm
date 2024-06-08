@@ -1,0 +1,16 @@
+<!-- start: RESPONSIVE TABLE -->
+<div class="container-fluid container-fullw bg-white" ng-controller="certificateAdminProgramListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-wide btn-primary" href="#" ng-click="onCreateProgram()"><i class="glyphicon glyphicon-plus"></i> Crear programa</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive" id="dtCertificateProgram">
+                <table datatable="" width="100%" dt-instance="dtInstance" dt-options="dtProgramOptions" dt-columns="dtProgramColumns"  class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: RESPONSIVE TABLE -->

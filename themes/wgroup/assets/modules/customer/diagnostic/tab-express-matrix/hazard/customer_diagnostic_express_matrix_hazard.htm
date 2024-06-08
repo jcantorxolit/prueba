@@ -1,0 +1,70 @@
+<div ng-controller="customerDiagnosticExpressMatrixHazardCtrl">
+    <div class="row">
+        <div class="col-md-4">            
+            <h4 class="panel-title margin-top-10"><span class="text-bold">CLASIFICACIÓN DE PELIGROS</span></h4>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                <label class="control-label text-bold no-padding text-right margin-top-10"
+                    ng-class="{'col-md-4': app.instance != 'isa', 'col-md-6': app.instance == 'isa'}"
+                    translate="views.EXPRESS-MATRIX-WORKPLACE-FILTER">
+                    Seleccione el centro de Trabajo
+                </label>
+                <div class="padding-right-0" ng-class="{'col-md-8': app.instance != 'isa', 'col-md-6': app.instance == 'isa'}">
+                    <ui-select name="type" ng-disabled="isWorkplaceDisabled" ng-model="filter.selectedWorkPlace"
+                        on-select="onSelectWorkPlace()" theme="bootstrap">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.name]]
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in workplaceList | filter: $select.search track by $index">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+        Seleccione el peligro para diligenciar el cuestionario.
+    </p>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-default text-bold" ng-class="{'disabled':!hazard.isActive}"
+                    href="#" ng-click="onAnswerQuestions(hazard)" ng-repeat="hazard in hazardList">
+                    <i class="fa fa-circle margin-right-10" ng-class="{'has-success':hazard.isActive && hazard.questions == hazard.answers, 
+                        'has-warning': hazard.isActive && hazard.questions != hazard.answers}">
+                    </i>
+                    [[ hazard.name ]]  <span class="custom-text-muted text-small pull-right">([[hazard.answers]]/[[hazard.questions]])</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-md-10 text-center">
+                <ui-knob value="stats.avg" options="options"></ui-knob>
+            </div>
+
+            <div class="col-md-10 text-center">
+                <p class="custom-text-muted text-large margin-top-10 margin-bottom-10">
+                    Ha completado [[ stats.answers ]] de [[ stats.questions ]] preguntas.
+                </p>
+            </div>
+
+            <div class="col-md-10 text-center">
+                <button type="button" class="btn btn-primary btn-o" ng-if="isBackNavigationVisible" ng-click="onBack()">
+                    Regresar
+                </button>
+                |
+                <button type="button" class="btn btn-primary" ng-if="isBackNavigationVisible"
+                    ng-disabled="isButtonContinueDisable" ng-click="onContinue()">
+                    Continuar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

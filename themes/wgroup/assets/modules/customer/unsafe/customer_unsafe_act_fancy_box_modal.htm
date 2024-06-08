@@ -1,0 +1,11 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body center">
+        <img ng-src="[[image.url]]" alt="[[image.caption]]" ng-if="image.url != ''">
+        <p ng-bind-html="image.caption | nl2br"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+    </div>
+</form>

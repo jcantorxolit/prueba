@@ -1,0 +1,24 @@
+<div ng-controller="customerManagementListCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <a class="btn btn-wide btn-success" href="#" ng-click="onCreate()" ng-if="isNew && can('programa_empresarial_create')"><i
+                    class="glyphicon glyphicon-plus"></i> Crear gestión</a> -->
+
+            <a class="btn btn-wide btn-success" href="#" ng-click="onConfig()">
+                <i class="glyphicon glyphicon-plus"></i> Configurar Gestión
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="table-responsive">
+                    <table datatable="" width="100%" dt-instance="dtInstanceManagementCallback"
+                        dt-options="dtOptionsManagement" dt-columns="dtColumnsManagement" id="dtCustomerManagement"
+                        class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">FILTRO</span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                                    <label class="control-label">Seleccione el periodo<span class=""></span></label>
+                                    <ui-select name="period" ng-disabled="isView" ng-required="true"
+                                        ng-model="entity.period"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in periodList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.gender.$dirty && Form.gender.$invalid">El
+                                        periodo es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+
+        <button type="submit" class="btn btn-primary" ng-if="!isView" ng-disabled="Form.$invalid">
+            Aceptar
+        </button>
+    </div>
+</form>

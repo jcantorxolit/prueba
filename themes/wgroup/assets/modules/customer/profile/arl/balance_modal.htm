@@ -1,0 +1,127 @@
+<div>
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title text-bold"> BALANCE DE VENTAS </h4>
+                    </div>
+
+                    <div class="panel-body">
+
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Mes</label>
+                                    <ui-select ng-model="filters.month" theme="bootstrap" name="month" ng-change="onChangeMonth()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in monthList | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Tipo</label>
+                                    <ui-select ng-model="filters.type" theme="bootstrap" name="type" ng-change="onChangeType()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in typeList | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Concepto</label>
+                                    <ui-select ng-model="filters.concept" theme="bootstrap" name="concept" ng-change="onChangeConcept()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in conceptList | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Clasificación</label>
+                                    <ui-select ng-model="filters.classification" theme="bootstrap" name="classification" ng-change="onChangeClassification()">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in classificationList | orderBy:'id' | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="padding-top-20">
+                                    <button type="button" ng-click="onCancel()" class="btn btn-outline-info margin-right-5">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 col-md-push-1">
+                                <div class="padding-top-20">
+                                    <button type="button" ng-click="onExport()" class="btn btn-primary">
+                                        Exportar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    
+                        <div class="row">
+                          <div class="col-md-12">
+                              <div>
+                                  <div class="table-responsive">
+                                      <table datatable="" width="100%"
+                                             class="table table-bordered table-hover"
+                                             id="dtCustomerContributionBalanceDetail"
+                                             dt-instance="dtInstanceCustomerContributionBalanceDetail"
+                                             dt-options="dtOptionsCustomerContributionBalanceDetail"
+                                             dt-columns="dtColumnsCustomerContributionBalanceDetail"></table>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 padding-bottom-20">
+            <button type="button"
+                    class="btn btn-warning btn-o next-step btn-wide pull-right"
+                    ng-click="onClose()">Cerrar</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,554 @@
+<!-- start: PAGE TITLE -->
+<section id="page-title">
+    <div class="row">
+
+        <div class="col-sm-8" ng-if="iscreate">
+            <h1 class="mainTitle">Creación de cliente</h1>
+            <span class="mainDescription">Desde este formulario usted podrá crear la información del cliente seleccionado</span>
+        </div>
+
+        <div class="col-sm-8" ng-if="!isview && !iscreate">
+            <h1 class="mainTitle">Edición del cliente</h1>
+            <span class="mainDescription">Desde este formulario usted podrá actualizar la información del cliente seleccionado</span>
+        </div>
+
+
+        <div class="col-sm-8" ng-if="isview">
+            <h1 class="mainTitle">Información del cliente</h1>
+            <span class="mainDescription">Desde este formulario usted podrá visualizar la información del cliente seleccionado</span>
+
+        </div>
+        <div ncy-breadcrumb></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: FORM VALIDATION -->
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- /// controller:  'CustomerCtrl' -  localtion: assets/js/controllers/customerCtrl.js /// -->
+            <div ng-controller="customerEditCtrl">
+                <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                    <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                        <div class="col-md-12">
+                            <div class="panel panel-white" id="pnlloading">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title text-primary">Cargando...</h4>
+                                </div>
+                                <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <p>
+                                            Estamos procesando la información del cliente.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }"
+                         ng-show="!loading">
+
+                        <div class="col-md-12">
+
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                            <div class="form-group">
+                                                <div flow-init="{ singleFile:true, target:'api/upload', uploadMethod:'POST', 'testChunks':false}"
+                                                     flow-name="uploader.flow" flow-object="uploader.flow"
+                                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                                    <div class="user-image">
+                                                        <div class="thumbnail">
+                                                            <img src="{{'assets/images/default-user.png'|theme}}" alt=""
+                                                                 ng-if="!uploader.flow.files.length && noImage">
+                                                            <img ng-src="[[customer.logo.path]]" alt=""
+                                                                 ng-if="!uploader.flow.files.length && !noImage">
+                                                            <img flow-img="uploader.flow.files[0]"
+                                                                 ng-if="uploader.flow.files.length">
+                                                        </div>
+                                                        <div class="user-image-buttons"
+                                                             ng-if="uploader.flow.files.length">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger"
+                                                                  ng-click="uploader.flow.cancel()"> <i
+                                                                    class="fa fa-times"></i> </span>
+                                                        </div>
+                                                        <div class="user-image-buttons"
+                                                             ng-if="!uploader.flow.files.length && !isview">
+                                                            <span class="btn btn-primary" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger" ng-if="!noImage"
+                                                                  ng-click="removeImage()"><i
+                                                                    class="fa fa-times"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-10">
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Tipo de cliente
+                                                        </label>
+                                                        <ui-select ng-disabled="isview" ng-model="customer.type" theme="bootstrap" >
+                                                            <ui-select-match placeholder="Seleccionar...">
+                                                                [[$select.selected.item]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in tiposCliente | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Tipo de documento
+                                                        </label>
+                                                        <ui-select ng-disabled="isview" ng-model="customer.documentType" theme="bootstrap">
+                                                            <ui-select-match placeholder="Seleccionar...">
+                                                                [[$select.selected.item]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in tiposdoc | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.document.$dirty && Form.document.$invalid}">
+                                                        <label class="control-label">Número de documento <span
+                                                                class="symbol required"></span></label>
+                                                        <input  ng-disabled="isview" type="text" placeholder="Ingrese el número de documento"
+                                                               class="form-control" name="document"
+                                                               ng-model="customer.documentNumber" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.document.$dirty && Form.document.$invalid">Número de documento es requerido</span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Estado
+                                                        </label>
+                                                        <ui-select ng-disabled="isview" ng-model="customer.status" theme="bootstrap">
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.item]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in estados | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.name.$dirty && Form.name.$invalid}">
+                                                        <label class="control-label">Razón social <span
+                                                                class="symbol required"></span></label>
+                                                        <input  ng-disabled="isview" type="text" placeholder="Ingrese la razon social"
+                                                               class="form-control" name="name"
+                                                               ng-model="customer.businessName" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.name.$dirty && Form.name.$invalid">La Razón Social es requerida</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.activity.$dirty && Form.activity.$invalid}">
+                                                        <label class="control-label">Actividad económica <span
+                                                                class="symbol required"></span></label>
+                                                        <input  ng-disabled="isview" type="text" placeholder="Ingrese la actividad económica"
+                                                               class="form-control" name="activity"
+                                                               ng-model="customer.economicActivity" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Actividad económica es requerida</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class=" row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.url.$dirty && Form.url.$invalid}">
+                                                        <label class="control-label">
+                                                            Sitio Web <span class="symbol required"></span>
+                                                        </label>
+                                                        <input  ng-disabled="isview" type="text" placeholder="Url" class="form-control"
+                                                               name="url" ng-model="customer.webSite"
+                                                               ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/"
+                                                               required/>
+            <span class="error text-small block"
+                  ng-if="Form.url.$dirty && Form.url.$error.required">Url es requerida</span>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.url.$error.pattern">Url no es valida</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>ARL</label>
+                                                        <ui-select ng-disabled="isview" ng-model="customer.arl" theme="bootstrap">
+                                                            <ui-select-match placeholder="- Seleccionar -">
+                                                                [[$select.selected.item]]
+                                                            </ui-select-match>
+                                                            <ui-select-choices
+                                                                    repeat="item in arls | filter: $select.search track by $index">
+                                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    País
+                                                </label>
+                                                <ui-select ng-disabled="isview" ng-model="customer.country" theme="bootstrap"
+                                                           on-select="changeCountry($item, $model)">
+                                                    <ui-select-match placeholder="Seleccionar...">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in countries | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Departamento
+                                                </label>
+                                                <ui-select ng-disabled="isview" id="ddlState" ng-model="customer.state" theme="bootstrap"
+                                                           on-select="changeState($item, $model)"
+                                                           ng-disabled="states.length == 0">
+                                                    <ui-select-match placeholder="Seleccionar..." class="txtselected">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="item in states | filter: $select.search">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Ciudad</label>
+                                                <ui-select ng-disabled="isview" id="ddlTown" ng-model="customer.town" theme="bootstrap"
+                                                           ng-disabled="towns.length == 0"
+                                                           allow-clear='true'>
+                                                    <ui-select-match placeholder="Seleccionar..." class="txtselected">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in towns | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.employeesdir.$dirty && Form.employeesdir.$invalid}">
+                                                <label class="control-label">
+                                                    Empleados directos <span class="symbol required"></span>
+                                                </label>
+                                                <input  ng-disabled="isview" type="text" placeholder="Cantidad de empleados directos"
+                                                       class="form-control" name="employeesdir"
+                                                       touchspin="" data-verticalbuttons="true"
+                                                       data-verticalupclass="ti-angle-up"
+                                                       data-verticaldownclass="ti-angle-down"
+                                                       ng-model="customer.directEmployees" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.employeesdir.$dirty && Form.employeesdir.$invalid">La cantidad de empleados directos es requerida</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <div class="form-group"
+                                                 ng-class="{'has-error':Form.employeestemp.$dirty && Form.employeestemp.$invalid}">
+                                                <label class="control-label">
+                                                    Empleados temporales <span class="symbol required"></span>
+                                                </label>
+                                                <input  ng-disabled="isview" type="text"
+                                                       placeholder="Ingrese la cantidad de empleados temporales"
+                                                       class="form-control"
+                                                       name="employeestemp"
+                                                       touchspin="" data-verticalbuttons="true"
+                                                       data-verticalupclass="ti-angle-up"
+                                                       data-verticaldownclass="ti-angle-down"
+                                                       ng-model="customer.temporaryEmployees" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.employeestemp.$dirty && Form.employeestemp.$invalid">La cantidad de empleados temporales es requerida</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Empresa Temporal
+                                                </label>
+                                                <ui-select ng-disabled="isview" ng-model="customer.temporalCompany" theme="bootstrap">
+                                                    <ui-select-match placeholder="Seleccionar...">
+                                                        [[$select.selected.name]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in temporaryAgencies | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="panelContacts" class="panel panelclone panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE CONTACTO</span></h4>
+                                    <ct-paneltool   ng-if="!isview" class="panel-tools" tool-clone="load1"></ct-paneltool>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row" ng-repeat="contact in customer.contacts">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <ui-select ng-disabled="isview" ng-model="contact.type" theme="bootstrap">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in extrainfo | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class=""
+                                             ng-class='{"col-md-7": customer.contacts.length > 1 && !isview, "col-md-8" : (customer.contacts.length <= 1  || isview) }'>
+                                            <div class="form-group">
+                                                <input  ng-disabled="isview" type="text" placeholder="Ingresa el valor" class="form-control"
+                                                       name="value"
+                                                       ng-model="contact.value"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1" ng-if="customer.contacts.length > 1  && !isview">
+                                            <div class="pull-right">
+
+                                                <div class="form-group">
+                                                    <a href='#' class="btn btn-primary btn-o" tooltip-placement='top'
+                                                       tooltip='Eliminar'
+                                                       ng-click="removeContact($index)"><i
+                                                            class='ti-minus'></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel de unidades --->
+
+
+                            <div id="panelBunit" class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">UNIDADES DE NEGOCIO</span></h4>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="col-md-4" ng-repeat="bunit in customer.unities">
+                                            <div class="panel panelclone panel-white panelAgents"
+                                                 data-parent="[[$index]]">
+                                                <div class="panel-heading border-light">
+                                                    <h4 class="panel-title"><span
+                                                            class="text-bold">[[bunit.item | uppercase]]</span></h4>
+                                                    <ct-paneltool   ng-if="!isview" class="panel-tools" tool-clone="load1"></ct-paneltool>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row" ng-repeat="agent in bunit.agents">
+                                                        <div class=""
+                                                             ng-class='{"col-md-10": bunit.agents.length > 1, "col-md-12" : (bunit.agents.length <= 1 || isview) }'>
+                                                            <div class="form-group">
+                                                                <ui-select ng-disabled="isview" ng-model="agent.selected" theme="bootstrap">
+                                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                                        [[$select.selected.name]]
+                                                                    </ui-select-match>
+                                                                    <ui-select-choices
+                                                                            repeat="item in agents | filter: $select.search track by $index">
+                                                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2" ng-if="bunit.agents.length > 1 && !isview">
+                                                            <div class="form-group">
+                                                                <a href='#' class="btn btn-primary btn-o"
+                                                                   tooltip-placement='top' tooltip='Eliminar'
+                                                                   ng-click="removeAgent(bunit, $index)"><i
+                                                                        class='ti-minus'></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div id="panelMainContacts" class="panel panelclone panel-white panelMainContacts">
+                                <div class="panel-heading border-light">
+                                    <h4 class="panel-title"><span class="text-bold">CONTACTOS PRINCIPALES</span></h4>
+                                    <ct-paneltool   ng-if="!isview" class="panel-tools" tool-clone="load1" ></ct-paneltool>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row" ng-repeat="contact in customer.maincontacts">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+
+                                                <ui-select ng-disabled="isview" ng-model="contact.role" theme="bootstrap">
+                                                    <ui-select-match placeholder="- Seleccionar -">
+                                                        [[$select.selected.item]]
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="item in rolescontact | filter: $select.search track by $index">
+                                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class=""
+                                             ng-class='{"col-md-6": customer.maincontacts.length > 1, "col-md-7" : customer.maincontacts.length <= 1 }'>
+                                            <div class="form-group">
+                                                <input  ng-disabled="isview" type="text" placeholder="Ingresa el nombre" class="form-control"
+                                                       name="value"
+                                                       ng-model="contact.value"/>
+                                            </div>
+                                        </div>
+
+                                        <div class=""
+                                             ng-class='{"col-md-2": customer.maincontacts.length > 1, "col-md-1" : customer.maincontacts.length <= 1 }'>
+
+                                            <a href='#' class="btn btn-primary btn-o" tooltip-placement='top' ng-if="isview"
+                                               tooltip='Ver más Información'
+                                               ng-click="addInfoContact($index, contact)"><i
+                                                    class='ti-info'></i></a>
+
+                                            <a href='#' class="btn btn-primary btn-o" tooltip-placement='top'  ng-if="!isview"
+                                               tooltip='Agregar Información'
+                                               ng-click="addInfoContact($index, contact)"><i
+                                                    class='ti-plus'></i></a>
+
+                                            <a href='#' class="btn btn-primary btn-o" tooltip-placement='top'  ng-if="!isview"
+                                               tooltip='Eliminar'
+                                               ng-if="customer.maincontacts.length > 1"
+                                               ng-click="removeMainContact($index)"><i
+                                                    class='ti-minus'></i></a>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row" ng-class="{'show':loading != null, 'hid': loading == null }" ng-show="!loading">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary" ng-if="!isview">
+                                    Guardar
+                                </button>
+                                <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: FORM VALIDATION -->

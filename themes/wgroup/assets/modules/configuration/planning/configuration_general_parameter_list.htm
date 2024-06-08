@@ -1,0 +1,153 @@
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Parámetros Generales">Parámetros Generales</h1>
+                <span class="mainDescription">Desde aquí podrá administrar la información de los parámetros generales del sistema.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationGeneralParameterCtrl">
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.parameter.$dirty && Form.parameter.$invalid}">
+                                            <label class="control-label">Parámetro<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="true" type="text"
+                                                   placeholder="Ingrese el código"
+                                                   class="form-control" name="parameter"
+                                                   ng-model="filter.selectedParameter.text" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.parameter.$dirty && Form.parameter.$invalid">El parámetro es requerido</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                                            <label class="control-label">Código<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="isView" type="text"
+                                                   placeholder="Ingrese el código"
+                                                   class="form-control" name="code"
+                                                   ng-model="parameter.value" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.code.$dirty && Form.code.$invalid">El código es requerido</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                            <label class="control-label">Descripción<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="isview" type="text"
+                                                   placeholder="Ingrese la descripción"
+                                                   class="form-control" name="description"
+                                                   ng-model="parameter.item" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es requerida</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">PARÁMETROS GENERALES</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <label>
+                                            <h5 class="over-title margin-bottom-15">Filtrar <span
+                                                    class="text-bold">por parámetro</span></h5>
+                                        </label>
+
+                                        <div class="input-group">
+                                            <ui-select ng-disabled="isView" ng-model="filter.selectedParameter"
+                                                       theme="bootstrap"
+                                                       on-select="changeParameter($item, $model)">
+                                                <ui-select-match placeholder="- Seleccionar -">
+                                                    [[$select.selected.text]]
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="item in parameters | filter: $select.search track by $index">
+                                                    <div ng-bind-html="item.text | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                                     	<span class="input-group-btn">
+                                                        <button ng-click="clearParameter()" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstanceGeneralParameter" dt-options="dtOptionsGeneralParameter"
+                                                   id="dtGeneralParameter"
+                                                   dt-columns="dtColumnsGeneralParameter"
+                                                   class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

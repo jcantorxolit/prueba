@@ -1,0 +1,75 @@
+<!-- start: RESPONSIVE TABLE -->
+<div class="bg-white" ng-controller="customerUnsafeActListCtrl">
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-wide btn-green" href="#" ng-click="onCreate()">
+                <i class="glyphicon glyphicon-plus"></i> Generar Reporte
+            </a>
+
+            <a class="btn btn-wide btn-danger" href="#" ng-click="onReport()">
+                <i class="glyphicon glyphicon-th-list"></i> Estadísticas
+            </a>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="pull-right">
+                <div class="radio clip-radio radio-primary radio-inline" ng-if="mustFilterByReportedAssigned">
+                    <input type="radio" id="reportedBy" name="inline" value="R" ng-model="filter.reportedAssigned" ng-change='reloadData()'>
+                    <label for="reportedBy">
+                        Reportadas
+                    </label>
+                </div>
+    
+                <div class="radio clip-radio radio-primary radio-inline margin-right-20" ng-if="mustFilterByReportedAssigned">
+                    <input type="radio" id="assignedTo" name="inline" value="A" ng-model="filter.reportedAssigned" ng-change='reloadData()'>
+                    <label for="assignedTo">
+                        Asignadas
+                    </label>
+                </div>
+
+                <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-wide btn-default dropdown-toggle" uib-dropdown-toggle>
+                        Más acciones... <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li>
+                            <a href="#" ng-click="onExportReport()" ng-if="can('actos_inseguros_export_report')">
+                                Informe Condiciones Inseguras
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="onExportPdf()" ng-if="can('actos_inseguros_export_pdf')">
+                                Exportar PDF
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" ng-click="onExportExcel()" ng-if="can('actos_inseguros_export_excel')">
+                                Exportar Excel
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="onMassiveDownload()" ng-if="can('actos_inseguros_download')">
+                                Descargar Evidencias Masivas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+    </div>
+    
+    <div class="row unsafe-act-export-pdf">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable="" width="100%" dt-instance="dtInstanceCustomerUnsafeActCallback"
+                    dt-options="dtOptionsCustomerUnsafeAct" dt-columns="dtColumnsCustomerUnsafeAct"
+                    id="dtCustomerUnsafeAct" class="table table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+</div>
+<!-- end: RESPONSIVE TABLE -->

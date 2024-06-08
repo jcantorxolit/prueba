@@ -1,0 +1,42 @@
+<div ng-controller="JobConditionStagingListCtrl">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">IMPORTACIÓN Y ACTUALIZACIÓN DE CONDICIONES DE PUESTOS DE TRABAJO</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable=""
+                                       parent-width-full
+                                       dt-instance="dtInstanceJobConditionStaging"
+                                       dt-options="dtOptionsJobConditionStaging"
+                                       dt-columns="dtColumnsJobConditionStagingDT" id="dataJobConditionStagingDT"
+                                       class="table table-bordered table-hover"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row padding-20">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-click="onProcess()">
+                            Procesar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Regresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

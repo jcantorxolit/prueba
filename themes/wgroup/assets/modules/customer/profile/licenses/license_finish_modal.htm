@@ -1,0 +1,61 @@
+<div class="fade-in-right-big">
+    <div class="container-fluid container-fullw bg-white">
+
+        <div class="row">
+            <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">FINALIZAR LICENCIA</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.finishDate.$dirty && Form.finishDate.$invalid}">
+                                    <label class="control-label">Fecha Fin<span class="symbol required"></span></label>
+                                    <input class="form-control" kendo-date-picker
+                                           k-options="datePickerConfig"
+                                           name="finishDate"
+                                           ng-model="entity.finishDate"
+                                           onkeydown="return false;" style="width: 100%;" ng-required="true"/>
+                                    <span class="error text-small block"
+                                          ng-if="Form.finishDate.$dirty && Form.finishDate.$invalid">La fecha es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Motivo Finalización
+                                        <span class="symbol required"></span>
+                                    </label>
+
+                                    <textarea class="form-control" placeholder="Escribe aquí el motivo..."
+                                              data-ng-model="entity.reason"
+                                              ng-required="true"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-o" ng-disabled="$form.isValid()">
+                            Guardar
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>

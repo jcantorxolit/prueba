@@ -1,0 +1,13 @@
+<div ng-controller="customerEmployeeDocumentCtrl" >
+    <div ng-switch="employee_document_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/document/customer_employee_tab_attachment.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="validate" class="fade-in-right-big">
+            <div data-ng-include="app.views.urlRoot + 'modules/customer/employee/document/customer_employee_tab_attachment_validate.htm'">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="safety-inspection-export-pdf" ng-controller="customerSafetyInspectionSummaryCtrl">
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">RESUMEN DE GESTIÓN</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-wide btn-success" href="#" ng-click="onViewReport()">
+                        <i class="glyphicon glyphicon-list-alt"></i> Ver reporte
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger btn-o" ng-click="onExportPdf()">
+                            Exportar PDF
+                        </button>
+
+                        <button type="button" class="btn btn-success btn-o" ng-click="onExportExcel()">
+                            Exportar Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%" 
+                                dt-instance="dtInstanceSafetyInspectionSummaryCallback" 
+                                dt-options="dtOptionsSafetyInspectionSummary"
+                                dt-columns="dtColumnsSafetyInspectionSummary" class="table table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" ng-click="onEditSafetyInspection()">
+                    Continuar
+                </button>
+                <button type="button" class="btn btn-primary btn-o" ng-click="cancelEdition()">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

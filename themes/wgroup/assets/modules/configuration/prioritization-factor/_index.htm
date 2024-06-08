@@ -1,0 +1,39 @@
+﻿<div ui-view="" class="fade-in-right-big">
+    <div ng-controller="ConfigurationPrioritizationFactorCtrl">
+
+        <!-- start: PAGE TITLE-->
+        <section id="page-title">
+
+            <div class="row" ng-if="tabName=='basic'">
+
+                <div class="col-sm-8">
+                    <h1 class="mainTitle" translate="Resultado factores de priorización">Resultado factores de priorización</h1>
+                    <span class="mainDescription">Desde aqui podrás administrar la información de resultados para los valores obtenidos en el factor de priorización de los planes de mejoramiento.</span>
+                </div>
+                <div ncy-breadcrumb></div>
+
+            </div>
+
+        </section>
+        <!-- end: PAGE TITLE -->
+
+        <!-- start: FORM VALIDATION -->
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab select="switchTab('basic')">
+                            <uib-tab-heading>
+                                Configuración
+                            </uib-tab-heading>
+
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="section.url">
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+        <!-- end: FORM VALIDATION -->
+    </div>
+</div>

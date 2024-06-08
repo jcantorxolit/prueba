@@ -1,0 +1,142 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label>
+            <h4 class="panel-title text-primary">Preparación de Información</h4>
+        </label>
+    </div>
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">FILTROS</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.required.$dirty && Form.required.$invalid}">
+                        <label class="control-label">Requerido</label>
+                        <ui-select ng-model="filter.required" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in requiredList | orderBy:'id' | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                        <label class="control-label">Estado</label>
+                        <ui-select ng-model="filter.status" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in statusList | orderBy:'id' | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error':Form.verified.$dirty && Form.verified.$invalid}">
+                        <label class="control-label">Verificado</label>
+                        <ui-select ng-model="filter.verified" theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in verifiedList | orderBy:'id' | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-bottom-15" ng-if="!isInvalidate">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary btn-o" ng-click="reloadData()">
+                    Visualizar
+                </button>
+                <button type="button" class="btn btn-primary btn-o" ng-click="onClearFilter()">
+                    Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-white">
+        <div class="panel-heading border-light">
+            <h4 class="panel-title"><span class="text-bold">PREVISUALIZACIÓN</span></h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-default" ng-disabled="toggle.selectAll" ng-click="onToggle()" uib-tooltip="[[ toggle.isChecked ? 'Deseleccionar esta página' : 'Seleccionar esta página']]">
+                            <i ng-class="{'fa fa-square-o': !toggle.isChecked, 'fa fa-check-square-o': toggle.isChecked}"></i>
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
+                            <span class="caret"></span>
+                            <span class="sr-only">Split button!</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" ng-click="onSelectCurrentPage()">
+                                    Seleccionar esta página ([[records.currentPage]])
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="onSelectAll()">
+                                    Seleccionar todo ([[records.total]])
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" ng-click="onDeselectAll()">
+                                    Deseleccionar todo
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <span class="small-text" ng-if="records.hasSelected"> | Documentos seleccionados [[
+                        records.countSelected ]]
+                    </span>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="table-responsive">
+                            <table datatable="" width="100%"
+                                dt-instance="dtInstanceCustomerEmployeeDocumentFilterCallback"
+                                dt-options="dtOptionsCustomerEmployeeDocumentFilter"
+                                dt-columns="dtColumnsCustomerEmployeeDocumentFilter"
+                                id="dtCustomerEmployeeDocumentFilter"
+                                class="table table-bordered table-hover"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger btn-o" ng-click="onCancel()">
+        Cancelar
+    </button>
+    <button class="btn btn-primary btn-o" ng-disabled="!records.hasSelected" ng-click="onContinue()">
+        Continuar
+    </button>
+</div>

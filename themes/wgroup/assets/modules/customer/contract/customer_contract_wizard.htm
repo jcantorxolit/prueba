@@ -1,0 +1,53 @@
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: WIZARD FORM -->
+            <div id="wizard" class="swMain">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.year.$dirty && Form.year.$invalid}">
+                            <label class="col-sm-4 control-label">Filtrar <span class="text-bold">por año</span></label>
+                            <div class="col-sm-8">
+                                <ui-select name="year" ng-required="true" ng-disabled="isView || yearList.length == 0"
+                                    ng-model="criteria.year" theme="bootstrap" on-select="onSelectYear()">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in yearList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-9">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-success btn-o" ng-click="onSummaryExportExcel()">
+                                Exportar Excel
+                            </button>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div kendo-grid="grid" k-options="mainGridOptions" k-ng-delay="mainGridOptions">
+                                <div k-detail-template>
+                                    <h5 class="text-orange">Requerimientos</h5>
+                                    <div kendo-grid="gridItem" class="hide-grid-header" k-options="detailGridOptions(dataItem)">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end: WIZARD FORM -->
+        </div>
+    </div>
+</div>
+<!-- start: WIZARD DEMO -->

@@ -1,0 +1,71 @@
+<div ng-controller="customerCovidPersonListCtrl">
+
+
+        <div class="panel panel-white">
+
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">PERSONAS CON LAS QUE TUVO CONTACTO</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error':FormTemp.place.$dirty && FormTemp.place.$invalid}">
+                            <label class="control-label">Lugar</label>
+                            <span class="symbol required"></span>
+                            <input ng-disabled="isView" type="text"
+                                placeholder="Ingrese el registro" maxlength="100" class="form-control" name="place"
+                                ng-model="entity.place" />
+                            <span class="error text-small block" ng-if="FormTemp.place.$dirty && FormTemp.place.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error':FormTemp.person.$dirty && FormTemp.person.$invalid}">
+                            <label class="control-label">Persona con la que tuvo contacto</label>
+                            <span class="symbol required"></span>
+                            <input ng-disabled="isView" type="text"
+                                placeholder="Ingrese el registro" maxlength="150" class="form-control" name="person"
+                                ng-model="entity.person"/>
+                            <span class="error text-small block" ng-if="FormTemp.person.$dirty && FormTemp.person.$invalid">
+                                El registro es requerido
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <br>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-success" ng-click="onSave()" ng-if="!isView">
+                                Adicionar
+                            </button>
+                            <button type="button" class="btn btn-success btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+                                <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceCustomerCovidPersonInTouchCallback" 
+                                        dt-options="dtOptionsCustomerCovidPersonInTouch" 
+                                        dt-columns="dtColumnsCustomerCovidPersonInTouch"
+                                        id="dtCustomerCovidPersonInTouch" 
+                                    class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</div>

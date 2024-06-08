@@ -1,0 +1,208 @@
+<style>
+    td {
+        word-break: break-all;
+    }
+
+    .anexo {
+        border: 1px dashed #9999;
+        padding: 5px;
+        margin-top: 16px;
+    } 
+</style>
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="AYUDAS ROLES Y PERFILES">AYUDAS ROLES Y PERFILES</h1>
+                <span class="mainDescription">En esta ventana podrás configurar los mensajes de ayuda de cada rol y
+                    perfil que se muestran al crear o editar un usuario.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationHelpRolesProfileCtrl">
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-9">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                                    <label class="control-label">
+                                                        Tipo
+                                                        <span class="symbol required"></span>
+                                                    </label>
+                                                    <ui-select ng-required="true" name="type" ng-model="entity.type" theme="bootstrap"
+                                                        on-select="onSelectType()">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item in typeList | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error text-small block"
+                                                        ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es
+                                                        requerido</span>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-md-6">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                                    <label class="control-label">
+                                                        Descripción
+                                                        <span class="symbol required"></span>
+                                                    </label>
+                                                    <ui-select ng-required="true" name="description" ng-model="entity.description"
+                                                        theme="bootstrap">
+                                                        <ui-select-match placeholder="- Seleccionar -">
+                                                            [[$select.selected.item]]
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item in descriptionList | filter: $select.search track by $index">
+                                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error text-small block"
+                                                        ng-if="Form.description.$dirty && Form.description.$invalid">La
+                                                        descripción es requerida</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group"
+                                                    ng-class="{'has-error':Form.text.$dirty && Form.text.$invalid}">
+                                                    <label class="control-label">Texto
+                                                        <span class="symbol required"></span>
+                                                    </label>
+                                                    <textarea placeholder="Ingrese el texto" class="form-control"
+                                                        name="text" ng-model="entity.text" ng-required="true" maxlength="100" rows="5">
+                                                    </textarea>
+                                                    <span class="error text-small block"
+                                                        ng-if="Form.text.$dirty && Form.text.$invalid">El texto es
+                                                        requerido</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-md-3 text-center" ng-if="entity.type && entity.type.value == 1">
+                                        <div class="anexo">
+                                            <span class="btn btn-primary btn-o btn-file text-center"> Seleccionar anexo
+                                                <input type="file" nv-file-select="" uploader="uploaderResource"
+                                                    ng-disabled="uploaderResource.getNotUploadedItems().length > 0" />
+                                            </span>
+                                            <div ng-repeat="item in uploaderResource.queue">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <th width="100px">Nombre</th>
+                                                            <td>
+                                                                <p>[[ item.file.name ]]</p>
+                                                            </td>
+                                    
+                                                            <tr>
+                                                                <th width="100px" ng-show="uploaderResource.isHTML5">Tamaño</th>
+                                                                <td ng-show="uploaderResource.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2]] MB
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th width="100px" ng-show="uploaderResource.isHTML5">Progreso</th>
+                                                                <td ng-show="uploaderResource.isHTML5">
+                                                                    <div class="progress progress-xs margin-bottom-0">
+                                                                        <div class="progress-bar" role="uib-progressbar"
+                                                                            ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th width="100px">Estado</th>
+                                                                <td class="text-center"><span ng-show="item.isSuccess"><i
+                                                                            class="glyphicon glyphicon-ok"></i></span><span ng-show="item.isCancel"><i
+                                                                            class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                                        ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th width="100px">Acciones</th>
+                                                                <td nowrap>
+                                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                                        <span class="glyphicon glyphicon-trash"></span> Remover
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                    
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                    
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">CONFIGURACIONES CREADAS</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%" dt-instance="dtInstanceArl"
+                                                dt-options="dtOptionsArl" id="dtArl" dt-columns="dtColumnsArl"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

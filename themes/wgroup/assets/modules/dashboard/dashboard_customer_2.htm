@@ -1,0 +1,211 @@
+<div class="export-pdf-contractor" ng-controller="dashboardDiagnosticCustomerCtrl">
+
+    <div class="container-fluid container-fullw bg-white" ng-if="isAdmin || isCustomer">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+
+                    <div class="col-sm-12">
+
+                        <div class="form-group">
+                            <label>
+                                <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por cliente</span></h5>
+                            </label>
+
+                            <div class="input-group">
+                                <ui-select ng-disabled="isView || customerList.length == 0" ng-model="filter.customer"
+                                    theme="bootstrap" on-select="onSelectCustomer()">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.item]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in customerList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button ng-click="onSearchCustomer()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>                                     
+                                    <button ng-click="onClearCustomer()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="[[indicator.class]]" ng-class="{'col-sm-12': indicator.class === undefined || indicator.class === null && indicator.class !== '' }"
+            ng-repeat="indicator in indicators.charts track by $index">
+
+            <div class="row" ng-if="indicator.name == 'AUSENTISMO EG'">
+                <div class="col-sm-offset-10 col-sm-2">
+
+                    <div class="form-group">
+                        <label>
+                            <h5 class="over-title margin-bottom-15">Filtrar <span class="text-bold">por año</span></h5>
+                        </label>
+
+                        <div class="input-group">
+                            <ui-select ng-disabled="isVie || yearList.length == 0" ng-model="filter.year"
+                                theme="bootstrap" on-select="onSelectYear()">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in yearList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button ng-click="onClearYear()" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel panel-white">
+
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">[[indicator.name]]</span></h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+
+                        <!-- Tiles -->
+                        <div class=" text-center text-large" ng-class="{
+								 'col-sm-3': indicator.items.length > 1 || indicator.counters.length > 1,
+								 'col-sm-12': indicator.items.length == 0 && indicator.counters.length == 0,
+								 'col-sm-6': indicator.items.length == 1 || indicator.counters.length == 1
+								}"
+                            ng-if="indicator.tiles.length > 0">
+
+                            <div class="row">
+                                <div ng-class="{
+								 'col-sm-2': indicator.tiles.length > 4,
+								 'col-sm-3': indicator.tiles.length == 4,
+								 'col-sm-4': indicator.tiles.length == 3,
+								 'col-sm-6': indicator.tiles.length == 2,
+								 'col-sm-12': indicator.tiles.length == 1
+								}"
+                                    ng-repeat="item in indicator.tiles track by $index">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h1 class="mainTitle"><span class="text-bold">[[item.value]][[item.symbol]]</span></h1>
+                                            <h4 class="mainDescription">[[item.name]]</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="" ng-class="{
+								'border-left':!$first,
+								'col-sm-2': item.items.length > 4,
+								'col-sm-3': item.items.length == 4,
+								'col-sm-4': item.items.length == 3,
+								'col-sm-6': item.items.length == 2,
+								'col-sm-12': item.items.length == 1
+								}"
+                                            ng-repeat="itemDetail in item.items track by $index">
+                                            <h4 class="mainTitle"><span class="text-bold">[[itemDetail.value]][[itemDetail.symbol]]</span></h4>
+                                            <h5 class="mainDescription">[[itemDetail.name]]</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress bars -->
+                        <div class="" ng-class="{
+						'col-sm-3':indicator.items.length == 1,
+						'col-sm-9':indicator.items.length > 1 && indicator.tiles.length > 0,
+						'col-sm-12':indicator.items.length > 1 && indicator.tiles.length == 0
+						}"
+                            ng-if="indicator.items.length > 0">
+                            <div class="row">
+                                <div class="" ng-class="{
+						'col-sm-12':indicator.items.length == 1,
+						'col-sm-6':indicator.items.length == 2,
+						'col-sm-4':indicator.items.length == 3,
+						'col-sm-3':indicator.items.length == 4,
+						'col-sm-2':indicator.items.length > 4
+						}"
+                                    ng-init="isFirstCol = $first" ng-repeat="item in indicator.items track by $index">
+
+                                    <h5 class="over-title margin-bottom-15"><span class="text-bold">[[item.title]]</span></h5>
+
+                                    <div class="row" ng-repeat="result in item.results">
+
+                                        <div class="col-sm-6">
+                                            [[result.name]]: [[result.value]][[result.symbol]]
+                                            <uib-progressbar value="result.value" class="" type="success"></uib-progressbar>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" ng-if="indicator.data.datasets.length > 0">
+                            <h5 class="over-title margin-bottom-15"><span class="text-bold">Eventos Periodo:
+                                    [[filter.selectedYear.value]]</span></h5>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="text-center margin-bottom-15">
+                                        <canvas class="tc-chart" tc-chartjs-bar chart-options="options_prg" chart-data="indicator.data"
+                                            chart-legend="legendPrg" height="200"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" ng-if="false">
+                                    <div tc-chartjs-legend chart-legend="legendPrg" class="inline pull-left"></div>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Counters -->
+                        <div class="" ng-class="{
+						'col-sm-3':indicator.counters.length == 1,
+						'col-sm-9':indicator.counters.length > 1 && indicator.tiles.length > 0,
+						'col-sm-12':indicator.counters.length > 1 && indicator.tiles.length == 0
+						}"
+                            ng-if="indicator.counters.length > 0">
+                            <div class="row">
+                                <div class="" ng-class="{
+						'col-sm-12':indicator.counters.length == 1,
+						'col-sm-2':indicator.counters.length > 1
+						}"
+                                    ng-init="isFirstCol = $first" ng-repeat="item in indicator.counters track by $index">
+                                    <h5 class="over-title margin-bottom-15"><span class="text-bold">[[item.name]]</span></h5>
+
+                                    <div class="row " ng-class="{'border-left':!isFirstCol}" ng-repeat="result in item.items">
+                                        <div class="col-sm-6">[[result.name]]</div>
+                                        <div class="col-sm-6 text-bold">[[result.value]][[result.symbol]]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="downloadDocument" style='position:fixed;display:none;top:-1px;left:-1px;' />
+
+</div>

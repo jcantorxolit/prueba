@@ -1,0 +1,2 @@
+CREATE INDEX idx_customer_contrator_customer_id ON wg_customer_contractor(customer_id);
+CREATE INDEX idx_customer_contrator_contrator_id ON wg_customer_contractor(contractor_id);

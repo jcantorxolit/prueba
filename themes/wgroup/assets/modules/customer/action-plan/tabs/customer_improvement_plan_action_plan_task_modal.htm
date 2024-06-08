@@ -1,0 +1,273 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+
+        <div class="row" ng-if="improvement.isRequiresAnalysis">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS CAUSAS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.cause.$dirty && Form.cause.$invalid}">
+                                    <label class="control-label">Causa básica<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="cause" ng-required="true" ng-disabled="true"
+                                               ng-model="plan.cause.cause" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in causeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.cause.$dirty && Form.cause.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.root.$dirty && Form.root.$invalid}">
+                                    <label class="control-label">Causa raíz<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="root" ng-required="true" ng-disabled="true"
+                                               ng-model="plan.rootCause" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.cause]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in rootCauseList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.cause | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.root.$dirty && Form.root.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.activity.$dirty && Form.activity.$invalid}">
+                                    <label class="control-label">Actividad<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese la actividad"
+                                           class="form-control" name="activity"
+                                           ng-model="plan.activity" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.activity.$dirty && Form.activity.$invalid">La actividad es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.activity.$dirty && Form.activity.$invalid}">
+                                    <label class="control-label">Tarea<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="isView" type="text" placeholder="Ingrese la descripcioón de la tarea"
+                                           class="form-control" name="activity"
+                                           ng-model="task.description" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.activity.$dirty && Form.activity.$invalid">La tarea es requerida</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Tipo Tarea<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="type" ng-required="true" ng-disabled="isView"
+                                               ng-model="task.type" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in taskTypeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.type.$dirty && Form.type.$invalid">El tipo es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                    <label class="control-label">Responsable<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="responsible" ng-required="true" ng-disabled="isView"
+                                               ng-model="task.responsible" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in responsibleList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            <small>
+                                                Tipo: <span
+                                                    ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.responsible.$dirty && Form.responsible.$invalid">El responsable es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha de inicio</label>
+                                    <input class="form-control" kendo-date-picker
+                                           k-options="datePickerConfig"
+                                           k-min="maxDate"
+                                           k-ng-model="task.startDate"
+                                           style="width: 100%;"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha de fin</label>
+                                    <input class="form-control" kendo-date-picker
+                                           k-options="datePickerConfig"
+                                           k-min="maxDate"
+                                           k-ng-model="task.endDate"
+                                           style="width: 100%;"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.duration.$dirty && Form.duration.$invalid}">
+                                    <label class="control-label">Duración<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder=""
+                                           class="form-control" name="duration"
+                                           ng-model="task.duration" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.duration.$dirty && Form.duration.$invalid">La duración es requerida</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                    <label class="control-label">Estado<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="status" ng-required="true" ng-disabled="isView"
+                                               ng-model="task.status" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in statusList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.status.$dirty && Form.status.$invalid">El estado es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">TAREAS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="table-responsive">
+
+                                <table datatable="" width="100%"
+                                       dt-instance="dtInstanceCustomerImprovementPlanActionPlanTaskCallback"
+                                       dt-options="dtOptionsCustomerImprovementPlanActionPlanTask"
+                                       dt-columns="dtColumnsCustomerImprovementPlanActionPlanTask"
+                                       id="dtCustomerImprovementPlanActionPlanTask"
+                                       class="table table-bordered table-hover"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

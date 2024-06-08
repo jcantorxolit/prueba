@@ -1,0 +1,21 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: tcl.utils::lang.currency.name
+        searchable: yes
+
+    code:
+        label: tcl.utils::lang.currency.code
+        searchable: yes
+
+    is_default:
+        label: tcl.utils::lang.currency.is_default
+        type: switch
+
+    is_enabled:
+        label: tcl.utils::lang.currency.is_enabled
+        type: switch
+        invisible: true

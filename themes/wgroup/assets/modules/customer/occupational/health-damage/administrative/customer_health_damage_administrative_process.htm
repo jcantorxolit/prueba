@@ -1,0 +1,14 @@
+
+<div ng-controller="customerHealthDamageAdministrativeProcessCtrl" >
+    <div ng-switch="tracking_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/health-damage/administrative/customer_health_damage_administrative_process_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/health-damage/administrative/customer_health_damage_administrative_process_edit.htm'">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,543 @@
+<div ng-controller="customerUnsafeActEditCtrl">
+    <div class="col-md-12">
+
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DE LA CONDICIÓN INSEGURA</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                <label class="control-label">
+                                    Estado
+                                    <span class="symbol required"></span>
+                                </label>
+                                <input type="text" name="status" class="form-control" ng-disabled="true" ng-model="entity.status.item" ng-required="true" />
+                                <span class="error text-small block"
+                                    ng-if="Form.status.$dirty && Form.status.$invalid">El estado es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group kendo-hide">
+                                <label class="control-label">Fecha y Hora Registro</label>
+                                <input class="form-control" kendo-date-time-picker k-options="datePickerConfig"
+                                    k-ng-model="entity.dateOf" ng-disabled="true" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                <label class="control-label">Descripción de la Condición Insegura<span
+                                        class="symbol required"></span></label>
+                                <textarea ng-disabled="isView" name="description"
+                                    placeholder="Escribe aquí la descripción" data-ng-model="entity.description"
+                                    class="form-control" required></textarea>
+                                <span class="error text-small block"
+                                    ng-if="Form.description.$dirty && Form.description.$invalid">La descripción es
+                                    requerida</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.riskType.$dirty && Form.riskType.$invalid}">
+                                <label class="control-label">
+                                    Tipo de Peligro
+                                    <span class="symbol required"></span>
+                                </label>
+                                <ui-select name="riskType" ng-disabled="isView" ng-model="entity.riskType"
+                                    ng-required="true" on-select="onSelectRiskType($item, $model)" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in riskTypeList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.riskType.$dirty && Form.riskType.$invalid">El tipo de riesgo es
+                                    requerido</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.responsible.$dirty && Form.responsible.$invalid}">
+                                <label class="control-label">Notificar A<span class="symbol required"></span></label>
+
+                                <ui-select name="responsible" ng-required="true" ng-disabled="isView"
+                                    ng-model="entity.responsible" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in responsibleList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        <small>
+                                            Tipo: <span ng-bind-html="''+item.type | highlight: $select.search"></span>
+                                        </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.responsible.$dirty && Form.responsible.$invalid">El responsable es
+                                    requerido</span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.reportedBy.$dirty && Form.reportedBy.$invalid}">
+                                <label class="control-label">Reportado por <span class=""></span></label>
+                                <input ng-disabled="true" type="text" ng-required="false" placeholder=""
+                                    class="form-control" name="reportedBy" ng-model="entity.reportedBy" />
+                                <span class="error text-small block"
+                                    ng-if="Form.reportedBy.$dirty && Form.reportedBy.$invalid">El lugar es requerido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.workPlace.$dirty && Form.workPlace.$invalid}">
+                                <label class="control-label">
+                                    Centro de Trabajo
+                                    <span class="symbol required"></span>
+                                </label>
+                                <ui-select name="workPlace" ng-disabled="isView" ng-model="entity.workPlace"
+                                    ng-required="true" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in workPlaceList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.workPlace.$dirty && Form.workPlace.$invalid">El centro de trabajo es
+                                    requerido</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--<div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                                <label class="control-label">
+                                    Clasificación
+                                    <span class="symbol required"></span>
+                                </label>
+                                <ui-select name="classification" ng-disabled="isView" ng-model="entity.classification"
+                                    ng-required="true" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.name]]
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="item in classificationList | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="error text-small block"
+                                    ng-if="Form.classification.$dirty && Form.classification.$invalid">La clasificación
+                                    es requerida</span>
+                            </div>
+                        </div>
+
+                    </div>-->
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group" ng-class="{'has-error':Form.place.$dirty && Form.place.$invalid}">
+                                <label class="control-label">Zona o Lugar<span class="symbol required"></span></label>
+                                <input ng-disabled="isView" type="text" ng-required="true"
+                                    placeholder="Ingrese la zona o el lugar" class="form-control" name="place"
+                                    ng-model="entity.place" />
+                                <span class="error text-small block" ng-if="Form.place.$dirty && Form.place.$invalid">El
+                                    lugar es requerido</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--<div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.lat.$dirty && Form.lat.$invalid}">
+                                <label class="control-label">Latitud <span
+                                        class=""></span></label>
+                                <input ng-disabled="isView" type="text"
+                                       placeholder="Ingrese la latitud"
+                                       class="form-control" name="lat"
+                                       ng-model="entity.lat" />
+                                <span class="error text-small block"
+                                      ng-if="Form.lat.$dirty && Form.lat.$invalid">El tema es requerido</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"
+                                 ng-class="{'has-error':Form.lng.$dirty && Form.lng.$invalid}">
+                                <label class="control-label">Longitud <span
+                                        class=""></span></label>
+                                <input ng-disabled="isView" type="text"
+                                       placeholder="Ingrese el tema"
+                                       class="form-control" name="lng"
+                                       ng-model="entity.lng" />
+                                <span class="error text-small block"
+                                      ng-if="Form.lng.$dirty && Form.lng.$invalid">El tema es requerido</span>
+                            </div>
+                        </div>
+
+                    </div>-->
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                ng-class="{'has-error':Form.address.$dirty && Form.address.$invalid}">
+                                <label class="control-label">Dirección <span class=""></span></label>
+                                <input ng-disabled="true" type="text" ng-required="false" placeholder=""
+                                    class="form-control" name="address" ng-model="entity.address" />
+                                <span class="error text-small block"
+                                    ng-if="Form.address.$dirty && Form.address.$invalid">El lugar es requerido</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title"><span class="text-bold">IMÁGENES ANEXAS</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div nv-file-drop="" uploader="uploader">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5>Seleccionar imágenes</h5>
+
+                                        <div class="panel panel-white">
+                                            <div class="panel-body">
+                                                <div ng-show="uploader.isHTML5">
+                                                    <!-- 3. nv-file-over uploader="link" over-class="className" -->
+                                                    <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+                                                        Zona para descargar archivo
+                                                    </div>
+                                                </div>
+                                                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                                                <span class="btn btn-primary btn-o btn-file" ng-disabled="isView">
+                                                    Seleccionar una imagen
+                                                    <input type="file" nv-file-select="" uploader="uploader" multiple />
+                                                </span>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 file-upload" style="margin-bottom: 40px">
+                                        <p>
+                                            Cantidad anexos (Máximo 5): [[ uploader.queue.length ]]
+                                        </p>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="50%">Nombre</th>
+                                                        <th ng-show="uploader.isHTML5">Tamaño</th>
+                                                        <th ng-show="uploader.isHTML5">Progreso</th>
+                                                        <th>Estado</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in uploader.queue">
+                                                        <td><strong>[[ item.file.name ]]</strong>
+                                                            <!-- Image preview -->
+                                                            <!--auto height-->
+                                                            <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                                            <!--auto width-->
+                                                            <div ng-show="uploader.isHTML5"
+                                                                ng-thumb="{ file: item._file, height: 100 }"></div>
+                                                            <!--fixed width and height -->
+                                                            <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                                        </td>
+                                                        <td ng-show="uploader.isHTML5" nowrap>[[
+                                                            item.file.size/1024/1024|number:2 ]] MB
+                                                        </td>
+                                                        <td ng-show="uploader.isHTML5">
+                                                            <div class="progress progress-xs margin-bottom-0">
+                                                                <div class="progress-bar" role="uib-progressbar"
+                                                                    ng-style="{ 'width': item.progress + '%' }"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><span ng-show="item.isSuccess"><i
+                                                                    class="glyphicon glyphicon-ok"></i></span><span
+                                                                ng-show="item.isCancel"><i
+                                                                    class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                                ng-show="item.isError"><i
+                                                                    class="glyphicon glyphicon-remove"></i></span></td>
+                                                        <td nowrap>
+                                                            <button type="button" class="btn btn-danger btn-xs"
+                                                                ng-disabled="isView" ng-click="item.remove()">
+                                                                <span class="glyphicon glyphicon-trash"></span> Remover
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                Progreso:
+                                                <div class="progress progress-xs margin-top-5 margin-bottom-20">
+                                                    <div class="progress-bar" role="uib-progressbar"
+                                                        ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary btn-o btn-s"
+                                                ng-click="uploader.clearQueue()"
+                                                ng-disabled="!uploader.queue.length || isView">
+                                                <span class="glyphicon glyphicon-trash"></span> Remover todo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="row">
+                        <div class="col-md-12">
+
+
+                            <div class="center">
+                                <div flow-init="{ singleFile:true, target:'api/customer/unsafe-act/upload', uploadMethod:'POST', 'testChunks':false}"
+                                     flow-name="uploader.flow" flow-object="uploader.flow"
+                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1,bmp:1}[$file.getExtension()]">
+                                    <div class="user-image">
+                                        <div class="thumbnail">
+                                            <img src="https://via.placeholder.com/300"
+                                                 alt=""
+                                                 ng-if="!uploader.flow.files.length && noImage">
+
+                                            <img ng-src="[[entity.image.path]]" ng-click="openLightBoxModal()"
+                                                 style="cursor: pointer" alt=""
+                                                 ng-if="!uploader.flow.files.length && !noImage">
+
+                                            <img flow-img="uploader.flow.files[0]"
+                                                 ng-if="uploader.flow.files.length">
+                                        </div>
+
+                                        <div class="user-image-buttons"
+                                             ng-if="uploader.flow.files.length">
+                                                            <span class="btn btn-primary"
+                                                                  ng-if="can('actos_inseguros_editar_foto')" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger"
+                                                                  ng-click="uploader.flow.cancel()"> <i
+                                                                    class="fa fa-times"></i> </span>
+                                        </div>
+                                        <div class="user-image-buttons"
+                                             ng-if="!uploader.flow.files.length && !isView">
+                                                            <span class="btn btn-primary"
+                                                                  ng-if="can('actos_inseguros_editar_foto')" flow-btn><i
+                                                                    class="fa fa-pencil"></i></span>
+                                                            <span class="btn btn-danger"
+                                                                  ng-if="!noImage && can('actos_inseguros_eliminar_foto')"
+                                                                  ng-click="removeImage()"><i
+                                                                    class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>-->
+
+                    <fieldset>
+                        <legend>Evidencias</legend>
+
+                        <ng-image-gallery images="entity.images" methods="methods" conf="conf" thumbnails="thumbnails"
+                            thumb-size="thumbSize" inline="inline" bubbles="bubbles" bubble-size="bubbleSize"
+                            img-bubbles="imgBubbles" bg-close="bgClose" piracy="true" on-open="opened();"
+                            on-close="closed();" on-delete="delete(img, cb)" bg-close="false">
+                        </ng-image-gallery>
+
+                    </fieldset>
+
+                    <div class="row margin-bottom-15">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-success" ng-click="onDownload()" ng-disabled="entity.images.length == 0">
+                                    Descargar Evidencias
+                                </button>
+                                <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row margin-bottom-15">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" ng-disabled="isView">
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                            Regresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="row" ng-controller="customerUnsafeActObservationListCtrl">
+    <div class="col-md-12">
+        <form name="Form" id="form3" novalidate ng-submit="form.submit(Form)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">OBSERVACIONES</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                                        <label class="control-label">
+                                            Estado
+                                            <span class="symbol required"></span>
+                                        </label>
+                                        <ui-select name="status" ng-disabled="isView" ng-model="observation.status"
+                                            ng-required="true" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.item]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in statusList | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="error text-small block"
+                                            ng-if="Form.status.$dirty && Form.status.$invalid">El estado es
+                                            requerido</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group kendo-hide">
+                                        <label class="control-label">Fecha y Hora Registro</label>
+                                        <input class="form-control" kendo-date-time-picker k-options="datePickerConfig"
+                                            k-ng-model="observation.dateOf" ng-disabled="true" style="width: 100%;" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group"
+                                        ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                        <label class="control-label">Descripción<span
+                                                class="symbol required"></span></label>
+                                        <textarea ng-disabled="isView" name="description"
+                                            placeholder="Escribe aquí la descripción"
+                                            data-ng-model="observation.description" class="form-control"
+                                            required></textarea>
+                                        <span class="error text-small block"
+                                            ng-if="Form.description.$dirty && Form.description.$invalid">La descripción
+                                            es requerida</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-success"
+                                            ng-disabled="currentId == 0 || isView">
+                                            Adicionar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-o" ng-click="onCancel(Form)">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%"
+                                                dt-instance="dtInstanceCustomerUnsafeActObservationCallback"
+                                                dt-options="dtOptionsCustomerUnsafeActObservation"
+                                                dt-columns="dtColumnsCustomerUnsafeActObservation"
+                                                id="dtCustomerUnsafeActObservation"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <iframe id="download" style='position:fixed;display:none;top:-1px;left:-1px;' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

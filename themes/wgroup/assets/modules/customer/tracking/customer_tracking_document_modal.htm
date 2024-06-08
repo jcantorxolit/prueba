@@ -1,0 +1,202 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+        </div>
+
+        <div class="panel panel-white" ng-if="attachment.label == 'M'">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                            <label class="control-label">Tipo de documento<span class="symbol required"></span></label>
+                            <ui-select ng-disabled="isView" ng-model="attachment.type" theme="bootstrap" name="type"
+                                ng-required="true">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in documentType | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El
+                                registro
+                                es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.classification.$dirty && Form.classification.$invalid}">
+                            <label class="control-label">Clasificación</label>
+                            <ui-select ng-disabled="isView" ng-model="attachment.classification" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in documentClassification | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group"
+                            ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                            <label class="control-label">Descripción<span class="symbol required"></span></label>
+                            <input ng-disabled="isView" type="text" placeholder="Ingrese la descripción"
+                                class="form-control" name="description" ng-model="attachment.description" required />
+                            <span class="error text-small block"
+                                ng-if="Form.description.$dirty && Form.description.$invalid">La
+                                descripción es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.version.$dirty && Form.version.$invalid}">
+                            <label class="control-label">
+                                Versión <span class="symbol required"></span>
+                            </label>
+                            <input ng-disabled="true" type="text" placeholder="Versión" class="form-control"
+                                name="version" touchspin="" data-verticalbuttons="true" data-max="1000000000"
+                                data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down"
+                                ng-model="attachment.version" required />
+                            <span class="error text-small block" ng-if="Form.version.$dirty && Form.version.$invalid">La
+                                versión del anexo es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error':Form.status.$dirty && Form.status.$invalid}">
+                            <label class="control-label">Estado</label>
+                            <ui-select ng-disabled="true" ng-model="attachment.status" theme="bootstrap">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="item in documentStatus | orderBy:'id' | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <p>
+                            Cantidad anexos: [[ uploader.queue.length ]]
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="50%">Nombre</th>
+                                        <th ng-show="uploader.isHTML5">Tamaño</th>
+                                        <th ng-show="uploader.isHTML5">Progreso</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                        <td><strong>[[ item.file.name ]]</strong></td>
+                                        <td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2 ]] MB
+                                        </td>
+                                        <td ng-show="uploader.isHTML5">
+                                            <div class="progress progress-xs margin-bottom-0">
+                                                <div class="progress-bar" role="uib-progressbar"
+                                                    ng-style="{ 'width': item.progress + '%' }"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center"><span ng-show="item.isSuccess"><i
+                                                    class="glyphicon glyphicon-ok"></i></span><span
+                                                ng-show="item.isCancel"><i
+                                                    class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                        </td>
+                                        <td nowrap>
+
+                                            <button type="button" class="btn btn-danger btn-xs"
+                                                ng-click="item.remove()">
+                                                <span class="glyphicon glyphicon-trash"></span> Remover
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+
+                            <span class="btn btn-primary btn-o btn-file"> Seleccionar anexo
+                                <input type="file" nv-file-select="" uploader="uploader"
+                                    ng-disabled="uploader.getNotUploadedItems().length > 0" />
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-20" ng-if="attachment.label == 'M'">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success" ng-if="!isView">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-success btn-o" ng-click="onClear()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row margin-top-15">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">ANEXOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="table-responsive">
+                                        <table datatable="" width="100%"
+                                            dt-instance="dtInstanceCustomerDocumentModalCallback"
+                                            dt-options="dtOptionsCustomerDocumentModal"
+                                            dt-columns="dtColumnsCustomerDocumentModal" id="dtCustomerDocumentModal"
+                                            class="table table-bordered table-hover">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div style="margin-top: 30px;" class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cerrar
+        </button>
+    </div>
+</form>

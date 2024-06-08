@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+    app:
+        image: carlouni/php-7-2-for-laravel:latest
+        container_name: sylogiWeb
+        ports:
+            - 8585:8000
+        volumes:
+            - .:/usr/src/myapp

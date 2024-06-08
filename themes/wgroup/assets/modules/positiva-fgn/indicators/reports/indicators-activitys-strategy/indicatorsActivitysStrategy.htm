@@ -1,0 +1,172 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="positivaFgnIndicatorsActivitysStrategyCtrl">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <button type="button" ng-click="onConsolidate()" class="btn btn-primary">
+                        Consolidar Indicadores
+                    </button>
+                </div>
+            </div>
+        </div>
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+            <!-- Division -->
+            <div class="col-md-12 padding-top-20 margin-top-10 margin-bottom-20">
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>División geográfica: </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="division_regional" ng-change="onChangeDivisionRegional()" name="division" value="regional" ng-model="entity.division">
+
+                                    <label class="text-bold text-wrap text-break" for="division_regional">Regional</label>
+                                </div>
+
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="division_sectional" ng-change="onChangeDivisionSectional()" name="division" value="sectional" ng-model="entity.division">
+
+                                    <label class="text-bold text-wrap text-break" for="division_sectional">Seccional</label>
+                                </div>
+
+                                <div class="radio clip-radio radio-success radio-inline">
+                                    <input type="radio" id="division_national" ng-checked="true" ng-change="onChangeDivisionNational()" name="division" value="national" ng-model="entity.division">
+
+                                    <label class="text-bold text-wrap text-break" for="division_national">Nacional</label>
+                                </div>
+
+
+
+                                <div class="form-group content-filter" ng-show="entity.division == 'sectional' || entity.division == 'regional'">
+                                    <a class="btn-link" ng-click="allCurrentDivision()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                                    <a class="btn-link" ng-click="onClearDivisionSectional()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                                </div>
+
+                                <div class="row" ng-show="entity.division == 'regional'">
+                                    <div class="col-md-6 form-group form-inline" ng-repeat="regional in regionals">
+                                        <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                            <input type="checkbox" id="regional[[regional.value]]" ng-model="regional.isActive" ng-change="onChangeRegional()">
+                                            <label for="regional[[regional.value]]" class="text-break">
+                                        [[regional.item]]
+                                    </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" ng-show="entity.division == 'sectional'">
+                                    <div class="col-md-6 form-group form-inline" ng-repeat="sectional in sectionals">
+                                        <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                            <input type="checkbox" id="sectional[[sectional.value]]" ng-model="sectional.isActive" ng-change="onChangeSectional()">
+                                            <label for="sectional[[sectional.value]]" class="text-break">
+                                        [[sectional.item]]
+                                    </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estrategy -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Estrategia </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="form-group content-filter">
+                            <a class="btn-link" ng-click="allEstrategys()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearEstrategys()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group form-inline" ng-repeat="estrategys in estrategys">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="estrategys[[estrategys.value]]" ng-model="estrategys.isActive">
+                                    <label for="estrategys[[estrategys.value]]" class="ws-normal">
+                                [[estrategys.item]]
+                            </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Grupo </strong></h4>
+                    <hr>
+                    <div class="content-indicators">
+                        <div class="form-group content-filter">
+                            <a class="btn-link" ng-click="allGroups()" href="#"> <span for="" class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearGroups()" href="#"> <span for="" class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-inline" ng-repeat="group in groupList">
+                                    <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                        <input type="checkbox" id="group[[group.value]]" ng-model="group.isActive">
+                                        <label for="group[[group.value]]" class="ws-normal">
+                                            [[group.item]]
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Axis -->
+                <div class="col-md-3">
+                    <h4 class="panel-title text-primary text-wrap text-break"><strong>Período </strong></h4>
+                    <hr>
+                    <div class="row content-indicators">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="radio clip-radio radio-success radio-inline" ng-repeat="year in yearList">
+                                    <input type="radio" id="year[[year.period]]" name="year" value="[[year.period]]" ng-model="year.isActive">
+
+                                    <label class="text-bold text-wrap text-break" for="year[[year.period]]">[[year.period]]</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group content-filter">
+                            <a class="btn-link" ng-click="onAllMonths()" href="#"> <span class="label label-info text-wrap text-break">Todos(*)</span> </a>
+                            <a class="btn-link" ng-click="clearMonths()" href="#"> <span class="label label-warning text-wrap text-break">Ninguno()</span> </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group form-inline" ng-repeat="month in monthList">
+                                <div class="checkbox clip-check check-success check-md checkbox-inline">
+                                    <input type="checkbox" id="month[[month.value]]" ng-model="month.isActive" ng-required="true" ng-change="onCheckMonth(month)">
+                                    <label for="month[[month.value]]" class="text-wrap text-break">[[month.item]]</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Export to excel  -->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="button" ng-click="onExportExcel()" class="btn btn-success">
+                        <em class="fa fa-file-excel-o"></em> <strong>Exportar a Excel</strong>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onBack()">
+                        Regresar
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

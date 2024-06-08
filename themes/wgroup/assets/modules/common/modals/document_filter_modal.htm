@@ -1,0 +1,92 @@
+<form name="Form" id="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="form-group">
+            <label>
+                <h4 class="panel-title text-primary">[[ title ]]</h4>
+            </label>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                    <label class="control-label">Tipo de documento<span class="symbol required"></span></label>
+                    <ui-select ng-disabled="isView" ng-model="filter.type" theme="bootstrap" name="type"
+                        ng-required="false">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+                        <ui-select-choices
+                            repeat="item in documentType | orderBy:'id' | filter: $select.search track by $index">
+                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">
+                        El registro es requerido
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error':Form.year.$dirty && Form.year.$invalid}">
+                        <label class="control-label">Año<span class="symbol required"></span></label>
+                        <ui-select name="year" ng-disabled="isView" ng-model="filter.year" ng-required="false"
+                            theme="bootstrap" on-select="onSelectYear()">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in years | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.year.$dirty && Form.year.$invalid">
+                            El registro es requerido
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error':Form.month.$dirty && Form.month.$invalid}">
+                        <label class="control-label">Mes<span class="symbol required"></span></label>
+
+                        <ui-select name="month" ng-disabled="isView" ng-model="filter.month" ng-required="false"
+                            theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in months | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="error text-small block" ng-if="Form.month.$dirty && Form.month.$invalid">
+                            El registro es requerido
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-info">
+                        Descargar Anexos
+                    </button>
+
+                    <button type="button" class="btn btn-info btn-o" ng-click="onCancel()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,168 @@
+<!-- start: SETTINGS -->
+<button ct-toggle="toggle" target="settings" parent-active-class="active" class="btn btn-dark-green text-rotate-90"
+    ng-if="app.supportHelp.isTermAndCondition && ((app.supportHelp.isCustomer && isCustomerUser()) || isCustomerAdmin())"
+    uib-tooltip="¿Necesita ayuda?" tooltip-placement="left">
+    <!-- <i class="ti ti-help"></i> -->
+    ¿Necesita ayuda?
+</button>
+
+<div ng-controller="SupportCtrl">
+    <div class="setting-steps-container"
+        ng-if="isCustomerAdmin() && 
+    (!app.supportHelp.hasBasicInformation || !app.supportHelp.hasMinimumStandard0312 || !app.supportHelp.hasMatrix || !app.supportHelp.hasNotificationUser)">
+        <div class="panel-heading ng-scope" translate="setting.TITLE">
+            Recuerde ejecutar lo siguiente:
+        </div>
+        <div class="panel-body ng-scope">
+
+            <!-- start: FIXED HEADER -->
+            <div class="setting-box clearfix">
+                <div>
+                    <span class="label"
+                        ng-class="{'label-danger': !app.supportHelp.hasBasicInformation, 'label-success': app.supportHelp.hasBasicInformation}">
+                        Paso 1.</span>
+                </div>
+                <span class="setting-title pull-left" translate="setting.STEP-1"> Fixed header</span>
+                <div class="margin-top-5">
+                    <nav class="cl-effect-1">
+                        <a href="" ng-click="goTo(1)" ng-if="!app.supportHelp.hasBasicInformation">
+                            Ir
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <!-- end: FIXED HEADER -->
+            <!-- start: FIXED SIDEBAR -->
+            <div class="setting-box clearfix">
+                <div>
+                    <span class="label"
+                        ng-class="{'label-danger': !app.supportHelp.hasMinimumStandard0312, 'label-success': app.supportHelp.hasMinimumStandard0312}">
+                        Paso 2.</span>
+                </div>
+                <span class="setting-title pull-left" translate="setting.STEP-2">Fixed sidebar</span>
+                <div class="margin-top-5">
+                    <nav class="cl-effect-1">
+                        <a href="" ng-click="goTo(2)" ng-if="!app.supportHelp.hasMinimumStandard0312">
+                            Ir
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <!-- end: FIXED SIDEBAR -->
+            <!-- start: CLOSED SIDEBAR -->
+            <div class="setting-box clearfix">
+                <div>
+                    <span class="label"
+                        ng-class="{'label-danger': !app.supportHelp.hasMatrix, 'label-success': app.supportHelp.hasMatrix}">
+                        Paso 3.</span>
+                </div>
+                <span class="setting-title pull-left" translate="setting.STEP-3">Closed sidebar</span>
+                <div class="margin-top-5">
+                    <nav class="cl-effect-1">
+                        <a href="" ng-click="goTo(3)" ng-if="!app.supportHelp.hasMatrix">
+                            Ir
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <!-- end: CLOSED SIDEBAR -->
+            <!-- start: FIXED FOOTER -->
+            <div class="setting-box clearfix">
+                <div>
+                    <span class="label"
+                        ng-class="{'label-danger': !app.supportHelp.hasNotificationUser, 'label-success': app.supportHelp.hasNotificationUser}">
+                        Paso 4.</span>
+                </div>
+                <span class="setting-title pull-left" translate="setting.STEP-4">Fixed footer</span>
+                <div class="margin-top-5">
+                    <nav class="cl-effect-1">
+                        <a href="" ng-click="goTo(4)" ng-if="!app.supportHelp.hasNotificationUser">
+                            Ir
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- end: FIXED FOOTER -->
+        <!-- start: THEME SWITCHER 
+	<div class="colors-row setting-box">
+		<div class="color-theme theme-1">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-1'; app.layout.logo='assets/images/logo.png'; ">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-1">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>
+		<div class="color-theme theme-2">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-2'; app.layout.logo='assets/images/logo2.png'; ">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-2">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="colors-row setting-box">
+		<div class="color-theme theme-3">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-3'; app.layout.logo='assets/images/logo2.png';">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-3">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>
+		<div class="color-theme theme-4">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-4'; app.layout.logo='assets/images/logo.png';">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-4">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>	
+	</div>
+	<div class="colors-row setting-box">
+		<div class="color-theme theme-5">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-5'; app.layout.logo='assets/images/logo2.png';">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-5">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>
+		<div class="color-theme theme-6">
+			<div class="color-layout">
+				<label ng-click=" app.layout.theme='theme-6'; app.layout.logo='assets/images/logo2.png';">
+					<input type="radio" name="setting-theme" ng-model="app.layout.theme" value="theme-6">
+					<span class="ti-check"></span>
+					<span class="split header"> <span class="color th-header"></span> <span class="color th-collapse"></span> </span>
+					<span class="split"> <span class="color th-sidebar"><i class="element"></i></span> <span class="color th-body"></span> </span>
+				</label>
+			</div>
+		</div>	
+	</div>
+	end: THEME SWITCHER -->
+    </div>
+    <!-- end: SETTINGS -->
+
+    <div class="clearfix alert alert-warning margin-bottom-0 alert-box-height-setting" ng-if="(isCustomerAdmin() && app.supportHelp.hasNotificationUser 
+    && app.supportHelp.hasMatrix && app.supportHelp.hasMinimumStandard0312 && app.supportHelp.hasBasicInformation) || 
+    (app.supportHelp.isCustomer && isCustomerUser())">
+        <span class="setting-title pull-left" translate="setting.CONTACT"></span>
+        <span class="setting-title pull-left text-bold">
+            <i class="ti-email text-primary"></i>
+            [[ app.supportHelp.email ]]
+        </span>
+    </div>
+</div>

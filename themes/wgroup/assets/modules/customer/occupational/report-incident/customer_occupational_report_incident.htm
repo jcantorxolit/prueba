@@ -1,0 +1,24 @@
+
+<div ng-controller="customerOccupationalReportIncidentCtrl" >
+    <div ng-switch="tracking_section" data-ng-animate="'wave'" class="">
+        <div ng-switch-when="list" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report-incident/customer_occupational_report_incident_list.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="form" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report-incident/customer_occupational_report_incident_edit.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="analysis" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report-incident/customer_occupational_report_incident_analysis.htm'">
+            </div>
+        </div>
+
+        <div ng-switch-when="preview" class="fade-in-right-big">
+            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/customer/occupational/report-incident/customer_occupational_report_incident_preview.htm'">
+            </div>
+        </div>
+    </div>
+</div>

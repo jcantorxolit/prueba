@@ -1,0 +1,110 @@
+<div class="tab1" ng-controller="customerCertificateProgramCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">DATOS BÁSICOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <div class="form-group" ng-class="{'has-error':Form.program.$dirty && Form.program.$invalid}">
+                            <label class="control-label">
+                                Programa
+                                <span class="symbol"></span>
+                            </label>
+                            <ui-select name="program" ng-disabled="isView" ng-model="certificate.program" ng-required="false" theme="bootstrap" on-select="changeProgram($item, $model)">
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.name]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in programs | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.program.$dirty && Form.program.$invalid">El programa es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Valor</label>
+                            <input type="text" placeholder="Valor programa" ng-disabled="isView" class="form-control" name="expenses" id="expenses" value="0"
+                                name="demo1" ng-model="certificate.amount" touchspin data-min="-100000000000" data-max="100000000000"
+                                data-stepinterval="50" data-maxboostedstep="100000000000" data-prefix="$">
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <div class="form-group">
+                            <label>
+                                Activo
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <span class="switch ng-valid" ng-click="certificate.isActive=!certificate.isActive" ng-class="{ checked:certificate.isActive }"
+                                    ng-model="certificate.isActive">
+                                    <small></small>
+                                    <input ng-disabled="isView" type="checkbox" ng-model="certificate.isActive" style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView">
+                        Adicionar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clearCertificateProgram()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">PROGRAMAS DE FORMACIÓN</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceCertificateProgramCallback"
+                                        dt-options="dtOptionsCertificateProgram"
+                                        dt-columns="dtColumnsCertificateProgram"
+                                        id="dtCustomerCertificateProgram"
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

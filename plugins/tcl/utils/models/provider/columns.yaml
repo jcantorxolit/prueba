@@ -1,0 +1,26 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: tcl.utils::lang.providers.name
+        searchable: yes
+
+    urlbase:
+        label: tcl.utils::lang.providers.urlbase
+        searchable: yes
+
+    urlproyect:
+        label: tcl.utils::lang.providers.urlproyect
+        searchable: yes
+        
+    is_default:
+        label: tcl.utils::lang.providers.is_default
+        type: switch
+
+    active:
+        label: tcl.utils::lang.providers.is_enabled
+        type: switch
+        invisible: true
+    

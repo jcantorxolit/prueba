@@ -1,0 +1,18 @@
+description = "layout para usuarios no autenticados"
+
+[session]
+security = "guest"
+redirect = "customers"
+
+[account login]
+redirect = "customers"
+paramCode = "code"
+
+[resetPassword reset]
+paramCode = "code"
+==
+{% partial 'header_public' %}
+
+{% page %}
+
+{% partial 'footer_public' %}

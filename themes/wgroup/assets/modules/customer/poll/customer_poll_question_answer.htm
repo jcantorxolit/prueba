@@ -1,0 +1,79 @@
+<div ng-switch="question.type">
+    <div class="row" ng-switch-when="open">
+
+        <div class="col-md-12">
+            <div class="form-group">
+            <textarea placeholder="Escribe aquí las observaciones acerca de la respuesta..." ng-disabled="isView"
+                      data-ng-model="question.answerValue"
+                      class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-switch-when="boolean">
+
+        <div class="col-xs-2">
+            <div class="radio clip-radio radio-primary">
+                <input type="radio" id="yes_opt_[[question.id]]" name="optionsCategory_[[question.id]]" value="Si" ng-disabled="isView"
+                       ng-model="question.answerValue">
+                <label for="yes_opt_[[question.id]]">
+                    <span class="fa fa-circle text-azure-blue"></span> Si
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="radio clip-radio radio-primary">
+                <input type="radio" id="no_opt_[[question.id]]" name="optionsCategory_[[question.id]]" value="No" ng-disabled="isView"
+                       ng-model="question.answerValue">
+                <label for="no_opt_[[question.id]]">
+                    <span class="fa fa-circle text-red"></span> No
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" ng-switch-when="unique">
+
+        <div class="col-xs-2" ng-repeat="answer in question.answers">
+            <div class="radio clip-radio radio-primary">
+                <input type="radio" id="opt_[[answer.id]]" name="options[[question.id]]" value="[[answer.value]]" ng-disabled="isView"
+                       ng-model="question.answerValue">
+                <label for="opt_[[answer.id]]">
+                    <span class="fa fa-circle text-azure-blue"></span> [[answer.value]]
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" ng-switch-when="range">
+
+        <div class="col-xs-2" ng-repeat="answer in question.answers">
+            <div class="radio clip-radio radio-primary">
+                <input type="radio" id="opt_range_[[answer.id]]" name="options[[question.id]]" value="[[answer.value]]" ng-disabled="isView"
+                       ng-model="question.answerValue">
+                <label for="opt_range_[[answer.id]]">
+                    <span class="fa fa-circle text-azure-blue"></span> [[answer.value]]
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-11">
+    </div>
+    <div class="col-md-1">
+        <div class="pull-right">
+            <button type="button" class="btn btn-success  btn-o btn-sm" tooltip-placement="left"
+                    uib-tooltip="Guardar" ng-disabled="isView"
+                    ng-click="savePartial(question)">
+                <i class="fa fa-save "></i>
+            </button>
+        </div>
+    </div>
+</div>
+<hr/>

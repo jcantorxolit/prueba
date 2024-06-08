@@ -1,0 +1,34 @@
+.field-multicurrency {
+  position: relative;
+}
+.field-multicurrency .btn {
+  background: transparent;
+  position: absolute;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  width: 44px;
+  padding-right: 0;
+}
+.field-multicurrency .btn:hover {
+  color: #666666;
+}
+.field-multicurrency.field-multicurrency-text .form-control {
+  padding-right: 44px;
+}
+.field-multicurrency.field-multicurrency-text .btn {
+  right: 2px;
+  top: 50%;
+  margin-top: -44px;
+  height: 88px;
+}
+.field-multicurrency.field-multicurrency-textarea .btn {
+  right: 15px;
+  top: 5px;
+  text-align: right;
+}
+.field-multicurrency.field-multicurrency-textarea .dropdown-menu {
+  top: 44px !important;
+  right: 1px;
+}

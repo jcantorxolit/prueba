@@ -1,0 +1,108 @@
+<div ng-controller="customerAbsenteeismBillingCtrl">
+
+    <div class="row">
+        <div class="col-md-12" style="background-color: #E6E8E8;padding-top: 10px">
+
+            <div class="col-sm-12" ng-repeat="disability in disabilities">
+                <div class="panel panel-white no-radius">
+                    <div class="panel-heading border-bottom">
+                        <h5 class=""><span
+                                class="text-bold">[[disability.fullName]]</span></h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span class="text-light">[[disability.category]]</span>
+
+                                        <p class="text-small">
+                                            [[disability.type]]
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <span class="text-light">Causa</span>
+
+                                        <p class="text-small">
+                                            [[disability.cause]]
+                                        </p>
+                                    </div>
+
+                                    <div class="col-xs-1 text-center no-padding">
+                                        <div class="border-right border-dark">
+                                            <span class="text-light">Fecha inicial</span>
+                                            <span class="text-bold block">[[disability.start]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1 text-center no-padding">
+                                        <div class="border-right border-dark">
+                                            <span class="text-light">Fecha final</span>
+                                            <span class="text-bold block">[[disability.end]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1 text-center no-padding">
+                                        <span class="text-light">Días incapacidad</span>
+                                        <span class="text-bold block text-extra-large">[[disability.numberDays]]</span>
+                                    </div>
+                                    <div class="col-xs-1 text-center no-padding">
+                                        <span class="text-light">Cobrado</span>
+
+                                        <div class="checkbox" style="margin-top: 0px !important;">
+                                            <switch ng-model="disability.charged" class="green"></switch>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 text-left">
+                                        <span class="text-light">Valor</span>
+                                        <input type="text"
+                                               placeholder="Ingrese el valor pagado por la administradora"
+                                               class="form-control" name="invoiceNumber"
+                                               ng-model="disability.amountPaid"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12" ng-if="disabilities.length == 0">
+                <div class="panel panel-white no-radius">
+                    <div class="panel-heading border-bottom">
+                        <h5 class=""><span
+                                class="text-bold">Ausentismos</span></h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span class="text-light">No hay ausentimos para pagar</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button type="button" ng-disabled="disabilities.length == 0" class="btn btn-primary"
+                        ng-click="onSaveBilling()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

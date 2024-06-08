@@ -1,0 +1,112 @@
+<div class="tab1" ng-controller="customerEconomicGroupCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <div class="panel panel-white">
+            <div class="panel-heading border-light">
+                <h4 class="panel-title">
+                    <span class="text-bold">DATOS BÁSICOS</span>
+                </h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-11">
+
+                        <div class="form-group" ng-class="{'has-error':Form.risk3.$dirty && Form.risk3.$invalid}">
+                            <label class="control-label">
+                                Cliente / Razón social
+                            </label>
+                            <div class="input-group">
+                                <ui-select ng-disabled="isView || !can('cliente_grupo_economico_manage')" ng-model="economicGroup.customer" theme="bootstrap">
+                                    <ui-select-match placeholder="- Seleccionar -">
+                                        [[$select.selected.businessName]]
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item in customerEconomicGroup | filter: $select.search track by $index">
+                                        <div ng-bind-html="item.businessName | highlight: $select.search"></div>
+                                        <small>
+                                            Nro Documento:
+                                            <span ng-bind-html="''+item.documentNumber | highlight: $select.search"></span>
+                                        </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" ng-click="onSearchCustomer()" class="btn btn-default" ng-disabled="isView || !can('cliente_grupo_economico_manage')">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                    <button type="button" ng-click="onClearCustomer()" class="btn btn-default" ng-disabled="isView || !can('cliente_grupo_economico_manage')">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <div class="form-group">
+                            <label>
+                                Activo
+                            </label>
+
+                            <div class="checkbox" style="margin-top: 0px !important;">
+                                <span class="switch ng-valid" ng-click="economicGroup.isActive=!economicGroup.isActive" ng-class="{ checked:economicGroup.isActive }"
+                                    ng-model="economicGroup.isActive">
+                                    <small></small>
+                                    <input ng-disabled="isView || !can('cliente_grupo_economico_manage')" type="checkbox" ng-model="economicGroup.isActive" style="display:none" class="ng-pristine ng-untouched ng-valid">
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-15">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-if="!isView && can('cliente_grupo_economico_manage')">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clearEconomicGroup()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">GRUPO ECONÓMICO</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="table-responsive">
+
+                                    <table datatable="" width="100%" 
+                                        dt-instance="dtInstanceEconomicGroupCallback" 
+                                        dt-options="dtOptionsEconomicGroup"
+                                        dt-columns="dtColumnsEconomicGroup" 
+                                        id="dtEconomicGroup"
+                                        class="table table-bordered table-hover"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

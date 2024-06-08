@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style type="text/css">
+        .signature {
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            max-height: 100px;
+        }
+
+        .issuer_name {
+            color: #262425;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .rol {
+            color: #262425;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 18px;
+        }        
+    </style>
+    <link rel="stylesheet" href="{{ themePath }}/assets/css/customer-vr/style.css">
+</head>
+
+<body onload="init()">
+
+<div class="center">
+    <div class="container.">
+        <div class="wrapper">
+            <div class="inner-wrapper">
+                <div class="intro">
+                    <ul>
+                        <li><span class="orange font-size-text font-weight-bold">FECHA DE GENERACIÓN:</span> <span class="font-size-text">{{ date }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">PERIODO:</span> <span class="font-size-text">{{ period }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">EMPRESA:</span> <span class="font-size-text">{{ customer.businessName }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">NIT:</span> <span class="font-size-text">{{ customer.documentNumber }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">PAÍS:</span> <span class="font-size-text">{{ customer.country }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">DEPARTAMENTO:</span> <span class="font-size-text">{{ customer.state }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">CIUDAD:</span> <span class="font-size-text">{{ customer.city }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">DIRECCIÓN:</span> <span class="font-size-text">{{ customer.address }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">TELÉFONO:</span> <span class="font-size-text">{{ customer.phone }}</span></li>
+                        <li><span class="orange font-size-text font-weight-bold">RESPONSABLE SG-SST:</span> <span class="font-size-text">{{ customer.sgsst }}</span></li>
+                    </ul>
+                </div>
+                <h2 class="white title-secondary bg-secondary mt-10">OBJETIVO GENERAL</h2>
+                {% for general in general_objective %}
+                <p style="font-size: 30px;text-align: justify;margin-bottom: 20px;">{{ general }}</p>
+                {% endfor %}
+
+                <h2 class="white title-secondary bg-secondary mt-10">METODOLOGÍA</h2>
+                {% for methodology in methodologies %}
+                <p style="font-size: 30px;text-align: justify;margin-bottom: 20px;">{{ methodology }}</p>
+                {% endfor %}
+
+                <h2 class="white title-secondary bg-secondary mt-10">DEFINICIÓN MÉTRICAS</h2>
+                {% for metric in metrics %}
+                <p style="font-size: 30px;text-align: justify;margin-bottom: 20px;">{{ metric }}</p>
+                {% endfor %}
+
+                <h2 class="white title-secondary bg-secondary">RESULTADOS</h2>
+            </div>
+
+            <h2 class="white title-primary bg-primary">I. POBLACIÓN ATENDIDA</h2>
+            <div class="row poblacion">
+                <div class="col-12" style="display: block;">
+                    <table style="width: 80%; font-size: 26px;margin-left: auto; margin-right: auto;margin-bottom: 40px">
+                        <thead>
+                            <tr>
+                                <th class="font-size-text">Fecha</th>
+                                <th class="font-size-text">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set totalP = 0 %}
+                            {% for pt in participantTable %}
+                            {% set totalP = totalP + pt.total %}
+                            <tr style="page-break-inside: avoid">
+                                <td class="font-size-text">{{ pt.registration_date|date("d/m/Y") }}</td>
+                                <td class="font-size-text">{{ pt.total }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr style="page-break-inside: avoid">
+                                <td class="font-size-text">TOTAL</td>
+                                <td class="font-size-text">{{ totalP }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <table style="width: 100%; border: 0; page-break-inside: avoid">
+                    <tr style="border: 0;">
+                        <td style="border: 0;">
+                            <div id="piechartParticipant" style="border: 1px solid #ccc">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div style="text-align: center;color: darkgray; font-size: 30px; display: block;">{{ participantChart.total }}</div>
+
+                <div style="text-align: center;font-size: 30px;; display: block; color: gray;">Número de participantes</div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="center">
+    <div class="container.">
+
+
+        <div class="wrapper">
+
+            <h2 class="white title-primary bg-primary">II. MÉTRICAS EMPRESA</h2>
+
+            <div class="wrapper-center">
+                {% for item in experiencesWithScenes %}
+
+                    <div class="experience-container">
+                        <h3 style="font-size: 26px;">{{ item.experience }}</h3>
+
+                        {% for scene in item.scenes %}
+
+                            <h5 style="font-size: 20px; padding-left: 10px;">{{ scene.scene }}</h3>
+
+                                {% for question in scene.questions %}
+
+                                    {% set class = 'progress-bar-warning' %}
+                                    {% set style = 'width:' ~ question.values.percentage ~ '%' %}
+
+                                    {% if question.values.percentage > 75 %}
+                                        {% set class = 'progress-bar-success' %}
+                                    {% elseif question.values.percentage <= 50 %}
+                                        {% set class = 'progress-bar-danger' %}
+                                    {% endif %}
+
+                                    <div style="border: 2px solid #000; margin: 10px; page-break-inside: avoid">
+                                        <table class="columns" style="margin:0 !important, padding: 0 !important;">
+                                            <tr style="margin: 0;padding: 0;">
+                                                <td style="margin: 0;padding: 5px; border: none;" colspan="2">
+                                                    <p style="font-size: 18px;">{{ question.question }}</p>
+                                                </td>
+                                            </tr>
+                                            <tr style="margin: 0;padding: 0; border: none;">
+                                                <td style="margin: 0;padding: 5px;border: none; width: 80%;">
+                                                    <div class="progress">
+                                                        {{ "<div class=\"#{class}\" style=\"width: #{question.values.percentage}%; height: 100%;\"></div>" | raw }}
+                                                    </div>
+                                                </td>
+                                                <td style="font-size: 14px; margin: 0;padding: 5px; border: none;" class="blue">
+                                                    {{question.values.percentage}}%
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                {% endfor %}
+                        {% endfor %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="center">
+    <div class="container.">
+
+
+        <div class="wrapper">
+
+            <h2 class="white title-primary bg-primary">III. MÉTRICAS EMPLEADOS</h2>
+
+            {% for item in employeeExperiences %}
+
+            <h2 class="white title-secondary bg-secondary" style="page-break-inside: avoid">{{ item.title }}</h2>
+
+            <table style="margin-bottom: 40px;">
+                <thead>
+                    <tr>
+                        <th class="font-size-text" style="width: 70%;">EMPLEADO</th>
+                        <th class="font-size-text">PORCENTAJE</th>
+                    </tr>
+                </thead>
+                <tbody style="page-break-inside: avoid">
+                    {% for row in item.data %}
+                        <tr style="page-break-inside: avoid">
+                            <td class="font-size-text">{{row.employee}}</td>
+                            <td class="font-size-text">{{row.percent}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% endfor %}
+
+            <p class="break"><span></span></p>
+
+            <h2 class="white title-secondary bg-secondary">Encuestas</h2>
+            {% for item in chartBarQuestionVsResponses %}
+
+            <div class="experience-container">
+                <h3 style="font-size: 26px;">{{ item.experience }}</h3>
+                {% set parentIndex = loop.index %}
+                {% set childIndex = 0 %}
+                <table class="columns" style="border: none;">
+
+                    {% for row in item.charts.line|batch(2, null) %}
+                    <tr style="border: none;">
+                        {% for barChart in row %}
+                            {% set childIndex = childIndex + 1 %}
+                        <td style="border: none;">
+                            <div id="barChart{{ childIndex }}{{ parentIndex }}" style="border: 1px solid #ccc">
+                                barChart {{ childIndex  }} {{ parentIndex }}
+                            </div>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+
+                    {% set childIndex = 0 %}
+
+                    {% for row in item.charts.pie|batch(2, 'No item') %}
+
+                    <tr style="border: none;">
+                        {% for pieChart in row %}
+                            {% set childIndex = childIndex + 1 %}
+                        <td style="border: none;">
+                            {% if pieChart != 'No item' %}
+                                <div id="piechart{{ childIndex }}{{ parentIndex }}" style="border: 1px solid #ccc">
+                                    pieChartData{{ childIndex }}{{ parentIndex }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+                <p class="break"><span></span></p>
+
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<div class="center">
+    <div class="container.">
+
+        <div class="wrapper">
+            <h2 class="white title-secondary bg-secondary">Observaciones</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="font-size-text" style="width: 10%;">FECHA</th>
+                        <th class="font-size-text">OBSERVACIÓN</th>
+                        <th class="font-size-text" style="width: 30%;">ASESOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in generalObservations %}
+                        <tr>
+                            <td class="font-size-text">{{row.registration_date|date("d/m/Y")}}</td>
+                            <td class="">{{row.observation}}</td>
+                            <td class="font-size-text">{{row.createdByUser}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="center">
+    <div class="container.">
+
+        <div class="wrapper">
+	
+            <table style="border: 0px;">               
+                <tbody style="border: 0px;">
+                        <tr style="border: 0px;">
+                            <td style="text-align: center;border: 0px;">
+                                <p class="issuer_name">{{ footerInfo.text1 }}</p>
+
+                                <p class="rol">{{ footerInfo.text2 }}</p>
+                    
+                                {% if footerInfo.signature %}
+                                    <img src="{{footerInfo.signature}}" alt="" class="signature">
+                                {% endif %}
+                            </td>
+                        </tr>
+                </tbody>
+            </table>            
+
+        </div>
+    </div>
+</div>
+
+
+{% for item in chartBarQuestionVsResponses %}
+    {% set parentIndex = loop.index %}
+
+    {% for barChart in item.charts.line %}
+        <input type="hidden" data-label="{{ barChart.label }}" class="barChartResponse" id="barChartData{{ loop.index }}{{ parentIndex }}" value='{{ barChart.data }}' />
+    {% endfor %}
+
+    {% for pieChart in item.charts.pie %}
+        <input type="hidden" data-label="{{ pieChart.label }}" class="pieChartResponse" id="pieChartData{{ loop.index }}{{ parentIndex }}" value='{{ pieChart.data }}' />
+    {% endfor %}
+
+{% endfor %}
+
+<input type="hidden" id="pieParticipantData" value='{{ participantChart.data }}' />
+
+</body>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    function init() {
+        google.load("visualization", "44", {packages:["corechart"]});
+        //google.charts.load('current', {packages: ['corechart']});
+        //google.charts.setOnLoadCallback(drawCharts);
+        var interval = setInterval(function() {
+            if ( google.visualization !== undefined &&
+                google.visualization.DataTable !== undefined &&
+                google.visualization.PieChart !== undefined ) {
+                clearInterval(interval);
+                window.status = 'ready';
+
+                drawCharts();
+                drawResponseBarCharts();
+                drawResponsePieCharts();
+            }
+        }, 100);
+    }
+
+    function drawCharts() {
+        var hiddenField = document.getElementById('pieParticipantData');
+        var values = JSON.parse(hiddenField.value);
+        var data = google.visualization.arrayToDataTable(values);
+        var options = {
+            //backgroundColor: 'red',
+            //title: 'AVANCE DE AUTOEVALUACIÓN ESTÁNDARES MÍNIMOS',
+            pieSliceText: 'none',
+            legend: {position: 'top', alignment: 'center'},
+            pieHole: 0.4,
+			width: 800,
+            height: 400,
+            chartArea:{width:'100%', height: '90%'},
+            colors: ['#f59747', '#3877b4']
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechartParticipant'));
+        chart.draw(data, options);
+    }
+
+    function drawResponseBarCharts() {
+        var hiddenFields = document.getElementsByClassName('barChartResponse');
+        for (var i = 0; i < hiddenFields.length; i++) {
+            var hiddenField = hiddenFields[i];
+            var values = JSON.parse(hiddenField.value);
+            var chartId = hiddenField.id.replace('barChartData', 'barChart')
+            var data = google.visualization.arrayToDataTable(values);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                            { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" },
+                            2]);
+
+            var options = {
+                //backgroundColor: 'red',
+                title: hiddenField.getAttribute('data-label'),
+                pieSliceText: 'none',
+                legend: { position: "none" },
+                width: 400,
+                height: 350
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById(chartId));
+            chart.draw(view, options);
+        }
+    }
+
+    function drawResponsePieCharts() {
+        var hiddenFields = document.getElementsByClassName('pieChartResponse');
+        for (var i = 0; i < hiddenFields.length; i++) {
+            var hiddenField = hiddenFields[i];
+            var values = JSON.parse(hiddenField.value);
+            var chartId = hiddenField.id.replace('pieChartData', 'piechart')
+            var data = google.visualization.arrayToDataTable(values);
+            var options = {
+                //backgroundColor: 'red',
+                title: hiddenField.getAttribute('data-label'),
+                pieSliceText: 'none',
+                legend: {position: 'bottom', alignment: 'center'},
+                width: 400,
+                height: 350,
+                colors: ['#22b14c', '#ff0000']
+            };
+            var chart = new google.visualization.PieChart(document.getElementById(chartId));
+            chart.draw(data, options);
+        }
+    }
+</script>
+</html>

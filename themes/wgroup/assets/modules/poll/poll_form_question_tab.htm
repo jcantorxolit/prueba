@@ -1,0 +1,268 @@
+<div class="tab1" ng-controller="pollQuestionCtrl">
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+        <fieldset>
+            <legend>Definición pregunta:</legend>
+            <div class=" row">
+                <div class="col-md-12">
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.title.$dirty && Form.title.$invalid}">
+                        <label class="control-label">Pregunta <span
+                                class="symbol required"></span></label>
+                        <input ng-disabled="isView" type="text"
+                               placeholder="Ingrese la pregunta"
+                               class="form-control" name="title"
+                               ng-model="question.title" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.title.$dirty && Form.title.$invalid">La pregunta es requerido</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="control-label">Tipo de pregunta <span
+                                class="symbol required"></span></label>
+                        <ui-select name="collection" ng-disabled="isView" ng-model="question.type"
+                                   ng-required="true"
+                                   theme="bootstrap">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in questionTypes | filter: $select.search track by $index">
+                                <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+
+                    <div class="form-group"
+                         ng-class="{'has-error':Form.position.$dirty && Form.position.$invalid}">
+                        <label class="control-label">Orden <span
+                                class="symbol required"></span></label>
+                        <input type="text"
+                               placeholder="Cantidad"
+                               class="form-control" name="position" ng-disabled="isView"
+                               touchspin="" data-verticalbuttons="true"
+                               data-max="1000000000"
+                               data-verticalupclass="ti-angle-up"
+                               data-verticaldownclass="ti-angle-down"
+                               ng-model="question.position" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.position.$dirty && Form.position.$invalid">El orden es requerido</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label>
+                            Activo
+                        </label>
+
+                        <div class="checkbox">
+                                                <span class="switch ng-valid" ng-if="!isView"
+                                                      ng-click="question.isActive=!question.isActive"
+                                                      ng-class="{ checked:question.isActive }"
+                                                      ng-model="question.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="question.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isView"
+                                                      ng-class="{ checked:question.isActive }"
+                                                      ng-model="question.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="question.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+        <fieldset ng-switch="question.type.value">
+            <legend>Opciones de respuesta:</legend>
+
+            <div id="panelOccupations" class="panel panelclone panel-white panelOccupations" ng-switch-when="unique">
+                <div class="panel-heading border-light">
+                    <h5>Selección única</h5>
+                    <div class="panel-tools">
+                        <a href='#' class="btn btn-primary btn-o btn-sm"
+                           tooltip-placement='top' uib-tooltip="Adicionar"
+                           ng-click="addAnswerValue()"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>
+                                Valor
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-repeat="answer in question.answers">
+
+                        <div class="col-md-11">
+                            <input type="text"
+                                   placeholder="Ingrese la valor"
+                                   class="form-control" name="value"
+                                   ng-model="answer.value"/>
+                        </div>
+
+                        <div class="col-md-1" ng-if="question.answers.length > 1  && !isView">
+                            <div class="pull-right">
+
+                                <div class="form-group">
+                                    <a href='#' class="btn btn-danger btn-o btn-sm" tooltip-placement='top'
+                                       uib-tooltip="Eliminar"
+                                       ng-click="removeAnswerValue($index)"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-white " ng-switch-when="range">
+                <div class="panel-heading border-light">
+                    <h5>Rango</h5>
+                </div>
+                <div class="panel-body">
+
+                    <div class="col-md-2">
+
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.position.$dirty && Form.position.$invalid}">
+                            <label class="control-label">Desde <span
+                                    class="symbol required"></span></label>
+                            <input type="text"
+                                   placeholder="Cantidad"
+                                   class="form-control" name="position" ng-disabled="isView"
+                                   touchspin="" data-verticalbuttons="true"
+                                   data-max="1000000000"
+                                   data-verticalupclass="ti-angle-up"
+                                   data-verticaldownclass="ti-angle-down"
+                                   ng-model="question.rangeFrom" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.position.$dirty && Form.position.$invalid">El orden es requerido</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <div class="form-group"
+                             ng-class="{'has-error':Form.position.$dirty && Form.position.$invalid}">
+                            <label class="control-label">Hasta <span
+                                    class="symbol required"></span></label>
+                            <input type="text"
+                                   placeholder="Cantidad"
+                                   class="form-control" name="position" ng-disabled="isView"
+                                   touchspin="" data-verticalbuttons="true"
+                                   data-max="1000000000"
+                                   data-verticalupclass="ti-angle-up"
+                                   data-verticaldownclass="ti-angle-down"
+                                   ng-model="question.rangeTo" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.position.$dirty && Form.position.$invalid">El orden es requerido</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <div class="form-group">
+                            <label>
+                                Ascendente
+                            </label>
+
+                            <div class="checkbox">
+                                                <span class="switch ng-valid" ng-if="!isView"
+                                                      ng-click="question.isActive=!question.isActive"
+                                                      ng-class="{ checked:question.isActive }"
+                                                      ng-model="question.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="question.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+
+                                                <span class="switch ng-valid disabledchk" ng-if="isView"
+                                                      ng-class="{ checked:question.isActive }"
+                                                      ng-model="question.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                           ng-model="question.isActive" style="display:none"
+                                                           class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary btn-o btn-wide pull-right" ng-click="onCancel()">
+                        Regresar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-primary btn-o" ng-click="clear()">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <fieldset>
+        <legend>Preguntas:</legend>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="table-responsive">
+
+                        <table datatable="" width="100%" dt-instance="dtInstanceQuestion" dt-options="dtOptionsQuestion" id="dtOptionsQuestion"
+                               dt-columns="dtColumnsQuestion"
+                               class="table table-bordered table-hover"></table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+</div>

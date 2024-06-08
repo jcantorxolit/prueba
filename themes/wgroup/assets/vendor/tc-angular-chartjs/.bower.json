@@ -1,0 +1,15 @@
+{
+  "name": "tc-angular-chartjs",
+  "homepage": "https://github.com/carlcraig/tc-angular-chartjs",
+  "version": "2.1.4",
+  "_release": "2.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.4",
+    "commit": "c8ddd075c82ce26624a05faca4e648a9eb6710e8"
+  },
+  "_source": "https://github.com/carlcraig/tc-angular-chartjs.git",
+  "_target": "^2.1.4",
+  "_originalSource": "tc-angular-chartjs",
+  "_direct": true
+}

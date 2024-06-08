@@ -1,0 +1,142 @@
+<div ui-view="" class="fade-in-right-big">
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="Diagnóstico Incapacidad">Diagnósticos Incapacidad</h1>
+                <span class="mainDescription">Desde aquí podrá administrar la información de los diagnosticos de
+                    incapacidad.</span>
+            </div>
+            <div ncy-breadcrumb></div>
+        </div>
+    </section>
+
+    <div class="container-fluid container-fullw bg-white">
+        <div ng-controller="configurationDisabilityDiagnosticListCtrl">
+            <form name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading border-light">
+                                <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.code.$dirty && Form.code.$invalid}">
+                                            <label class="control-label">Código<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="isView" type="text" placeholder="Ingrese el código"
+                                                class="form-control" name="code" ng-model="diagnostic.code" required />
+                                            <span class="error text-small block"
+                                                ng-if="Form.code.$dirty && Form.code.$invalid">El código es
+                                                requerido</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <div class="form-group"
+                                            ng-class="{'has-error':Form.description.$dirty && Form.description.$invalid}">
+                                            <label class="control-label">Diagnóstico<span
+                                                    class="symbol required"></span></label>
+                                            <input ng-disabled="isview" type="text" placeholder="Ingrese el diagnóstico"
+                                                class="form-control" name="description"
+                                                ng-model="diagnostic.description" required />
+                                            <span class="error text-small block"
+                                                ng-if="Form.description.$dirty && Form.description.$invalid">El
+                                                diagnóstico es requerido</span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-1">
+
+                                        <div class="form-group">
+                                            <label>
+                                                Activo
+                                            </label>
+
+                                            <div class="checkbox" style="margin-top: 0px !important;">
+                                                <span class="switch ng-valid"
+                                                    ng-click="diagnostic.isActive=!diagnostic.isActive"
+                                                    ng-class="{ checked:diagnostic.isActive }"
+                                                    ng-model="diagnostic.isActive">
+                                                    <small></small>
+                                                    <input ng-disabled="isView" type="checkbox"
+                                                        ng-model="diagnostic.isActive" style="display:none"
+                                                        class="ng-pristine ng-untouched ng-valid">
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-15">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" ng-if="!isView">
+                                Guardar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-o" ng-click="onCancel()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title"><span class="text-bold">DIAGNÓSTICOS</span></h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <a class="btn btn-wide btn-info" href="#" ng-click="onUpload()">
+                                        <i class="glyphicon glyphicon-upload"></i> Importar</a>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table datatable="" width="100%"
+                                                dt-instance="dtInstanceDisabilityDiagnosticCallback"
+                                                dt-options="dtOptionsDisabilityDiagnostic"
+                                                dt-columns="dtColumnsDisabilityDiagnostic" 
+                                                id="dtDisabilityDiagnostic"
+                                                class="table table-bordered table-hover"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

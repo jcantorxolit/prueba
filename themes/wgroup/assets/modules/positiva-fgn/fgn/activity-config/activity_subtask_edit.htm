@@ -1,0 +1,157 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading border-light">
+        <h4 class="panel-title">
+            <span class="text-bold">CONFIGURACIÓN DE TAREAS VS INDICADORES</span>
+        </h4>
+    </div>
+
+    <div class="panel-body ">
+        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+            
+            <div class="panel panel-white">
+
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">INFORMACIÓN DE LA ACTIVIDAD Y LA TAREA</span>
+                    </h4>
+                </div>
+
+                <div class="panel-body ">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Eje</label>
+                                <input type="text" ng-disabled="true" class="form-control" name="axis" placeholder="Ingrese valor"
+                                    ng-model="entity.axis.item"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Acción</label>
+                                <input type="text" ng-disabled="true" class="form-control" name="action" placeholder="Ingrese valor"
+                                    ng-model="entity.action.item"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Cod. Actividad</label>
+                                <input type="text" ng-disabled="true" class="form-control" name="code" placeholder="Ingrese valor"
+                                    ng-model="entity.code"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group" >
+                                <label class="control-label">Actividad </label>
+                                <input type="text" ng-disabled="true" class="form-control" name="name" placeholder="Ingrese valor"
+                                    ng-model="entity.name"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group" >
+                                <label class="control-label">Tarea Principal </label>
+                                <input type="text" ng-disabled="true" class="form-control" name="mainTask" placeholder="Ingrese valor"
+                                    ng-model="entity.mainTask"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group" >
+                                <label class="control-label">Tarea Dependendiente </label>
+                                <input type="text" ng-disabled="true" class="form-control" name="dependenTask" placeholder="Ingrese valor"
+                                    ng-model="entity.dependenTask"  />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="panel panel-white">
+
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">APORTE A LOS INDICADORES</span>
+                    </h4>
+                </div>
+            
+                <div class="panel-body ">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Aporta Cobertura
+                                </label>
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch disabled="!entity.hasCoverage" ng-model="entity.providesCoverage" class="green"></switch>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Aporta Cumplimiento
+                                </label>
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch disabled="!entity.hasCompliance" ng-model="entity.providesCompliance" class="green"></switch>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="panel panel-white">
+
+                <div class="panel-heading border-light">
+                    <h4 class="panel-title">
+                        <span class="text-bold">TIPO DE EJECUCIÓN</span>
+                    </h4>
+                </div>
+            
+                <div class="panel-body ">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'has-error':Form.executionType.$dirty && Form.executionType.$invalid}">
+                            <ui-select name="executionType"  ng-model="entity.executionType" theme="bootstrap" ng-required="true" >
+                                <ui-select-match placeholder="- Seleccionar -">
+                                    [[$select.selected.item]]
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in executionTypeList | filter: $select.search track by $index">
+                                    <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error text-small block" ng-if="Form.executionType.$dirty && Form.executionType.$invalid">
+                                El valor es requerido.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" >
+                            Guardar
+                        </button>
+                        <button type="button" class="btn btn-primary btn-o" ng-click="onCloseModal()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

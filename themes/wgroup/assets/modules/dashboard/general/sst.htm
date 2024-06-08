@@ -1,0 +1,148 @@
+<div class="container-fluid container-fullw bg-white">
+    <div ng-controller="dashboardDiagnosticCustomerGeneralSstCtrl">
+        <div class="panel-body ">
+
+
+            <div class="row display-flex flex-justify-end">
+
+                <div class="col-md-2 form-group">
+                    <label class="control-label">Tipo Indicador
+                        <span class="symbol required"></span>
+                    </label>
+
+                    <ui-select name="typeIndicator" ng-model="entity.typeIndicator" theme="bootstrap"
+                               ng-required="true" on-select="onSelecttypeIndicator()">
+
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+
+                        <ui-select-choices
+                                repeat="typeIndicator in typeIndicators | filter: $select.search track by $index">
+                            <div ng-bind-html="typeIndicator.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-md-2 form-group"
+                     ng-class="{'has-error':Form.period.$dirty && Form.period.$invalid}">
+                    <label class="control-label">Periodo</label>
+
+                    <ui-select name="period" ng-model="entity.period" theme="bootstrap"
+                               ng-required="true" on-select="onRefresh()">
+                        <ui-select-match placeholder="- Seleccionar -">
+                            [[$select.selected.item]]
+                        </ui-select-match>
+
+                        <ui-select-choices
+                                repeat="period in periods | filter: $select.search track by $index">
+                            <div ng-bind-html="period.item | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-md-2 form-group" ng-hide="entity.typeIndicator.value != 1">
+                    <label class="control-label">Comparar Periodo</label>
+
+                    <div class="input-group">
+                        <ui-select name="comparePeriod" ng-model="entity.comparePeriod" theme="bootstrap"
+                                   ng-required="true" on-select="onRefresh()">
+                            <ui-select-match placeholder="- Seleccionar -">
+                                [[$select.selected.item]]
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="comparePeriod in periods | filter: $select.search track by $index">
+                                <div ng-bind-html="comparePeriod.item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <span class="input-group-btn">
+                            <button ng-click="onClearComparePeriod()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row margin-top-20" ng-if="entity.typeIndicator.value == 0">
+
+                <div class="col-md-4 flex-align-center">
+                    <h4 class="text-center margin-bottom-30">AVANCE AUTOEVALUACIÓN SG-SST</h4>
+
+                    <div class="col-md-12 text-center">
+                        <ui-knob value="chart.data.progress.total_percent" options="optionsTotal"></ui-knob>
+                        <!-- [[ chart.data.progress.total_percent ]] -->
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="row display-flex flex-justify-center margin-bottom-30 text-center">
+                        <div class="margin-left-30 margin-right-30 margin-top-20 margin-bottom-20" ng-if="chart.rates.c">
+                            <span class="text-bold text-extra-extra-large">[[chart.data.progress.cumple_percent_total]]%</span> <br>
+                            [[ chart.rates.c.item ]]
+                        </div>
+                        <div class="margin-left-30 margin-right-30 margin-top-20 margin-bottom-20" ng-if="chart.rates.cp">
+                            <span class="text-bold text-extra-extra-large">[[chart.data.progress.parcial_percent_total]]%</span> <br>
+                            [[ chart.rates.cp.item ]]
+                        </div>
+                        <div class="margin-left-30 margin-right-30 margin-top-20 margin-bottom-20" ng-if="chart.rates.nc">
+                            <span class="text-bold text-extra-extra-large">[[chart.data.progress.nocumple_percent_total]]%</span> <br>
+                            [[ chart.rates.nc.item ]]
+                        </div>
+                        <div class="margin-left-30 margin-right-30 margin-top-20 margin-bottom-20" ng-if="chart.rates.na">
+                            <span class="text-bold text-extra-extra-large">[[chart.data.progress.noaplica_percent_total]]%</span> <br>
+                            [[ chart.rates.na.item ]]
+                        </div>
+                        <div class="margin-left-30 margin-right-30 margin-top-20 margin-bottom-20">
+                            <span class="text-bold text-extra-extra-large">[[chart.data.progress.nocontesta_percent_total]]%</span> <br>
+                            Sin Contestar
+                        </div>
+                    </div>
+
+
+                    <div class="row display-flex flex-justify-center flex-wrap margin-bottom-30 text-center">
+                        <div class="margin-left-20 margin-right-20 margin-top-10 margin-bottom-10"
+                             ng-repeat="cycle in chart.data.progressAll">
+                            <ui-knob value="cycle.percent" options="cycle.options"></ui-knob>
+                            <div class="row text-center">
+                                <a ng-click="onCycle(cycle)">Ver detalle</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row display-flex flex-justify-center" ng-if="currentCycle">
+                        <div class="margin-left-20 margin-right-20"><span class="text-large text-bold">[[currentCycle.cumple_percent]] %</span><br> Cumple</div>
+                        <div class="margin-left-20 margin-right-20"><span class="text-large text-bold">[[currentCycle.parcial_percent]] %</span><br> Cumple Parcial</div>
+                        <div class="margin-left-20 margin-right-20"><span class="text-large text-bold">[[currentCycle.nocumple_percent]] %</span><br> No Cumple</div>
+                        <div class="margin-left-20 margin-right-20"><span class="text-large text-bold">[[currentCycle.noaplica_percent]] %</span><br> N/A</div>
+                        <div class="margin-left-20 margin-right-20"><span class="text-large text-bold">[[currentCycle.nocontesta_percent]] %</span><br> Sin contestar</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row margin-top-20 display-flex flex-align-center" ng-if="entity.typeIndicator.value == 1">
+                <div class="col-md-12">
+                    <canvas class="tc-chart" tc-chartjs-line
+                            chart-options="chart.line.options"
+                            chart-data="chart.data.minimalStandarComparativeChartLine"
+                            height="50"></canvas>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,462 @@
+<form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS - FILA [[ disability.index ]]</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.documentNumber.$dirty && Form.documentNumber.$invalid}">
+                                    <label class="control-label">
+                                        Número Identificación
+                                        <span class="symbol required"></span>
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select name="customer" ng-disabled="true" ng-model="disability.employee"
+                                            ng-required="true" theme="bootstrap" on-select="changeCustomer($item, $model)">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.entity.documentNumber]]
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in employees | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.entity.documentNumber | highlight: $select.search"></div>
+                                                <small>
+                                                    Nombre: <span ng-bind-html="''+item.entity.fullName | highlight: $select.search"></span>
+                                                </small>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button" ng-click="onAddDisabilityEmployeeList()" ng-disabled="isView"
+                                                class="btn btn-default">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                    <span class="error text-small block" ng-if="Form.customer.$dirty && Form.customer.$invalid">La
+                                        número de identificación es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.documentType.$dirty && Form.documentType.$invalid}">
+                                    <label class="control-label">Tipo identificación<span class="symbol required"></span></label>
+
+                                    <ui-select name="documentType" ng-required="true" ng-disabled="true" ng-model="disability.employee.entity.documentType"
+                                        theme="bootstrap" on-select="changeCountry($item, $model)">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in tiposdoc | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block" ng-if="Form.documentType.$dirty && Form.documentType.$invalid">El
+                                        tipo de identificación es requerido</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.firstName.$dirty && Form.firstName.$invalid}">
+                                    <label class="control-label">Nombre(s)<span class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese el nombre(s)" class="form-control"
+                                        name="firstName" ng-model="disability.employee.entity.firstName" required />
+                                    <span class="error text-small block" ng-if="Form.firstName.$dirty && Form.firstName.$invalid">El
+                                        nombre(s) es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-class="{'has-error':Form.lastName.$dirty && Form.lastName.$invalid}">
+                                    <label class="control-label">Apellidos<span class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese los apellidos" class="form-control"
+                                        name="lastName" ng-model="disability.employee.entity.lastName" required />
+                                    <span class="error text-small block" ng-if="Form.lastName.$dirty && Form.lastName.$invalid">Los
+                                        apellidos son requeridos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group" ng-class="{'has-error':Form.contractType.$dirty && Form.contractType.$invalid}">
+                                    <label class="control-label">Tipo contrato<span class=""></span></label>
+
+                                    <ui-select name="contractType" ng-required="false" ng-disabled="true" ng-model="disability.employee.contractType"
+                                        theme="bootstrap" on-select="changeCountry($item, $model)">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in contractTypes | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <span class="error text-small block" ng-if="Form.contractType.$dirty && Form.contractType.$invalid">El
+                                        tipo de contrato es requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.workplace.$dirty && Form.workplace.$invalid}">
+                                    <label class="control-label">Centro de trabajo<span class="symbol required"></span></label>
+                                    <ui-select name="workplace" ng-required="true" ng-disabled="isView"
+                                        ng-model="disability.workplace" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in workplaceList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                        ng-if="Form.workplace.$dirty && Form.workplace.$invalid">El
+                                        centro de trabajo es requeridos</span>
+                                </div>
+        
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-class="{'has-error':Form.position.$dirty && Form.position.$invalid}">
+                                    <label class="control-label">Cargo</label>
+                                    <input ng-disabled="true" type="text" placeholder="Ingrese el cargo" class="form-control"
+                                        name="position" ng-model="disability.employee.job.name"  />
+                                    <span class="error text-small block" ng-if="Form.position.$dirty && Form.position.$invalid">E
+                                        cargo es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Base de liquidación mes</label>
+                                    <input type="text" placeholder="Base de liquidación mes" ng-disabled="true" class="form-control"
+                                        name="monthLiquidationBasis" value="0" name="demo1" ng-model="disability.employee.salary"
+                                        touchspin data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                        data-maxboostedstep="100000000000" data-prefix="$">
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label class="control-label">Base de liquidación día</label>
+                                    <input type="text" placeholder="Base de liquidación día" ng-disabled="true" class="form-control"
+                                        name="dayLiquidationBasis" value="0" name="demo1" ng-model="disability.dayLiquidationBasisFormat">
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Base de liquidación hora</label>
+                                    <input type="text" placeholder="Base de liquidación mes" ng-disabled="true" class="form-control"
+                                        name="hourLiquidationBasis" value="0" name="demo1" ng-model="disability.hourLiquidationBasisFormat">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">INFORMACIÓN DEL AUSENTISMO</span>                            
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+        
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.absenteeismType.$dirty && Form.absenteeismType.$invalid}">
+                                    <label class="control-label">Tipo ausentismo<span class="symbol required"></span></label>
+        
+                                    <ui-select name="absenteeismType" ng-required="true" ng-disabled="isView"
+                                        on-select="onSelectCategory()"
+                                        ng-model="disability.category" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in absenteeismType | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+        
+                                    <span class="error text-small block"
+                                        ng-if="Form.absenteeismType.$dirty && Form.absenteeismType.$invalid">El
+                                        tipo de ausentismo es requerido</span>
+                                </div>
+        
+        
+                            </div>
+        
+                            <div class="col-md-6">
+        
+                                <div class="form-group" ng-class="{'has-error':Form.type.$dirty && Form.type.$invalid}">
+                                    <label class="control-label">Tipo incapacidad<span class="symbol"></span></label>
+        
+                                    <ui-select name="type" ng-required="false"
+                                        on-select="onSelectType()"
+                                        ng-disabled="isView || disability.category.value != 'Incapacidad'"
+                                        ng-model="disability.type" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in types | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+        
+                                    <span class="error text-small block" ng-if="Form.type.$dirty && Form.type.$invalid">El
+                                        tipo de incapacidad es requerido</span>
+                                </div>
+        
+                            </div>
+        
+                            <div class="col-md-6">
+        
+                                <div class="form-group" ng-class="{'has-error':Form.cause.$dirty && Form.cause.$invalid}">
+                                    <label class="control-label">Causa ausentismo<span class="symbol"></span></label>
+        
+                                    <ui-select name="cause" ng-required="false" ng-disabled="isView" 
+                                        on-select="onSelectCause()"
+                                        ng-model="disability.cause"
+                                        theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in causes | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+        
+                                    <span class="error text-small block" ng-if="Form.cause.$dirty && Form.cause.$invalid">La
+                                        causa de incapacidad es requerida</span>
+                                </div>
+        
+                            </div>
+        
+                            <div class="col-md-6">
+
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.accidentType.$dirty && Form.accidentType.$invalid}">
+                                    <label class="control-label">
+                                        Tipo de impacto
+                                        <span class="symbol"
+                                            ng-if="(disability.cause.value == 'AL' || disability.cause.value == 'AT' || disability.cause.value == 'EL' || disability.cause.value == 'ELC')">*</span></label>
+        
+                                    <ui-select name="accidentType"
+                                        ng-required="(disability.cause.value == 'AL' || disability.cause.value == 'AT' || disability.cause.value == 'EL' || disability.cause.value == 'ELC')"
+                                        on-select="onSelectAccidentType()"
+                                        ng-disabled="isView || (disability.cause.value != 'AL' && disability.cause.value != 'AT' && disability.cause.value != 'EL' && disability.cause.value != 'ELC')"
+                                        ng-model="disability.accidentType" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in accidentTypeList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+        
+                                    <span class="error text-small block"
+                                        ng-if="Form.accidentType.$dirty && Form.accidentType.$invalid">El
+                                        tipo de accidente es requerido</span>
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                        <div class="row" ng-if="disability.category.value == null || disability.category.value == 'Incapacidad'">
+                            <div class="col-md-12">
+        
+                                <div class="form-group" ng-class="{'has-error':Form.diagnostic.$dirty && Form.diagnostic.$invalid}">
+                                    <label class="control-label">
+                                            Diagnóstico <span class="symbol required"></span>
+                                    </label>
+        
+                                    <div class="input-group">
+                                        <ui-select name="diagnostic" ng-required="true"
+                                            ng-disabled="true" ng-model="disability.diagnostic" theme="bootstrap">
+                                            <ui-select-match placeholder="- Seleccionar -">
+                                                [[$select.selected.description]]
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                repeat="item in diagnostics | filter: $select.search track by $index">
+                                                <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                                <small>
+                                                    Código: <span
+                                                        ng-bind-html="''+item.code | highlight: $select.search"></span>
+                                                </small>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button type="button"
+                                                ng-disabled="isView || disability.category.value != 'Incapacidad'"
+                                                ng-click="onAddDisabilityDiagnostic()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                    <span class="error text-small block" ng-if="Form.diagnostic.$dirty && Form.diagnostic.$invalid">
+                                            El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+        
+                            <div class="col-md-3">
+        
+                                <div class="form-group">
+                                    <label class="control-label">Fecha inicial</label>
+                                    <input class="form-control" kendo-date-picker k-options="datePickerConfig"
+                                        k-on-change="onChangeStartDate(kendoEvent)"
+                                        k-max="maxDate" k-ng-model="disability.startDate" ng-disabled="isView"
+                                        style="width: 100%;" />
+                                </div>
+        
+                            </div>
+        
+                            <div class="col-md-3">
+        
+                                <div class="form-group">
+                                    <label class="control-label">Fecha final</label>
+                                    <input class="form-control" kendo-date-picker k-options="datePickerConfig"
+                                        k-ng-model="disability.endDate" 
+                                        ng-disabled="isView || disability.type.value == 'Sin Incapacidad'"
+                                        style="width: 100%;" />
+                                </div>
+        
+                            </div>
+        
+                            <div class="col-md-2">
+                                <label>
+                                    Permisos horas:
+                                </label>
+                    
+                                <div class="checkbox" style="margin-top: 0px !important;">
+                                    <switch ng-model="disability.isHour" class="green" 
+                                    disabled="isView || disability.category.value == null || disability.category.value == 'Incapacidad'"
+                                    ng-change="onChangeIsHour()">
+                                    </switch>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+        
+                                <div class="form-group" ng-class="{'has-error':Form.days.$dirty && Form.days.$invalid}">
+                                    <label class="control-label">
+                                        Número de días / horas <span class="symbol required"></span>
+                                    </label>
+                                    <input ng-disabled="!disability.isHour" type="text" placeholder="Días incapacidad" class="form-control"
+                                        name="days" ng-model="disability.numberDays" required />
+                                    <span class="error text-small block" ng-if="Form.days.$dirty && Form.days.$invalid">El
+                                        número de días es requerido</span>
+                                </div>
+        
+                            </div>   
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Valor pagado por la administradora</label>
+                                    <input type="text" placeholder="Valor Pagado" ng-disabled="true" class="form-control"
+                                        name="amountPaid" value="0" name="demo1" ng-model="disability.amountPaid"
+                                        touchspin data-min="-100000000000" data-max="100000000000" data-stepinterval="50"
+                                        data-maxboostedstep="100000000000" data-prefix="$">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-if="disability.type.value == 'Inicial' && (disability.cause.value == 'AL' || disability.cause.value == 'AT') && disability.accidentType.value == 'G'">
+                            <div class="col-md-12">
+        
+                                <div class="form-group"
+                                    ng-class="{'has-error':Form.bodyPart.$dirty && Form.bodyPart.$invalid}">
+                                    <label class="control-label">Parte del cuerpo afectada<span class=""></span></label>
+        
+                                    <ui-select name="bodyPart" 
+                                        ng-required="false" 
+                                        ng-disabled="isView"                                        
+                                        ng-model="disability.bodyPart" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.name]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item in configDayChargedPartList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+        
+                                        </ui-select-choices>
+                                    </ui-select>
+        
+                                    <span class="error text-small block"
+                                        ng-if="Form.bodyPart.$dirty && Form.bodyPart.$invalid">El registro es requerido</span>
+                                </div>
+        
+        
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

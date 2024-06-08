@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="col-md-12">
+                <uib-tabset class="tabbable">
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Curso
+                        </uib-tab-heading>
+                        <div ng-controller="certificateAdminGradeEditCtrl">
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificateadmingrade/certificate_grade_form_basic_tab.htm'">
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab disabled="currentId==0">
+                        <uib-tab-heading>
+                            Participantes
+                        </uib-tab-heading>
+                        <div ng-controller="certificateAdminGradeParticipantEditCtrl">
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificateadmingrade/certificate_grade_form_participant_tab.htm'">
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab disabled="currentId==0">
+                        <uib-tab-heading>
+                            Certificados
+                        </uib-tab-heading>
+                        <div ng-controller="certificateAdminGradeParticipantCertificateListCtrl">
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="app.views.urlRoot + 'modules/certificate/certificateadmingrade/certificate_grade_form_certificate_tab.htm'">
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

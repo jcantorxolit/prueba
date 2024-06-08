@@ -1,0 +1,72 @@
+<!-- start: PAGE TITLE -->
+
+<!-- end: PAGE TITLE -->
+<!-- start: PROJECT -->
+<div class="bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+            <div ng-controller="customerConfigWizardSummaryCtrl">
+                <!-- start: USER TABSET -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="margin-bottom-30">
+                            <button class="btn btn-info btn-wide" ng-click="onOpenWizard()">
+                                <i class="ti-receipt"></i> Continuar
+                            </button>
+
+                            <button class="btn btn-info btn-o btn-wide" ng-click="onRefresh()">
+                                <i class="ti-reload"></i> Refrescar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <div class="col-sm-3" ng-repeat="wizard in wizards">
+                        <div class="panel panel-white no-radius">
+                            <div class="panel-heading border-bottom">
+                                <h5 class=""><span class="text-bold">[[wizard.name]]</span></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="text-center margin-bottom-15">
+                                            <canvas class="tc-chart" tc-chartjs-doughnut chart-options="optionsPie"
+                                                chart-data="wizard" chart-legend="legendProgress" height="250">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="clearfix padding-5 space5 row">
+                                    <div class="col-xs-4 text-center no-padding">
+                                        <div class="border-right border-dark">
+                                            <span class="text-bold block text-extra-large">[[wizard.created]]</span>
+                                            <span class="text-light">Creados</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 text-center no-padding">
+                                        <div class="border-right border-dark">
+                                            <span class="text-bold block text-extra-large">[[wizard.configured]]</span>
+                                            <span class="text-light">Configurados</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 text-center no-padding">
+                                        <span class="text-bold block text-extra-large">[[wizard.pending]]</span>
+                                        <span class="text-light">Pendientes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: USER TABSET -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: PROJECT -->

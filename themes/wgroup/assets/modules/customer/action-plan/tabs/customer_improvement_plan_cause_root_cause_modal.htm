@@ -1,0 +1,124 @@
+<form name="Form" novalidate ng-submit="form.submit(Form)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"><span class="text-bold">DATOS BÁSICOS</span></h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.probability.$dirty && Form.probability.$invalid}">
+                                    <label class="control-label">Probabilidad de ocurrencia<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="probability" ng-required="true" ng-disabled="isView"
+                                               ng-model="cause.probabilityOccurrence" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in probabilityOccurrenceList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.probability.$dirty && Form.probability.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.effect.$dirty && Form.effect.$invalid}">
+                                    <label class="control-label">Efecto<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="effect" ng-required="true" ng-disabled="isView"
+                                               ng-model="cause.effect" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in effectList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.effect.$dirty && Form.effect.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.level.$dirty && Form.level.$invalid}">
+                                    <label class="control-label">Nivel de detección<span
+                                            class="symbol required"></span></label>
+
+                                    <ui-select name="level" ng-required="true" ng-disabled="isView"
+                                               ng-model="cause.detectionLevel" theme="bootstrap">
+                                        <ui-select-match placeholder="- Seleccionar -">
+                                            [[$select.selected.item]]
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item in levelList | filter: $select.search track by $index">
+                                            <div ng-bind-html="item.item | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="error text-small block"
+                                          ng-if="Form.level.$dirty && Form.level.$invalid">El registro es requerido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.factor.$dirty && Form.factor.$invalid}">
+                                    <label class="control-label">Factor de priorización<span
+                                            class="symbol required"></span></label>
+                                    <input ng-disabled="true" type="text" placeholder=""
+                                           class="form-control" name="factor"
+                                           ng-model="cause.factor" required/>
+                                                        <span class="error text-small block"
+                                                              ng-if="Form.factor.$dirty && Form.factor.$invalid">El numeral es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group"
+                                     ng-class="{'has-error':Form.result.$dirty && Form.result.$invalid}">
+                                    <label class="control-label">Resultado<span
+                                            class=""></span></label>
+                                    <input ng-disabled="true" type="text" placeholder=""
+                                           class="form-control" name="prioritizationFactorResultText"
+                                           ng-model="prioritizationFactorResultText"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-o" ng-if="!isView">
+            Guardar
+        </button>
+    </div>
+</form>

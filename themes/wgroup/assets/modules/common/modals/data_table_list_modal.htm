@@ -1,0 +1,33 @@
+<div bs-loading-overlay bs-loading-overlay-reference-id="data-table-list-modal" bs-loading-overlay-delay="1000"
+    bs-loading-overlay-template-url="[[loadingOverlayTemplateUrl]]">
+
+    <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>
+                    <h3 class="panel-title text-primary"><b>[[ title ]]</b></h3>
+                    <br>
+                    <h5 class="text-bold"><b>[[ subtitle ]]</b></h5>
+                </label>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table datatable="" width="100%" 
+                            dt-instance="dtInstanceCommonDataTableListCallback"
+                            dt-options="dtOptionsCommonDataTableList" 
+                            dt-columns="dtColumnsCommonDataTableList"
+                            id="dtCommonDataTableList" class="table table-bordered table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-o" ng-click="onCancel()">
+                Cerrar
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-controller="customerProfileConfigSgsstTabsCtrl">
+
+            <div class="row" ng-class="{'hid': (!loading) , 'show': (loading) }" ng-show="loading">
+                <div class="col-md-12">
+                    <div class="panel panel-white" id="pnlloading">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary">Cargando...</h4>
+                        </div>
+                        <div collapse="pnlloading" ng-init="pnlloading=false" class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <p>
+                                    Estamos procesando la información de la configuración.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " ng-class="{'show': (loading != null) , 'hid': (loading == null) }" ng-show="!loading">
+
+                <div class="col-md-12">
+                    <uib-tabset class="tabbable">
+                        <uib-tab active="true" ng-if="can('matriz_centro_trabajo_open')">
+                            <uib-tab-heading translate="grid.matrix.WORK-PLACE">
+                                
+                            </uib-tab-heading>
+                            <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('workplace').url">
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('macroprocess')" ng-if="can('matriz_macro_proceso_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> <span translate="grid.matrix.MACROPROCESS"></span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='macroprocess' || tabsloaded.indexOf('macroprocess') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('macroprocess').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('process')" ng-if="can('matriz_proceso_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> <span translate="grid.matrix.PROCESS"></span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='process' || tabsloaded.indexOf('process') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('process').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('activity')" ng-if="can('matriz_cargo_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> <span translate="grid.matrix.ACTIVITY"></span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='activity' || tabsloaded.indexOf('activity') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('activity').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('job')" ng-if="can('matriz_cargo_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> Cargos
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='job' || tabsloaded.indexOf('job') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('job').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('hazard')" ng-if="can('matriz_cargo_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> <span translate="views.MATRIX-HAZARD-TAB-TITLE"></span>
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='hazard' || tabsloaded.indexOf('hazard') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('hazard').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab select="switchTab('wizard')" ng-if="can('matriz_carga_masiva_open')">
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-paperclip"></i> Carga Masiva
+                            </uib-tab-heading>
+                            <div ng-if="tabname=='wizard' || tabsloaded.indexOf('wizard') >= 0">
+                                <div data-ng-animate="'wave'" class="fade-in-right-big" data-ng-include="getView('wizard').url">
+                                </div>
+                            </div>
+                        </uib-tab>
+
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
